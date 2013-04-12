@@ -91,6 +91,7 @@ GEM
     mime-types (1.22)
     multi_json (1.7.2)
     multipart-post (1.2.0)
+    mysql2 (0.3.11)
     nokogiri (1.5.9)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -184,6 +185,7 @@ DEPENDENCIES
   gds-sso (= 3.0.0)
   jquery-rails (= 2.0.2)
   less-rails-bootstrap
+  mysql2
   plek (= 1.2.0)
   poltergeist
   rails (= 3.2.13)
