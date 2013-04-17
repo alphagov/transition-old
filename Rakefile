@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-TransitionDashboard::Application.load_tasks
+Transition::Application.load_tasks
