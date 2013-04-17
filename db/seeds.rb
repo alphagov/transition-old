@@ -27,10 +27,10 @@ dirs = Dir.glob("redirector/data/sites/*.yml")
 dirs.each do |file|
   s = YAML.load_file file
 
-  ackronym = s['site'].sub(/_.*$/, '')
+  abbr = s['site'].sub(/_.*$/, '')
   title = HTMLEntities.new.decode s['title']
 
-  organisation = Organisation.find_or_initialize_by_ackronym(ackronym)
+  organisation = Organisation.find_or_initialize_by_abbr(abbr)
   organisation.update_attributes({
     title: title,
     launch_date: s['redirection_date'],

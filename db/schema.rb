@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417094719) do
+ActiveRecord::Schema.define(:version => 20130417181816) do
 
   create_table "hosts", :force => true do |t|
     t.integer  "site_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(:version => 20130417094719) do
   add_index "hosts", ["host"], :name => "index_hosts_on_host", :unique => true
 
   create_table "organisations", :force => true do |t|
-    t.string   "ackronym"
+    t.string   "abbr"
     t.string   "title"
     t.date     "launch_date"
     t.string   "homepage"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20130417094719) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
 
   create_table "sites", :force => true do |t|
     t.integer  "organisation_id"
