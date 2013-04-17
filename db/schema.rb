@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130416190835) do
+ActiveRecord::Schema.define(:version => 20130417094719) do
 
   create_table "hosts", :force => true do |t|
     t.integer  "site_id"
@@ -47,5 +47,15 @@ ActiveRecord::Schema.define(:version => 20130416190835) do
   end
 
   add_index "sites", ["site"], :name => "index_sites_on_site", :unique => true
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "uid"
+    t.text     "permissions"
+    t.boolean  "remotely_signed_out", :default => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
 
 end
