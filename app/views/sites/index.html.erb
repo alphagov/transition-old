@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Organisation</th>
     <th>Site</th>
     <th>Homepage</th>
     <th>Query params</th>
@@ -13,6 +14,12 @@
 
 <% @sites.each do |site| %>
   <tr>
+    <td><% if site.organisation %>
+      <%= link_to site.organisation.ackronym, site.organisation %>
+      <% else %>
+        No organisation!
+      <% end %>
+    </td>
     <td><%= site.site %></td>
     <td><%= site.homepage %></td>
     <td><%= site.query_params %></td>

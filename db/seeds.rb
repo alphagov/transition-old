@@ -41,7 +41,7 @@ dirs.each do |file|
   query_params = s['options'] ? s['options'].sub(/^.*--query-string /, '') : ""
 
   site = Site.find_or_initialize_by_site(s['site'])
-  site.organisation_id = organisation
+  site.organisation = organisation
   site.tna_timestamp = s['tna_timestamp']
   site.query_params = query_params
   site.homepage = s['homepage']
@@ -51,7 +51,7 @@ dirs.each do |file|
   [s['host'], s['aliases']].flatten.each do |name|
     if name
       host = Host.find_or_initialize_by_host(name)
-      host.site_id = site
+      host.site = site
       host.save
     end
   end

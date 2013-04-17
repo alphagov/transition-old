@@ -13,7 +13,7 @@ class HostsController < ApplicationController
   # GET /hosts/1
   # GET /hosts/1.json
   def show
-    @host = Host.find(params[:id])
+    @host = Host.find_by_host(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class HostsController < ApplicationController
 
   # GET /hosts/1/edit
   def edit
-    @host = Host.find(params[:id])
+    @host = Host.find_by_host(params[:id])
   end
 
   # POST /hosts
@@ -56,7 +56,7 @@ class HostsController < ApplicationController
   # PUT /hosts/1
   # PUT /hosts/1.json
   def update
-    @host = Host.find(params[:id])
+    @host = Host.find_by_host(params[:id])
 
     respond_to do |format|
       if @host.update_attributes(params[:host])
@@ -72,7 +72,7 @@ class HostsController < ApplicationController
   # DELETE /hosts/1
   # DELETE /hosts/1.json
   def destroy
-    @host = Host.find(params[:id])
+    @host = Host.find_by_host(params[:id])
     @host.destroy
 
     respond_to do |format|
