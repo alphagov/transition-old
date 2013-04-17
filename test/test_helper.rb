@@ -2,12 +2,18 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
-class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
-  fixtures :all
+class ActionDispatch::IntegrationTest
+  include FactoryGirl::Syntax::Methods
 
-  # Add more helper methods to be used by all tests here...
+  def login_as(user)
+    GDS::SSO.test_user = user
+  end
+
+  def login_as_admin
+    login_as(create(:user, name: "user-name", email: "user@example.com"))
+  end
+
+  teardown do
+    GDS::SSO.test_user = nil
+  end
 end
