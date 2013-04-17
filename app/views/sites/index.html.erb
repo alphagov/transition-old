@@ -15,7 +15,7 @@
 <% @sites.each do |site| %>
   <tr>
     <td><% if site.organisation %>
-      <%= link_to site.organisation.ackronym, site.organisation %>
+      <%= link_to site.organisation.abbr, site.organisation %>
       <% else %>
         No organisation!
       <% end %>

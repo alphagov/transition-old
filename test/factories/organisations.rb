@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :organisation do
-    ackronym "MyString"
+    abbr "MyString"
     title "MyString"
     launch_date "2013-04-16"
     homepage "MyString"

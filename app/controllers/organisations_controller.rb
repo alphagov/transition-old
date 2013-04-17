@@ -13,7 +13,7 @@ class OrganisationsController < ApplicationController
   # GET /organisations/1
   # GET /organisations/1.json
   def show
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.find_by_abbr(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,7 +34,7 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1/edit
   def edit
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.find_by_abbr(params[:id])
   end
 
   # POST /organisations
@@ -56,7 +56,7 @@ class OrganisationsController < ApplicationController
   # PUT /organisations/1
   # PUT /organisations/1.json
   def update
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.find_by_abbr(params[:id])
 
     respond_to do |format|
       if @organisation.update_attributes(params[:organisation])
@@ -72,7 +72,7 @@ class OrganisationsController < ApplicationController
   # DELETE /organisations/1
   # DELETE /organisations/1.json
   def destroy
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.find_by_abbr(params[:id])
     @organisation.destroy
 
     respond_to do |format|
