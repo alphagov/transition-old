@@ -19,13 +19,13 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-group :development, :test do
-  gem 'capybara'
+group :test do
+  gem 'cucumber-rails', require: false
+  gem 'capybara', require: false
   gem 'factory_girl'
   gem 'factory_girl_rails'
   gem 'ci_reporter'
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'webmock', require: false
-  gem 'htmlentities'
 end
