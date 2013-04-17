@@ -1,9 +1,43 @@
 <div class="dashboard">
-  <h1>Transition</h1>
+  <h2>Forthcoming</h2>
+  <ul>
+    <% @forthcoming_organisations.each do |organisation| %>
+    <li>
+      <%= days_until_launch(organisation) %> &mdash;
+      <%= link_to organisation.title, organisation %>
 
-  <p>The next sites going live are:</p>
-  <ol>
-    <li><a href="http://www.education.gov.uk/">Department for Education</a></li>
-    <li><a href="http://www.dwp.gov.uk">Department of Work and Pensions</a></li>
-  </ol>
+      <ul>
+      <% organisation.sites.each do |site| %>
+        <li>
+          <%= pluralize(site.hosts.count, "host") %>:
+          <%= site.hosts.map do |host| %>
+            <% link_to host.host, host.host %>
+          <% end.to_sentence.html_safe %>
+        </li>
+      <% end %>
+      </ul>
+    </li>
+    <% end %>
+  </ul>
+
+  <h2>Live</h2>
+  <ul>
+    <% @already_live_organisations.each do |organisation| %>
+    <li>
+      <%= days_until_launch(organisation) %> &mdash;
+      <%= link_to organisation.title, organisation %>
+
+      <ul>
+      <% organisation.sites.each do |site| %>
+        <li>
+        <%= pluralize(site.hosts.count, "host") %>:
+        <%= site.hosts.map do |host| %>
+          <% link_to host.host, host.host %>
+        <% end.to_sentence.html_safe %>
+        </li>
+      <% end %>
+      </ul>
+    </li>
+    <% end %>
+  </ul>
 </div>

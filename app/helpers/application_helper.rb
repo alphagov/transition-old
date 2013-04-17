@@ -24,4 +24,8 @@ module ApplicationHelper
     end
   end
 
+  def days_until_launch(organisation)
+    conjunction = Date.today < organisation.launch_date ? "until" : "since"
+    distance_of_time_in_words(Date.today, organisation.launch_date) + " #{conjunction} launch"
+  end
 end
