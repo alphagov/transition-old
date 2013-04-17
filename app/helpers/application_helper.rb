@@ -25,7 +25,13 @@ module ApplicationHelper
   end
 
   def days_until_launch(organisation)
-    conjunction = Date.today < organisation.launch_date ? "until" : "since"
-    distance_of_time_in_words(Date.today, organisation.launch_date) + " #{conjunction} launch"
+    words = distance_of_time_in_words(Date.today, organisation.launch_date)
+    if Date.today < organisation.launch_date
+      "#{words} until launch"
+    elsif Date.today == organisation.launch_date
+      "launch today"
+    else
+      "#{words} since launch"
+    end
   end
 end
