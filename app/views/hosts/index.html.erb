@@ -1,0 +1,29 @@
+<h1>Listing hosts</h1>
+
+<table>
+  <tr>
+    <th>Host</th>
+    <th>Ttl</th>
+    <th>Cname</th>
+    <th>Live cname</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hosts.each do |host| %>
+  <tr>
+    <td><%= host.host %></td>
+    <td><%= host.ttl %></td>
+    <td><%= host.cname %></td>
+    <td><%= host.live_cname %></td>
+    <td><%= link_to 'Show', host %></td>
+    <td><%= link_to 'Edit', edit_host_path(host) %></td>
+    <td><%= link_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Host', new_host_path %>

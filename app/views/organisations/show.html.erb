@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ackronym:</b>
+  <%= @organisation.ackronym %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @organisation.title %>
+</p>
+
+<p>
+  <b>Launch date:</b>
+  <%= @organisation.launch_date %>
+</p>
+
+<p>
+  <b>Homepage:</b>
+  <%= @organisation.homepage %>
+</p>
+
+<p>
+  <b>Furl:</b>
+  <%= @organisation.furl %>
+</p>
+
+
+<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
+<%= link_to 'Back', organisations_path %>

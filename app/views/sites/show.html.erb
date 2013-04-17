@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Site:</b>
+  <%= @site.site %>
+</p>
+
+<p>
+  <b>Homepage:</b>
+  <%= @site.homepage %>
+</p>
+
+<p>
+  <b>Query params:</b>
+  <%= @site.query_params %>
+</p>
+
+<p>
+  <b>Tna timestamp:</b>
+  <%= @site.tna_timestamp %>
+</p>
+
+
+<%= link_to 'Edit', edit_site_path(@site) %> |
+<%= link_to 'Back', sites_path %>

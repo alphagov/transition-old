@@ -1,0 +1,31 @@
+<h1>Listing organisations</h1>
+
+<table>
+  <tr>
+    <th>Ackronym</th>
+    <th>Title</th>
+    <th>Launch date</th>
+    <th>Homepage</th>
+    <th>Furl</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @organisations.each do |organisation| %>
+  <tr>
+    <td><%= organisation.ackronym %></td>
+    <td><%= organisation.title %></td>
+    <td><%= organisation.launch_date %></td>
+    <td><%= organisation.homepage %></td>
+    <td><%= organisation.furl %></td>
+    <td><%= link_to 'Show', organisation %></td>
+    <td><%= link_to 'Edit', edit_organisation_path(organisation) %></td>
+    <td><%= link_to 'Destroy', organisation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Organisation', new_organisation_path %>

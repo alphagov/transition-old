@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Host:</b>
+  <%= @host.host %>
+</p>
+
+<p>
+  <b>Ttl:</b>
+  <%= @host.ttl %>
+</p>
+
+<p>
+  <b>Cname:</b>
+  <%= @host.cname %>
+</p>
+
+<p>
+  <b>Live cname:</b>
+  <%= @host.live_cname %>
+</p>
+
+
+<%= link_to 'Edit', edit_host_path(@host) %> |
+<%= link_to 'Back', hosts_path %>

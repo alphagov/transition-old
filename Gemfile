@@ -27,4 +27,5 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'poltergeist'
   gem 'webmock', require: false
+  gem 'htmlentities'
 end
