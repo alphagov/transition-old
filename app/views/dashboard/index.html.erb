@@ -3,19 +3,7 @@
   <ul>
     <% @forthcoming_organisations.each do |organisation| %>
     <li>
-      <%= days_until_launch(organisation) %> &mdash;
-      <%= link_to organisation.title, organisation %>
-
-      <ul>
-      <% organisation.sites.each do |site| %>
-        <li>
-          <%= pluralize(site.hosts.count, "host") %>:
-          <%= site.hosts.map do |host| %>
-            <% link_to host.host, host.host %>
-          <% end.to_sentence.html_safe %>
-        </li>
-      <% end %>
-      </ul>
+      <%= render partial: 'organisation', locals: { organisation: organisation } %>
     </li>
     <% end %>
   </ul>
@@ -24,19 +12,7 @@
   <ul>
     <% @already_live_organisations.each do |organisation| %>
     <li>
-      <%= days_until_launch(organisation) %> &mdash;
-      <%= link_to organisation.title, organisation %>
-
-      <ul>
-      <% organisation.sites.each do |site| %>
-        <li>
-        <%= pluralize(site.hosts.count, "host") %>:
-        <%= site.hosts.map do |host| %>
-          <% link_to host.host, host.host %>
-        <% end.to_sentence.html_safe %>
-        </li>
-      <% end %>
-      </ul>
+      <%= render partial: 'organisation', locals: { organisation: organisation } %>
     </li>
     <% end %>
   </ul>

@@ -1,0 +1,14 @@
+<%= days_until_launch(organisation) %> &mdash;
+<%= link_to organisation.title, organisation %>
+
+<ul>
+<% organisation.sites.each do |site| %>
+  <li>
+  <%= link_to site.site, "/sites/#{site.site}" %>
+  <%= pluralize(site.hosts.count, "host") %>:
+  <%= site.hosts.map do |host| %>
+    <% link_to host.host, "/hosts/#{host.host}" %>
+  <% end.to_sentence.html_safe %>
+  </li>
+<% end %>
+</ul>

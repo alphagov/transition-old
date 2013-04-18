@@ -29,7 +29,7 @@ module ApplicationHelper
     if Date.today < organisation.launch_date
       "#{words} until launch"
     elsif Date.today == organisation.launch_date
-      "launch today"
+      "0 days to launch"
     else
       "#{words} since launch"
     end
