@@ -5,6 +5,7 @@ gem 'rails', '3.2.13'
 gem 'exception_notification', '2.6.1'
 gem 'unicorn'
 gem 'mysql2'
+gem 'aws-ses', require: 'aws/ses'
 
 gem 'plek', '1.2.0'
 gem 'gds-sso', '3.0.0'
