@@ -13,6 +13,7 @@ gem 'gds-sso', '3.0.0'
 gem 'therubyracer'
 gem 'jquery-rails', '2.0.2' # TODO: Newer versions break publisher sortable parts. Will need attention.
 gem 'htmlentities'
+gem 'whenever'
 
 # Gems used only for assets and not required in production
 # environments by default.
