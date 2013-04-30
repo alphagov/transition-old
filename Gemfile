@@ -20,7 +20,8 @@ gem 'whenever'
 group :assets do
   gem 'govuk_frontend_toolkit', '0.18.0'
   gem 'sass'
-  gem 'sass-rails'
+  gem 'sass-rails', '~> 3.2'
+  gem 'bootstrap-sass', '~> 2.3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
 

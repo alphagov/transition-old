@@ -36,6 +36,8 @@ GEM
       mail (> 2.2.5)
       mime-types
       xml-simple
+    bootstrap-sass (2.3.1.1)
+      sass (~> 3.2)
     builder (3.0.4)
     capybara (1.1.4)
       mime-types (>= 1.16)
@@ -214,6 +216,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-ses
+  bootstrap-sass (~> 2.3.1.1)
   capybara (~> 1.1.0)
   ci_reporter (= 1.8.0)
   cucumber-rails
@@ -229,7 +232,7 @@ DEPENDENCIES
   poltergeist
   rails (= 3.2.13)
   sass
-  sass-rails
+  sass-rails (~> 3.2)
   therubyracer
   uglifier (>= 1.0.3)
   unicorn

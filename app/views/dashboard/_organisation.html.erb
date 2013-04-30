@@ -1,6 +1,6 @@
-<h3 id="<%= organisation.abbr %>"><%= link_to organisation.title, organisation %></h3>
+<h3 id="<%= organisation.abbr %>" class="organisation <%= organisation.css || "" %>"><%= link_to content_tag(:span, organisation.title), organisation %></h3>
 
-<%= days_until_launch(organisation) %> &mdash;
+<%= days_until_launch(organisation) %>
 
 <ul>
 <% organisation.sites.each do |site| %>

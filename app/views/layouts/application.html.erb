@@ -25,9 +25,9 @@
         <%= link_to 'GOV.UK Transition', root_path, :class => "brand" %>
         <nav role="navigation" class="nav-collapse">
           <ul class="nav">
+            <%= nav_link 'Organisations', '/organisations' %>
             <%= nav_link 'Sites', '/sites' %>
             <%= nav_link 'Hosts', '/hosts' %>
-            <%= nav_link 'Organisations', '/organisations' %>
           </ul>
           <ul class="nav pull-right">
             <li class="dropdown">
@@ -48,18 +48,16 @@
     </div>
   </header>
 
+  <section class="page-header"></section>
+
   <section class="container-fluid" role="main">
     <% [:notice, :alert].select { |k| flash[k].present? }.each do |k| %>
       <div class="alert <%= k %>">
         <%= flash[k] %>
       </div>
     <% end %>
-
-    <div class="row-fluid">
-      <%= yield %>
-    </div>
-
-    <hr>
+    <%= yield %>
+  </section>
 
     <footer>
       <p>&copy; GDS. <span class="pull-right">Version: <%= CURRENT_RELEASE_SHA %></span></p>

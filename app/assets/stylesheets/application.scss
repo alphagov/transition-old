@@ -10,5 +10,10 @@
  *
  *= require_self
  *= require_tree .
- *= require ./vendor/bootstrap
  */
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+h1, h2, h3, h4 {
+  color: #000;
+}

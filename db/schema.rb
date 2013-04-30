@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130417181816) do
+ActiveRecord::Schema.define(:version => 20130427181103) do
 
   create_table "hosts", :force => true do |t|
     t.integer  "site_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20130417181816) do
     t.string   "furl"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "css"
   end
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true

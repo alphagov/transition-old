@@ -35,7 +35,8 @@ dirs.each do |file|
     title: title,
     launch_date: s['redirection_date'],
     homepage: s['homepage'],
-    furl: s['furl']
+    furl: s['furl'],
+    css: s['css'] || nil
   })
 
   query_params = s['options'] ? s['options'].sub(/^.*--query-string /, '') : ""

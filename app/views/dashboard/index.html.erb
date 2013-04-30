@@ -1,15 +1,25 @@
-<div class="dashboard">
-  <h2>Forthcoming</h2>
-  <ul>
+<% if @forthcoming_organisations.length > 0 %>
+<div id="forthcoming" class="row-fluid">
+  <div class="span3">
+    <h2 class="count"><%= @forthcoming_organisations.length %></h2>
+    <p>organisations are forthcoming</p>
+  </div>
+  <ul class="organisations span9">
     <% @forthcoming_organisations.each do |organisation| %>
     <li>
       <%= render partial: 'organisation', locals: { organisation: organisation } %>
     </li>
     <% end %>
   </ul>
+</div>
+<% end %>
 
-  <h2>Live</h2>
-  <ul>
+<div id="live" class="row-fluid">
+  <div class="span3">
+    <h2 class="count"><%= @already_live_organisations.length %></h2>
+    <p>organisations are already live</p>
+  </div>
+  <ul class="organisations span9">
     <% @already_live_organisations.each do |organisation| %>
     <li>
       <%= render partial: 'organisation', locals: { organisation: organisation } %>
