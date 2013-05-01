@@ -8,7 +8,7 @@ class HostDnsLookup
       f.lines.find do |line|
         if line.include?("CNAME")
           a = line.split(' ')
-          return a[1],a[4]
+          return a[1],a[2],a[4]
         end
       end
     end
@@ -16,7 +16,8 @@ class HostDnsLookup
 
   def fetch_hosts_dns
     hosts.each do |host|
-      type, cname = check_dns(host.host)
+      ttl, type, cname = check_dns(host.host)
+      host.ttl = ttl
       host.cname = cname
       host.save
     end
