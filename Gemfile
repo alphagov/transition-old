@@ -21,7 +21,7 @@ group :assets do
   gem 'govuk_frontend_toolkit', '0.18.0'
   gem 'sass'
   gem 'sass-rails', '~> 3.2'
-  gem 'bootstrap-sass'
+  gem "bootstrap-sass", "~> 2.3.1.0"
   gem 'uglifier', '>= 1.0.3'
 end
 
