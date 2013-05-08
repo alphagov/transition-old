@@ -12,6 +12,22 @@ class Hit < ActiveRecord::Base
   before_validation :set_path_hash
   validates :path_hash, presence: true
 
+  def self.in_count_order
+    scoped.order('count desc').order(:http_status, :path, :hit_on)
+  end
+
+  def self.most_recent_hit_on_date
+    scoped.maximum(:hit_on)
+  end
+
+  def self.most_recent_hits(hit_on_date = most_recent_hit_on_date)
+    scoped.where(hit_on: hit_on_date)
+  end
+
+  def self.most_hits
+    scoped.maximum(:count)
+  end
+
   def set_path_hash
     self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
   end
