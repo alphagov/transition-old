@@ -1,0 +1,37 @@
+@import "bootstrap/mixins";
+.status-chart.progress {
+   .bar-301 {
+    // red (e.g. .bar-danger from bootstrap)
+    @include gradient-vertical(#5bc0de, #339bb9);
+  }
+  .bar-200 {
+    // green (e.g. .bar-success from bootstrap)
+    @include gradient-vertical(#62c462, #57a957);
+  }
+  .bar-404 {
+    // teal (e.g. .bar-info from bootstrap)
+    @include gradient-vertical(#ee5f5b, #c43c35);
+  }
+  .bar-410 {
+    // orange (e.g. .bar-warning from bootstrap)
+    @include gradient-vertical(#fbb450, #f89406);
+  }
+  .bar-304 {
+  
+  }
+  .bar-403 {
+  
+  }
+  .bar-501 {
+  
+  }
+  .bar-400 {
+  
+  }
+  .bar-418 {
+  
+  }
+  .bar-503 {
+  
+  }
+}

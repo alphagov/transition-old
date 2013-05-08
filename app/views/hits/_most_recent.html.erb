@@ -1,0 +1,35 @@
+<section id="hits">
+  <h1>Most recent hits (<%= hit_data.most_recent_hit_on_date %>)</h1>
+
+  <p><b>Total:</b> <%= hit_data.total_hits %></p>
+  <div class="progress status-chart">
+    <% hit_data.hit_counts_by_status.sort_by { |status, _| status }.each do |status, count| %>
+      <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((count / hit_data.total_hits.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= count %>"></div>
+    <% end %>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Count</th>
+        <th>HTTP Status</th>
+        <th>Path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% hit_data.hits.each do |hit| %>
+        <tr>
+          <td><%= hit.count %></td>
+          <td><%= hit.http_status %></td>
+          <td><%= link_to hit.path, host.host + hit.path %></td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <div class="progress status-chart">
+              <div class="bar bar-<%= hit.http_status %>" style="width: <%= number_to_percentage((hit.count / hit_data.total_hits.to_f) * 100.0) %>%" title="<%= hit.count %>"></div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

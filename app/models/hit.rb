@@ -12,6 +12,10 @@ class Hit < ActiveRecord::Base
   before_validation :set_path_hash
   validates :path_hash, presence: true
 
+  def self.without_zero_status_hits
+    scoped.where('http_status <> "0"')
+  end
+
   def self.in_count_order
     scoped.order('count desc').order(:http_status, :path, :hit_on)
   end
@@ -26,6 +30,10 @@ class Hit < ActiveRecord::Base
 
   def self.most_hits
     scoped.maximum(:count)
+  end
+
+  def self.counts_by_status
+    scoped.group(:http_status).sum(:count)
   end
 
   def set_path_hash

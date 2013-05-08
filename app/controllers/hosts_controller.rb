@@ -14,9 +14,7 @@ class HostsController < ApplicationController
   # GET /hosts/1.json
   def show
     @host = Host.find_by_host(params[:id])
-    @most_recent_hit_on_date = @host.hits.most_recent_hit_on_date
-    @hits = @host.hits.most_recent_hits(@most_recent_hit_on_date).in_count_order
-    @biggest_hit_count = @hits.most_hits
+    @most_recent_hit_data = MostRecentHitData.new(@host.hits, @host.hits.most_recent_hit_on_date)
 
     respond_to do |format|
       format.html # show.html.erb
