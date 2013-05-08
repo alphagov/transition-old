@@ -1,34 +1,38 @@
 <h1>Listing sites</h1>
 
-<table>
-  <tr>
-    <th>Organisation</th>
-    <th>Site</th>
-    <th>Homepage</th>
-    <th>Query params</th>
-    <th>Tna timestamp</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Organisation</th>
+      <th>Site</th>
+      <th>Homepage</th>
+      <th>Query params</th>
+      <th>TNA timestamp</th>
+      <th></th>
+    </tr>
+  </thead>
 
-<% @sites.each do |site| %>
-  <tr>
-    <td><% if site.organisation %>
-      <%= link_to site.organisation.abbr, site.organisation %>
-      <% else %>
-        No organisation!
-      <% end %>
-    </td>
-    <td><%= site.site %></td>
-    <td><%= site.homepage %></td>
-    <td><%= site.query_params %></td>
-    <td><%= site.tna_timestamp %></td>
-    <td><%= link_to 'Show', site %></td>
-    <td><%= link_to 'Edit', edit_site_path(site) %></td>
-    <td><%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td><% if site.organisation %>
+          <%= link_to site.organisation.abbr, site.organisation %>
+          <% else %>
+            No organisation!
+          <% end %>
+        </td>
+        <td><%= site.site %></td>
+        <td><%= site.homepage %></td>
+        <td><%= site.query_params %></td>
+        <td><%= site.tna_timestamp %></td>
+        <td>
+          <%= link_to 'Show', site %>
+          <%= link_to 'Edit', edit_site_path(site) %>
+          <%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br />
