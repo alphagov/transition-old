@@ -35,7 +35,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @host.hits.order(:count, :http_status, :path, :hit_on).each do |hit| %>
+      <% @host.hits.order('count desc').order(:http_status, :path, :hit_on).each do |hit| %>
         <tr>
           <td><%= hit.count %></td>
           <td><%= hit.http_status %></td>
