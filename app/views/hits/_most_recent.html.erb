@@ -7,6 +7,15 @@
       <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((count / hit_data.total_hits.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= count %>"></div>
     <% end %>
   </div>
+
+  <ul class="status-filter nav nav-tabs">
+    <li class="filter-name"><span>Filter by status code:</span></li>
+    <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
+    <% hit_data.hit_counts_by_status.keys.sort.each do |status_code| %>
+      <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
+    <% end %>
+  </ul>
+
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -17,12 +26,12 @@
     </thead>
     <tbody>
       <% hit_data.hits.each do |hit| %>
-        <tr>
+        <tr data-status-code="<%= hit.http_status %>">
           <td><%= hit.count %></td>
           <td><%= hit.http_status %></td>
           <td><%= link_to hit.path, host.host + hit.path %></td>
         </tr>
-        <tr>
+        <tr data-status-code="<%= hit.http_status %>">
           <td colspan="3">
             <div class="progress status-chart">
               <div class="bar bar-<%= hit.http_status %>" style="width: <%= number_to_percentage((hit.count / hit_data.total_hits.to_f) * 100.0) %>%" title="<%= hit.count %>"></div>
