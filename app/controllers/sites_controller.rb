@@ -14,6 +14,7 @@ class SitesController < ApplicationController
   # GET /sites/1.json
   def show
     @site = Site.find_by_site(params[:id])
+    @most_recent_hit_data = AggregratedMostRecentHitData.new(@site.aggregated_hits, @site.hits.most_recent_hit_on_date)
 
     respond_to do |format|
       format.html # show.html.erb

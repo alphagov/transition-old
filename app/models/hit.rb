@@ -12,6 +12,14 @@ class Hit < ActiveRecord::Base
   before_validation :set_path_hash
   validates :path_hash, presence: true
 
+  def self.aggregated
+    scoped.select('hits.path, sum(hits.count) as count, hits.http_status, hits.hit_on').group(:path, :http_status, :hit_on)
+  end
+
+  def self.from_aggregate(aggregated_scope)
+    Hit.unscoped.from(%{(#{aggregated_scope.to_sql}) as aggregated_hits})
+  end
+
   def self.without_zero_status_hits
     scoped.where('http_status <> "0"')
   end
@@ -20,24 +28,44 @@ class Hit < ActiveRecord::Base
     scoped.order('count desc').order(:http_status, :path, :hit_on)
   end
 
-  def self.most_recent_hit_on_date
-    scoped.maximum(:hit_on)
+  def self.most_recent_hit_on_date(opts = {})
+    opts = {from_aggregate: false}.merge(opts)
+    if opts[:from_aggregate]
+      Hit.from_aggregate(scoped).maximum('aggregated_hits.hit_on')
+    else
+      scoped.maximum(:hit_on)
+    end
   end
 
   def self.most_recent_hits(hit_on_date = most_recent_hit_on_date)
     scoped.where(hit_on: hit_on_date)
   end
 
-  def self.most_hits
-    scoped.maximum(:count)
+  def self.most_hits(opts = {})
+    opts = {from_aggregate: false}.merge(opts)
+    if opts[:from_aggregate]
+      Hit.from_aggregate(scoped).maximum('aggregated_hits.count')
+    else
+      scoped.maximum(:count)
+    end
   end
 
-  def self.counts_by_status
-    scoped.group(:http_status).sum(:count)
+  def self.counts_by_status(opts = {})
+    opts = {from_aggregate: false}.merge(opts)
+    if opts[:from_aggregate]
+      Hit.from_aggregate(scoped).group('aggregated_hits.http_status').sum('aggregated_hits.count')
+    else
+      scoped.group(:http_status).sum(:count)
+    end
   end
 
-  def self.total_hits
-    scoped.sum(:count)
+  def self.total_hits(opts = {})
+    opts = {from_aggregate: false}.merge(opts)
+    if opts[:from_aggregate]
+      Hit.from_aggregate(scoped).sum('aggregated_hits.count')
+    else
+      scoped.sum(:count)
+    end
   end
 
   def set_path_hash
