@@ -85,7 +85,7 @@ class HostsController < ApplicationController
   def hits_download
     @host = Host.find_by_host(params[:id])
     date = @host.hits.most_recent_hit_on_date
-    exporter = HitDataExporter.new(MostRecentHitData.new(@host.hits, date))
+    exporter = HitDataExporter.new(MostRecentHitData.new(@host.hits, date), params[:status_filter])
     send_data exporter.generate_csv_using_host(@host),
               filename: exporter.filename(@host.host),
               type: 'text/csv',

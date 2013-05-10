@@ -10,14 +10,14 @@
 
   <ul class="status-filter nav nav-tabs">
     <li class="filter-name"><span>Filter by status code:</span></li>
-    <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
+    <li class="active"><a href="#" data-toggle="tab" data-status-code="all" data-download-link="<%= polymorphic_url([:hits_download, scope]) %>">All</a></li>
     <% hit_data.hit_counts_by_status.keys.sort.each do |status_code| %>
-      <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
+      <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>" data-download-link="<%= polymorphic_url([:hits_download, scope], status_filter: status_code) %>"><%= status_code %></a></li>
     <% end %>
   </ul>
 
   <p class="actions">
-    <%= link_to 'Download as CSV', [:hits_download, scope], class: 'btn btn-primary' %>
+    <%= link_to 'Download as CSV', [:hits_download, scope], class: 'btn btn-primary download-link' %>
   </p>
 
   <table class="table table-striped table-bordered">

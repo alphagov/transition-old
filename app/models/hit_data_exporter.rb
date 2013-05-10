@@ -1,15 +1,19 @@
 require 'csv'
 
 class HitDataExporter
-  def initialize(hit_data, status_filter = 'all')
+  def initialize(hit_data, status_filter)
     @hit_data = hit_data
-    @status_filter = status_filter
+    @status_filter = status_filter || 'all'
+  end
+
+  def filtered_hits
+    @hit_data.hits.with_status(@status_filter)
   end
 
   def generate_csv_using_host(host)
     CSV.generate do |csv|
       csv << ['Count', 'URL']
-      @hit_data.hits.each do |hit|
+      filtered_hits.each do |hit|
         csv << [hit.count, 'http://'+host.host+hit.path]
       end
     end

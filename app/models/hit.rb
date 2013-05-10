@@ -68,6 +68,14 @@ class Hit < ActiveRecord::Base
     end
   end
 
+  def self.with_status(status)
+    if status == 'all'
+      scoped
+    else
+      scoped.where(http_status: status)
+    end
+  end
+
   def set_path_hash
     self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
   end
