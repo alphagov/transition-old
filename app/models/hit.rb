@@ -10,6 +10,7 @@ class Hit < ActiveRecord::Base
   # set a hash of the path because we can't have a unique index on
   # the path (it's too long)
   before_validation :set_path_hash
+  before_validation :normalize_hit_on
   validates :path_hash, presence: true
 
   def self.aggregated
@@ -21,11 +22,11 @@ class Hit < ActiveRecord::Base
   end
 
   def self.without_zero_status_hits
-    scoped.where('http_status <> "0"')
+    scoped.where('http_status NOT IN ("0", "00", "000")')
   end
 
   def self.in_count_order
-    scoped.order('count desc').order(:http_status, :path, :hit_on)
+    scoped.order('count desc').order(:http_status, :path).order('hit_on desc')
   end
 
   def self.most_recent_hit_on_date(opts = {})
@@ -38,7 +39,7 @@ class Hit < ActiveRecord::Base
   end
 
   def self.most_recent_hits(hit_on_date = most_recent_hit_on_date)
-    scoped.where(hit_on: hit_on_date)
+    scoped.where(hit_on: hit_on_date.beginning_of_day.to_date)
   end
 
   def self.most_hits(opts = {})
@@ -76,7 +77,11 @@ class Hit < ActiveRecord::Base
     end
   end
 
+  protected
   def set_path_hash
     self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
+  end
+  def normalize_hit_on
+    self.hit_on = self.hit_on.beginning_of_day if self.hit_on_changed?
   end
 end
