@@ -81,4 +81,14 @@ class SitesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def hits_download
+    @site = Site.find_by_site(params[:id])
+    date = @site.hits.most_recent_hit_on_date
+    exporter = HitDataExporter.new(AggregratedMostRecentHitData.new(@site.aggregated_hits, date))
+    send_data exporter.generate_csv_using_host(@site.hosts.first),
+              filename: exporter.filename(@site.site),
+              type: 'text/csv',
+              disposition: 'attachment'
+  end
 end

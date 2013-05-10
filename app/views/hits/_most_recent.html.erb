@@ -16,6 +16,10 @@
     <% end %>
   </ul>
 
+  <p class="actions">
+    <%= link_to 'Download as CSV', [:hits_download, scope], class: 'btn btn-primary' %>
+  </p>
+
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
@@ -29,7 +33,7 @@
         <tr data-status-code="<%= hit.http_status %>">
           <td><%= hit.count %></td>
           <td><%= hit.http_status %></td>
-          <td><%= link_to hit.path, host.host + hit.path %></td>
+          <td><%= link_to hit.path, 'http://' + host.host + hit.path %></td>
         </tr>
         <tr data-status-code="<%= hit.http_status %>">
           <td colspan="3">

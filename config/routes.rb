@@ -4,11 +4,13 @@ Transition::Application.routes.draw do
   end
 
   resources :sites do
-  	resources :hosts
+    get :hits_download, on: :member
   end
 
   resources :hosts,
-    :constraints => { :id => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ }
+    :constraints => { :id => /[^\/]+(?=\.html\z|\.json\z)|[^\/]+/ } do
+    get :hits_download, on: :member
+  end
 
   root :to => 'dashboard#index'
 end

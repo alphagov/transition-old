@@ -81,4 +81,15 @@ class HostsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def hits_download
+    @host = Host.find_by_host(params[:id])
+    date = @host.hits.most_recent_hit_on_date
+    exporter = HitDataExporter.new(MostRecentHitData.new(@host.hits, date))
+    send_data exporter.generate_csv_using_host(@host),
+              filename: exporter.filename(@host.host),
+              type: 'text/csv',
+              disposition: 'attachment'
+  end
+
 end
