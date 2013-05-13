@@ -146,4 +146,94 @@ class HitTest < ActiveSupport::TestCase
 
     assert_equal [h2], Hit.most_recent_hits(5.days.ago.beginning_of_day.to_date)
   end
+
+  test '#with_status filters to include only the supplied status' do
+    h1 = FactoryGirl.create(:hit, http_status: '200')
+    h2 = FactoryGirl.create(:hit, http_status: '301')
+    h3 = FactoryGirl.create(:hit, http_status: '404')
+    h4 = FactoryGirl.create(:hit, http_status: '200')
+    
+    assert_equal [h2], Hit.with_status('301')
+    assert_equal [h1, h4], Hit.with_status('200')
+  end
+
+  test '#with_status filters fetches everything if the supplied status is "all"' do
+    h1 = FactoryGirl.create(:hit, http_status: '200')
+    h2 = FactoryGirl.create(:hit, http_status: '301')
+    h3 = FactoryGirl.create(:hit, http_status: '404')
+    h4 = FactoryGirl.create(:hit, http_status: '200')
+    
+    assert_equal [h1, h2, h3, h4], Hit.with_status('all')
+  end
+
+  test '#most_hits detects the biggest count from a single hit' do
+    h1 = FactoryGirl.create(:hit, count: 10, hit_on: 2.days.ago)
+    h2 = FactoryGirl.create(:hit, count: 900, hit_on: 5.days.ago)
+    h3 = FactoryGirl.create(:hit, count: 1, hit_on: 1.day.ago)
+
+    assert_equal 900, Hit.most_hits
+  end
+
+  test '#most_hits detects the biggest count from a single aggregated hit correctly (when told the scope is aggregated)' do
+    host1 = FactoryGirl.create(:host, host: 'host1')
+    host2 = FactoryGirl.create(:host, host: 'host2')
+    h1 = FactoryGirl.create(:hit, count: 80, host: host1, path: '/', http_status: '301', hit_on: 3.days.ago)
+    h3 = FactoryGirl.create(:hit, count: 22, host: host1, path: '/', http_status: '302', hit_on: 3.days.ago)
+    h4 = FactoryGirl.create(:hit, count: 33, host: host1, path: '/woo', http_status: '302', hit_on: 2.days.ago)
+    h5 = FactoryGirl.create(:hit, count: 44, host: host1, path: '/', http_status: '302', hit_on: 1.days.ago)
+    h6 = FactoryGirl.create(:hit, count: 55, host: host2, path: '/woo', http_status: '302', hit_on: 2.days.ago)
+
+    assert_equal 88, Hit.aggregated.most_hits(from_aggregate: true)
+  end
+
+  test '#total_hits calculates all the counts' do
+    h1 = FactoryGirl.create(:hit, count: 10, hit_on: 2.days.ago)
+    h2 = FactoryGirl.create(:hit, count: 900, hit_on: 5.days.ago)
+    h3 = FactoryGirl.create(:hit, count: 1, hit_on: 1.day.ago)
+
+    assert_equal 911, Hit.total_hits
+  end
+
+  test '#total_hits calculates all the counts correctly from an aggregated scope (when told the scope is aggregated)' do
+    host1 = FactoryGirl.create(:host, host: 'host1')
+    host2 = FactoryGirl.create(:host, host: 'host2')
+    h1 = FactoryGirl.create(:hit, count: 80, host: host1, path: '/', http_status: '301', hit_on: 3.days.ago)
+    h3 = FactoryGirl.create(:hit, count: 22, host: host1, path: '/', http_status: '302', hit_on: 3.days.ago)
+    h4 = FactoryGirl.create(:hit, count: 33, host: host1, path: '/woo', http_status: '302', hit_on: 2.days.ago)
+    h5 = FactoryGirl.create(:hit, count: 44, host: host1, path: '/', http_status: '302', hit_on: 1.days.ago)
+    h6 = FactoryGirl.create(:hit, count: 55, host: host2, path: '/woo', http_status: '302', hit_on: 2.days.ago)
+
+    assert_equal 234, Hit.aggregated.total_hits(from_aggregate: true)
+  end
+
+  test '#counts_by_status provides the total count for each http_status' do
+    h1 = FactoryGirl.create(:hit, count: 10, http_status: '301')
+    h2 = FactoryGirl.create(:hit, count: 900, http_status: '404')
+    h3 = FactoryGirl.create(:hit, count: 1, http_status: '200')
+    h4 = FactoryGirl.create(:hit, count: 12, http_status: '301')
+    h5 = FactoryGirl.create(:hit, count: 3, http_status: '404')
+    h6 = FactoryGirl.create(:hit, count: 90, http_status: '404')
+
+    counts_by_status = Hit.counts_by_status
+    assert_equal ['200', '301', '404'], counts_by_status.keys.sort
+    assert_equal 22, counts_by_status['301']
+    assert_equal 1, counts_by_status['200']
+    assert_equal 993, counts_by_status['404']
+  end
+
+  test '#counts_by_status provides the total counts for each http_status correctly from an aggregated scope (when told the scope is aggregated)' do
+    host1 = FactoryGirl.create(:host, host: 'host1')
+    host2 = FactoryGirl.create(:host, host: 'host2')
+    h1 = FactoryGirl.create(:hit, count: 80, host: host1, path: '/', http_status: '301', hit_on: 3.days.ago)
+    h3 = FactoryGirl.create(:hit, count: 22, host: host1, path: '/', http_status: '302', hit_on: 3.days.ago)
+    h4 = FactoryGirl.create(:hit, count: 33, host: host1, path: '/woo', http_status: '302', hit_on: 2.days.ago)
+    h5 = FactoryGirl.create(:hit, count: 44, host: host1, path: '/', http_status: '302', hit_on: 1.days.ago)
+    h6 = FactoryGirl.create(:hit, count: 55, host: host2, path: '/woo', http_status: '302', hit_on: 2.days.ago)
+
+    counts_by_status = Hit.aggregated.counts_by_status(from_aggregate: true)
+    assert_equal ['301', '302'], counts_by_status.keys.sort
+    assert_equal 80, counts_by_status['301']
+    assert_equal 154, counts_by_status['302']
+  end
+
 end
