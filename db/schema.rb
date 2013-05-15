@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508110907) do
+ActiveRecord::Schema.define(:version => 20130514140920) do
 
   create_table "hits", :force => true do |t|
     t.integer  "host_id",                     :null => false
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(:version => 20130508110907) do
   end
 
   add_index "sites", ["site"], :name => "index_sites_on_site", :unique => true
+
+  create_table "totals", :force => true do |t|
+    t.integer  "host_id",                  :null => false
+    t.string   "http_status", :limit => 3, :null => false
+    t.integer  "count",                    :null => false
+    t.date     "total_on",                 :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "totals", ["host_id", "total_on", "http_status"], :name => "index_totals_on_host_id_and_total_on_and_http_status", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"

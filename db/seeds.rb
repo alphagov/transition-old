@@ -19,10 +19,10 @@ end
 #
 #  load sites
 #
-# seeding requires a local checkout of the redirector project ..
-# system 'git clone --depth 1 git@github.com:alphagov/redirector.git'
+# seeding requires a local checkout of the redirector project in an adjacent directory ..
+# git clone git@github.com:alphagov/redirector.git
 
-dirs = Dir.glob("redirector/data/sites/*.yml")
+dirs = Dir.glob("../redirector/data/sites/*.yml")
 
 dirs.each do |file|
   s = YAML.load_file file
