@@ -25,14 +25,14 @@ class TotalsImporter
   end
 
   def create_or_update_total_for_host_from_row(host, total_row)
-    update_hit(fetch_total_scope(host, total_row).build, total_row[:count])
+    update_total(fetch_total_scope(host, total_row).build, total_row[:count])
   rescue ActiveRecord::RecordNotUnique
-    update_hit(fetch_total_scope(host, total_row).first, total_row[:count])
+    update_total(fetch_total_scope(host, total_row).first, total_row[:count])
   end
 
   def update_total(total, count)
     total.count = count
-    {ok: total.save, hit: total}
+    {ok: total.save, total: total}
   end
 
   def find_or_create_total_for_host_from_row(host, total_row)
