@@ -2,13 +2,16 @@ require 'csv'
 class TotalsImporter
   def initialize(data_file)
     @data_file = data_file
+    @hosts = {}
   end
 
   def import!
     consume_data_file do |total_row|
-      host = Host.find_by_host(total_row[:host])
+      hostname = total_row[:host]
+      next if hostname =~ /^aka/
+      host = @hosts[hostname] ||= Host.find_by_host(hostname)
       if host.nil?
-        $stderr.puts "ERROR: Host missing #{total_row[:host]}, can't import #{total_row.inspect}"
+        $stderr.puts "ERROR: Host missing #{hostname}, can't import #{total_row.inspect}"
       else
         total = find_or_create_total_for_host_from_row(host, total_row)
         total.count = total_row[:count]
