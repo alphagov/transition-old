@@ -116,6 +116,18 @@ class HitTest < ActiveSupport::TestCase
     assert_equal 1.day.ago.beginning_of_day.to_date, Hit.most_recent_hit_on_date
   end
 
+  test '#most_recent_hit_on_date returns today if no hits' do
+    Hit.destroy_all
+    
+    assert_equal Date.today, Hit.most_recent_hit_on_date
+  end
+
+  test '#most_recent_hit_on_date returns supplied fallback date if no hits' do
+    Hit.destroy_all
+    
+    assert_equal 10.days.ago.to_date, Hit.most_recent_hit_on_date(fallback_date: 10.days.ago.to_date)
+  end
+
   test '#most_recent_hit_on_date detects the biggest date from aggregated scopes correctly (when told the scope is aggregated)' do
     host1 = FactoryGirl.create(:host, host: 'host1')
     host2 = FactoryGirl.create(:host, host: 'host2')
@@ -127,6 +139,18 @@ class HitTest < ActiveSupport::TestCase
     h6 = FactoryGirl.create(:hit, count: 55, host: host2, path: '/woo', http_status: '302', hit_on: 2.days.ago)
 
     assert_equal 1.day.ago.beginning_of_day.to_date, Hit.aggregated.most_recent_hit_on_date(from_aggregate: true)
+  end
+
+  test '#most_recent_hit_on_date returns today if no hits even if the scope is aggregated' do
+    Hit.destroy_all
+    
+    assert_equal Date.today, Hit.most_recent_hit_on_date(from_aggregate: true)
+  end
+
+  test '#most_recent_hit_on_date returns supplied fallback date if no hits even if the scope is aggregated' do
+    Hit.destroy_all
+    
+    assert_equal 10.days.ago.to_date, Hit.most_recent_hit_on_date(from_aggregate: true, fallback_date: 10.days.ago.to_date)
   end
 
   test '#most_recent_hits takes hits for the most_recent_hit_on_date if no date is supplied' do

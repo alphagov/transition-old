@@ -30,11 +30,14 @@ class Hit < ActiveRecord::Base
   end
 
   def self.most_recent_hit_on_date(opts = {})
-    opts = {from_aggregate: false}.merge(opts)
+    opts = {
+      from_aggregate: false, 
+      fallback_date: Date.today
+    }.merge(opts)
     if opts[:from_aggregate]
-      Hit.from_aggregate(scoped).maximum('aggregated_hits.hit_on')
+      Hit.from_aggregate(scoped).maximum('aggregated_hits.hit_on') || opts[:fallback_date]
     else
-      scoped.maximum(:hit_on)
+      scoped.maximum(:hit_on) || opts[:fallback_date]
     end
   end
 
