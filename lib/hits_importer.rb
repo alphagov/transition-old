@@ -7,10 +7,12 @@ class HitsImporter
   def import!
     Hit.leave_uniqueness_check_to_db = true
     consume_data do |hit_row|
-      host = hosts[hit_row[:host]]
+      hostname = total_row[:host]
+      next if hostname =~ /^aka/
+      host = hosts[hostname]
       if host.nil?
         $stdout.print 'E'
-        $stderr.puts "ERROR: Host missing #{hit_row[:host]}, can't import #{hit_row.inspect}"
+        $stderr.puts "ERROR: Host missing #{host_name}, can't import #{hit_row.inspect}"
       else
         result = create_or_update_hit_for_host_from_row(host, hit_row)
         if result[:ok]
