@@ -39,7 +39,7 @@ class HitTest < ActiveSupport::TestCase
   test 'is invalid without a hit on date' do
     refute FactoryGirl.build(:hit, hit_on: nil).valid?
   end
-  test 'is invalid if the set of data already exists (host, path, status, hit on date) a http status' do
+  test 'is invalid if the set of data already exists (host, path, status, hit on date)' do
     exists = FactoryGirl.create(:hit)
     dupe = FactoryGirl.build(:hit, host: exists.host,
                                    http_status: exists.http_status,
@@ -47,6 +47,21 @@ class HitTest < ActiveSupport::TestCase
                                    path: exists.path)
     refute dupe.valid?
   end
+  test 'it can leave uniqueness checking up to the db' do
+    exists = FactoryGirl.create(:hit)
+    Hit.leave_uniqueness_check_to_db = true
+    dupe = FactoryGirl.build(:hit, host: exists.host,
+                                   http_status: exists.http_status,
+                                   hit_on: exists.hit_on,
+                                   path: exists.path)
+    begin
+      assert dupe.valid?
+      assert_raises(ActiveRecord::RecordNotUnique) { dupe.save }
+    ensure
+      Hit.leave_uniqueness_check_to_db = false
+    end
+  end
+
   test 'sets a hash of the path (for unique index purposes) when validating' do
     hit = FactoryGirl.build(:hit)
     assert hit.path_hash.nil?
@@ -118,13 +133,13 @@ class HitTest < ActiveSupport::TestCase
 
   test '#most_recent_hit_on_date returns today if no hits' do
     Hit.destroy_all
-    
+
     assert_equal Date.today, Hit.most_recent_hit_on_date
   end
 
   test '#most_recent_hit_on_date returns supplied fallback date if no hits' do
     Hit.destroy_all
-    
+
     assert_equal 10.days.ago.to_date, Hit.most_recent_hit_on_date(fallback_date: 10.days.ago.to_date)
   end
 
@@ -143,13 +158,13 @@ class HitTest < ActiveSupport::TestCase
 
   test '#most_recent_hit_on_date returns today if no hits even if the scope is aggregated' do
     Hit.destroy_all
-    
+
     assert_equal Date.today, Hit.most_recent_hit_on_date(from_aggregate: true)
   end
 
   test '#most_recent_hit_on_date returns supplied fallback date if no hits even if the scope is aggregated' do
     Hit.destroy_all
-    
+
     assert_equal 10.days.ago.to_date, Hit.most_recent_hit_on_date(from_aggregate: true, fallback_date: 10.days.ago.to_date)
   end
 
@@ -176,7 +191,7 @@ class HitTest < ActiveSupport::TestCase
     h2 = FactoryGirl.create(:hit, http_status: '301')
     h3 = FactoryGirl.create(:hit, http_status: '404')
     h4 = FactoryGirl.create(:hit, http_status: '200')
-    
+
     assert_equal [h2], Hit.with_status('301')
     assert_equal [h1, h4], Hit.with_status('200')
   end
@@ -186,7 +201,7 @@ class HitTest < ActiveSupport::TestCase
     h2 = FactoryGirl.create(:hit, http_status: '301')
     h3 = FactoryGirl.create(:hit, http_status: '404')
     h4 = FactoryGirl.create(:hit, http_status: '200')
-    
+
     assert_equal [h1, h2, h3, h4], Hit.with_status('all')
   end
 
