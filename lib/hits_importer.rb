@@ -7,7 +7,7 @@ class HitsImporter
   def import!
     Hit.leave_uniqueness_check_to_db = true
     consume_data do |hit_row|
-      hostname = total_row[:host]
+      hostname = hit_row[:host]
       next if hostname =~ /^aka/
       host = hosts[hostname]
       if host.nil?

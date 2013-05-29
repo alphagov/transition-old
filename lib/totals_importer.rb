@@ -20,7 +20,7 @@ class TotalsImporter
     end
   end
 
-  def fetch_total_scope(host, hit_row)
+  def fetch_total_scope(host, total_row)
     Total.where(host_id: host.id, http_status: total_row[:status], total_on: total_row[:date])
   end
 
@@ -60,8 +60,8 @@ class TotalsImporter
     CSV.new(File.open(data_file), { headers: true,
                                     converters: [:numeric, :date],
                                     header_converters: :symbol,
-                                    col_sep: "\t" }).each do |hit_row|
-      yield hit_row
+                                    col_sep: "\t" }).each do |total_row|
+      yield total_row
     end
   end
 end
