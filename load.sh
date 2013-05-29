@@ -1,18 +1,26 @@
 #!/bin/sh
 
+set -x
+rm -rf data
+mkdir data
+
+git clone --depth 1 git@github.com:alphagov/redirector.git data/redirector
+git clone --depth 1 git@github.com:alphagov/transition-stats data/transition-stats
+
 rake db:drop db:create db:migrate db:seed
 
-for file in ../transition-stats/totals/*.tsv
+set +x
+
+for file in data/transition-stats/totals/*.tsv
 do
-    echo "\n::: $file :::"
+    set -x
     bundle exec rake import_totals[$file]
+    set +x
 done
 
-exit
-
-for file in ../transition-stats/hits/*.tsv
+for file in data/transition-stats/hits/*.tsv
 do
-    echo "\n::: $file :::"
+    set -x
     bundle exec rake import_hits[$file]
+    set +x
 done
-
