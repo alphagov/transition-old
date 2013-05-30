@@ -14,6 +14,8 @@ class HostsController < ApplicationController
   # GET /hosts/1.json
   def show
     @host = Host.find_by_host(params[:id])
+    @organisation = @host.site.organisation
+    @total_data = TotalData.new(@host.totals)
     @most_recent_hit_data = MostRecentHitData.new(@host.hits, @host.hits.most_recent_hit_on_date)
 
     respond_to do |format|
