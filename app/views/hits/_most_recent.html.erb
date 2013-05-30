@@ -1,5 +1,5 @@
 <section id="hits">
-  <h1>Most recent hits (<%= hit_data.most_recent_hit_on_date %>)</h1>
+  <h1><%= hit_data.most_recent_hit_on_date %></h1>
 
   <p><b>Total:</b> <%= hit_data.total_hits %></p>
   <div class="progress status-chart">
@@ -15,10 +15,6 @@
       <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>" data-download-link="<%= polymorphic_url([:hits_download, scope], status_filter: status_code) %>"><%= status_code %></a></li>
     <% end %>
   </ul>
-
-  <p class="actions">
-    <%= link_to 'Download as CSV', [:hits_download, scope], class: 'btn btn-primary download-link' %>
-  </p>
 
   <table class="table table-striped table-bordered">
     <thead>
@@ -45,4 +41,7 @@
       <% end %>
     </tbody>
   </table>
+  <p class="actions">
+    <%= link_to 'Download as CSV', [:hits_download, scope], class: 'btn btn-primary download-link' %>
+  </p>
 </section>

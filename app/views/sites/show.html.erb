@@ -25,6 +25,8 @@
   </p>
 </section>
 
+<%= render 'totals/stacked', total_data: @totals, host: @site.hosts.first, scope: @site %>
+
 <%= render 'hits/most_recent', hit_data: @most_recent_hit_data, host: @site.hosts.first, scope: @site %>
 
 <section id="hosts">
