@@ -17,22 +17,22 @@
     @include gradient-vertical(#fbb450, #f89406);
   }
   .bar-304 {
-  
+
   }
   .bar-403 {
-  
+
   }
   .bar-501 {
-  
+
   }
   .bar-400 {
-  
+
   }
   .bar-418 {
-  
+
   }
   .bar-503 {
-  
+
   }
 }
 .status-filter li.filter-name {
@@ -44,3 +44,36 @@
     border: 1px solid transparent;
   }
 }
+
+.chart * {
+  margin: 0;
+  padding: 0;
+}
+
+.chart {
+  position: relative;
+  height: 300px;
+  margin-bottom: 1em;
+}
+
+.chart ul {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  float: left;
+}
+
+.chart li {
+  list-style: none;
+  overflow: hidden;
+  text-indent: 9999px;
+}
+
+.chart.stacked li {
+  width: 20px;
+}
+
+.ok { background-color: #BDBDBD; }
+.redirect { background-color: #969696; }
+.gone { background-color: #636363; }
+.error { background-color: #DE2D26; }
