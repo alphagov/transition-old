@@ -2,15 +2,13 @@
 
 # hacked in bar-chart ..
 require 'date'
-chart_height = 100
-bar_width = 20
+
 
 # classified totals for each week
 weeks = {}
+@total_data.totals.aggregated_by_week.each do |total|
 
-@total_data.totals.each do |total|
-
-  week = total.total_on.strftime("%Y-%U")
+  week = total.week
 
   if total.http_status =~ /^2/
     name = "ok"
@@ -27,20 +25,16 @@ weeks = {}
   weeks[week][name] += total.count
 end
 
-max_count = 0
-weeks.each do |week, no|
-  total = 0
-  weeks[week].each do |status, count|
-    total += count
-  end
-  max_count = total if total > max_count
-end
+max_count = @total_data.totals.aggregated_by_week.max_weekly_count
 
 dates = []
 Date.parse('2012-10-17').step(Date.today, 7) do |day|
-  dates.push(day.strftime("%Y-%U"))
+  dates.push(day.strftime("%Y-W%U"))
 end
 
+
+chart_height = 100
+bar_width = 20
 left = 0;
 
 %>
