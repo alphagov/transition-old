@@ -28,6 +28,9 @@ class Mapping < ActiveRecord::Base
     end
   end
 
+  def prep_for_import
+    set_path_hash
+  end
   protected
   def set_path_hash
     self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
