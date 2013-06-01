@@ -15,7 +15,7 @@ class SitesController < ApplicationController
   def show
     @site = Site.find_by_site(params[:id])
     @organisation = @site.organisation
-    @total_data = AggregratedTotalData.new(@site.aggregated_totals)
+    @total_data = AggregratedTotalData.new(@site.totals)
     @most_recent_hit_data = AggregratedMostRecentHitData.new(@site.aggregated_hits, @site.hits.most_recent_hit_on_date)
 
     respond_to do |format|
