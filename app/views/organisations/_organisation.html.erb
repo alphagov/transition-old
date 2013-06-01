@@ -1,0 +1,19 @@
+<h3 id="<%= organisation.abbr %>" class="organisation <%= organisation.css || "" %>"><%= link_to content_tag(:span, organisation.title), organisation %></h3>
+
+<p><%= days_until_launch(organisation) %> (<i><%= organisation.launch_date %></i>)
+
+
+        <%= link_to organisation.homepage, organisation.homepage %>
+        <%= link_to organisation.furl, organisation.furl %>
+</p>
+<ul>
+<% organisation.sites.each do |site| %>
+  <li>
+  <%= link_to site.site, "/sites/#{site.site}" %>
+  <%= pluralize(site.hosts.count, "host") %>:
+  <%= site.hosts.map do |host| %>
+    <% link_to host.host, "/hosts/#{host.host}" %>
+  <% end.to_sentence.html_safe %>
+  </li>
+<% end %>
+</ul>

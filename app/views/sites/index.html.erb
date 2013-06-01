@@ -1,5 +1,3 @@
-<h1>Listing sites</h1>
-
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
@@ -8,7 +6,6 @@
       <th>Homepage</th>
       <th>Query params</th>
       <th>TNA timestamp</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -21,20 +18,11 @@
             No organisation!
           <% end %>
         </td>
-        <td><%= site.site %></td>
-        <td><%= site.homepage %></td>
+        <td><%= link_to site.site, site %></td>
+        <td><%= link_to site.homepage, site.homepage %></td>
         <td><%= site.query_params %></td>
         <td><%= site.tna_timestamp %></td>
-        <td>
-          <%= link_to 'Show', site %>
-          <%= link_to 'Edit', edit_site_path(site) %>
-          <%= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Site', new_site_path %>

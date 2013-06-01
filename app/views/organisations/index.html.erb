@@ -1,35 +1,29 @@
-<h1>Listing organisations</h1>
-
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Abbreviation</th>
-      <th>Title</th>
-      <th>Launch date</th>
-      <th>Homepage</th>
-      <th>FURL</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @organisations.each do |organisation| %>
-      <tr>
-        <td><%= organisation.abbr %></td>
-        <td><%= organisation.title %></td>
-        <td><%= organisation.launch_date %></td>
-        <td><%= organisation.homepage %></td>
-        <td><%= organisation.furl %></td>
-        <td>
-          <%= link_to 'Show', organisation %>
-          <%= link_to 'Edit', edit_organisation_path(organisation) %>
-          <%= link_to 'Destroy', organisation, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
-      </tr>
+<% if @forthcoming_organisations.length > 0 %>
+<div id="forthcoming" class="row-fluid">
+  <div class="span3">
+    <h2 class="count"><%= @forthcoming_organisations.length %></h2>
+    <p>organisations are forthcoming</p>
+  </div>
+  <ul class="organisations span9">
+    <% @forthcoming_organisations.each do |organisation| %>
+    <li>
+      <%= render partial: 'organisation', locals: { organisation: organisation } %>
+    </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+</div>
+<% end %>
 
-<br />
-
-<%= link_to 'New Organisation', new_organisation_path %>
+<div id="live" class="row-fluid">
+  <div class="span3">
+    <h2 class="count"><%= @already_live_organisations.length %></h2>
+    <p>organisations are already live</p>
+  </div>
+  <ul class="organisations span9">
+    <% @already_live_organisations.each do |organisation| %>
+    <li>
+      <%= render partial: 'organisation', locals: { organisation: organisation } %>
+    </li>
+    <% end %>
+  </ul>
+</div>

@@ -2,28 +2,22 @@
 <section id="details">
   <h1 id="<%= @organisation.abbr %>" class="organisation <%= @organisation.css || "" %>"><%= link_to content_tag(:span, @organisation.title), @organisation %></h1>
 
-  <h1><%= @site.site %></h1>
+  <dl>
+    <dt>Site:</dt>
+    <dd><%= @site.site %></dd>
 
-  <p>
-    <b>Homepage:</b>
-    <%= @site.homepage %>
-  </p>
+    <dt>Homepage:</dt>
+    <dd><%= link_to @site.homepage, @site.homepage %></dd>
 
-  <p>
-    <b>Query params:</b>
-    <%= @site.query_params %>
-  </p>
+    <dt>Query params:</dt>
+    <dd><%= @site.query_params %></dd>
 
-  <p>
-    <b>TNA timestamp:</b>
-    <%= @site.tna_timestamp %>
-  </p>
+    <dt>TNA timestamp:</dt>
+    <dd><%= @site.tna_timestamp %></dd>
+  </dl>
 
-  <p class="actions">
-    <%= link_to 'Edit', edit_site_path(@site) %> |
-    <%= link_to 'Back', sites_path %>
-  </p>
 </section>
+
 
 <%= render 'totals/stacked', total_data: @totals, host: @site.hosts.first, scope: @site %>
 

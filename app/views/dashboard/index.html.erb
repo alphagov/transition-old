@@ -7,7 +7,7 @@
   <ul class="organisations span9">
     <% @forthcoming_organisations.each do |organisation| %>
     <li>
-      <%= render partial: 'organisation', locals: { organisation: organisation } %>
+      <%= render partial: 'organisations/organisation', locals: { organisation: organisation } %>
     </li>
     <% end %>
   </ul>
@@ -22,7 +22,7 @@
   <ul class="organisations span9">
     <% @already_live_organisations.each do |organisation| %>
     <li>
-      <%= render partial: 'organisation', locals: { organisation: organisation } %>
+      <%= render partial: 'organisations/organisation', locals: { organisation: organisation } %>
     </li>
     <% end %>
   </ul>

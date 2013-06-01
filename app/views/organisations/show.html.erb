@@ -21,11 +21,6 @@
     <b>FURL:</b>
     <%= @organisation.furl %>
   </p>
-
-  <p class="actions">
-    <%= link_to 'Edit', edit_organisation_path(@organisation) %> |
-    <%= link_to 'Back', organisations_path %>
-  </p>
 </section>
 
 <section class="sites">
@@ -45,7 +40,7 @@
       <% @organisation.sites.each do |site| %>
         <tr>
           <td><%= link_to site.site, site %></td>
-          <td><%= site.homepage %></td>
+          <td><%= link_to site.homepage, site.homepage %></td>
           <td><%= site.query_params %></td>
           <td><%= site.tna_timestamp %></td>
         </tr>
