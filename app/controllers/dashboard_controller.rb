@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   layout "dashboard.html.erb"
 
   def index
-    @orgs = Organisation.includes(:sites => :hosts).order("launch_date asc")
+    @orgs = Organisation.with_counts.order("launch_date asc")
 
     respond_to do |format|
       format.html # index.html.erb
