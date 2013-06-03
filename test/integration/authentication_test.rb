@@ -19,8 +19,9 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
 
   test "should allow logged in users to log out" do
+    o = FactoryGirl.create(:organisation)
     login_as_admin
-    get root_path
+    get organisation_path(o)
     assert_select "a[href=?]", "/auth/gds/sign_out"
   end
 end
