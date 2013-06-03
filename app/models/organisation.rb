@@ -3,6 +3,7 @@ class Organisation < ActiveRecord::Base
   has_many :hosts, through: :sites
   has_many :mappings, through: :sites
   has_many :totals, through: :hosts
+  has_many :hits, through: :sites
 
   def self.with_counts
     scoped.
