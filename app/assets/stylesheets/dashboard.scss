@@ -66,10 +66,22 @@ body#dashboard {
       margin-top: 10px;
       width: 100%;
     }
+    td.name div.cont {
+      position: relative;
+    }
+    td.name div.cont div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      height: 100%;
+    }
     td.name span {
       text-transform: capitalize;
       padding-left: 2px;
       font-size: 10px;
+      position: relative;
+      z-index: 10;
     }
     td.num {
       text-align: right;

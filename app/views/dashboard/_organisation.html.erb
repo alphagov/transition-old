@@ -36,7 +36,12 @@ count = rand(max)
 percentage = 100 * count / max;
 %>
     <tr>
-      <td class="name sep"><div class="<%= name %>"><div style="width: <%= percentage %>%;"></div><span><%= name %></span></div></td>
+      <td class="name">
+        <div class="cont">
+          <div style="width: <%= percentage %>%;" class="<%= name %>"></div>
+          <span><%= name %></span>
+        </div>
+      </td>
       <td class="num"><%= number_with_delimiter(count, :delimiter => ',') %></td>
     </tr>
 <% end %>
