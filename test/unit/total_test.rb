@@ -17,7 +17,7 @@ class TotalTest < ActiveSupport::TestCase
     assert_equal 5.days.ago.strftime('%Y-W%U'), t1.week
   end
 
-  test '#without_zero_status_hits rejects any statuses that are made completely of 0s' do
+  test '#without_zero_status_totals rejects any statuses that are made completely of 0s' do
     t1 = FactoryGirl.create(:total, http_status: '0')
     t2 = FactoryGirl.create(:total, http_status: '00')
     t3 = FactoryGirl.create(:total, http_status: '000')
@@ -153,6 +153,69 @@ class TotalTest < ActiveSupport::TestCase
   test '#max_weekly_count returns 0 if no data is available' do
     assert_equal 0, Total.aggregated_by_week.max_weekly_count
     assert_equal 0, Total.aggregated_by_week_and_site.max_weekly_count(from_site_aggregate: true)
+  end
+
+  test '#most_recent_total_on_date detects the biggest date' do
+    t1 = FactoryGirl.create(:total, total_on: 2.days.ago)
+    t2 = FactoryGirl.create(:total, total_on: 5.days.ago)
+    t3 = FactoryGirl.create(:total, total_on: 1.day.ago)
+
+    assert_equal 1.day.ago.beginning_of_day.to_date, Total.most_recent_total_on_date
+  end
+
+  test '#most_recent_total_on_date returns today if no totals' do
+    Total.destroy_all
+
+    assert_equal Date.today, Total.most_recent_total_on_date
+  end
+
+  test '#most_recent_total_on_date returns supplied fallback date if no totals' do
+    Total.destroy_all
+
+    assert_equal 10.days.ago.to_date, Total.most_recent_total_on_date(fallback_date: 10.days.ago.to_date)
+  end
+
+  test '#most_recent_total_on_date detects the biggest date from aggregated scopes correctly (when told the scope is aggregated)' do
+    host1 = FactoryGirl.create(:host, host: 'host1')
+    host2 = FactoryGirl.create(:host, host: 'host2')
+    t1 = FactoryGirl.create(:total, count: 1, host: host1, http_status: '301', total_on: 3.days.ago)
+    t2 = FactoryGirl.create(:total, count: 11, host: host2, http_status: '301', total_on: 3.days.ago)
+    t3 = FactoryGirl.create(:total, count: 22, host: host1, http_status: '302', total_on: 3.days.ago)
+    t4 = FactoryGirl.create(:total, count: 33, host: host1, http_status: '302', total_on: 2.days.ago)
+    t5 = FactoryGirl.create(:total, count: 44, host: host1, http_status: '302', total_on: 1.days.ago)
+    t6 = FactoryGirl.create(:total, count: 55, host: host2, http_status: '302', total_on: 2.days.ago)
+
+    assert_equal 1.day.ago.beginning_of_day.to_date, Total.aggregated.most_recent_total_on_date(from_aggregate: true)
+  end
+
+  test '#most_recent_total_on_date returns today if no totals even if the scope is aggregated' do
+    Total.destroy_all
+
+    assert_equal Date.today, Total.most_recent_total_on_date(from_aggregate: true)
+  end
+
+  test '#most_recent_total_on_date returns supplied fallback date if no totals even if the scope is aggregated' do
+    Total.destroy_all
+
+    assert_equal 10.days.ago.to_date, Total.most_recent_total_on_date(from_aggregate: true, fallback_date: 10.days.ago.to_date)
+  end
+
+  test '#most_recent_totals takes totals for the most_recent_total_on_date if no date is supplied' do
+    t1 = FactoryGirl.create(:total, total_on: 2.days.ago)
+    t2 = FactoryGirl.create(:total, total_on: 5.days.ago)
+    t3 = FactoryGirl.create(:total, http_status: '301', total_on: 1.day.ago)
+    t4 = FactoryGirl.create(:total, http_status: '302', total_on: 1.day.ago)
+
+    assert_equal [t3, t4], Total.most_recent_totals
+  end
+
+  test '#most_recent_totals takes totals for the supplied date' do
+    t1 = FactoryGirl.create(:total, total_on: 2.days.ago)
+    t2 = FactoryGirl.create(:total, total_on: 5.days.ago)
+    t3 = FactoryGirl.create(:total, http_status: '301', total_on: 1.day.ago)
+    t4 = FactoryGirl.create(:total, http_status: '302', total_on: 1.day.ago)
+
+    assert_equal [t2], Total.most_recent_totals(5.days.ago.beginning_of_day.to_date)
   end
 
 end
