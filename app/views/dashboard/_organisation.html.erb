@@ -1,10 +1,11 @@
 <%
-@sites_count = organisation.sites_count
+sites_count = organisation.sites_count
 
-@hosts_count = organisation.hosts_count
+hosts_count = organisation.hosts_count
 
-@mappings_count = organisation.mappings_count
+mappings_count = organisation.mappings_count
 
+most_recent_data_date = organisation.aggregated_totals.most_recent_total_on_date(from_aggregate: true)
 %>
 
 <div class="launched">
@@ -12,17 +13,21 @@
 </div>
 
 <div class="summary">
-  <span class="number"><%= @sites_count %></span> <%= plural(@sites_count, "site") %>
-  <span class="number"><%= @hosts_count %></span> <%= plural(@hosts_count, "host") %></span>
+  <span class="number"><%= sites_count %></span> <%= plural(sites_count, "site") %>
+  <span class="number"><%= hosts_count %></span> <%= plural(hosts_count, "host") %></span>
 </div>
 
 <div class="mappings">
-  <span class="number"><%= @mappings_count %></span> <%= plural(@mappings_count, "mapping") %></span>
+  <span class="number"><%= number_with_delimiter(mappings_count) %></span> <%= plural(mappings_count, "mapping") %></span>
+</div>
+
+<div class="data-date">
+  <span class="date"><%= human_datetime(most_recent_data_date) %></span>
 </div>
 
 <table class="aggregate" border="0" cellpadding="0" cellspacing="0">
   <tbody>
-<% grouped_by_http_status_totals = grouped_by_http_status_category(organisation.aggregated_totals) %>
+<% grouped_by_http_status_totals = grouped_by_http_status_category(organisation.aggregated_totals.most_recent_totals(most_recent_data_date)) %>
 <% counts_by_http_status_totals = Hash[grouped_by_http_status_totals.map { |hsc, data| [hsc, data.inject(0) { |sum, x| sum + x.count } ] } ] %>
 <% max = counts_by_http_status_totals.values.max || 0 %>
 <% for_each_http_status_category do |http_status_category| %>

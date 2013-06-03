@@ -49,6 +49,22 @@ class Total < ActiveRecord::Base
     Total.from_aggregate(re_aggregate).maximum('aggregated_totals.count') || 0
   end
 
+  def self.most_recent_total_on_date(opts = {})
+    opts = {
+      from_aggregate: false,
+      fallback_date: Date.today
+    }.merge(opts)
+    if opts[:from_aggregate]
+      Total.from_aggregate(scoped).maximum('aggregated_totals.total_on') || opts[:fallback_date]
+    else
+      scoped.maximum(:total_on) || opts[:fallback_date]
+    end
+  end
+
+  def self.most_recent_totals(total_on_date = most_recent_total_on_date)
+    scoped.where(total_on: total_on_date.beginning_of_day.to_date)
+  end
+
   def week
     read_attribute('week') || total_on.strftime("%Y-W%U")
   end
