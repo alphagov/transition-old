@@ -42,4 +42,8 @@ class OrganisationData
       } ]
   end
 
+  def max_total_for_http_status_category(fallback = 0)
+    totals_by_http_status_category.values.max || fallback
+  end
+
 end
