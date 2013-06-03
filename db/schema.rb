@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530140724) do
+ActiveRecord::Schema.define(:version => 20130603131922) do
 
   create_table "hits", :force => true do |t|
     t.integer "host_id",                     :null => false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130530140724) do
   end
 
   add_index "hosts", ["host"], :name => "index_hosts_on_host", :unique => true
+  add_index "hosts", ["site_id"], :name => "index_hosts_on_site_id"
 
   create_table "mappings", :force => true do |t|
     t.integer "site_id",                       :null => false
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130530140724) do
     t.datetime "updated_at",      :null => false
   end
 
+  add_index "sites", ["organisation_id"], :name => "index_sites_on_organisation_id"
   add_index "sites", ["site"], :name => "index_sites_on_site", :unique => true
 
   create_table "totals", :force => true do |t|
