@@ -1,4 +1,8 @@
+require 'http_status_categorization'
+
 module ApplicationHelper
+  include HttpStatusCategorization
+
   def nav_link(text, link)
     recognized = Rails.application.routes.recognize_path(link)
     if recognized[:controller] == params[:controller] && recognized[:action] == params[:action]
@@ -12,9 +16,9 @@ module ApplicationHelper
     end
   end
 
-def plural(value, string)
-  "#{value.abs == 1 ? string.singularize : string.pluralize}"
-end
+  def plural(value, string)
+    "#{value.abs == 1 ? string.singularize : string.pluralize}"
+  end
 
   def human_datetime(date)
     if date

@@ -1,4 +1,4 @@
-module HttpStatusHelper
+module HttpStatusCategorization
 
   def for_each_http_status_category(&block)
     ["error", "gone", "redirect", "ok"].reverse.each(&block)
