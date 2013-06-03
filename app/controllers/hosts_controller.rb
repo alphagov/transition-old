@@ -15,7 +15,7 @@ class HostsController < ApplicationController
   def show
     @host = Host.find_by_host(params[:id])
     @organisation = @host.site.organisation
-    @total_data = TotalData.new(@host.totals)
+    @total_data = WeeklyTotalData.new(@host.weekly_totals, Date.new(2012,10,17)..Date.today)
     @most_recent_hit_data = MostRecentHitData.new(@host.hits, @host.hits.most_recent_hit_on_date)
 
     respond_to do |format|

@@ -1,59 +1,20 @@
 <%
-
-# hacked in bar-chart ..
-require 'date'
-
-
-# classified totals for each week
-weeks = {}
-@total_data.totals.aggregated_by_week.each do |total|
-
-  week = total.week
-
-  if total.http_status =~ /^2/
-    name = "ok"
-  elsif total.http_status == "301"
-    name = "redirect"
-  elsif total.http_status == "410"
-    name = "gone"
-  else
-    name = "error"
-  end
-
-  weeks[week] ||= {}
-  weeks[week][name] ||= 0
-  weeks[week][name] += total.count
-end
-
-max_count = @total_data.totals.aggregated_by_week.max_weekly_count
-
-dates = []
-Date.parse('2012-10-17').step(Date.today, 7) do |day|
-  dates.push(day.strftime("%Y-W%U"))
-end
-
-
+max_count = @total_data.max_weekly_count
 chart_height = 100
 bar_width = 20
 left = 0;
-
 %>
 
 <section>
-<div class="chart stacked" style="height:<%= chart_height %>px">
-
-<% dates.each do |week| %>
-<ul style="left:<%= left %>px">
-<%  ["error", "gone", "redirect","ok"].reverse.each do |name|
-      count = 0
-      count = weeks[week][name] if weeks[week] && weeks[week][name]
-      height = (count * chart_height) / max_count
-      %>
-  <li class="<%= name %>" style="height:<%= height %>px" title="<%= week %> <%= name %> <%= count %>"><%= count %></li>
-<% end %>
-</ul>
-<%
-left += bar_width
-end %>
-</div>
+  <div class="chart stacked" style="height:<%= chart_height %>px">
+    <% @total_data.each_week do |week, totals_for_week| %>
+      <% categorized_totals = grouped_by_http_status_category(totals_for_week) %>
+      <ul style="left:<%= left %>px">
+        <% for_each_http_status_category do |http_status_category| %>
+          <%= summation_line_for_label(http_status_category, categorized_totals, max_count, chart_height, week) %>
+        <% end %>
+      </ul>
+      <% left += bar_width %>
+    <% end %>
+  </div>
 </section>

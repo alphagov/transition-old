@@ -4,6 +4,10 @@ class Host < ActiveRecord::Base
   has_many :hits
   has_many :totals
 
+  def weekly_totals
+    totals.aggregated_by_week
+  end
+
   def to_param
     host
   end

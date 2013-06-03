@@ -14,6 +14,10 @@ class Site < ActiveRecord::Base
     self.totals.aggregated
   end
 
+  def weekly_totals
+    self.totals.aggregated_by_week_and_site
+  end
+
   def to_param
     site
   end
