@@ -1,0 +1,41 @@
+.status-chart.progress {
+   .bar {
+    background-image: none;
+   }
+   .bar-301 {
+    background-color: #969696;
+  }
+  .bar-200, .bar-206 {
+    background-color: #BDBDBD;
+  }
+  .bar-404 {
+    background-color: #DE2D26;
+  }
+  .bar-410 {
+    background-color: #636363;
+  }
+  .bar-304 {
+    background-color: #BDBDBD;
+  }
+  .bar-403 {
+    background-color: #DE2D26;
+  }
+  .bar-501 {
+    background-color: #DE2D26;
+  }
+  .bar-400 {
+    background-color: #DE2D26;
+  }
+  .bar-418 {
+    background-color: #DE2D26;
+  }
+  .bar-503 {
+    background-color: #DE2D26;
+  }
+}
+
+.ok { background-color: #BDBDBD; }
+.redirect { background-color: #969696; }
+.gone { background-color: #636363; }
+/*.error { background-color: #DE2D26; } */
+.error { background-color: #FFC8C8; }

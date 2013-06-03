@@ -12,13 +12,13 @@ module ApplicationHelper
     end
   end
 
+def plural(value, string)
+  "#{value.abs == 1 ? string.singularize : string.pluralize}"
+end
+
   def human_datetime(date)
     if date
-      if date.today?
-        date.strftime("%l:%M%P - today")
-      else
-        date.strftime("%l:%M%P - %e %b")
-      end
+       date.strftime("%e %b %Y")
     else
       ""
     end
