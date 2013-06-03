@@ -59,11 +59,10 @@
     <%= yield %>
   </section>
 
-    <footer class="container-fluid">
-      <p>&copy; GDS. <span class="pull-right">Version: <%= CURRENT_RELEASE_SHA %></span></p>
-    </footer>
+  <footer class="container-fluid">
+    <p>&copy; GDS. <span class="pull-right">Version: <%= CURRENT_RELEASE_SHA %></span></p>
+  </footer>
 
-  </section><!--/.container-fluid -->
   <%= javascript_include_tag "application" %>
 </body>
 </html>
