@@ -2,6 +2,9 @@
    <ul class="organisations">
     <% @orgs.each do |organisation| %>
     <li>
+      <h3 id="<%= organisation.abbr %>">
+        <%= link_to content_tag(:span, organisation.abbr), organisation %>
+      </h3>
       <%= render partial: 'organisation', locals: { organisation: organisation } %>
     </li>
     <% end %>

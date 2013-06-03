@@ -1,18 +1,11 @@
 <%
-@sites_count = organisation.sites.length
+@sites_count = organisation.sites_count
 
-@hosts_count = 0
-organisation.sites.each do |site|
-  @hosts_count += site.hosts.count
-end
+@hosts_count = organisation.hosts_count
 
-@mappings_count = 0
+@mappings_count = organisation.mappings_count
 
 %>
-
-<h3 id="<%= organisation.abbr %>">
-  <%= link_to content_tag(:span, organisation.abbr), organisation %>
-</h3>
 
 <div class="launched">
   <span class="date"><%= human_datetime(organisation.launch_date) %></span>
@@ -29,17 +22,17 @@ end
 
 <table class="aggregate" border="0" cellpadding="0" cellspacing="0">
   <tbody>
-<%
-max = 200000
-['ok','redirect','gone','error'].each do |name|
-count = rand(max)
-percentage = 100 * count / max;
-%>
+<% grouped_by_http_status_totals = grouped_by_http_status_category(organisation.aggregated_totals) %>
+<% counts_by_http_status_totals = Hash[grouped_by_http_status_totals.map { |hsc, data| [hsc, data.inject(0) { |sum, x| sum + x.count } ] } ] %>
+<% max = counts_by_http_status_totals.values.max || 0 %>
+<% for_each_http_status_category do |http_status_category| %>
+  <% count = counts_by_http_status_totals[http_status_category]
+     percentage = (max == 0) ? 0 : (100 * count / max) %>
     <tr>
       <td class="name">
         <div class="cont">
-          <div style="width: <%= percentage %>%;" class="<%= name %>"></div>
-          <span><%= name %></span>
+          <div style="width: <%= percentage %>%;" class="<%= http_status_category %>"></div>
+          <span><%= http_status_category %></span>
         </div>
       </td>
       <td class="num"><%= number_with_delimiter(count, :delimiter => ',') %></td>
