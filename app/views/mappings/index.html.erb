@@ -3,18 +3,17 @@
 <section class="mappings status-filtering">
   <h1>Mappings</h1>
 
-  <p><b>Total:</b> <%= number_with_delimiter (mappings_count = @mappings.count) %></p>
+  <p><b>Total:</b> <%= number_with_delimiter (@mappings_data.count) %></p>
   <div class="progress status-chart">
-    <% @mappings.group_by { |x| x.http_status }.sort_by { |status, _| status }.each do |status, mappings| %>
-      <% status_count = mappings.length %>
-      <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((status_count / mappings_count.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= status_count %>"></div>
+    <% @mappings_data.counts_by_http_status.each do |status, status_count| %>
+      <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((status_count / @mappings_data.count.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= status_count %>"></div>
     <% end %>
   </div>
 
   <ul class="status-filter nav nav-tabs">
     <li class="filter-name"><span>Filter by status code:</span></li>
     <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
-    <% @mappings.map { |x| x.http_status }.uniq.sort.each do |status_code| %>
+    <% @mappings_data.http_statuses.each do |status_code| %>
       <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
     <% end %>
   </ul>
@@ -30,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @mappings.each do |mapping| %>
+      <% @mappings_data.mappings.each do |mapping| %>
         <tr data-status-code="<%= mapping.http_status %>">
           <td><%= mapping.http_status %></td>
           <td><%= link_to mapping.path, 'http://'+@host.host+mapping.path %></td>
