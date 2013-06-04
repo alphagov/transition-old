@@ -1,5 +1,7 @@
 <%= render 'sites/header', site: @site, organisation: @organisation %>
 
+<%= link_to 'Mappings', site_mappings_path(@site) %>
+
 <%= render 'totals/stacked', total_data: @totals, host: @site.hosts.first, scope: @site %>
 
 <%= render 'hits/most_recent', hit_data: @most_recent_hit_data, host: @site.hosts.first, scope: @site %>

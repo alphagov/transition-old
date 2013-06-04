@@ -18,6 +18,10 @@ class Site < ActiveRecord::Base
     self.totals.aggregated_by_week_and_site
   end
 
+  def default_host
+    hosts.order(:id).first
+  end
+
   def to_param
     site
   end
