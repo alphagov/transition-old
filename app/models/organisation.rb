@@ -32,6 +32,14 @@ class Organisation < ActiveRecord::Base
       group('organisations.id')
   end
 
+  def self.manages_own_redirects
+    scoped.where(manages_own_redirects: true)
+  end
+
+  def self.gds_manages_redirects
+    scoped.where(manages_own_redirects: false)
+  end
+
   def sites_count
     read_attribute('sites_count') || sites.count
   end

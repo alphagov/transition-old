@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603131922) do
+ActiveRecord::Schema.define(:version => 20130604085432) do
 
   create_table "hits", :force => true do |t|
     t.integer "host_id",                     :null => false
@@ -60,9 +60,10 @@ ActiveRecord::Schema.define(:version => 20130603131922) do
     t.date     "launch_date"
     t.string   "homepage"
     t.string   "furl"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "css"
+    t.boolean  "manages_own_redirects", :default => false, :null => false
   end
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
