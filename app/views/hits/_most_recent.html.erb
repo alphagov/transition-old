@@ -16,6 +16,9 @@
     <% end %>
   </ul>
 
+  <p class="actions">
+    <%= link_to 'Download as CSV', [:hits_download, scope], class: 'btn btn-primary download-link' %>
+  </p>
   <table class="status-filtered table table-striped table-bordered">
     <thead>
       <tr>
