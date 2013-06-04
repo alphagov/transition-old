@@ -3,7 +3,7 @@
     <li>
       <span class="hit_count"><%= hit.count %></span>
       <span class="http_status <%= hit.http_status %>"><%= categorize_http_status(hit.http_status) %></span>
-      <%= link_to hit.path, 'http://' + hit.host.host + hit.path %>
+      <%= link_to hit.host.host + hit.path, 'http://' + hit.host.host + hit.path %>
     </li>
   <% end %>
 </ul>

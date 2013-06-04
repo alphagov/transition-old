@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <section id="details">
-  <% render_organisation_title @organisation %>
+  <%= render_organisation_title @organisation %>
 
   <p>
     <b>Abbreviation:</b>
@@ -14,12 +14,12 @@
 
   <p>
     <b>Homepage:</b>
-    <%= @organisation.homepage %>
+    <%= link_to @organisation.homepage %>
   </p>
 
   <p>
     <b>FURL:</b>
-    <%= @organisation.furl %>
+    <%= link_to @organisation.furl, 'http://'+@organisation.furl %>
   </p>
 </section>
 
