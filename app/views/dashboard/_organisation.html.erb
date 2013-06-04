@@ -22,7 +22,7 @@
   <tbody>
 <% max = organisation.max_total_for_http_status_category %>
 <% for_each_http_status_category do |http_status_category| %>
-  <% count = organisation.totals_by_http_status_category[http_status_category]
+  <% count = organisation.totals_by_http_status_category[http_status_category] || 0
      percentage = (max == 0) ? 0 : (100 * count / max) %>
     <tr>
       <td class="name">
