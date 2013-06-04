@@ -3,6 +3,7 @@ class HostDnsLookup
   def initialize(hosts)
     @hosts = hosts
   end
+
   def check_dns(host, dns_server = DNS_SERVER)
     IO.popen("dig @#{dns_server} +trace '#{host}'")  do |f|
       f.lines.find do |line|
