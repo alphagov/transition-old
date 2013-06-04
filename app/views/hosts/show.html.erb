@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <section id="details">
-  <h1 id="<%= @organisation.abbr %>" class="organisation <%= @organisation.css || "" %>"><%= link_to content_tag(:span, @organisation.title), @organisation %></h1>
+  <%= render_organisation_title(@organisation) %>
 
   <p>
     <b>Host:</b>
