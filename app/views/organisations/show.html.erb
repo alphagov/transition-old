@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <section id="details">
-  <h1 id="<%= @organisation.abbr %>" class="organisation <%= @organisation.css || "" %>"><%= link_to content_tag(:span, @organisation.title), @organisation %></h1>
+  <%= render_organisation_title @organisation %>
 
   <p>
     <b>Abbreviation:</b>
@@ -14,18 +14,22 @@
 
   <p>
     <b>Homepage:</b>
-    <%= @organisation.homepage %>
+    <%= link_to @organisation.homepage %>
   </p>
 
   <p>
     <b>FURL:</b>
-    <%= @organisation.furl %>
+    <%= link_to @organisation.furl, 'http://'+@organisation.furl %>
   </p>
+</section>
 
-  <p class="actions">
-    <%= link_to 'Edit', edit_organisation_path(@organisation) %> |
-    <%= link_to 'Back', organisations_path %>
-  </p>
+<section class="dashboard">
+  <%= render 'dashboard/organisation', organisation: OrganisationData.new(@organisation), full_meta_data: true %>
+</section>
+
+<section class="hits">
+  <h1>Top 100 hits for <%= @hit_data.hits.most_recent_hit_on_date %></h1>
+  <%= render 'hits/top_100', hits: @hit_data.hits %>
 </section>
 
 <section class="sites">
@@ -45,7 +49,7 @@
       <% @organisation.sites.each do |site| %>
         <tr>
           <td><%= link_to site.site, site %></td>
-          <td><%= site.homepage %></td>
+          <td><%= link_to site.homepage, site.homepage %></td>
           <td><%= site.query_params %></td>
           <td><%= site.tna_timestamp %></td>
         </tr>

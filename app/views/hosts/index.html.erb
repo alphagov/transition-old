@@ -1,32 +1,23 @@
-<h1>Listing hosts</h1>
 
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
+      <th>Site</th>
       <th>Host</th>
       <th>TTL</th>
       <th>CNAME</th>
       <th>Live CNAME</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @hosts.each do |host| %>
       <tr>
-        <td><%= host.host %></td>
+        <td><%= link_to host.site.site, host.site %></td>
+        <td><%= link_to host.host, host %></td>
         <td><%= host.ttl %></td>
         <td><%= host.cname %></td>
         <td><%= host.live_cname %></td>
-        <td>
-          <%= link_to 'Show', host %>
-          <%= link_to 'Edit', edit_host_path(host) %>
-          <%= link_to 'Destroy', host, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br />
-
-<%= link_to 'New Host', new_host_path %>

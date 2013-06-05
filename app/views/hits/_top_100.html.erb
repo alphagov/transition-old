@@ -1,0 +1,9 @@
+<ul>
+  <% hits.includes(:host).top_100.each do |hit| %>
+    <li>
+      <span class="hit_count"><%= hit.count %></span>
+      <span class="http_status <%= hit.http_status %>"><%= categorize_http_status(hit.http_status) %></span>
+      <%= link_to hit.host.host + hit.path, 'http://' + hit.host.host + hit.path %>
+    </li>
+  <% end %>
+</ul>

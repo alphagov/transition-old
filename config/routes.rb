@@ -5,6 +5,7 @@ Transition::Application.routes.draw do
 
   resources :sites do
     get :hits_download, on: :member
+    resources :mappings, only: [:index]
   end
 
   resources :hosts,

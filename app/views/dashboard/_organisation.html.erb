@@ -1,15 +1,37 @@
-<h3 id="<%= organisation.abbr %>" class="organisation <%= organisation.css || "" %>"><%= link_to content_tag(:span, organisation.title), organisation %></h3>
 
-<%= days_until_launch(organisation) %>
+<% if local_assigns[:full_meta_data] %>
+  <div class="launched">
+    <span class="date"><%= human_datetime(organisation.launch_date) %></span>
+  </div>
 
-<ul>
-<% organisation.sites.each do |site| %>
-  <li>
-  <%= link_to site.site, "/sites/#{site.site}" %>
-  <%= pluralize(site.hosts.count, "host") %>:
-  <%= site.hosts.map do |host| %>
-    <% link_to host.host, "/hosts/#{host.host}" %>
-  <% end.to_sentence.html_safe %>
-  </li>
+  <div class="summary">
+    <span class="number"><%= organisation.sites_count %></span> <%= plural(organisation.sites_count, "site") %>
+    <span class="number"><%= organisation.hosts_count %></span> <%= plural(organisation.hosts_count, "host") %>
+  </div>
+
+  <div class="mappings">
+    <span class="number"><%= number_with_delimiter(organisation.mappings_count) %></span> <%= plural(organisation.mappings_count, "mapping") %>
+  </div>
+
+  <div class="data-date">
+    <span class="date"><%= human_datetime(organisation.most_recent_total_on_date) %></span>
+  </div>
 <% end %>
-</ul>
+
+<table class="aggregate" border="0" cellpadding="0" cellspacing="0">
+  <tbody>
+<% for_each_http_status_category do |http_status_category| %>
+  <% count = organisation.totals_by_http_status_category[http_status_category] || 0
+     percentage = 100 * Math::log10(count) / 6.0 %>
+    <tr>
+      <td class="name">
+        <div class="cont">
+          <div style="width: <%= percentage %>%;" class="<%= http_status_category %>"></div>
+          <span><%= http_status_category %></span>
+        </div>
+      </td>
+      <td class="num"><%= number_with_delimiter(count, :delimiter => ',') %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

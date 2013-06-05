@@ -51,6 +51,7 @@ class TotalsImporter
       $stdout.print '.'
       total_for_row = fetch_object_scope(host, total_row).build
       update_total_from_row(total_for_row, total_row)
+      total_for_row.prep_for_import
       @totals_to_import << total_for_row
     end
   end

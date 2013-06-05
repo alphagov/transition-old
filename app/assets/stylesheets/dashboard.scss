@@ -1,4 +1,102 @@
-@import '_organisation.scss';
+ $font-size: 9px;
+
+ @mixin fat_font {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-stretch: normal;
+}
+
+body#dashboard {
+  background-color: #ffffff;
+  color: #333;
+  height: 100%;
+
+  .organisations {
+    display: block;
+    width: 1280px;
+    margin: 0 auto;
+  }
+
+  .summary,
+  .launched,
+  .mappings {
+    font-size: $font-size;
+    line-height: 14px;
+  }
+
+  .launched {
+    text-align: right;
+  }
+
+  .summary {
+    float: left;
+  }
+  .mappings {
+    float: right;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  h3 {
+    line-height: 32px;
+
+    a {
+      color: #333;
+      font-size: 12px;
+    }
+  }
+
+  .organisations {
+
+    .number {
+      font-weight: bold;
+    }
+
+    li {
+      display: block;
+      float: left;
+      width: 150px;
+      height: 200px;
+      overflow: hidden;
+      border-bottom: 1px solid #f0f0f0;
+      margin: 0 20px;
+    }
+
+    table {
+      margin-top: 10px;
+      width: 100%;
+    }
+    th {
+      font-size: $font-size;
+      text-align: right;
+      font-weight: normal;
+    }
+    td.name div.cont {
+      position: relative;
+    }
+    td.name div.cont div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      height: 100%;
+    }
+    td.name span {
+      text-transform: capitalize;
+      padding-left: 2px;
+      font-size: $font-size;
+      position: relative;
+      z-index: 10;
+    }
+    td.num {
+      text-align: right;
+      font-size: 10px;
+      width: 16px;
+    }
+  }
+}
 
 
 

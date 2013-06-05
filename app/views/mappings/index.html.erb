@@ -1,0 +1,44 @@
+<%= render 'sites/header', site: @site, organisation: @organisation, with_site_link: true %>
+
+<section class="mappings status-filtering">
+  <h1>Mappings</h1>
+
+  <p><b>Total:</b> <%= number_with_delimiter (@mappings_data.count) %></p>
+  <div class="progress status-chart">
+    <% @mappings_data.counts_by_http_status.each do |status, status_count| %>
+      <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((status_count / @mappings_data.count.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= status_count %>"></div>
+    <% end %>
+  </div>
+
+  <ul class="status-filter nav nav-tabs">
+    <li class="filter-name"><span>Filter by status code:</span></li>
+    <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
+    <% @mappings_data.http_statuses.each do |status_code| %>
+      <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
+    <% end %>
+  </ul>
+
+  <table class="status-filtered table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>HTTP Status</th>
+        <th>Original URL</th>
+        <th>New URL</th>
+        <th>Suggested URL</th>
+        <th>Archive URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @mappings_data.mappings.each do |mapping| %>
+        <tr data-status-code="<%= mapping.http_status %>">
+          <td><%= mapping.http_status %></td>
+          <td><%= link_to mapping.path, 'http://'+@host.host+mapping.path %></td>
+          <td><%= link_to mapping.new_url, mapping.new_url if mapping.new_url.present? %></td>
+          <td><%= link_to mapping.suggested_url, mapping.suggested_url if mapping.suggested_url.present? %></td>
+          <td><%= link_to mapping.archive_url, mapping.archive_url if mapping.archive_url.present? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</section>

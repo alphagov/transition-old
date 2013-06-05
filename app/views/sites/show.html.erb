@@ -1,29 +1,6 @@
-<p id="notice"><%= notice %></p>
-<section id="details">
-  <h1 id="<%= @organisation.abbr %>" class="organisation <%= @organisation.css || "" %>"><%= link_to content_tag(:span, @organisation.title), @organisation %></h1>
+<%= render 'sites/header', site: @site, organisation: @organisation %>
 
-  <h1><%= @site.site %></h1>
-
-  <p>
-    <b>Homepage:</b>
-    <%= @site.homepage %>
-  </p>
-
-  <p>
-    <b>Query params:</b>
-    <%= @site.query_params %>
-  </p>
-
-  <p>
-    <b>TNA timestamp:</b>
-    <%= @site.tna_timestamp %>
-  </p>
-
-  <p class="actions">
-    <%= link_to 'Edit', edit_site_path(@site) %> |
-    <%= link_to 'Back', sites_path %>
-  </p>
-</section>
+<%= link_to 'Mappings', site_mappings_path(@site) %>
 
 <%= render 'totals/stacked', total_data: @totals, host: @site.hosts.first, scope: @site %>
 

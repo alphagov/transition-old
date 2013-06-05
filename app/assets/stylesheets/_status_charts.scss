@@ -1,47 +1,6 @@
 @import "bootstrap/mixins";
-.status-chart.progress {
-   .bar {
-    background-image: none;
-   }
-   .bar-301 {
-    // red (e.g. .bar-danger from bootstrap)
-    //@include gradient-vertical(#5bc0de, #339bb9);
-    background-color: #969696;
-  }
-  .bar-200, .bar-206 {
-    // green (e.g. .bar-success from bootstrap)
-    //@include gradient-vertical(#62c462, #57a957);
-    background-color: #BDBDBD;
-  }
-  .bar-404 {
-    // teal (e.g. .bar-info from bootstrap)
-   // @include gradient-vertical(#ee5f5b, #c43c35);
-    background-color: #DE2D26;
-  }
-  .bar-410 {
-    // orange (e.g. .bar-warning from bootstrap)
-    //@include gradient-vertical(#fbb450, #f89406);
-    background-color: #636363;
-  }
-  .bar-304 {
-    background-color: #BDBDBD;
-  }
-  .bar-403 {
-    background-color: #DE2D26;
-  }
-  .bar-501 {
-    background-color: #DE2D26;
-  }
-  .bar-400 {
-    background-color: #DE2D26;
-  }
-  .bar-418 {
-    background-color: #DE2D26;
-  }
-  .bar-503 {
-    background-color: #DE2D26;
-  }
-}
+@import "status_colours";
+
 .status-filter li.filter-name {
   span {
     display: block;
@@ -79,8 +38,3 @@
 .chart.stacked li {
   width: 20px;
 }
-
-.ok { background-color: #BDBDBD; }
-.redirect { background-color: #969696; }
-.gone { background-color: #636363; }
-.error { background-color: #DE2D26; }

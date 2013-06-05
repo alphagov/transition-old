@@ -20,6 +20,10 @@ class Hit < ActiveRecord::Base
     @leave_uniqueness_check_to_db = !!new_value
   end
 
+  def self.top_100
+    scoped.limit(100).order('count desc')
+  end
+
   def self.aggregated
     scoped.select('hits.path, sum(hits.count) as count, hits.http_status, hits.hit_on').group(:path, :http_status, :hit_on)
   end

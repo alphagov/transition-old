@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <section id="details">
-  <h1 id="<%= @organisation.abbr %>" class="organisation <%= @organisation.css || "" %>"><%= link_to content_tag(:span, @organisation.title), @organisation %></h1>
+  <%= render_organisation_title(@organisation) %>
 
   <p>
     <b>Host:</b>
@@ -27,12 +27,8 @@
     <%= @host.live_cname %>
   </p>
 
-  <p class="actions">
-    <%= link_to 'Edit', edit_host_path(@host) %> |
-    <%= link_to 'Back', hosts_path %>
-  </p>
 </section>
 
-<%= render 'totals/stacked', total_data: @totals, host: @host, scope: @host %>
+<%= render 'totals/stacked', total_data: @weekly_totals, host: @host, scope: @host %>
 
 <%= render 'hits/most_recent', hit_data: @most_recent_hit_data, host: @host, scope: @host %>
