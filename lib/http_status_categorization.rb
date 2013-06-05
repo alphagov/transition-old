@@ -5,7 +5,7 @@ module HttpStatusCategorization
   end
 
   def categorize_http_status(http_status)
-    if http_status =~ /^2/
+    if http_status =~ /^2|^304/
       "ok"
     elsif http_status == "301"
       "redirect"
