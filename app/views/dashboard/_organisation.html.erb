@@ -18,20 +18,4 @@
   </div>
 <% end %>
 
-<table class="aggregate" border="0" cellpadding="0" cellspacing="0">
-  <tbody>
-<% for_each_http_status_category do |http_status_category| %>
-  <% count = organisation.totals_by_http_status_category[http_status_category] || 0
-     percentage = 100 * Math::log10(count) / 6.0 %>
-    <tr>
-      <td class="name">
-        <div class="cont">
-          <div style="width: <%= percentage %>%;" class="<%= http_status_category %>"></div>
-          <span><%= http_status_category %></span>
-        </div>
-      </td>
-      <td class="num"><%= number_with_delimiter(count, :delimiter => ',') %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+<%= render 'dashboard/totals', organisation: organisation %>
