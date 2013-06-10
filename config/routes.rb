@@ -13,5 +13,7 @@ Transition::Application.routes.draw do
     get :hits_download, on: :member
   end
 
+  match 'dashboard' => 'dashboard#index'
+
   root :to => 'organisations#index'
 end
