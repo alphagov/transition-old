@@ -12,9 +12,9 @@ class HitDataExporter
 
   def generate_csv_using_host(host)
     CSV.generate do |csv|
-      csv << ['Count', 'URL']
+      csv << ['Count', 'Status', 'URL']
       filtered_hits.each do |hit|
-        csv << [hit.count, 'http://'+host.host+hit.path]
+        csv << [hit.count, hit.http_status, 'http://'+host.host+hit.path]
       end
     end
   end
