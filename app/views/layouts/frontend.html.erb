@@ -17,6 +17,10 @@
 
     <link href="https://assets.digital.cabinet-office.gov.uk/static/print-0d9fb31f928fd75de11684e3753752fc.css" media="print" rel="stylesheet" type="text/css" />
 
+    <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/base.css" %><!--<![endif]-->
+    <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
+    <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
+    <!--[if IE 8]><%= stylesheet_link_tag "frontend/base-ie8.css" %><script>var ieVersion = 8;</script><![endif]-->
 
     <!--[if IE 8]>
       <script type="text/javascript">
@@ -90,8 +94,11 @@
       <p>For a safer, faster, better experience online you should upgrade your browser. <a href="https://www.gov.uk/support/browsers">Find out more about browsers</a> <a href="#" class="dismiss" title="Dismiss this message">Close</a></p>
     </div>
 
-    <div id="wrapper" class="group">
-      <%= yield %>
+    <div id="transition-wrapper" class="group">
+      <div class="transition-inner<%= page_class %>">
+        <div class="top-bar"></div>
+        <%= yield %>
+      </div>
     </div>
 
     <footer class="group js-footer" id="footer" role="contentinfo">
@@ -154,6 +161,7 @@
 
       </div>
     </footer>
+    <%= javascript_include_tag "frontend" %>
   </body>
 </html>
 
