@@ -1,0 +1,24 @@
+body {
+  background: $white;
+}
+#transition-wrapper {
+  border-bottom: $gutter-one-third solid $transition-brand;
+
+  .transition-inner {
+    width: $max-site-width + (2*$gutter);
+    margin: 0 auto;
+  }
+
+  .top-bar {
+    border-top: $gutter-one-third solid $transition-brand;
+    max-width: $max-site-width;
+    margin: 0 $gutter-half;
+
+    @include media(tablet){
+      margin: 0 $gutter;
+    }
+    @include media($min-width: $max-site-width + $gutter*2){
+      margin: 0 auto;
+    }
+  }
+}

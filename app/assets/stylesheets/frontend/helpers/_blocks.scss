@@ -1,0 +1,14 @@
+.block {
+  .inner-block {
+    padding: 0 $gutter;
+  }
+
+  &.floated-children {
+    .inner-block {
+      padding: 0 $gutter-half;
+    }
+  }
+}
+.header-block {
+  margin: $gutter 0;
+}

@@ -1,0 +1,52 @@
+.chart {
+  position: relative;
+  height: 300px;
+  margin-bottom: 1em;
+
+  .ok { background-color: lighten($grey-2, 20%); }
+  .redirect { background-color: $grey-2; }
+  .gone { background-color: $orange; }
+  .error { background-color: $red; }
+
+  ul {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    float: left;
+
+    li {
+      list-style: none;
+      overflow: hidden;
+      text-indent: 9999px;
+    }
+  }
+
+  a:hover {
+    opacity: 0.8;
+  }
+
+  &.progress {
+    .bar {
+      background-image: none;
+    }
+    .bar-301 {
+      background-color: #969696;
+    }
+    .bar-200,
+    .bar-206,
+    .bar-304 {
+      background-color: #BDBDBD;
+    }
+    .bar-410 {
+      background-color: #636363;
+    }
+    .bar-400,
+    .bar-404,
+    .bar-403,
+    .bar-418,
+    .bar-501,
+    .bar-503 {
+      background-color: #FFC8C8;
+    }
+  }
+}
