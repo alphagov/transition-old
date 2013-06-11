@@ -38,4 +38,9 @@ module ApplicationHelper
       "#{words} since launch"
     end
   end
+
+  def page_class
+    controller_name = controller.controller_path.gsub('/', '-').gsub('_', '-')
+    " #{controller_name}-#{controller.action_name}"
+  end
 end

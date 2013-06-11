@@ -1,0 +1,16 @@
+<%
+bar_width = 4
+left = 0;
+%>
+
+<div class="hit-graph js-pages-graph">
+  <h2 class="js-hidden">Percentage range: <span class="max"><%= number_to_percentage((@most_recent_hit_data.hits.first.count / @most_recent_hit_data.total_hits.to_f) * 100.0, precision: 2) %></span> to <span class="min">0%</span></h2>
+  <ul>
+    <% @most_recent_hit_data.hits.take(180).each.with_index do |hit,i| %>
+      <li class="<%= categorize_http_status(hit.http_status) %>">
+      <a href="#hit-<%= i %>" style="left:<%= left %>px; height:<%= number_to_percentage((hit.count / @most_recent_hit_data.biggest_hit_count.to_f) * 100.0, precision: 2) %>" title="<%= 'http://' + hit.host.host + hit.path %>"><%= hit.id %></a>
+      <% left += (bar_width + 1) %>
+    <% end %>
+  </ul>
+  <p class="tooltip"></p>
+</div>

@@ -9,7 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require dashboard.scss
+ *= require _organisation.scss
+ *= require _status_charts.scss
+ *= require _status_colours.scss
+ *= require scaffolds.css
  */
 @import "bootstrap";
 @import "bootstrap-responsive";
