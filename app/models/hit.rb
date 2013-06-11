@@ -40,9 +40,13 @@ class Hit < ActiveRecord::Base
     scoped.order('count desc').order(:http_status, :path).order('hit_on desc')
   end
 
+  def self.unique_pages_and_statuses
+    scoped.select('hits.host_id, hits.path, sum(hits.count) as count, hits.http_status').group(:host_id, :path, :http_status)
+  end
+
   def self.most_recent_hit_on_date(opts = {})
     opts = {
-      from_aggregate: false, 
+      from_aggregate: false,
       fallback_date: Date.today
     }.merge(opts)
     if opts[:from_aggregate]
@@ -54,6 +58,10 @@ class Hit < ActiveRecord::Base
 
   def self.most_recent_hits(hit_on_date = most_recent_hit_on_date)
     scoped.where(hit_on: hit_on_date.beginning_of_day.to_date)
+  end
+  
+  def self.in_date_range(start_date, end_date)
+    scoped.where(hit_on: start_date.beginning_of_day...end_date.end_of_day)
   end
 
   def self.most_hits(opts = {})

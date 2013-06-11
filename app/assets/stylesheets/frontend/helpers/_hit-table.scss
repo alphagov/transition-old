@@ -1,0 +1,50 @@
+.hit-table {
+  margin-top: $gutter;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+
+  th {
+    font-weight: bold;
+    border-bottom: 2px solid $border-colour;
+  }
+  td {
+    border-bottom: 1px solid $border-colour;
+    padding: 5px 8px 3px;
+  }
+  
+  &.show-error {
+    tbody tr { display: none; }
+    tr.error { display: table-row; }
+  }
+  &.show-gone {
+    tbody tr { display: none; }
+    tr.gone { display: table-row; }
+  }
+  &.show-redirect {
+    tbody tr { display: none; }
+    tr.redirect { display: table-row; }
+  }
+  &.show-ok {
+    tbody tr { display: none; }
+    tr.ok { display: table-row; }
+  }
+
+  .ok { }
+  .redirect { }
+  .gone {
+    background: $gone-background-colour;
+  }
+  .error {
+    background: $error-background-colour;
+  }
+
+  .actions {
+    a {
+      display: inline-block;
+      background: $grey-3;
+      padding: 0 5px;
+      @include border-radius(5px);
+    }
+  }
+}

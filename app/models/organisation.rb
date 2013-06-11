@@ -32,6 +32,10 @@ class Organisation < ActiveRecord::Base
       group('organisations.id')
   end
 
+  def weekly_totals
+    self.totals.aggregated_by_week_and_site
+  end
+
   def self.manages_own_redirects
     scoped.where(manages_own_redirects: true)
   end
