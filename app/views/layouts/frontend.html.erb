@@ -78,7 +78,9 @@
             <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
             <nav id="proposition-menu"><a href="/" id="proposition-name">Transition</a>
             <ul id="proposition-links">
-              <li><a href="/" class="">Dashboard</a></li>
+              <li><a href="/pages">Organisations</a></li>
+              <li class="clear-child"><%= link_to "Signed in as #{current_user.name}", Plek.current.find('signon') %></li>
+              <li><%= link_to 'Sign out', gds_sign_out_path %></li>
             </ul></nav>
           </div>
         </div>

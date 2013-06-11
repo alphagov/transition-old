@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   layout 'frontend'
 
   def index
+    @orgs = Organisation.gds_manages_redirects.with_counts.order("launch_date asc")
   end
 
   def show

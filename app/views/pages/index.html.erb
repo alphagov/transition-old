@@ -1,0 +1,11 @@
+<div class="block">
+  <div class="inner-block">
+    <ul class="organisations">
+      <% @orgs.each do |organisation| %>
+        <%= content_tag_for :li, organisation do %>
+          <%= link_to content_tag(:span, organisation.abbr), page_path(organisation) %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
