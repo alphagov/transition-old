@@ -27,11 +27,6 @@
   <%= render 'dashboard/organisation', organisation: OrganisationData.new(@organisation), full_meta_data: true %>
 </section>
 
-<section class="hits">
-  <h1>Top 100 hits for <%= @hit_data.hits.most_recent_hit_on_date %></h1>
-  <%= render 'hits/top_100', hits: @hit_data.hits %>
-</section>
-
 <section class="sites">
   <h1>Sites</h1>
 

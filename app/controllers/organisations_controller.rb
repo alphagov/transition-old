@@ -22,7 +22,6 @@ class OrganisationsController < ApplicationController
   # GET /organisations/1.json
   def show
     @organisation = Organisation.find_by_abbr(params[:id])
-    @hit_data = MostRecentHitData.new(@organisation.hits, @organisation.hits.most_recent_hit_on_date)
 
     respond_to do |format|
       format.html # show.html.erb
