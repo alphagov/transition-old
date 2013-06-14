@@ -1,4 +1,5 @@
 class OrganisationsController < ApplicationController
+  layout 'frontend'
   # GET /organisations
   # GET /organisations.json
   def index
@@ -7,10 +8,13 @@ class OrganisationsController < ApplicationController
     orgs = Organisation.includes(:sites => :hosts)
     @forthcoming_organisations = orgs.order("launch_date asc").where("launch_date >= ?", today)
     @already_live_organisations = orgs.order("launch_date desc").where("launch_date < ?", today)
+    @organisations = []
+    @organisations << ["forthcoming", @forthcoming_organisations] if @forthcoming_organisations.length > 0
+    @organisations << ["live", @already_live_organisations] if @already_live_organisations.length > 0
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @organisations }
+      format.json { render json: orgs }
     end
   end
 
