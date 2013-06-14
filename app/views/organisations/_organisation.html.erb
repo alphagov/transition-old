@@ -1,19 +1,10 @@
-<h3 id="<%= organisation.abbr %>" class="organisation <%= organisation.css || "" %>"><%= link_to content_tag(:span, organisation.title), organisation %></h3>
+<%= content_tag_for :div, organisation, class: 'organisation-logo' do %>
+  <h3 id="<%= organisation.abbr %>" class="organisation <%= organisation.css || "" %>"><span><%= organisation.title %></h3>
 
-<p><%= days_until_launch(organisation) %> (<i><%= organisation.launch_date %></i>)
+  <p class="launch-date"><strong>Launch date:</strong> <%= organisation.launch_date.to_s(:long_ordinal) %></p>
 
-
-        <%= link_to organisation.homepage, organisation.homepage %>
-        <%= link_to organisation.furl, organisation.furl %>
-</p>
-<ul>
-<% organisation.sites.each do |site| %>
-  <li>
-  <%= link_to site.site, "/sites/#{site.site}" %>
-  <%= pluralize(site.hosts.count, "host") %>:
-  <%= site.hosts.map do |host| %>
-    <% link_to host.host, "/hosts/#{host.host}" %>
-  <% end.to_sentence.html_safe %>
-  </li>
+  <ul class="actions">
+    <li><%= link_to "View requests", page_path(organisation) %></li>
+    <li><%= link_to "View organisation details", organisation_path(organisation) %></li>
+  </ul>
 <% end %>
-</ul>

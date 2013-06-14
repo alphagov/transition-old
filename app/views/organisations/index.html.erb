@@ -1,29 +1,21 @@
-<% if @forthcoming_organisations.length > 0 %>
-<div id="forthcoming" class="row-fluid">
-  <div class="span3">
-    <h2 class="count"><%= @forthcoming_organisations.length %></h2>
-    <p>organisations are forthcoming</p>
-  </div>
-  <ul class="organisations span9">
-    <% @forthcoming_organisations.each do |organisation| %>
-    <li>
-      <%= render partial: 'organisation', locals: { organisation: organisation } %>
-    </li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
+<% @organisations.each do |title, orgs| %>
+  <div class="block organisations-list floated-children">
+    <div class="inner-block">
 
-<div id="live" class="row-fluid">
-  <div class="span3">
-    <h2 class="count"><%= @already_live_organisations.length %></h2>
-    <p>organisations are already live</p>
+      <div class="section-heading">
+        <h2><strong><%= orgs.length %></strong> Organisations are <%= title %></h2>
+      </div>
+
+      <div class="org-list">
+        <ul class="organisations">
+          <% orgs.each do |organisation| %>
+            <li class="organisation">
+              <%= render partial: 'organisation', locals: { organisation: organisation } %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
   </div>
-  <ul class="organisations span9">
-    <% @already_live_organisations.each do |organisation| %>
-    <li>
-      <%= render partial: 'organisation', locals: { organisation: organisation } %>
-    </li>
-    <% end %>
-  </ul>
-</div>
+<% end %>
