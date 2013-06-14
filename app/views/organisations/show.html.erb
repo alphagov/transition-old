@@ -1,54 +1,63 @@
-<p id="notice"><%= notice %></p>
-<section id="details">
-  <%= render_organisation_title @organisation %>
+<div class="block">
+  <div class="inner-block">
+    <div class="organisation-logo">
+      <h1 class="organisation<%= " #{@organisation.css}" if @organisation.css.present? %>">
+        <span><%= @organisation.title %></span>
+      </h1>
+    </div>
 
-  <p>
-    <b>Abbreviation:</b>
-    <%= @organisation.abbr %>
-  </p>
+    <p class="requests-link"><%= link_to "View organisation requests", page_path(@organisation) %></p>
 
-  <p>
-    <b>Launch date:</b>
-    <%= @organisation.launch_date %>
-  </p>
+    <dl class="org-info">
+      <dt>Launch date:</dt>
+      <dd><%= @organisation.launch_date.to_s(:long_ordinal) %></dd>
+      <dt>Homepage:</dt>
+      <dd><%= link_to @organisation.homepage %></dd>
+      <dt>FURL:</dt>
+      <dd><%= link_to @organisation.furl, 'http://'+@organisation.furl %></dd>
+    </dl>
 
-  <p>
-    <b>Homepage:</b>
-    <%= link_to @organisation.homepage %>
-  </p>
+    <h2>Sites</h2>
 
-  <p>
-    <b>FURL:</b>
-    <%= link_to @organisation.furl, 'http://'+@organisation.furl %>
-  </p>
-</section>
+    <% @organisation.sites.each do |site| %>
+      <%= content_tag_for :div, site do %>
+        <h3><%= site.site %></h3>
+        <p class="requests-link"><%= link_to "View #{site.site} requests", page_path(@organisation, site: site.id) %></p>
 
-<section class="dashboard">
-  <%= render 'dashboard/organisation', organisation: OrganisationData.new(@organisation), full_meta_data: true %>
-</section>
+        <dl>
+          <dt>Homepage:</dt>
+          <dd><%= link_to site.homepage %></dd>
 
-<section class="sites">
-  <h1>Sites</h1>
+          <% unless site.query_params.empty? %>
+            <dt>query_params:</dt>
+            <dd><%= site.query_params %>
+          <% end %>
 
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Site</th>
-        <th>Homepage</th>
-        <th>Query params</th>
-        <th>TNA timestamp</th>
-      </tr>
-    </thead>
+          <dt>TNA Timestamp</dt>
+          <dd><%= site.tna_timestamp %></dd>
+        </dl>
 
-    <tbody>
-      <% @organisation.sites.each do |site| %>
-        <tr>
-          <td><%= link_to site.site, site %></td>
-          <td><%= link_to site.homepage, site.homepage %></td>
-          <td><%= site.query_params %></td>
-          <td><%= site.tna_timestamp %></td>
-        </tr>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 40%;">Host</th>
+              <th style="width: 10%;">TTL</th>
+              <th style="width: 35%;">CNAME</th>
+              <th style="width: 15%;">Live CNAME</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% site.hosts.each do |host| %>
+              <tr>
+                <td><%= host.host %></td>
+                <td><%= host.ttl %></td>
+                <td><%= host.cname %></td>
+                <td><%= host.live_cname %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       <% end %>
-    </tbody>
-  </table>
-</section>
+    <% end %>
+  </div>
+</div>
