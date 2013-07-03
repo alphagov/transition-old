@@ -36,3 +36,7 @@ group :test do
   gem 'poltergeist'
   gem 'webmock', require: false
 end
+
+group :development, :test do
+  gem 'rspec-rails'
+end
