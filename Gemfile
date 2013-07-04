@@ -36,6 +36,7 @@ group :test do
   gem 'poltergeist'
   gem 'webmock', require: false
   gem 'shoulda-matchers'
+  gem 'launchy'
 end
 
 group :development, :test do

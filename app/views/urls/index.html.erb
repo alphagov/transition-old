@@ -1,0 +1,16 @@
+<h1><%= link_to @organisation.title, @organisation %></h1>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Url</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @urls.each do |url| %>
+      <tr>
+        <td><%= url.url %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
