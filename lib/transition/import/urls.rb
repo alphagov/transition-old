@@ -5,6 +5,7 @@ module Transition
     class Urls
       def self.import!(site_abbr, filename)
         site = Site.find_by_site!(site_abbr)
+        successes, failures = 0, 0
         CsvMapper.import(filename) do
           map_to Url
           named_columns
@@ -13,9 +14,16 @@ module Transition
 
           after_row lambda { |row, url|
             url.site = site
-            url.save!
+            if (url.save rescue false)
+              successes += 1
+            else
+              puts "#{url.errors.messages.inspect}: #{row.inspect}" unless ( url.save rescue false )
+              failures += 1
+            end
           }
         end
+
+        puts "#{successes} successfully imported, #{failures} failed."
       end
     end
   end
