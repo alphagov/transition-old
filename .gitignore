@@ -15,4 +15,4 @@
 /tmp
 
 # Ignore local checkouts of the redirector, etc
-/data
+/data/redirector
