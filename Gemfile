@@ -16,6 +16,7 @@ gem 'htmlentities'
 gem 'whenever'
 
 gem 'activerecord-import'
+gem 'rgarner-csv-mapper'
 
 # Gems used only for assets and not required in production
 # environments by default.
