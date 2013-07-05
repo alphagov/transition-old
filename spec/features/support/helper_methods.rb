@@ -8,20 +8,7 @@ module HelperMethods
         row.each_with_index do |expected_text, cell_idx|
           xpath = "tr[#{row_idx + 1}]/*[not (contains(@class, 'hidden'))][#{cell_idx + 1}]"
           elem = find(:xpath, xpath)
-          if expected_text.start_with?('selected:')
-            selected_text = expected_text.sub('selected:', '')
-            elem.should have_xpath(".//select/option[@selected and text()='#{selected_text}']")
-          elsif expected_text.start_with?('options:')
-            options = expected_text.sub('options:', '').split(',')
-            options.each do |option|
-              elem.should have_xpath(".//select/option[text()='#{option.strip}']")
-            end
-          elsif expected_text.start_with?('field:')
-            field_value = expected_text.sub('field:', '')
-            elem.should have_xpath(".//input[@value='#{field_value}']")
-
-          # The following is so that we can see the xpath for the failing selector
-          elsif expected_text != '*'
+          if expected_text != '*'
             # need to use xpath if we're in a js test in order to have waiting applied
             # Xpath doesn't appear to handle a forward slash so we're cheating
             if page.driver.class == Capybara::Poltergeist::Driver and elem.text.exclude?('/')
