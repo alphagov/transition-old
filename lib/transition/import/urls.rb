@@ -17,7 +17,7 @@ module Transition
             if (url.save rescue false)
               successes += 1
             else
-              puts "#{url.errors.messages.inspect}: #{row.inspect}" unless ( url.save rescue false )
+              puts "#{url.errors.messages.inspect}: #{row.inspect}"
               failures += 1
             end
           }
