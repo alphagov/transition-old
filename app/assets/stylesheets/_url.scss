@@ -13,6 +13,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    td.selected {
+      font-weight: bold;
+      background-color: #99CCFF;
+    }
   }
 }
 
