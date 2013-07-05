@@ -6,6 +6,7 @@
 # being able to dig for the cname of each host
 
 set -x
+git submodule sync
 bundle exec rake db:drop db:create db:migrate db:seed
 bundle exec rake 'import_totals[data/transition-stats/totals/*.tsv]'
 bundle exec rake 'import_hits[data/transition-stats/hits/*.tsv]'
