@@ -1,0 +1,22 @@
+.adjacent_urls {
+  width: 600px;
+  th {
+    line-height: 11px;
+  }
+  tr {
+    td {
+      max-width: 550px;
+      line-height: 6px;
+      font-size: 10px;
+      padding: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.preview {
+  width: 100%;
+  height: 700px;
+}

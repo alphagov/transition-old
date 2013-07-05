@@ -9,7 +9,7 @@
   <tbody>
     <% @urls.each do |url| %>
       <tr>
-        <td><%= url.url %></td>
+        <td><%= link_to url.url, organisation_url_path(@organisation, url) %></td>
       </tr>
     <% end %>
   </tbody>

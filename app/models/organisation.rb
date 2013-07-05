@@ -33,6 +33,24 @@ class Organisation < ActiveRecord::Base
       group('organisations.id')
   end
 
+  # grab the closest urls either side of the given url
+  def adjacent_urls(url, count = 15)
+    url_list = self.urls.where('urls.id < ?', url.id).order('sites.id desc, urls.id desc').limit(count - 1)
+    url_list.reverse!
+    url_list << url
+    url_list += self.urls.where('urls.id > ?', url.id).order('sites.id asc, urls.id asc').limit(count - 1)
+    url_position = url_list.find_index(url)
+    start_slice = url_position - (count / 2)
+    start_slice = 0 if start_slice < 0
+    end_slice = start_slice + count - 1
+    if end_slice > (url_list.size - 1)
+      start_slice = start_slice - end_slice + url_list.size - 1
+      start_slice = 0 if start_slice < 0
+      end_slice = url_list.size
+    end
+    url_list.slice(start_slice..end_slice)
+  end
+
   def weekly_totals
     self.totals.aggregated_by_week_and_site
   end
