@@ -1,0 +1,6 @@
+[submodule "data/redirector"]
+	path = data/redirector
+	url = git@github.com:alphagov/redirector.git
+[submodule "data/transition-stats"]
+	path = data/transition-stats
+	url = git@github.com:alphagov/transition-stats.git
