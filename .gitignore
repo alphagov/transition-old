@@ -15,4 +15,5 @@
 /tmp
 
 # Ignore local checkouts of the redirector, etc
-/data/redirector
+/data
+!/data/urls
