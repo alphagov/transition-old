@@ -15,11 +15,11 @@ feature "View url for an organisation" do
 
     page.should have_link('DFID', href: organisation_path(@organisation))
     should_have_table 'table thead', [
-      ['*', 'Url']]
+      ['Url']]
     should_have_table 'table tbody', [
-      ['1', 'http://www.naturalengland.org.uk/'],
-      ['2', 'http://www.naturalengland.org.uk/about_us/default.aspx'],
-      ['3', 'http://www.naturalengland.org.uk/contact_us']]
+      ['http://www.naturalengland.org.uk/'],
+      ['http://www.naturalengland.org.uk/about_us/default.aspx'],
+      ['http://www.naturalengland.org.uk/contact_us']]
     page.should have_xpath("//iframe[@src='#{@url1.url}']")
   end
 end

@@ -2,15 +2,13 @@
 <table class="table table-bordered table-striped adjacent_urls">
   <thead>
     <tr>
-      <th></th>
       <th>Url</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @organisation.adjacent_urls(@url).each_with_index do |url, i| %>
+    <% @organisation.adjacent_urls(@url).each do |url, i| %>
       <tr>
-        <td><%= i + 1 %></td>
         <td><%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %></td>
       </tr>
     <% end %>
