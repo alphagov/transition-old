@@ -5,6 +5,7 @@ class Site < ActiveRecord::Base
   has_many :hits, through: :hosts
   has_many :totals, through: :hosts
   has_many :mappings
+  has_many :urls, dependent: :restrict
 
   def aggregated_hits
     self.hits.aggregated
