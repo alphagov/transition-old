@@ -3,7 +3,7 @@ require 'csv-mapper'
 module Transition
   module Import
     class Urls
-      def self.import!(site_abbr, filename)
+      def self.from_csv!(site_abbr, filename)
         site = Site.find_by_site!(site_abbr)
         successes, failures = 0, 0
         CsvMapper.import(filename) do
