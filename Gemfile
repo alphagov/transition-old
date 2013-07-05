@@ -16,6 +16,7 @@ gem 'htmlentities'
 gem 'whenever'
 
 gem 'activerecord-import'
+gem 'rgarner-csv-mapper'
 
 # Gems used only for assets and not required in production
 # environments by default.
@@ -28,15 +29,17 @@ group :assets do
 end
 
 group :test do
-  gem 'cucumber-rails', require: false
   gem 'capybara', '~> 1.1.0', require: false
   gem 'factory_girl_rails', '4.1.0'
   gem 'ci_reporter', '1.8.0'
   gem 'database_cleaner', '0.9.1'
   gem 'poltergeist'
   gem 'webmock', require: false
+  gem 'shoulda-matchers'
+  gem 'launchy'
 end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'debugger'
 end
