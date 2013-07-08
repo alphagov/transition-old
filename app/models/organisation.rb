@@ -42,12 +42,12 @@ class Organisation < ActiveRecord::Base
 
     url_position = url_list.find_index(url)
     start_slice = [url_position - (count / 2), 0].max
-    end_slice = start_slice + count - 1
-    if end_slice > (url_list.size - 1)
-      start_slice = [start_slice - end_slice + url_list.size - 1, 0].max
-      end_slice = url_list.size
+    end_slice = start_slice + count
+    if end_slice > url_list.size
+      start_slice = [start_slice - end_slice + url_list.size, 0].max
+      end_slice = url_list.size + 1
     end
-    url_list.slice(start_slice..end_slice)
+    url_list.slice(start_slice...end_slice)
   end
 
   def weekly_totals
