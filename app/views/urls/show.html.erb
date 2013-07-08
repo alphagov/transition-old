@@ -9,7 +9,7 @@
 
   <%= form_for :url, method: 'PUT' do %>
       <ul class="destinies pane">
-        <li><%= destiny_button :manual %></li>
+        <li><%= destiny_button :manual %><%= text_field_tag :new_url, @url.new_url %></li>
         <li><%= destiny_button :scrape %></li>
         <li><%= destiny_button :archive %></li>
       </ul>

@@ -17,7 +17,12 @@ class UrlsController < ApplicationController
   def update
     destiny = params[:destiny].to_sym
     url = Url.find_by_id(params[:id])
-    url.process_event!(destiny)
+    case destiny
+      when :manual
+        url.manual!(params[:new_url])
+      else
+        url.process_event!(destiny)
+    end
 
     redirect_to organisation_url_path(url.site.organisation, url.next)
   end

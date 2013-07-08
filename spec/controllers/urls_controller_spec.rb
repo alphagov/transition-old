@@ -7,10 +7,11 @@ describe UrlsController do
     @site = create :site, organisation: @organisation
     @url = create :url, site: @site
     @url2 = create :url, site: @site
+    @host = create :host, site: @site, host: 'www.ministry-of-funk.org'
   end
 
   describe :index do
-    it "should populate organisation and urls" do
+    it 'populates organisation and urls' do
       get :index, organisation_id: @organisation
       assigns(:organisation).should == @organisation
       assigns(:urls).should == [@url, @url2]
@@ -18,7 +19,7 @@ describe UrlsController do
   end
 
   describe :show do
-    it "should populate organisation and url" do
+    it 'populates organisation and url' do
       get :show, organisation_id: @organisation, id: @url
       assigns(:organisation).should == @organisation
       assigns(:url).should == @url
@@ -37,6 +38,21 @@ describe UrlsController do
 
         it 'redirects to the next url in the list' do
           response.should redirect_to(organisation_url_path(@organisation, @url2))
+        end
+      end
+
+      context 'with a mapping URL' do
+        let(:test_destination) { 'http://gov.uk/somewhere' }
+
+        before do
+          post :update, organisation_id: @organisation, id: @url, destiny: 'manual', new_url: test_destination
+        end
+
+        describe 'the URL' do
+          subject { Url.find_by_id(@url.id) }
+
+          it { should be_manual }
+          its(:new_url) { should eql(test_destination) }
         end
       end
     end

@@ -27,12 +27,17 @@
 
   .destinies {
     list-style: none;
-    padding: 0 2.5em 0 2.5em;
+    padding: 0.5em 2.5em 0 2.5em;
     margin-left: auto;
     margin-right: auto;
+
     li {
       font-size: 3em;
-      display: inline-block;
+      margin-bottom: 0.5em;
+
+      input[type=text] {
+        margin-top: 0.5em;
+      }
     }
 
     button {
@@ -40,6 +45,7 @@
       &.manual {
         background-color: $manual-color;
         &:hover { background-color: $manual-dark }
+        margin-right: 1em;
       }
       &.archive {
         background-color: $archive-color;
