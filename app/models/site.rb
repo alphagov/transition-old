@@ -7,6 +7,23 @@ class Site < ActiveRecord::Base
   has_many :mappings
   has_many :urls, dependent: :restrict
 
+  # grab the closest urls either side of the given url
+  def adjacent_urls(url, count = 15)
+    ordered_urls = urls.order('urls.id ASC')
+    earlier_urls = ordered_urls.where('urls.id < ?', url.id).last(count - 1)
+    later_urls = ordered_urls.where('urls.id > ?', url.id).first(count - 1)
+    url_list = earlier_urls + [url] + later_urls
+
+    url_position = url_list.find_index(url)
+    start_slice = [url_position - (count / 2), 0].max
+    end_slice = start_slice + count
+    if end_slice > url_list.size
+      start_slice = [url_list.size - count, 0].max
+      end_slice = url_list.size + 1
+    end
+    url_list.slice(start_slice...end_slice)
+  end
+
   def aggregated_hits
     self.hits.aggregated
   end
