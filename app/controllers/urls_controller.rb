@@ -21,8 +21,9 @@ class UrlsController < ApplicationController
       when :manual
         url.manual!(params[:new_url])
       else
-        url.process_event!(destiny)
+        url.workflow_state = destiny
     end
+    url.save!
 
     redirect_to organisation_url_path(url.site.organisation, url.next)
   end

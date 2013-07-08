@@ -33,7 +33,7 @@ describe UrlsController do
 
         describe 'the URL' do
           subject(:url) { Url.find_by_id(@url.id) }
-          it { should be_manual }
+          its(:workflow_state) { should eql(:manual) }
         end
 
         it 'redirects to the next url in the list' do
@@ -51,7 +51,7 @@ describe UrlsController do
         describe 'the URL' do
           subject { Url.find_by_id(@url.id) }
 
-          it { should be_manual }
+          its(:workflow_state) { should eql(:manual) }
           its(:new_url) { should eql(test_destination) }
         end
       end

@@ -14,21 +14,25 @@ describe Url do
   end
 
   describe 'URL workflow' do
-    subject(:url) { FactoryGirl.create(:url) }
+    it 'should default to new' do
+      Url.new.workflow_state.should == :new
+    end
 
-    it { should be_new }
+    subject(:url) { create(:url) }
+
+    its(:workflow_state) { should eql(:new) }
 
     describe 'archiving URLs' do
       before { url.archive! }
 
-      it { should be_archived }
+      its(:workflow_state) { should eql(:archive) }
     end
 
     describe 'Indicating URLs will have manual content for them' do
       context "when we don''t have a to_url" do
         it 'should be manual' do
           url.manual!
-          url.should be_manual
+          url.workflow_state.should == :manual
         end
 
         it 'creates no mapping' do
@@ -43,7 +47,7 @@ describe Url do
         it 'should be manual' do
           url.should_receive(:set_mapping_url).with(to_url)
           url.manual!(to_url)
-          url.should be_manual
+          url.workflow_state.should == :manual
         end
       end
     end
