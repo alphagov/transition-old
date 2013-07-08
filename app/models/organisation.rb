@@ -35,10 +35,11 @@ class Organisation < ActiveRecord::Base
 
   # grab the closest urls either side of the given url
   def adjacent_urls(url, count = 15)
-    url_list = self.urls.where('urls.id < ?', url.id).order('sites.id desc, urls.id desc').limit(count - 1)
-    url_list.reverse!
-    url_list << url
-    url_list += self.urls.where('urls.id > ?', url.id).order('sites.id asc, urls.id asc').limit(count - 1)
+    ordered_urls = urls.order('sites.id ASC, urls.id ASC')
+    earlier_urls = ordered_urls.where('urls.id < ?', url.id).last(count - 1)
+    later_urls = ordered_urls.where('urls.id > ?', url.id).first(count - 1)
+    url_list = earlier_urls + [url] + later_urls
+
     url_position = url_list.find_index(url)
     start_slice = url_position - (count / 2)
     start_slice = 0 if start_slice < 0
