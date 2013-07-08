@@ -1,19 +1,21 @@
-<table class="table table-bordered table-striped adjacent_urls">
-  <thead>
-    <tr>
-      <th>Url</th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="controls">
+  <ul class="urls pane">
     <% @organisation.adjacent_urls(@url).each do |url| %>
-      <tr>
-        <%= content_tag :td, class: @url == url ? 'selected' : nil do %>
-          <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
-        <% end %>
-      </tr>
+        <li>
+          <%= content_tag :td, class: @url == url ? 'selected' : nil do %>
+              <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
+          <% end %>
+        </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+
+  <%= form_for :url do %>
+      <ul class="destinies pane">
+        <li><button class="manual">Manual</button></li>
+        <li><button class="scrape">Scrape</button></li>
+        <li><button class="archive">Archive</button></li>
+      </ul>
+  <% end %>
+</div>
 
 <iframe src="<%= @url.url %>" class="preview"/>

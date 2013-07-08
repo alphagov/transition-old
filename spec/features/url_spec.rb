@@ -14,12 +14,7 @@ feature "View url for an organisation" do
     visit organisation_url_path(@organisation, @url2)
 
     page.should have_link('DFID', href: organisation_path(@organisation))
-    should_have_table 'table thead', [
-      ['Url']]
-    should_have_table 'table tbody', [
-      ['http://www.naturalengland.org.uk/'],
-      ['http://www.naturalengland.org.uk/about_us/default.aspx'],
-      ['http://www.naturalengland.org.uk/contact_us']]
+
     page.should have_link(@url1.url, href: organisation_url_path(@organisation, @url1))
     page.should_not have_link(@url2.url)
     page.should have_link(@url3.url, href: organisation_url_path(@organisation, @url3))
