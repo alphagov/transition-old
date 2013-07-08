@@ -10,6 +10,7 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
   <%= yield :extra_headers %>
 </head>
@@ -28,6 +29,7 @@
             <%= nav_link 'Organisations', '/organisations' %>
             <%= nav_link 'Sites', '/sites' %>
             <%= nav_link 'Hosts', '/hosts' %>
+            <%= nav_link @organisation.title, organisation_path(@organisation) if @organisation %>
           </ul>
           <ul class="nav pull-right">
             <li class="dropdown">

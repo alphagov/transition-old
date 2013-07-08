@@ -9,4 +9,9 @@ class UrlsController < ApplicationController
       format.json { render json: @urls }
     end
   end
+
+  def show
+    @organisation = Organisation.find_by_abbr(params[:organisation_id])
+    @url = @organisation.urls.find_by_id(params[:id])
+  end
 end

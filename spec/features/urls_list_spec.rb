@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-feature "List of urls for a site" do
+feature "List of urls for an organisation" do
   before do
     login_as_stub_user
     @organisation = create :organisation, title: 'DFID'
