@@ -1,10 +1,11 @@
 Transition::Application.routes.draw do
   resources :organisations do
   	resources :sites
-    resources :urls, only: [:index, :show, :update]
+    resources :urls, only: [:index]
   end
 
   resources :sites do
+    resources :urls, only: [:index, :show, :update]
     get :hits_download, on: :member
     resources :mappings, only: [:index]
   end

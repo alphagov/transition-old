@@ -7,7 +7,7 @@ class Url < ActiveRecord::Base
   validates :site, presence: true
 
   def next
-    Url.where('id > ?', id).order('id ASC').first
+    site.urls.where('id > ?', id).order('id ASC').first
   end
 
   def workflow_state

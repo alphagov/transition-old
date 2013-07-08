@@ -11,13 +11,13 @@ feature "View url for an organisation" do
   end
 
   scenario "Url page with adjacent urls and iframe" do
-    visit organisation_url_path(@organisation, @url2)
+    visit site_url_path(@site, @url2)
 
     page.should have_link('DFID', href: organisation_path(@organisation))
 
-    page.should have_link(@url1.url, href: organisation_url_path(@organisation, @url1))
+    page.should have_link(@url1.url, href: site_url_path(@site, @url1))
     page.should_not have_link(@url2.url)
-    page.should have_link(@url3.url, href: organisation_url_path(@organisation, @url3))
+    page.should have_link(@url3.url, href: site_url_path(@site, @url3))
     page.should have_xpath("//iframe[@src='#{@url2.url}']")
   end
 end
