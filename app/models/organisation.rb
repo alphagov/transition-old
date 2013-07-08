@@ -41,12 +41,10 @@ class Organisation < ActiveRecord::Base
     url_list = earlier_urls + [url] + later_urls
 
     url_position = url_list.find_index(url)
-    start_slice = url_position - (count / 2)
-    start_slice = 0 if start_slice < 0
+    start_slice = [url_position - (count / 2), 0].max
     end_slice = start_slice + count - 1
     if end_slice > (url_list.size - 1)
-      start_slice = start_slice - end_slice + url_list.size - 1
-      start_slice = 0 if start_slice < 0
+      start_slice = [start_slice - end_slice + url_list.size - 1, 0].max
       end_slice = url_list.size
     end
     url_list.slice(start_slice..end_slice)
