@@ -29,6 +29,10 @@ describe Organisation do
       urls = @organisation.adjacent_urls(@url3, 3)
       urls.should == [@url2, @url3, @url4]
     end
+    it "should return 4 urls with @url3 in the third position" do
+      urls = @organisation.adjacent_urls(@url3, 4)
+      urls.should == [@url1, @url2, @url3, @url4]
+    end
     it "should return 5 urls with @url9 in the fourth position" do
       urls = @organisation.adjacent_urls(@url9, 5)
       urls.should == [@url6, @url7, @url8, @url9, @url10]
