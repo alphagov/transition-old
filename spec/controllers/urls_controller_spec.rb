@@ -46,7 +46,7 @@ describe UrlsController do
         end
 
         it 'redirects to the next url in the list' do
-          response.should redirect_to(site_url_path(@organisation, @url2))
+          response.should redirect_to(site_url_path(@site1, @url2))
         end
       end
 
