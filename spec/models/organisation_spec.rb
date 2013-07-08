@@ -10,6 +10,32 @@ describe Organisation do
     it { should have_many(:urls).through(:sites) }
   end
 
+  context :status_summary do
+    before :each do
+      @organisation = create :organisation
+      @site = create :site, organisation: @organisation
+      create(:url, site: @site, workflow_state: "new")
+      create(:url, site: @site, workflow_state: "manual")
+      create(:url, site: @site, workflow_state: "manual")
+      create(:url, site: @site, workflow_state: "redirected")
+      create(:url, site: @site, workflow_state: "redirected")
+      create(:url, site: @site, workflow_state: "redirected")
+      create(:url, site: @site, workflow_state: "archived")
+      create(:url, site: @site, workflow_state: "archived")
+      create(:url, site: @site, workflow_state: "archived")
+      create(:url, site: @site, workflow_state: "archived")
+    end
+
+    it "should summarise the workflow state of urls" do
+      @organisation.summarise_url_state.should == {
+        "new" => 1,
+        "manual" => 2,
+        "redirected" => 3,
+        "archived" => 4
+      }
+    end
+  end
+
   context :adjacent_urls do
     before :each do
       @organisation = create :organisation
