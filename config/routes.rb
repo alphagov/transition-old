@@ -1,7 +1,7 @@
 Transition::Application.routes.draw do
   resources :organisations do
   	resources :sites
-    resources :urls, only: [:index, :show]
+    resources :urls, only: [:index, :show, :update]
   end
 
   resources :sites do

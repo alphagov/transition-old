@@ -9,13 +9,13 @@
     <% end %>
   </ul>
 
-  <%= form_for :url do %>
+  <%= form_for :url, method: 'PUT' do %>
       <ul class="destinies pane">
-        <li><button class="manual">Manual</button></li>
-        <li><button class="scrape">Scrape</button></li>
-        <li><button class="archive">Archive</button></li>
+        <li><%= destiny_button :manual %></li>
+        <li><%= destiny_button :scrape %></li>
+        <li><%= destiny_button :archive %></li>
       </ul>
   <% end %>
 </div>
 
-<iframe src="<%= @url.url %>" class="preview"/>
+<iframe src="<%= @url.url %>" class="preview" />
