@@ -1,19 +1,21 @@
-<table class="table table-bordered table-striped adjacent_urls">
-  <thead>
-    <tr>
-      <th>Url</th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="controls">
+  <ul class="urls pane">
     <% @organisation.adjacent_urls(@url).each do |url| %>
-      <tr>
-        <%= content_tag :td, class: @url == url ? 'selected' : nil do %>
-          <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
-        <% end %>
-      </tr>
+        <li>
+          <%= content_tag :td, class: @url == url ? 'selected' : nil do %>
+              <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
+          <% end %>
+        </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
 
-<iframe src="<%= @url.url %>" class="preview"/>
+  <%= form_for :url, method: 'PUT' do %>
+      <ul class="destinies pane">
+        <li><%= destiny_button :manual %></li>
+        <li><%= destiny_button :scrape %></li>
+        <li><%= destiny_button :archive %></li>
+      </ul>
+  <% end %>
+</div>
+
+<iframe src="<%= @url.url %>" class="preview" />

@@ -1,16 +1,13 @@
 <h1><%= link_to @organisation.title, @organisation %></h1>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Url</th>
-    </tr>
-  </thead>
 
-  <tbody>
+<nav class="urls worklist">
+  <h2>Outstanding URLs</h2>
+
+  <ul>
     <% @urls.each do |url| %>
-      <tr>
-        <td><%= link_to url.url, organisation_url_path(@organisation, url) %></td>
-      </tr>
+      <li><%= link_to url.url, organisation_url_path(@organisation, url) %></li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+</nav>
+
+

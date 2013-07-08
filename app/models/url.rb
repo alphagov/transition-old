@@ -43,6 +43,10 @@ class Url < ActiveRecord::Base
     end
   end
 
+  def next
+    Url.where('id > ?', id).order('id ASC').first
+  end
+
   private
 
   def host
