@@ -44,7 +44,7 @@ class Organisation < ActiveRecord::Base
     start_slice = [url_position - (count / 2), 0].max
     end_slice = start_slice + count
     if end_slice > url_list.size
-      start_slice = [start_slice - end_slice + url_list.size, 0].max
+      start_slice = [url_list.size - count, 0].max
       end_slice = url_list.size + 1
     end
     url_list.slice(start_slice...end_slice)
