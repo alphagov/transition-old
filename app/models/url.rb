@@ -20,4 +20,8 @@ class Url < ActiveRecord::Base
     state :archived         # Terminal, 410
     state :redirected       # Terminal, 301
   end
+
+  def next
+    Url.where('id > ?', id).order('id ASC').first
+  end
 end
