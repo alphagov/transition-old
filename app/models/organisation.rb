@@ -74,6 +74,10 @@ class Organisation < ActiveRecord::Base
     read_attribute('hosts_count') || hosts.count
   end
 
+  def summarise_url_state
+    urls.group(:workflow_state).count
+  end
+
   def aggregated_totals
     self.totals.aggregated
   end
