@@ -1,11 +1,9 @@
 <div class="controls">
   <ul class="urls pane">
     <% @organisation.adjacent_urls(@url).each do |url| %>
-        <li>
-          <%= content_tag :td, class: @url == url ? 'selected' : nil do %>
-              <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
-          <% end %>
-        </li>
+      <%= content_tag :li, class: @url == url ? 'selected' : nil do %>
+          <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
+      <% end %>
     <% end %>
   </ul>
 

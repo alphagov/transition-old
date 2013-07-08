@@ -19,6 +19,9 @@
 
     li {
       line-height: 1.1em;
+      &.selected {
+        background-color: #99CCFF;
+      }
     }
   }
 
