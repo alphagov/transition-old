@@ -1,0 +1,19 @@
+<table class="table table-bordered table-striped adjacent_urls">
+  <thead>
+    <tr>
+      <th>Url</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organisation.adjacent_urls(@url).each do |url| %>
+      <tr>
+        <%= content_tag :td, class: @url == url ? 'selected' : nil do %>
+          <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<iframe src="<%= @url.url %>" class="preview"/>
