@@ -14,4 +14,3 @@
 //= require jquery_ujs
 //= require_tree .
 //= require ./vendor/bootstrap
-//= require turbolinks
