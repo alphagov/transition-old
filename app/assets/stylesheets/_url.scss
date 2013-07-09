@@ -16,9 +16,14 @@
     list-style: none;
     margin: 0;
     margin-bottom: 1em;
+    overflow: scroll;
+    height: 170px;
 
     li {
       line-height: 1.1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       &.selected {
         background-color: #99CCFF;
       }
