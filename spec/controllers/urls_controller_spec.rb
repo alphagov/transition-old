@@ -12,7 +12,7 @@ describe UrlsController do
     @host = create :host, site: @site1, host: 'www.ministry-of-funk.org'
   end
 
-  context :index do
+  describe :index do
     it "should populate organisation and urls when organisation_id is available" do
       get :index, organisation_id: @organisation
       assigns(:organisation).should == @organisation
@@ -27,7 +27,7 @@ describe UrlsController do
     end
   end
 
-  context :show do
+  describe :show do
     it "should populate site and url" do
       get :show, site_id: @site1, id: @url1
       assigns(:site).should == @site1
