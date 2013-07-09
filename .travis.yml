@@ -2,6 +2,8 @@ language: ruby
 rvm:
   - 1.9.3
 bundler_args: --without development
+git:
+  submodules: false
 script:
   - bundle exec rake db:schema:load
   - bundle exec rake $TEST_SUITE
