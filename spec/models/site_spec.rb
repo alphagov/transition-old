@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Site do
-  context :relationships do
+  describe 'activerecord relationships' do
     it { should belong_to(:organisation) }
     it { should have_many(:hosts) }
     it { should have_many(:hits).through(:hosts) }
@@ -10,7 +10,7 @@ describe Site do
     it { should have_many(:urls).dependent(:restrict) }
   end
 
-  context :adjacent_urls do
+  describe '#adjacent_urls' do
     before :each do
       @site = create :site
       10.times {|i| instance_variable_set("@url#{i + 1}", create(:url, site: @site)) }
