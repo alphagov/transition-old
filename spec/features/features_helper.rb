@@ -8,4 +8,4 @@ RSpec.configure do |config|
 
 end
 
-require_relative "support/helper_methods"
+Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
