@@ -1,7 +1,14 @@
 class UrlsController < ApplicationController
   def index
-    @organisation = Organisation.find_by_abbr(params[:organisation_id])
-    @urls = @organisation.urls.order(:site_id, :id)
+    if params[:site_id]
+      @site = Site.find_by_site!(params[:site_id])
+      @organisation = @site.organisation
+    else
+      @organisation = Organisation.find_by_abbr!(params[:organisation_id])
+    end
+
+    @url_org = @site || @organisation
+    @urls = @url_org.urls.order(:site_id, :id)
 
     respond_to do |format|
       format.html
@@ -10,13 +17,14 @@ class UrlsController < ApplicationController
   end
 
   def show
-    @organisation = Organisation.find_by_abbr(params[:organisation_id])
-    @url = @organisation.urls.find_by_id(params[:id])
+    @site = Site.find_by_site!(params[:site_id])
+    @organisation = @site.organisation
+    @url = @organisation.urls.find(params[:id])
   end
 
   def update
     destiny = params[:destiny].to_sym
-    url = Url.find_by_id(params[:id])
+    url = Url.find(params[:id])
     case destiny
       when :manual
         url.manual!(params[:new_url])
@@ -25,6 +33,6 @@ class UrlsController < ApplicationController
     end
     url.save!
 
-    redirect_to organisation_url_path(url.site.organisation, url.next)
+    redirect_to site_url_path(url.site, url.next)
   end
 end

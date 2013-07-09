@@ -5,9 +5,7 @@
 
   <ul>
     <% @urls.each do |url| %>
-      <li><%= link_to url.url, organisation_url_path(@organisation, url) %></li>
+      <li><%= link_to url.url, site_url_path(url.site, url) %></li>
     <% end %>
   </ul>
 </nav>
-
-

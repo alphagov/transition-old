@@ -1,18 +1,18 @@
 <div class="controls">
   <ul class="urls pane">
-    <% @organisation.adjacent_urls(@url).each do |url| %>
+    <% @site.adjacent_urls(@url).each do |url| %>
       <%= content_tag :li, class: @url == url ? 'selected' : nil do %>
-          <%= link_to_if url != @url, url.url, organisation_url_path(@organisation, url), title: url.url %>
+        <%= link_to_if url != @url, url.url, site_url_path(@site, url), title: url.url %>
       <% end %>
     <% end %>
   </ul>
 
-  <%= form_for :url, method: 'PUT' do %>
-      <ul class="destinies pane">
-        <li><%= destiny_button :manual %><%= text_field_tag :new_url, @url.new_url %></li>
-        <li><%= destiny_button :scrape %></li>
-        <li><%= destiny_button :archive %></li>
-      </ul>
+  <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do %>
+    <ul class="destinies pane">
+      <li><%= destiny_button :manual %><%= text_field_tag :new_url, @url.new_url %></li>
+      <li><%= destiny_button :scrape %></li>
+      <li><%= destiny_button :archive %></li>
+    </ul>
   <% end %>
 </div>
 
