@@ -39,6 +39,10 @@ module ApplicationHelper
     end
   end
 
+  ##
+  # Part of Edd's controller/action convention for the outer div on a page.
+  # Called from layouts to provide the class string for a div.
+  # e.g. UrlsController/show => 'urls-show'
   def page_class
     controller_name = controller.controller_path.gsub('/', '-').gsub('_', '-')
     " #{controller_name}-#{controller.action_name}"
