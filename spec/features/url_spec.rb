@@ -30,14 +30,29 @@ feature 'Viewing a url for a site' do
     page.should_not have_link('.selected')
   end
 
-  scenario 'Marking a URL manual' do
+  scenario 'Marking a URL manual without a new URL' do
     visit site_url_path(site, selected_url)
 
-    within('.controls') do
-      click_button('Manual')
+    within '.controls' do
+      click_button 'Manual'
     end
 
     page.should have_link(first_url.url, class: '.manual')
     page.should have_selector('.urls li.selected')
+  end
+
+  scenario 'Marking a URL manual with a new URL' do
+    visit site_url_path(site, selected_url)
+
+    within '.controls' do
+      fill_in 'new_url', with: 'http://somewhere.com'
+      click_button 'Manual'
+
+      x = click_link(first_url.url)
+      puts x
+    end
+
+    page.should have_link(first_url.url, class: '.manual')
+    page.should have_selector('.urls li.manual')
   end
 end
