@@ -5,7 +5,7 @@ class Site < ActiveRecord::Base
   has_many :hits, through: :hosts
   has_many :totals, through: :hosts
   has_many :mappings
-  has_many :urls, dependent: :restrict
+  has_many :urls, order: :id, dependent: :restrict
 
   # grab the closest urls either side of the given url
   def adjacent_urls(url, count = 15)
