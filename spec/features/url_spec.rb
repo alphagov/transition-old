@@ -1,9 +1,10 @@
 require 'features/features_helper'
 
-feature 'View url for an organisation' do
-  let!(:organisation) { create :organisation, title: 'DFID' }
+feature 'Viewing a url for a site' do
+  let(:organisation) { site.organisation }
+  let(:site) { host.site }
 
-  let!(:site)         { create :site, organisation: organisation }
+  let!(:host)         { create :natural_england_host }
 
   let!(:first_url)    { create :url, url: 'http://www.naturalengland.org.uk/', site: site }
   let!(:selected_url) { create :url, url: 'http://www.naturalengland.org.uk/about_us/default.aspx', site: site }
@@ -22,6 +23,21 @@ feature 'View url for an organisation' do
     page.should_not have_link(selected_url.url)
     page.should     have_link(last_url.url, href: site_url_path(site, last_url))
 
-    page.should have_an_iframe_at(selected_url.url)
+    page.should have_an_iframe_for(selected_url.url)
+
+    # There are no selected buttons or links
+    page.should_not have_button('.selected')
+    page.should_not have_link('.selected')
+  end
+
+  scenario 'Marking a URL manual' do
+    visit site_url_path(site, selected_url)
+
+    within('.controls') do
+      click_button('Manual')
+    end
+
+    page.should have_link(first_url.url, class: '.manual')
+    page.should have_selector('.urls li.selected')
   end
 end
