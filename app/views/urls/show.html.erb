@@ -7,15 +7,13 @@
       <li><%= destiny_button :scrape %></li>
       <li><%= destiny_button :archive %></li>
     </ul>
-  <% end if @url %>
+  <% end %>
 </div>
 
 <%= javascript_tag do %>
   $(function() {
     $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 6, 1].max %>)').position().top - $('.urls').position().top);
   });
-<% end if @url %>
-
-<% if @url %>
-  <iframe src="<%= @url.url %>" class="preview" />
 <% end %>
+
+<iframe src="<%= @url.url %>" class="preview" />
