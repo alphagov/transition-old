@@ -44,6 +44,10 @@ class Url < ActiveRecord::Base
     end
   end
 
+  def to_s
+    url
+  end
+
   private
 
   def host
