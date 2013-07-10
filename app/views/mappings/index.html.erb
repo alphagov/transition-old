@@ -1,4 +1,4 @@
-<%= render 'sites/header', site: @site, organisation: @organisation, with_site_link: true %>
+<%= render 'sites/header', site: @site, organisation: @site.organisation, with_site_link: true %>
 
 <section class="mappings status-filtering">
   <h1>Mappings</h1>
@@ -17,6 +17,8 @@
       <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
     <% end %>
   </ul>
+   
+  <p><%= link_to 'New Mapping', new_site_mapping_path(@site) %></p>
 
   <table class="status-filtered table table-striped table-bordered">
     <thead>

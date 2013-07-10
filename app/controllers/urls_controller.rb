@@ -1,13 +1,11 @@
 class UrlsController < ApplicationController
   def index
     @site = Site.find_by_site!(params[:site_id])
-    @organisation = @site.organisation
   end
 
   def show
     @site = Site.find_by_site!(params[:site_id])
-    @organisation = @site.organisation
-    @url = @organisation.urls.find(params[:id])
+    @url = @site.urls.find(params[:id])
   end
 
   def update

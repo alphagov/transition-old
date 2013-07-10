@@ -1,8 +1,34 @@
 class MappingsController < ApplicationController
 
+  before_filter :find_site
+
+  def new
+    @mapping = @site.mappings.build
+  end
+
+  def create
+    @mapping = @site.mappings.build(params[:mapping])
+    if @mapping.save
+      redirect_to site_mappings_path(@site), notice: "Mapping saved"
+    else
+      render action: 'new'
+    end
+  end
+
+  def edit
+    @mapping = @site.mappings.find(params[:id])
+  end
+
+  def update
+    @mapping = @site.mappings.find(params[:id])
+    if @mapping.update_attributes(params[:mapping])
+      redirect_to site_mappings_path(@site), notice: "Mapping saved"
+    else
+      render action: 'edit'
+    end
+  end
+
   def index
-    @site = Site.find_by_site(params[:site_id])
-    @organisation = @site.organisation
     @mappings_data = MappingsData.new(@site.mappings.order(:path))
     @host = @site.default_host
 
@@ -12,5 +38,10 @@ class MappingsController < ApplicationController
     end
   end
 
-end
+  protected
 
+  def find_site
+    @site = Site.find_by_site!(params[:site_id])
+  end
+  
+end
