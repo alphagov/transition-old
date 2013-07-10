@@ -48,8 +48,7 @@ feature 'Viewing a url for a site' do
       fill_in 'new_url', with: 'http://somewhere.com'
       click_button 'Manual'
 
-      x = click_link(first_url.url)
-      puts x
+      click_link(first_url.url)
     end
 
     page.should have_link(first_url.url, class: '.manual')
