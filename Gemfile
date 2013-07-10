@@ -29,7 +29,7 @@ group :assets do
 end
 
 group :test do
-  gem 'capybara', '~> 1.1.0', require: false
+  gem 'capybara', '~> 2.1.0', require: false
   gem 'factory_girl_rails', '4.1.0'
   gem 'ci_reporter', '1.8.0'
   gem 'database_cleaner', '0.9.1'

@@ -3,7 +3,7 @@
 <ul class="urls<%= " #{extra_class}" if extra_class %>">
     <% @site.urls.each do |url| %>
         <%= content_tag :li, class: "#{url.workflow_state}#{@url == url ? ' selected' : nil}" do %>
-            <%= link_to_if url != @url, url.url, site_url_path(@site, url), title: url.url %>
-        <% end %>
+          <%= link_to_if url != @url, url.url, site_url_path(@site, url), title: url.url %>
+      <% end %>
     <% end %>
 </ul>
