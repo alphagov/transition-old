@@ -1,8 +1,11 @@
 $archive-color: #b10e1e;
+$archive-light: #f4c1ba;
 $archive-dark: #700913;
 $scrape-color:  #006435;
+$scrape-light: #b8f4cc;
 $scrape-dark: #004927;
 $manual-color:  #000065;
+$manual-light: #d1c7ee;
 $manual-dark: #00003b;
 
 @mixin destiny-button($border-radius: 0.25em) {
@@ -14,4 +17,5 @@ $manual-dark: #00003b;
   border: 0;
   box-shadow: 0 2px 0 #00180c;
   letter-spacing: 0.15em;
+  width: 15%;
 }

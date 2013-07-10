@@ -5,4 +5,10 @@ FactoryGirl.define do
     cname "MyString"
     live_cname "MyString"
   end
+
+  factory :natural_england_host, class: Host do
+    host 'www.naturalengland.org.uk'
+
+    association :site, factory: :natural_england_site
+  end
 end
