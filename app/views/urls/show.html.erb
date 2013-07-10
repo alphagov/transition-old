@@ -1,11 +1,5 @@
 <div class="controls">
-  <ul class="urls pane">
-    <% @site.urls.each do |url| %>
-      <%= content_tag :li, class: @url == url ? 'selected' : nil do %>
-        <%= link_to_if url != @url, url.url, site_url_path(@site, url), title: url.url %>
-      <% end %>
-    <% end %>
-  </ul>
+  <%= render partial: 'url_list', locals: { extra_class: 'pane' } %>
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do %>
     <ul class="destinies pane">
@@ -18,7 +12,7 @@
 
 <%= javascript_tag do %>
   $(function() {
-    $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 6, 0].max %>)').position().top - $('.urls').position().top);
+    $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 6, 1].max %>)').position().top - $('.urls').position().top);
   });
 <% end %>
 
