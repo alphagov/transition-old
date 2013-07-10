@@ -28,6 +28,23 @@ module HelperMethods
       end
     end
   end
+
+  def should_have_list(selector, arr)
+    within selector do
+      arr.each_with_index do |expected_text, line_idx|
+        xpath = "li[#{line_idx + 1}]"
+        elem = find(:xpath, xpath)
+        "'#{elem.text.strip}' for element '#{xpath}'".should == expected_text unless elem.text.strip.gsub(/(\n*\s{2,})/, " ") == expected_text.to_s.strip
+      end
+
+      # check number of rows are as expected
+      if arr.size == 0
+        page.should have_no_xpath('li')
+      else  
+        page.should have_xpath('li', count: arr.size)
+      end
+    end
+  end
 end
 
 RSpec.configuration.include HelperMethods, type: :feature

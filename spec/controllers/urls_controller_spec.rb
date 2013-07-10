@@ -13,17 +13,10 @@ describe UrlsController do
   end
 
   describe :index do
-    it "should populate organisation and urls when organisation_id is available" do
-      get :index, organisation_id: @organisation
-      assigns(:organisation).should == @organisation
-      assigns(:urls).should == [@url1, @url2, @url3]
-    end
-
-    it "should populate site, organisation and urls when site_id is available" do
+    it "should populate site, organisation and urls" do
       get :index, site_id: @site1
       assigns(:site).should == @site1
       assigns(:organisation).should == @organisation
-      assigns(:urls).should == [@url1, @url2]
     end
   end
 

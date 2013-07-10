@@ -1,11 +1,3 @@
-<h1><%= link_to @organisation.title, @organisation %></h1>
-
-<nav class="urls worklist">
-  <h2>Outstanding URLs</h2>
-
-  <ul>
-    <% @urls.each do |url| %>
-      <li><%= link_to url.url, site_url_path(url.site, url) %></li>
-    <% end %>
-  </ul>
-</nav>
+<div class="controls">
+  <%= render 'url_list' %>
+</div>

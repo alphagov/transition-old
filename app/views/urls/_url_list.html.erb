@@ -1,0 +1,7 @@
+<ul class="urls pane">
+  <% @site.urls.each do |url| %>
+    <%= content_tag :li, class: @url == url ? 'selected' : nil do %>
+      <%= link_to_if url != @url, url.url, site_url_path(@site, url), title: url.url %>
+    <% end %>
+  <% end %>
+</ul>
