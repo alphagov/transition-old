@@ -8,16 +8,37 @@ feature 'Viewing a url for a site' do
 
   let!(:first_url)    { create :url, url: 'http://www.naturalengland.org.uk/', site: site }
   let!(:selected_url) { create :url, url: 'http://www.naturalengland.org.uk/about_us/default.aspx', site: site }
+  let(:middle_url)    { selected_url }
   let!(:last_url)     { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site }
 
   background do
     login_as_stub_user
   end
 
-  scenario 'Visiting the url page when there are URLs' do
+  scenario 'Visiting all URLs for a site' do
+    visit site_urls_path(site)
+
+    page.should have_link('DFID', href: organisation_path(organisation))
+
+    page.should have_list_in_this_order '.urls',
+      ['http://www.naturalengland.org.uk/',
+       'http://www.naturalengland.org.uk/about_us/default.aspx',
+       'http://www.naturalengland.org.uk/contact_us']
+
+    [first_url, middle_url, last_url].each {|url| page.should have_link(url.url, href: site_url_path(site, url))}
+  end
+
+  scenario "Visiting a single highlighted url's page when there are URLs" do
     visit site_url_path(site, selected_url)
 
     page.should have_link('DFID', href: organisation_path(organisation))
+
+    page.should have_list_in_this_order(
+                    '.urls',
+                    ['http://www.naturalengland.org.uk/',
+                     'http://www.naturalengland.org.uk/about_us/default.aspx',
+                     'http://www.naturalengland.org.uk/contact_us']
+                )
 
     page.should     have_link(first_url.url, href: site_url_path(site, first_url))
     page.should_not have_link(selected_url.url)
