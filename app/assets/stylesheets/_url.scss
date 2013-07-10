@@ -1,11 +1,12 @@
 @import 'frontend/helpers/_url';
+@import 'status_colours';
 
 .controls {
   width: 100%;
 
   .pane {
     font-size: 0.85em;
-    width: 40%;
+    width: 48%;
     display: inline-block;
     min-height: 16em;
     float: left;
@@ -17,16 +18,38 @@
     margin-bottom: 1em;
     overflow: scroll;
     height: 170px;
+    background: #EEE;
 
     li {
       line-height: 1.1em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin: 0.1em 0;
+      padding: 0 0.25em;
+
       &.selected {
-        background-color: #99CCFF;
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid black;
+        padding: 0.25em;
+        margin: 0.2em 0;
+      }
+
+      &.archive {
+        background-color: $archive-light;
+        a { color: black };
+      }
+      &.manual {
+        background-color: $manual-light;
+        a { color: black };
+      }
+      &.scrape {
+        background-color: $scrape-light;
+        a { color: black };
       }
     }
+
   }
 
   .destinies {
@@ -41,23 +64,35 @@
 
       input[type=text] {
         margin-top: 0.5em;
+        width: 80%;
       }
     }
 
     button {
       @include destiny-button;
+
+      &.selected {
+        border-left: 12px solid #DDD;
+      }
+
       &.manual {
         background-color: $manual-color;
-        &:hover { background-color: $manual-dark }
+        &:hover {
+          background-color: $manual-dark
+        }
         margin-right: 1em;
       }
       &.archive {
         background-color: $archive-color;
-        &:hover { background-color: $archive-dark }
+        &:hover {
+          background-color: $archive-dark
+        }
       }
       &.scrape {
         background-color: $scrape-color;
-        &:hover { background-color: $scrape-dark }
+        &:hover {
+          background-color: $scrape-dark
+        }
       }
     }
 

@@ -1,41 +1,46 @@
+$error-color: #FFC8C8;
+$ok-color: #BDBDBD;
+$gone-color: #636363;
+$redirect-color: #969696;
+
 .status-chart.progress {
    .bar {
     background-image: none;
    }
    .bar-301 {
-    background-color: #969696;
+    background-color: $redirect-color;
   }
   .bar-200, .bar-206 {
-    background-color: #BDBDBD;
+    background-color: $ok-color;
   }
   .bar-404 {
-    background-color: #FFC8C8;
+    background-color: $error-color;
   }
   .bar-410 {
-    background-color: #636363;
+    background-color: $gone-color;
   }
   .bar-304 {
-    background-color: #BDBDBD;
+    background-color: $ok-color;
   }
   .bar-403 {
-    background-color: #FFC8C8;
+    background-color: $error-color;
   }
   .bar-501 {
-    background-color: #FFC8C8;
+    background-color: $error-color;
   }
   .bar-400 {
-    background-color: #FFC8C8;
+    background-color: $error-color;
   }
   .bar-418 {
-    background-color: #FFC8C8;
+    background-color: $error-color;
   }
   .bar-503 {
-    background-color: #FFC8C8;
+    background-color: $error-color;
   }
 }
 
-.ok { background-color: #BDBDBD; }
-.redirect { background-color: #969696; }
-.gone { background-color: #636363; }
-/*.error { background-color: #DE2D26; } */
-.error { background-color: #FFC8C8; }
+.ok       { background-color: $ok-color; }
+.redirect { background-color: $redirect-color; }
+.gone     { background-color: $gone-color; }
+.error    { background-color: $error-color; }
+
