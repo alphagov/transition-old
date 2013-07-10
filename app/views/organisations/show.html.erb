@@ -36,7 +36,10 @@
     <% @organisation.sites.each do |site| %>
       <%= content_tag_for :div, site do %>
         <h3><%= site.site %></h3>
-        <p class="requests-link"><%= link_to "View #{site.site} requests", page_path(@organisation, site: site.id) %></p>
+        <p class="requests-link">
+          <%= link_to "View #{site.site} requests", page_path(@organisation, site: site.id) %>&nbsp;
+          <%= link_to "View #{site.site} urls", site_urls_path(site_id: site) %>
+        </p>
 
         <dl>
           <dt>Homepage:</dt>
