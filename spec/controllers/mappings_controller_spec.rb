@@ -18,16 +18,20 @@ describe MappingsController do
   end
 
   describe :create do
-    it "should save a new mapping and redirect" do
-      post :create, site_id: site, mapping: {path: 'hello', http_status: '301'}
-      site.mappings.find_by_path('hello').should_not be_nil
-      response.should redirect_to(site_mappings_path(site))
+    context "a mapping already exists" do
+      it "should save a new mapping and redirect" do
+        post :create, site_id: site, mapping: {path: 'hello', http_status: '301'}
+        site.mappings.find_by_path('hello').should_not be_nil
+        response.should redirect_to(site_mappings_path(site))
+      end
     end
 
-    it "should fail to save a new mapping" do
-      post :create, site_id: site, mapping: {path: 'hello'}
-      site.mappings.find_by_path('hello').should be_nil
-      response.should render_template('new')
+    context "no mapping already exists" do
+      it "should fail to save a new mapping" do
+        post :create, site_id: site, mapping: {path: 'hello'}
+        site.mappings.find_by_path('hello').should be_nil
+        response.should render_template('new')
+      end
     end
   end
 
