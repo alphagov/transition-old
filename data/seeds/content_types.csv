@@ -1,0 +1,58 @@
+Type,Sub-type,Scrapable?
+Publication,Policy paper,Y
+Publication,Impact assessment,Y
+Publication,Guidance,Y
+Publication,Form,Y
+Publication,Statistics,Y
+Publication,National statistics,Y
+Publication,Research and analysis,Y
+Publication,Corporate reports,Y
+Publication,Transparency data,Y
+Publication,Treaties,Y
+Publication,FOI release,Y
+Publication,Independent reports,Y
+Publication,Correspondence,Y
+Publication,Promotional material,Y
+Consultation (incl responses),,Y
+Statistical data set,,N
+Document series,,N
+Detailed guide,,Y
+About us,,N
+Role,,N
+Person,,N
+Corporate information,Personal information charter,N
+Corporate information,Publication scheme,N
+Corporate information,Complaints procedure,N
+Corporate information,Our governance,N
+Corporate information,Statistics at x,N
+Corporate information,Procurement,N
+Corporate information,Working for x,N
+Corporate information,Our energy use,N
+Corporate information,Welsh language scheme,N
+Policy,,N
+Policy,Supporting detail,N
+Policy team,,N
+Policy advisory group,,N
+Case study,,Y
+Organisation,Ministerial dept,N
+Organisation,Non-ministerial dept,N
+Organisation,Executive agency,N
+Organisation,Executive non-departmental public body,N
+Organisation,Tribunal non-departmental public body,N
+Organisation,Advisory non-departmental public body,N
+Organisation,Public corporation,N
+Organisation,Other,N
+Organisation,Sub-org (high profile unit of an org),N
+Governance group,,N
+Speech,Transcript,Y
+Speech,Draft,Y
+Speech,Speaking notes,Y
+Speech,Written statement (to Parliament),Y
+Speech,Oral statement (to Parliament),Y
+News article,Press release,Y
+News article,News story,Y
+News article,Government response,Y
+Topical event page,,N
+Topic ,,N
+Fatality notice (MOD only),,N
+Worldwide priority (FCO only),,N
