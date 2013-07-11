@@ -16,6 +16,8 @@ Transition::Application.routes.draw do
 
   resources :pages
 
+  resources :harvest
+
   match 'dashboard' => 'dashboard#index'
 
   root :to => 'organisations#index'

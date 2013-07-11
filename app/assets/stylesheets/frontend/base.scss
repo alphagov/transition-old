@@ -13,6 +13,8 @@
 @import "_shims.scss";
 @import "_typography.scss";
 
+@import "design-patterns/_buttons.scss";
+
 // App sepecific styleguide
 @import "styleguide/_brand-colours.scss";
 @import "styleguide/_dimensions.scss";
@@ -51,4 +53,5 @@
   @import "views/_pages.scss";
   @import "views/_organisations.scss";
   @import "views/_urls.scss";
+  @import "views/_harvest.scss";
 }
