@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705151553) do
+ActiveRecord::Schema.define(:version => 20130711105424) do
+
+  create_table "content_types", :force => true do |t|
+    t.string   "type"
+    t.string   "subtype"
+    t.boolean  "scrapable"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
 
   create_table "hits", :force => true do |t|
     t.integer "host_id",                     :null => false
@@ -100,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20130705151553) do
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
+  add_index "urls", ["url"], :name => "index_urls_on_url", :length => {"url"=>255}
 
   create_table "users", :force => true do |t|
     t.string   "name"
