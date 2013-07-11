@@ -1,0 +1,17 @@
+.transition-inner {
+  dl {
+    margin: 0.5em;
+
+    dt {
+      width: 10em;
+      float: left;
+      clear: left;
+      font-weight: bold;
+    }
+
+    dd {
+      margin-left: 1em;
+      clear: right;
+    }
+  }
+}

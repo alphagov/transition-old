@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
-<section id="details">
+<section id="details organisation-logo">
   <%= render_organisation_title(organisation) %>
 
   <dl>
-    <dt>Site:</dt>
+    <dt>Site</dt>
     <dd><%=
       if local_assigns[:with_site_link]
         link_to site.site, site
@@ -11,13 +11,13 @@
         site.site
       end %></dd>
 
-    <dt>Homepage:</dt>
+    <dt>Homepage</dt>
     <dd><%= link_to site.homepage, site.homepage %></dd>
 
-    <dt>Query params:</dt>
+    <dt>Query params</dt>
     <dd><%= site.query_params %></dd>
 
-    <dt>TNA timestamp:</dt>
+    <dt>TNA timestamp</dt>
     <dd><%= site.tna_timestamp %></dd>
   </dl>
 

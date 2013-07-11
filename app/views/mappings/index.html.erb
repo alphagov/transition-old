@@ -3,15 +3,18 @@
 <section class="mappings status-filtering">
   <h1>Mappings</h1>
 
-  <p><b>Total:</b> <%= number_with_delimiter (@mappings_data.count) %></p>
+  <dl>
+    <dt>Total</dt>
+    <dd><%= number_with_delimiter (@mappings_data.count) %></dd>
+  </dl>
+
   <div class="progress status-chart">
     <% @mappings_data.counts_by_http_status.each do |status, status_count| %>
       <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((status_count / @mappings_data.count.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= status_count %>"></div>
     <% end %>
   </div>
 
-  <ul class="status-filter nav nav-tabs">
-    <li class="filter-name"><span>Filter by status code:</span></li>
+  <ul class="status-filter nav filter-block">
     <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
     <% @mappings_data.http_statuses.each do |status_code| %>
       <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
@@ -20,7 +23,7 @@
    
   <p><%= link_to 'New Mapping', new_site_mapping_path(@site) %></p>
 
-  <table class="status-filtered table table-striped table-bordered">
+  <table class="status-filtered hit-table">
     <thead>
       <tr>
         <th></th>

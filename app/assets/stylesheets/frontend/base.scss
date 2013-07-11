@@ -1,7 +1,5 @@
 // BASE STYLESHEET COMPILER
 
-
-
 // STYLEGUIDE
 // Mixins to be shared across gov.uk sites. Anything set in these
 // files can be used in the view files.
@@ -13,8 +11,9 @@
 @import "_shims.scss";
 @import "_typography.scss";
 
-// App sepecific styleguide
+// App-specific styleguide
 @import "styleguide/_brand-colours.scss";
+@import "styleguide/_destiny-buttons.scss";
 @import "styleguide/_dimensions.scss";
 
 // LAYOUTS
@@ -32,16 +31,17 @@
 // Styles for comment page elements
 
 #transition-wrapper {
+  @import "helpers/_dl.scss";
   @import "helpers/_blocks.scss";
   @import "helpers/_filter-block.scss";
   @import "helpers/_hit-graph.scss";
+  @import "helpers/_table.scss";
   @import "helpers/_hit-table.scss";
   @import "helpers/_organisation.scss";
   @import "helpers/_organisations-list.scss";
   @import "helpers/_selector-block.scss";
   @import "helpers/_status-chart.scss";
 }
-
 
 // VIEWS
 // Styles scoped to each template in /views
@@ -50,6 +50,7 @@
   @import "views/_pages.scss";
   @import "views/_organisations.scss";
   @import "views/_urls.scss";
+  @import "views/_mappings.scss";
 }
 
 // select2
