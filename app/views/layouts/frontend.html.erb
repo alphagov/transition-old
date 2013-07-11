@@ -79,8 +79,8 @@
             <nav id="proposition-menu"><a href="/" id="proposition-name">Transition</a>
             <ul id="proposition-links">
               <li><a href="/">Organisations</a></li>
-              <% if @organisation %>
-                <li><%= nav_link @organisation.title, organisation_path(@organisation) %></li>
+              <% if @site %>
+                <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
               <% end %>
               <li class="clear-child"><%= link_to "Signed in as #{current_user.name}", Plek.current.find('signon') %></li>
               <li><%= link_to 'Sign out', gds_sign_out_path %></li>
