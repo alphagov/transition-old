@@ -19,4 +19,9 @@ Transition::Application.routes.draw do
   match 'dashboard' => 'dashboard#index'
 
   root :to => 'organisations#index'
+
+  namespace :admin do
+    get 'import' => "import_urls#import"
+    post 'import' => "import_urls#import"
+  end
 end

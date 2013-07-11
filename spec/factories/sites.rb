@@ -3,6 +3,8 @@ FactoryGirl.define do
     site 'cic_regulator'
     furl 'www.gov.uk/cic-regulator'
     homepage 'https://www.gov.uk/government/organisations/cic-regulator'
+
+    association :organisation, factory: :dfid
   end
 
   factory :natural_england_site, class: :site do
