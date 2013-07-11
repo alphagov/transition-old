@@ -13,7 +13,7 @@
 
 <%= javascript_tag do %>
   $(function() {
-    $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 6, 1].max %>)').position().top - $('.urls').position().top);
+    $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 4, 1].max %>)').position().top - $('.urls').position().top);
   });
 <% end %>
 
