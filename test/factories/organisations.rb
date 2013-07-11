@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :organisation do
-    abbr "MyString"
+    sequence(:abbr) { |n| "MyString#{n}" }
     title "MyString"
     launch_date "2013-04-16"
     homepage "MyString"

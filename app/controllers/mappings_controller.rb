@@ -1,6 +1,15 @@
 class MappingsController < ApplicationController
-
   before_filter :find_site
+
+  def index
+    @mappings_data = MappingsData.new(@site.mappings.order(:path))
+    @host = @site.default_host
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @sites }
+    end
+  end
 
   def new
     @mapping = @site.mappings.build
@@ -28,14 +37,10 @@ class MappingsController < ApplicationController
     end
   end
 
-  def index
-    @mappings_data = MappingsData.new(@site.mappings.order(:path))
-    @host = @site.default_host
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sites }
-    end
+  def destroy
+    @mapping = @site.mappings.find(params[:id])
+    @mapping.destroy
+    redirect_to site_mappings_path(@site), notice: "Mapping deleted"
   end
 
   protected

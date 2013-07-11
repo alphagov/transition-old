@@ -52,6 +52,13 @@ describe MappingsController do
     end
   end
 
+  describe :destroy do
+    it "should delete an existing mapping" do
+      delete :destroy, site_id: site, id: mapping1
+      Mapping.find_by_id(mapping1).should be_nil
+    end
+  end
+
   describe :index do
     it "should list all site mappings" do
       get :index, site_id: site
