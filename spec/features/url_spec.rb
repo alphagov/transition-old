@@ -82,4 +82,21 @@ feature 'Viewing a url for a site' do
     # The manual button should be selected
     page.should have_selector('button.manual.selected')
   end
+
+  scenario 'Marking a URL unsure' do
+    visit site_url_path(site, first_url)
+
+    within '.controls' do
+      click_button 'Unsure'
+    end
+
+    # Go back to the url we just marked manual
+    click_link(first_url.url, exact: true)
+
+    # The first URL should be marked unsure and be selected
+    page.should have_selector('.urls li.unsure.selected')
+
+    # The unsure button should be selected
+    page.should have_selector('button.unsure.selected')
+  end
 end
