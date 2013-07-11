@@ -1,6 +1,46 @@
 @import 'frontend/helpers/url';
 @import 'status_colours';
 
+.urls-index .urls {
+  overflow: none;
+  margin: 2em;
+  background: white !important;
+}
+
+.urls {
+  list-style: none;
+  margin: 0;
+  margin-bottom: 1em;
+  background: #EEE;
+
+  li {
+    line-height: 1.1em;
+    margin: 0.1em 0;
+    padding: 0 0.25em;
+
+    &.selected {
+      background-color: white !important;
+      color: black !important;
+      border: 1px solid black;
+      padding: 0.25em;
+      margin: 0.2em 0;
+    }
+
+    &.archive {
+      background-color: $archive-light;
+      a { color: black };
+    }
+    &.manual {
+      background-color: $manual-light;
+      a { color: black };
+    }
+    &.scrape {
+      background-color: $scrape-light;
+      a { color: black };
+    }
+  }
+}
+
 .controls {
   width: 100%;
   padding-top: 1em;
@@ -65,45 +105,6 @@
     }
 
   }
-}
-
-
-.urls {
-  list-style: none;
-  margin: 0;
-  margin-bottom: 1em;
-  background: #EEE;
-
-  li {
-    line-height: 1.1em;
-    margin: 0.1em 0;
-    padding: 0 0.25em;
-
-    &.selected {
-      background-color: white !important;
-      color: black !important;
-      border: 1px solid black;
-      padding: 0.25em;
-      margin: 0.2em 0;
-    }
-
-    &.archive {
-      background-color: $archive-light;
-      a { color: black };
-    }
-    &.manual {
-      background-color: $manual-light;
-      a { color: black };
-    }
-    &.scrape {
-      background-color: $scrape-light;
-      a { color: black };
-    }
-  }
-}
-
-#transition-wrapper transition-inner.urls-index ul.urls {
-  overflow: none !important;
 }
 
 .preview {
