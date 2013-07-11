@@ -16,9 +16,9 @@ feature 'Viewing mappings for a site' do
       visit organisation_path(organisation)
       click_link 'View naturalengland mappings'
 
-      should_have_table 'table thead', [
+      page.should have_exact_table 'table thead', [
         ['', 'HTTP Status', 'Original URL', 'New URL', 'Suggested URL', 'Archive URL', '']]
-      should_have_table 'table tbody', [
+      page.should have_exact_table 'table tbody', [
         ['Edit', '410', '/about_us/default.aspx', 'http://www.gov.uk/natural-england', '', ''],
         ['Edit', '301', '/contact_us', 'http://www.gov.uk/natural-england/contact-us', '', '']]
     end
@@ -40,7 +40,7 @@ feature 'Viewing mappings for a site' do
       click_button 'Save'
 
       page.current_path.should == site_mappings_path(site)
-      should_have_table 'table tbody', [
+      page.should have_exact_table 'table tbody', [
         ['Edit', '301', '/about_us/default.aspx', 'http://www.gov.uk/natural-scotland', '', ''],
         ['Edit', '301', '/contact_us', 'http://www.gov.uk/natural-england/contact-us', '', '']]
     end
@@ -64,7 +64,7 @@ feature 'Viewing mappings for a site' do
 
       page.current_path.should == site_mappings_path(site)
       page.should have_content('Mapping saved')
-      should_have_table 'table tbody', [
+      page.should have_exact_table 'table tbody', [
         ['Edit', '301', '/some_path', 'http://news.bbc.co.uk', '', '', '']]
     end
   end
