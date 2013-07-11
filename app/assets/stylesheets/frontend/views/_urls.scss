@@ -8,48 +8,18 @@
   .pane {
     font-size: 0.85em;
     width: 45%;
-    display: inline-block;
     float: left;
+    height: 15em;
   }
 
   .urls {
-    list-style: none;
-    margin: 0;
-    margin-bottom: 1em;
     overflow: scroll;
-    height: 170px;
-    background: #EEE;
 
     li {
-      line-height: 1.1em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin: 0.1em 0;
-      padding: 0 0.25em;
-
-      &.selected {
-        background-color: white !important;
-        color: black !important;
-        border: 1px solid black;
-        padding: 0.25em;
-        margin: 0.2em 0;
-      }
-
-      &.archive {
-        background-color: $archive-light;
-        a { color: black };
-      }
-      &.manual {
-        background-color: $manual-light;
-        a { color: black };
-      }
-      &.scrape {
-        background-color: $scrape-light;
-        a { color: black };
-      }
     }
-
   }
 
   .destinies {
@@ -61,7 +31,7 @@
     li {
       input[type=text] {
         margin-top: 0.5em;
-        width: 20em;
+        width: 23em;
       }
     }
 
@@ -97,7 +67,46 @@
   }
 }
 
+
+.urls {
+  list-style: none;
+  margin: 0;
+  margin-bottom: 1em;
+  background: #EEE;
+
+  li {
+    line-height: 1.1em;
+    margin: 0.1em 0;
+    padding: 0 0.25em;
+
+    &.selected {
+      background-color: white !important;
+      color: black !important;
+      border: 1px solid black;
+      padding: 0.25em;
+      margin: 0.2em 0;
+    }
+
+    &.archive {
+      background-color: $archive-light;
+      a { color: black };
+    }
+    &.manual {
+      background-color: $manual-light;
+      a { color: black };
+    }
+    &.scrape {
+      background-color: $scrape-light;
+      a { color: black };
+    }
+  }
+}
+
+#transition-wrapper transition-inner.urls-index ul.urls {
+  overflow: none !important;
+}
+
 .preview {
   width: 100%;
-  height: 700px;
+  height: 800px;
 }
