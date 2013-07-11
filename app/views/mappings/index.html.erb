@@ -1,4 +1,4 @@
-<%= render 'sites/header', site: @site, organisation: @organisation, with_site_link: true %>
+<%= render 'sites/header', site: @site, organisation: @site.organisation, with_site_link: true %>
 
 <section class="mappings status-filtering">
   <h1>Mappings</h1>
@@ -17,25 +17,31 @@
       <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
     <% end %>
   </ul>
+   
+  <p><%= link_to 'New Mapping', new_site_mapping_path(@site) %></p>
 
   <table class="status-filtered table table-striped table-bordered">
     <thead>
       <tr>
+        <th></th>
         <th>HTTP Status</th>
         <th>Original URL</th>
         <th>New URL</th>
         <th>Suggested URL</th>
         <th>Archive URL</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @mappings_data.mappings.each do |mapping| %>
         <tr data-status-code="<%= mapping.http_status %>">
+          <td><%= link_to 'Edit', edit_site_mapping_path(@site, mapping) %></td>
           <td><%= mapping.http_status %></td>
           <td><%= link_to mapping.path, 'http://'+@host.host+mapping.path %></td>
           <td><%= link_to mapping.new_url, mapping.new_url if mapping.new_url.present? %></td>
           <td><%= link_to mapping.suggested_url, mapping.suggested_url if mapping.suggested_url.present? %></td>
           <td><%= link_to mapping.archive_url, mapping.archive_url if mapping.archive_url.present? %></td>
+          <%= content_tag :td, link_to(image_tag('icons/delete.png', width: 16, height: 16), site_mapping_path(@site, mapping), {method: :delete, confirm: "Delete mapping for '#{mapping.path}'?"}), class: 'delete' %>
         </tr>
       <% end %>
     </tbody>

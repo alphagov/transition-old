@@ -1,0 +1,24 @@
+<%= form_for @mapping, url: polymorphic_path([@site, @mapping]) do |f| %>
+  <%= render "shared/error_messages", target: f.object %>
+  <div>
+    <%= f.label :path %>
+    <%= f.text_field :path %>
+  </div>
+  <div>
+    <%= f.label :new_url %>
+    <%= f.text_field :new_url %>
+  </div>
+  <div>
+    <%= f.label :suggested_url %>
+    <%= f.text_field :suggested_url %>
+  </div>
+  <div>
+    <%= f.label :archive_url %>
+    <%= f.text_field :archive_url %>
+  </div>
+  <div>
+    <%= f.label :http_status %>
+    <%= f.select :http_status, ['301', '410'] %>
+  </div>
+  <%= f.submit 'Save' %>
+<% end %>

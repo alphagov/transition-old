@@ -4,6 +4,7 @@ FactoryGirl.define do
     ttl 1
     cname "MyString"
     live_cname "MyString"
+    association :site
   end
 
   factory :natural_england_host, class: Host do

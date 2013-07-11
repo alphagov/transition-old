@@ -10,11 +10,11 @@
 
     <dl class="org-info">
       <dt>Launch date:</dt>
-      <dd><%= @organisation.launch_date.to_s(:long_ordinal) %></dd>
+      <dd><%= @organisation.launch_date.try(:to_s, :long_ordinal) %></dd>
       <dt>Homepage:</dt>
       <dd><%= link_to @organisation.homepage %></dd>
       <dt>FURL:</dt>
-      <dd><%= link_to @organisation.furl, 'http://'+@organisation.furl %></dd>
+      <dd><%= link_to @organisation.furl, "http://#{@organisation.furl}" %></dd>
       <dt>Progress:</dt>
       <dd>
         <table>
@@ -26,8 +26,6 @@
           </tr>
         <% end %>
         </table>
-
-
       </dd>
     </dl>
 
@@ -40,6 +38,7 @@
           <ul>
             <li><%= link_to "View #{site.site} requests", page_path(@organisation, site: site.id) %></li>
             <li><%= link_to "View #{site.site} urls", site_urls_path(site_id: site) %></li>
+            <li><%= link_to "View #{site.site} mappings", site_mappings_path(site_id: site) %></li>
           </ul>
         </div>
 
@@ -47,7 +46,7 @@
           <dt>Homepage:</dt>
           <dd><%= link_to site.homepage %></dd>
 
-          <% unless site.query_params.empty? %>
+          <% unless site.query_params.try(:empty?) %>
             <dt>query_params:</dt>
             <dd><%= site.query_params %>
           <% end %>

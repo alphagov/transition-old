@@ -16,7 +16,6 @@ describe UrlsController do
     it "should populate site, organisation and urls" do
       get :index, site_id: @site1
       assigns(:site).should == @site1
-      assigns(:organisation).should == @organisation
     end
   end
 

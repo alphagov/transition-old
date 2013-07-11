@@ -2,9 +2,10 @@
 
 FactoryGirl.define do
   factory :site do
-    site "MyString"
+    sequence(:site) { |n| "MyString#{n}" }
     homepage "MyString"
     query_params "MyString"
     tna_timestamp "2013-04-16 20:08:37"
+    association :organisation
   end
 end
