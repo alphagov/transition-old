@@ -1,14 +1,14 @@
-@import 'frontend/helpers/_url';
+@import 'frontend/helpers/url';
 @import 'status_colours';
 
 .controls {
   width: 100%;
+  padding-top: 1em;
 
   .pane {
     font-size: 0.85em;
-    width: 48%;
+    width: 45%;
     display: inline-block;
-    min-height: 16em;
     float: left;
   }
 
@@ -59,17 +59,15 @@
     margin-right: auto;
 
     li {
-      font-size: 3em;
-      margin-bottom: 0.5em;
-
       input[type=text] {
         margin-top: 0.5em;
-        width: 80%;
+        width: 20em;
       }
     }
 
     button {
       @include destiny-button;
+      font-size: 1.2em;
 
       &.selected {
         border-left: 12px solid #DDD;
