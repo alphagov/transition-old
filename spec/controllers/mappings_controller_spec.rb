@@ -18,7 +18,7 @@ describe MappingsController do
   end
 
   describe :create do
-    context "a mapping already exists" do
+    context "valid mapping data is provided" do
       it "should save a new mapping and redirect" do
         post :create, site_id: site, mapping: {path: 'hello', http_status: '301'}
         site.mappings.find_by_path('hello').should_not be_nil
@@ -26,7 +26,7 @@ describe MappingsController do
       end
     end
 
-    context "no mapping already exists" do
+    context "invalid mapping data is provided" do
       it "should fail to save a new mapping" do
         post :create, site_id: site, mapping: {path: 'hello'}
         site.mappings.find_by_path('hello').should be_nil
@@ -43,16 +43,20 @@ describe MappingsController do
   end
 
   describe :update do
-    it "should update an existing mapping" do
-      put :update, site_id: site, id: mapping1, mapping: {path: '/hello-b-mod'}
-      site.mappings.find_by_path('/hello-b-mod').should_not be_nil
-      response.should redirect_to(site_mappings_path(site))
+    context "valid mapping data is provided" do
+      it "should update an existing mapping" do
+        put :update, site_id: site, id: mapping1, mapping: {path: '/hello-b-mod'}
+        site.mappings.find_by_path('/hello-b-mod').should_not be_nil
+        response.should redirect_to(site_mappings_path(site))
+      end
     end
 
-    it "should fail to update an existing mapping" do
-      put :update, site_id: site, id: mapping1, mapping: {path: '/hello-b-mod', http_status: ''}
-      site.mappings.find_by_path('/hello-b-mod').should be_nil
-      response.should render_template('edit')
+    context "invalid mapping data is provided" do
+      it "should fail to update an existing mapping" do
+        put :update, site_id: site, id: mapping1, mapping: {path: '/hello-b-mod', http_status: ''}
+        site.mappings.find_by_path('/hello-b-mod').should be_nil
+        response.should render_template('edit')
+      end
     end
   end
 
