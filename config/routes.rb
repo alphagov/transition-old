@@ -6,7 +6,7 @@ Transition::Application.routes.draw do
   resources :sites do
     resources :urls, only: [:index, :show, :update]
     get :hits_download, on: :member
-    resources :mappings, only: [:index]
+    resources :mappings, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
   resources :hosts,
