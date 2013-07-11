@@ -1,4 +1,6 @@
 class UrlsController < ApplicationController
+  layout 'frontend'
+
   def index
     @site = Site.find_by_site!(params[:site_id])
   end
