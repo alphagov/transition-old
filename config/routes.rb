@@ -21,7 +21,9 @@ Transition::Application.routes.draw do
   root :to => 'organisations#index'
 
   namespace :admin do
-    get 'import' => "import_urls#import"
-    post 'import' => "import_urls#import"
+    get 'import_urls' => "import_urls#import"
+    post 'import_urls' => "import_urls#import"
+
+    root :to => 'home#index'
   end
 end

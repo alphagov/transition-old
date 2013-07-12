@@ -4,7 +4,7 @@
 <%= @import_log %>
 <% end if @import_log.present? %>
 
-<%= form_tag admin_import_path, multipart: true do %>
+<%= form_tag admin_import_urls_path, multipart: true do %>
   <%= label_tag :site_id %>
   <%= select_tag :site_id, option_groups_from_collection_for_select(@organisations, :sites, :title, :id, :site, params[:site_id]), include_blank: true %>
 

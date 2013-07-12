@@ -9,9 +9,12 @@ feature "Import urls for a given site" do
   end
 
   scenario "Import urls page should have a site dropdown and a file upload button" do
-    visit admin_import_path(@organisation)
+    visit admin_root_path
+    click_link 'Import URLs'
 
     page.should have_select('Site')
+    find_field('Site').should have_xpath('./optgroup[@label="DFID"]')
+    find_field('Site').should have_xpath('./optgroup/option[text()="DFID-site1"]')
     page.should have_field('file')
 
     click_button 'Upload'
