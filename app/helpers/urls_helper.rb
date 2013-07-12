@@ -20,4 +20,10 @@ module UrlsHelper
         { title: url.url, class: (url.workflow_state) }
     )
   end
+
+  ##
+  # Create a named-for-this-controller-only dropdown for urls from the given collection
+  def content_type_select(content_types)
+    collection_select :url, :content_type, content_types, :id, :to_s
+  end
 end

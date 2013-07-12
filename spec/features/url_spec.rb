@@ -1,6 +1,8 @@
 require 'features/features_helper'
 
 feature 'Viewing a url for a site' do
+  before(:all) { DatabaseCleaner.clean }
+
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 

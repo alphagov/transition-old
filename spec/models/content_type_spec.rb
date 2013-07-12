@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ContentType do
+  before(:all) { DatabaseCleaner.clean }
 
   describe 'Validations' do
     it { should validate_uniqueness_of(:subtype).scoped_to(:type).case_insensitive }

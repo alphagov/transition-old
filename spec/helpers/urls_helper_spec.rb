@@ -43,3 +43,18 @@ describe '#url_classy_link' do
     end
   end
 end
+
+describe '#content_type_select' do
+  before(:all) do
+    DatabaseCleaner.clean
+    @content_types = [create(:content_type), create(:content_type, subtype: 'another subtype')]
+  end
+
+  subject { helper.content_type_select @content_types }
+
+  it { should match /<select.*name="url\[content_type\]"/}
+  it { should include %(value="#{@content_types.first.id}") }
+  it { should include ">#{@content_types.first.to_s}</option>" }
+  it { should include %(value="#{@content_types.last.id}") }
+  it { should include ">#{@content_types.last.to_s}</option>" }
+end
