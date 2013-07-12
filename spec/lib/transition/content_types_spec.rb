@@ -4,16 +4,11 @@ require 'transition/import/content_types'
 module Transition
   module Import
 
-    describe ContentTypes do
+    describe ContentTypes, expensive_setup: true do
       describe ".from_csv!" do
         before :all do
-          DatabaseCleaner.clean!
           FactoryGirl.create(:content_type)
           ContentTypes.from_csv!(fixture_file('content_types_abridged.csv'))
-        end
-
-        after :all do
-          DatabaseCleaner.clean!
         end
 
         it 'should import some content_types' do

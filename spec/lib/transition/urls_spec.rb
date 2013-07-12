@@ -4,14 +4,11 @@ require 'transition/import/urls'
 module Transition
   module Import
 
-    describe Urls do
+    describe Urls, expensive_setup: true do
       describe ".from_csv!" do
         before :all do
           FactoryGirl.create(:cic_regulator)
           Urls.from_csv!('cic_regulator', fixture_file('cic_abridged.csv'))
-        end
-        after :all do
-          DatabaseCleaner.clean!
         end
 
         it 'should import some urls' do
