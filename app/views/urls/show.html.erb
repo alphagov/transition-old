@@ -1,5 +1,5 @@
 <div class="controls">
-  <%= render partial: 'url_list', locals: { extra_class: 'pane' } %>
+  <%= render partial: 'url_list' %>
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do |f| %>
     <div class="inputs-block">
