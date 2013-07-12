@@ -107,10 +107,12 @@ ActiveRecord::Schema.define(:version => 20130712123335) do
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
     t.string   "workflow_state",                 :default => "new", :null => false
+    t.string   "content_type"
     t.text     "comments"
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
+  add_index "urls", ["url"], :name => "index_urls_on_url", :length => {"url"=>255}
 
   create_table "users", :force => true do |t|
     t.string   "name"
