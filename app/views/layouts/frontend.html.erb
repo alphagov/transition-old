@@ -83,6 +83,7 @@
               <% if @site %>
                 <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
               <% end %>
+              <li><%= nav_link 'Admin', admin_root_path %></li>
               <li class="clear-child"><%= link_to "Signed in as #{current_user.name}", Plek.current.find('signon') %></li>
               <li><%= link_to 'Sign out', gds_sign_out_path %></li>
             </ul></nav>
