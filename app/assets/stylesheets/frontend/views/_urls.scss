@@ -46,6 +46,13 @@
   float: left;
 }
 
+.comments {
+  textarea {
+    height: 120px;
+    width: 95%;
+  }
+}
+
 .controls {
   width: 100%;
   padding-top: 1em;

@@ -28,6 +28,14 @@ describe UrlsController do
   end
 
   describe '#update' do
+    context 'Comments are provided' do
+      it 'should update the url' do
+        post :update, site_id: @site1, id: @url1, url: {comments: 'Hello'}
+        @url1.reload
+        @url1.comments.should == 'Hello'
+      end
+    end
+
     context 'Manual is clicked' do
       context 'without a mapping URL' do
         before { post :update, site_id: @site1, id: @url1, destiny: 'manual' }
