@@ -2,12 +2,23 @@
   <%= render partial: 'url_list', locals: { extra_class: 'pane' } %>
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do %>
-    <ul class="destinies pane">
-      <li><%= destiny_button @url, :manual %><%= text_field_tag :new_url, @url.new_url %></li>
-      <li><%= destiny_button @url, :scrape %></li>
-      <li><%= destiny_button @url, :archive %></li>
-      <li><%= destiny_button @url, :unsure %></li>
-    </ul>
+    <div class="inputs-block">
+      &nbsp;
+    </div>
+    <div class="inputs-block">
+      &nbsp;
+    </div>
+    <div class="inputs-block">
+      <%= text_field_tag :new_url, @url.new_url %>
+    </div>
+    <div class="inputs-block">
+      <ul class="destinies">
+        <li><%= destiny_button @url, :manual %></li>
+        <li><%= destiny_button @url, :scrape %></li>
+        <li><%= destiny_button @url, :archive %></li>
+        <li><%= destiny_button @url, :unsure %></li>
+      </ul>
+    </div>
   <% end %>
 </div>
 
