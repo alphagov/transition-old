@@ -19,4 +19,11 @@ Transition::Application.routes.draw do
   match 'dashboard' => 'dashboard#index'
 
   root :to => 'organisations#index'
+
+  namespace :admin do
+    get 'import_urls' => "import_urls#import"
+    post 'import_urls' => "import_urls#import"
+
+    root :to => 'home#index'
+  end
 end

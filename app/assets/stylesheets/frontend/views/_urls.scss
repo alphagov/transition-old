@@ -41,19 +41,25 @@
   }
 }
 
+.inputs-block {
+  width: 25%;
+  float: left;
+}
+
 .controls {
   width: 100%;
   padding-top: 1em;
 
   .pane {
     font-size: 0.85em;
-    width: 45%;
-    float: left;
+    width: 100%;
     height: 15em;
   }
 
   .urls {
     overflow: scroll;
+    border: 1px solid gray;
+    height: 12em;
 
     li {
       white-space: nowrap;
@@ -62,20 +68,16 @@
 
   .destinies {
     list-style: none;
-    padding: 0.5em 2.5em 0 2.5em;
     margin-left: auto;
     margin-right: auto;
-
     li {
-      input[type=text] {
-        margin-top: 0.5em;
-        width: 23em;
-      }
+      padding: 0 0 0.15em 1.0em;
     }
 
     button {
       @include destiny-button;
-      font-size: 1.2em;
+      font-size: 1em;
+      padding: 0.35em 0.5em 0.15em 0.5em;
 
       &.selected {
         border-left: 12px solid #DDD;
@@ -83,21 +85,35 @@
 
       &.manual {
         background-color: $manual-color;
+        box-shadow: 0 2px 0 $manual-shadow;
+        -webkit-box-shadow: 0 2px 0 $manual-shadow;
         &:hover {
-          background-color: $manual-dark
+          background-color: $manual-dark;
         }
         margin-right: 1em;
       }
       &.archive {
         background-color: $archive-color;
+        box-shadow: 0 2px 0 $archive-shadow;
+        -webkit-box-shadow: 0 2px 0 $archive-shadow;
         &:hover {
-          background-color: $archive-dark
+          background-color: $archive-dark;
         }
       }
       &.scrape {
         background-color: $scrape-color;
+        box-shadow: 0 2px 0 $scrape-shadow;
+        -webkit-box-shadow: 0 2px 0 $scrape-shadow;
         &:hover {
-          background-color: $scrape-dark
+          background-color: $scrape-dark;
+        }
+      }
+      &.unsure {
+        background-color: $unsure-color;
+        box-shadow: 0 2px 0 $unsure-shadow;
+        -webkit-box-shadow: 0 2px 0 $unsure-shadow;
+        &:hover {
+          background-color: $unsure-dark
         }
       }
     }
@@ -106,6 +122,7 @@
 }
 
 .preview {
+  margin-top: 10px;
   width: 100%;
   height: 800px;
 }
