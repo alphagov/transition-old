@@ -1,12 +1,12 @@
 <div class="controls">
-  <%= render partial: 'url_list', locals: { extra_class: 'pane' } %>
+  <%= render partial: 'url_list' %>
 
-  <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do %>
+  <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do |f| %>
     <div class="inputs-block">
       &nbsp;
     </div>
-    <div class="inputs-block">
-      &nbsp;
+    <div class="inputs-block comments">
+      <%= f.text_area :comments, placeholder: 'Comments...' %>
     </div>
     <div class="inputs-block">
       <%= text_field_tag :new_url, @url.new_url %>
