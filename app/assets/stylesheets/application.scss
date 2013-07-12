@@ -10,10 +10,12 @@
  *
  *= require_self
  *= require dashboard.scss
+ *= require _admin.scss
  *= require _organisation.scss
  *= require _status_charts.scss
  *= require _status_colours.scss
  *= require scaffolds.css
+ *= require select2
  */
 @import "bootstrap";
 @import "bootstrap-responsive";
