@@ -26,10 +26,7 @@
         <%= link_to 'GOV.UK Transition', root_path, :class => "brand" %>
         <nav role="navigation" class="nav-collapse">
           <ul class="nav">
-            <%= nav_link 'Organisations', '/organisations' %>
-            <%= nav_link 'Sites', '/sites' %>
-            <%= nav_link 'Hosts', '/hosts' %>
-            <%= nav_link @site.organisation.title, organisation_path(@site.organisation) if @site %>
+            <%= nav_link 'Import URLs', admin_import_urls_path %>
           </ul>
           <ul class="nav pull-right">
             <li class="dropdown">
@@ -53,7 +50,7 @@
   <section class="page-header"></section>
 
   <section class="container-fluid" role="main">
-    <% [:notice, :alert].select { |k| flash[k].present? }.each do |k| %>
+    <% [:notice, :alert, :error].select { |k| flash[k].present? }.each do |k| %>
       <div class="alert <%= k %>">
         <%= flash[k] %>
       </div>
