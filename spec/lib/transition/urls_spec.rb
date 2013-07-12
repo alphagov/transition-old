@@ -4,7 +4,7 @@ require 'transition/import/urls'
 module Transition
   module Import
 
-    describe Urls do
+    describe Urls, expensive_setup: true do
       describe ".from_csv!" do
         before :all do
           FactoryGirl.create(:cic_regulator)

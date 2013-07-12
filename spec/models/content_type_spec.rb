@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ContentType do
-
   describe 'Validations' do
     it { should validate_uniqueness_of(:subtype).scoped_to(:type).case_insensitive }
     it { should validate_presence_of(:type) }
@@ -26,5 +25,4 @@ describe ContentType do
       its(:to_s) { should eql('Publication') }
     end
   end
-
 end
