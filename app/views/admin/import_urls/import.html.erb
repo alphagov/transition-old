@@ -5,12 +5,19 @@
 <% end if @import_log.present? %>
 
 <%= form_tag admin_import_urls_path, multipart: true do %>
-  <%= label_tag :site_id %>
-  <%= select_tag :site_id, option_groups_from_collection_for_select(@organisations, :sites, :title, :id, :site, params[:site_id]), include_blank: true %>
+  <div class="sites-list">
+    <%= label_tag :site_id %>
+    <%= select_tag :site_id, option_groups_from_collection_for_select(@organisations, :sites, :title, :id, :site, params[:site_id]), 
+                   include_blank: true, class: 'select2 site-select' %>
+  </div>
 
   <label for="file">CSV file to Upload</label> <%= file_field_tag 'file', accept: 'text/csv' %>
 
-  <div>
+  <div class="upload">
     <%= submit_tag 'Upload' %>
   </div>
+<% end %>
+
+<%= javascript_tag do %>
+  $(document).ready(function() { $(".select2").select2(); });
 <% end %>
