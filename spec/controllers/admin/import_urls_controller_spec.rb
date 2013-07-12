@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Admin::ImportUrlsController do
+  before(:all) { DatabaseCleaner.clean }
+
   let!(:organisation) { create :organisation }
   let!(:site) { create :site, organisation: organisation }
 

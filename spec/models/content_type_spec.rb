@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe ContentType do
-  before(:all) { DatabaseCleaner.clean }
+  before :all do
+    DatabaseCleaner.clean
+  end
 
   describe 'Validations' do
     it { should validate_uniqueness_of(:subtype).scoped_to(:type).case_insensitive }
@@ -27,5 +29,4 @@ describe ContentType do
       its(:to_s) { should eql('Publication') }
     end
   end
-
 end

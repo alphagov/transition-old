@@ -24,6 +24,13 @@ module UrlsHelper
   ##
   # Create a named-for-this-controller-only dropdown for urls from the given collection
   def content_type_select(content_types)
-    collection_select :url, :content_type, content_types, :id, :to_s
+    content_tag :select, name: 'url[content_type]' do
+      options_for_select(
+        content_types.each_with_index.map do |type, index|
+          has_succeeding_types = content_types[index + 1].andand.type == type.type
+          type.subtype.blank? && has_succeeding_types ? [type, type.id, class: 'optgroup'] : [type, type.id]
+        end
+      )
+    end
   end
 end
