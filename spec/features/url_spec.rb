@@ -83,12 +83,11 @@ feature 'Viewing a url for a site' do
     page.should have_selector('button.manual.selected')
   end
 
-  scenario 'Marking a URL unsure' do
+  scenario 'Marking a URL unsure and adding a comment' do
     visit site_url_path(site, first_url)
 
-    within '.controls' do
-      click_button 'Unsure'
-    end
+    fill_in 'url_comments', with: 'This could be either MS or IG'
+    click_button 'Unsure'
 
     # Go back to the url we just marked manual
     click_link(first_url.url, exact: true)
@@ -98,5 +97,7 @@ feature 'Viewing a url for a site' do
 
     # The unsure button should be selected
     page.should have_selector('button.unsure.selected')
+
+    page.should have_field('url_comments', with: 'This could be either MS or IG')
   end
 end
