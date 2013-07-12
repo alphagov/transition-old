@@ -1,9 +1,7 @@
 require 'spec_helper'
 
-describe UrlsController do
+describe UrlsController, expensive_setup: true do
   before :all do
-    DatabaseCleaner.clean
-
     @organisation = create :organisation, abbr: 'DFID', title: 'DFID'
     @site1 = create :site, organisation: @organisation
     @site2 = create :site, organisation: @organisation, site: 'site-2'

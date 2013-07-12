@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe MappingsController do
-  before(:all) { DatabaseCleaner.clean }
-
   let!(:organisation) { create :organisation, abbr: 'DFID', title: 'DFID' }
   let!(:site) { create :site, organisation: organisation }
   let!(:mapping1) { create :mapping, path: '/hello-b', site: site }

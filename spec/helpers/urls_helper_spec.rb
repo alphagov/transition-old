@@ -44,9 +44,8 @@ describe '#url_classy_link' do
   end
 end
 
-describe '#content_type_select' do
+describe '#content_type_select', expensive_setup: true do
   before(:all) do
-    DatabaseCleaner.clean
     @content_types = [
         create(:content_type, type: 'Person', subtype: nil),
         create(:content_type, type: 'Policy', subtype: nil),
