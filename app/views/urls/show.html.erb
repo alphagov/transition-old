@@ -8,8 +8,22 @@
     <div class="inputs-block comments">
       <%= f.text_area :comments, placeholder: 'Comments...' %>
     </div>
-    <div class="inputs-block">
-      <%= text_field_tag :new_url, @url.new_url %>
+    <div class="inputs-block column-3">
+      <div class="scrape">
+        Scrape:
+        <%= f.label :is_scrape_true do %>
+          <%= f.radio_button(:is_scrape, true) %>
+          Yes
+        <% end -%>
+        <%= f.label :is_scrape_false do %>
+          <%= f.radio_button(:is_scrape, false) %>
+          No
+        <% end -%>
+      </div>
+      <div class="redirect-url">
+        <%= label_tag :new_url, 'Redirect url:' %>
+        <%= text_field_tag :new_url, @url.new_url, placeholder: 'http://' %>
+      </div>
     </div>
     <div class="inputs-block">
       <ul class="destinies">
