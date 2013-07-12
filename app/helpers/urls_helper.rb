@@ -28,7 +28,15 @@ module UrlsHelper
       options_for_select(
         content_types.each_with_index.map do |type, index|
           has_succeeding_types = content_types[index + 1].andand.type == type.type
-          type.subtype.blank? && has_succeeding_types ? [type, type.id, class: 'optgroup'] : [type, type.id]
+          klass = case
+                    when type.subtype.blank? && has_succeeding_types; 'optgroup'
+                    when type.subtype.present?;                       'subtype'
+                  end
+
+          opts = { 'data-scrape' => type.scrapable }
+          opts[:class] = klass if klass
+
+          [type, type.id, opts]
         end
       )
     end

@@ -7,6 +7,7 @@ module Transition
     describe Urls do
       describe ".from_csv!" do
         before :all do
+          DatabaseCleaner.clean!
           FactoryGirl.create(:cic_regulator)
           Urls.from_csv!('cic_regulator', fixture_file('cic_abridged.csv'))
         end

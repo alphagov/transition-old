@@ -48,23 +48,30 @@ describe '#content_type_select' do
   before(:all) do
     DatabaseCleaner.clean
     @content_types = [
-        create(:content_type_with_no_subtype, type: 'Policy'),
-        create(:content_type_with_no_subtype),
-        create(:content_type, subtype: 'another subtype')
+        create(:content_type, type: 'Person', subtype: nil),
+        create(:content_type, type: 'Policy', subtype: nil),
+        create(:content_type, type: 'Policy', subtype: 'Supporting detail'),
+        create(:content_type, type: 'Publication', subtype: 'Corporate reports', scrapable: false)
     ]
   end
 
   subject(:markup) { helper.content_type_select @content_types }
 
+  it { should include '<select name="url[content_type]">' }
+
   it 'does not have an optgroup for the first type, as it stands alone' do
-    markup.should include '<select name="url[content_type]"><option value="1">Policy</option>'
+    markup.should include '<option value="1" data-scrape="true">Person</option>'
   end
 
-  it 'has an optgroup for the second type, as it has a succeeding subtype' do
-    markup.should include '<option value="2" class="optgroup">Publication</option>'
+  it 'has an optgroup for the second type, which is selectable and has a succeeding subtype' do
+    markup.should include '<option value="2" data-scrape="true" class="optgroup">Policy</option>'
   end
 
-  it 'has the last type' do
-    markup.should include '<option value="3">Publication / another subtype</option></select>'
+  it 'lists the third type as a subtype' do
+    markup.should include '<option value="3" data-scrape="true" class="subtype">Policy / Supporting detail</option>'
+  end
+
+  it 'classes the last type as a subtype which is not scrapable' do
+    markup.should include '<option value="4" data-scrape="false" class="subtype">Publication / Corporate reports</option>'
   end
 end

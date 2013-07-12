@@ -1,6 +1,10 @@
 require 'features/features_helper'
 
 feature 'Viewing mappings for a site' do
+  before(:all) do
+    DatabaseCleaner.clean
+  end
+
   background do
     login_as_stub_user
   end

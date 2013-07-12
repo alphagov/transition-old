@@ -35,7 +35,7 @@ describe UrlsController do
 
       its([:site])          { should eql(@site1) }
       its([:url])           { should eql(@url1) }
-      its([:content_types]) { should eql(@content_types) }
+      its([:content_types]) { should include(@content_types.first) }
     end
   end
 
