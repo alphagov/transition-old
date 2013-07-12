@@ -28,7 +28,7 @@ class Admin::ImportUrlsController < ApplicationController
   def save_import_file(file, site)
     timestamp = Time.now.strftime('%Y%m%d-%H:%M:%S')
     FileUtils.mkdir_p(Rails.root.join('tmp/import_urls'))
-    write_path = Rails.root.join("tmp/import_urls/#{site.site.gsub(' ', '_')}-#{timestamp}.csv")
+    write_path = Rails.root.join("tmp/import_urls/#{site.site.gsub(' ', '_')}-#{timestamp}-#{rand(1...100).to_s}.csv")
     File.open(write_path, 'w') { |f| f.write(file.read.force_encoding("UTF-8")) }
     write_path
   end
