@@ -57,3 +57,6 @@ dirs.each do |file|
     end
   end
 end
+
+# seed url group types
+Transition::UrlGroups.seed_group_types

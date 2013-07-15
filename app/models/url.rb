@@ -1,5 +1,7 @@
 class Url < ActiveRecord::Base
+  # relationships
   belongs_to :site
+  belongs_to :url_group
   delegate :new_url, to: :mapping, allow_nil: true
 
   # validations
