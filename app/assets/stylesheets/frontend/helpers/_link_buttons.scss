@@ -1,0 +1,10 @@
+a.button {
+  @include destiny-button;
+  display: block;
+  text-align: center;
+  background-color: $green;
+  text-decoration: none;
+  padding: 0.25em;
+  width: 10em;
+  margin: 0.25em 0;
+}

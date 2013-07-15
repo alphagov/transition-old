@@ -11,7 +11,7 @@
         <dd><%= number_with_delimiter (@mappings_data.count) %></dd>
       </dl>
 
-      <p><%= link_to 'New Mapping', new_site_mapping_path(@site) %></p>
+      <p><%= link_to 'New Mapping', new_site_mapping_path(@site), class: 'button' %></p>
 
       <div class="progress status-chart">
         <% @mappings_data.counts_by_http_status.each do |status, status_count| %>
