@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715113742) do
+ActiveRecord::Schema.define(:version => 20130715135439) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
     t.string   "subtype"
     t.boolean  "scrapable"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "user_need_required", :default => false
   end
 
   add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
@@ -119,19 +120,30 @@ ActiveRecord::Schema.define(:version => 20130715113742) do
   add_index "url_groups", ["url_group_type_id", "organisation_id", "name"], :name => "index_url_groups_on_group_type_organisation_and_name"
 
   create_table "urls", :force => true do |t|
-    t.string   "url",            :limit => 2048,                    :null => false
-    t.integer  "site_id",                                           :null => false
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
-    t.string   "workflow_state",                 :default => "new", :null => false
+    t.string   "url",             :limit => 2048,                    :null => false
+    t.integer  "site_id",                                            :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
+    t.string   "workflow_state",                  :default => "new", :null => false
     t.text     "comments"
     t.boolean  "is_scrape"
     t.integer  "url_group_id"
+    t.integer  "user_need_id"
     t.integer  "content_type_id"
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
   add_index "urls", ["url_group_id"], :name => "index_urls_on_url_group_id"
+  add_index "urls", ["user_need_id"], :name => "index_urls_on_user_need_id"
+
+  create_table "user_needs", :force => true do |t|
+    t.string   "name",            :null => false
+    t.integer  "organisation_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "user_needs", ["organisation_id", "name"], :name => "index_user_needs_on_organisation_id_and_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"
