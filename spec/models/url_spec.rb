@@ -4,6 +4,7 @@ describe Url do
   describe :relationships do
     it { should belong_to(:site) }
     it { should belong_to(:url_group) }
+    it { should belong_to(:content_type) }
   end
 
   describe :validations do
