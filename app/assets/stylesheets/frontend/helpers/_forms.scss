@@ -1,8 +1,17 @@
 form {
+  margin: $gutter 0;
+
   div {
     label { display: block; }
-    input {
+  }
 
-    }
+  input[type="submit"] {
+    @include destiny-button(1em);
+    background-color: $green;
+    width: 10em;
+  }
+
+  .url {
+    width: 80%;
   }
 }
