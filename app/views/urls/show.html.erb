@@ -3,6 +3,7 @@
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do |f| %>
     <div class="inputs-block">
+      <%= f.collection_select :content_type_id, @content_types, :id, :to_s, { include_blank: true }, class: 'select2 content-type-select', placeholder: 'Content type' %>
       <%= f.select :url_group_id, grouped_options_for_url_group_select(@url), { include_blank: true }, class: 'select2 groupings-select', placeholder: 'Groupings' %>
     </div>
     <div class="inputs-block comments">

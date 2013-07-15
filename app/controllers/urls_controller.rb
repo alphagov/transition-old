@@ -8,6 +8,7 @@ class UrlsController < ApplicationController
   def show
     @site = Site.find_by_site!(params[:site_id])
     @url = @site.urls.find(params[:id])
+    @content_types = ContentType.order(:type)
   end
 
   def update
