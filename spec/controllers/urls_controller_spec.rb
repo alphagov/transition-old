@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-describe UrlsController do
-  before :each do
-    login_as_stub_user
+describe UrlsController, expensive_setup: true do
+  before :all do
     @organisation = create :organisation, abbr: 'DFID', title: 'DFID'
     @site1 = create :site, organisation: @organisation
     @site2 = create :site, organisation: @organisation, site: 'site-2'
@@ -10,20 +9,31 @@ describe UrlsController do
     @url2 = create :url, site: @site1
     @url3 = create :url, site: @site2
     @host = create :host, site: @site1, host: 'www.ministry-of-funk.org'
+    @content_types = [create(:content_type)]
+  end
+
+  before :each do
+    login_as_stub_user
   end
 
   describe :index do
-    it "should populate site, organisation and urls" do
+    it 'should populate site' do
       get :index, site_id: @site1
       assigns(:site).should == @site1
     end
   end
 
   describe :show do
-    it "should populate site and url" do
+    before do
       get :show, site_id: @site1, id: @url1
-      assigns(:site).should == @site1
-      assigns(:url).should == @url1
+    end
+
+    describe 'assigns' do
+      subject { assigns }
+
+      its([:site])          { should == @site1 }
+      its([:url])           { should == @url1 }
+      its([:content_types]) { should == @content_types }
     end
   end
 

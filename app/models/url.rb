@@ -2,6 +2,7 @@ class Url < ActiveRecord::Base
   # relationships
   belongs_to :site
   belongs_to :url_group
+  belongs_to :content_type
   delegate :new_url, to: :mapping, allow_nil: true
 
   # validations
