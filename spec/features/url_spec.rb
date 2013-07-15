@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-feature 'Viewing a url for a site' do
+shared_examples 'all the factoried instances for these scenarios' do
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 
@@ -10,6 +10,10 @@ feature 'Viewing a url for a site' do
   let!(:selected_url) { create :url, url: 'http://www.naturalengland.org.uk/about_us/default.aspx', site: site }
   let(:middle_url) { selected_url }
   let!(:last_url) { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site }
+end
+
+feature 'Viewing a url for a site', js: false do
+  include_examples 'all the factoried instances for these scenarios'
 
   background do
     login_as_stub_user
@@ -115,8 +119,8 @@ feature 'Viewing a url for a site' do
     visit site_url_path(site, first_url)
 
     page.should have_readonly_select('url[user_need_id]')
-    
-    select 'Publication / Guidance', from: 'url[content_type_id]'
+
+    select 'Guidance', from: 'url[content_type_id]'
     page.should have_non_readonly_select('url[user_need_id]')
     select 'I need to renew my passport', from: 'url[user_need_id]'
 
@@ -124,5 +128,31 @@ feature 'Viewing a url for a site' do
     # user needs dropdown should be readonly and reset to nil
     page.should have_readonly_select('url[user_need_id]')
     page.should have_select('url[user_need_id]', selected: '')
+  end
+end
+
+feature 'The scrape button\'s visibility', js: true do
+  include_examples 'all the factoried instances for these scenarios'
+
+  scenario 'showing the scrape box when a content type is not scrapable' do
+    scrapable_type = create :content_type
+
+    page.should_not have_selector('.scrape')
+
+    visit site_url_path(site, first_url)
+
+    select scrapable_type.subtype, from: 'url[content_type_id]'
+
+    page.should have_selector('.scrape')
+  end
+
+  scenario 'showing the scrape box when a content type is not scrapable' do
+    unscrapable_type = create :unscrapable_content_type
+
+    visit site_url_path(site, first_url)
+
+    select unscrapable_type.subtype, from: 'url[content_type_id]'
+
+    page.should_not have_selector('.scrape')
   end
 end
