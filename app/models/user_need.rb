@@ -3,5 +3,5 @@ class UserNeed < ActiveRecord::Base
   belongs_to :organisation
 
   # validations
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: {case_sensitive: false}
 end

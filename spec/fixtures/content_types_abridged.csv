@@ -1,6 +1,6 @@
-Type,Sub-type,Scrapable?
-Publication,Policy paper,Y
-Publication,Impact assessment,Y
-Publication,Guidance,Y
-Publication,Form,Y
-Publication,Statistics,Y
+Type,Sub-type,Scrapable?,User Need Required?
+Publication,Policy paper,Y,N
+Publication,Impact assessment,Y,N
+Publication,Guidance,Y,N
+Publication,Form,Y,N
+Publication,Statistics,Y,N
