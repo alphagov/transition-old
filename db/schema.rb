@@ -17,9 +17,8 @@ ActiveRecord::Schema.define(:version => 20130715135439) do
     t.string   "type"
     t.string   "subtype"
     t.boolean  "scrapable"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.boolean  "user_need_required", :default => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
