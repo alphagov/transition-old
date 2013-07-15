@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712160134) do
+ActiveRecord::Schema.define(:version => 20130715113742) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20130712160134) do
     t.text     "comments"
     t.boolean  "is_scrape"
     t.integer  "url_group_id"
+    t.integer  "content_type_id"
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
