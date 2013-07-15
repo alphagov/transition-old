@@ -107,7 +107,6 @@ ActiveRecord::Schema.define(:version => 20130712142637) do
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
     t.string   "workflow_state",                 :default => "new", :null => false
-    t.string   "content_type"
     t.text     "comments"
     t.boolean  "is_scrape"
   end
