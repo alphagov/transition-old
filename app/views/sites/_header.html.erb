@@ -1,24 +1,24 @@
 <p id="notice"><%= notice %></p>
-<section id="details organisation-logo">
+<section class="details organisation-logo">
   <%= render_organisation_title(organisation) %>
-
-  <dl>
-    <dt>Site</dt>
-    <dd><%=
-      if local_assigns[:with_site_link]
-        link_to site.site, site
-      else
-        site.site
-      end %></dd>
-
-    <dt>Homepage</dt>
-    <dd><%= link_to site.homepage, site.homepage %></dd>
-
-    <dt>Query params</dt>
-    <dd><%= site.query_params %></dd>
-
-    <dt>TNA timestamp</dt>
-    <dd><%= site.tna_timestamp %></dd>
-  </dl>
-
 </section>
+
+<dl class="site-details">
+  <dt>Site</dt>
+  <dd><%=
+    if local_assigns[:with_site_link]
+      link_to site.site, site
+    else
+      site.site
+    end %></dd>
+
+  <dt>Homepage</dt>
+  <dd><%= link_to site.homepage, site.homepage %></dd>
+
+  <dt>Query params</dt>
+  <dd><%= site.query_params %></dd>
+
+  <dt>TNA timestamp</dt>
+  <dd><%= site.tna_timestamp %></dd>
+</dl>
+

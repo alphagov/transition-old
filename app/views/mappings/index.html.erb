@@ -1,53 +1,58 @@
-<%= render 'sites/header', site: @site, organisation: @site.organisation, with_site_link: true %>
+<div class="block">
+  <div class="inner-block">
+    <%= render 'sites/header', site: @site, organisation: @site.organisation, with_site_link: true %>
 
-<section class="mappings status-filtering">
-  <h1>Mappings</h1>
 
-  <dl>
-    <dt>Total</dt>
-    <dd><%= number_with_delimiter (@mappings_data.count) %></dd>
-  </dl>
+    <section class="mappings status-filtering">
+      <h1>Mappings</h1>
 
-  <div class="progress status-chart">
-    <% @mappings_data.counts_by_http_status.each do |status, status_count| %>
-      <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((status_count / @mappings_data.count.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= status_count %>"></div>
-    <% end %>
-  </div>
+      <dl>
+        <dt>Total</dt>
+        <dd><%= number_with_delimiter (@mappings_data.count) %></dd>
+      </dl>
 
-  <ul class="status-filter nav filter-block">
-    <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
-    <% @mappings_data.http_statuses.each do |status_code| %>
-      <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
-    <% end %>
-  </ul>
-   
-  <p><%= link_to 'New Mapping', new_site_mapping_path(@site) %></p>
+      <p><%= link_to 'New Mapping', new_site_mapping_path(@site) %></p>
 
-  <table class="status-filtered hit-table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>HTTP Status</th>
-        <th>Original URL</th>
-        <th>New URL</th>
-        <th>Suggested URL</th>
-        <th>Archive URL</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @mappings_data.mappings.each do |mapping| %>
-        <tr data-status-code="<%= mapping.http_status %>">
-          <td><%= link_to 'Edit', edit_site_mapping_path(@site, mapping) %></td>
-          <td><%= mapping.http_status %></td>
-          <td><%= link_to mapping.path, 'http://'+@host.host+mapping.path %></td>
-          <td><%= link_to mapping.new_url, mapping.new_url if mapping.new_url.present? %></td>
-          <td><%= link_to mapping.suggested_url, mapping.suggested_url if mapping.suggested_url.present? %></td>
-          <td><%= link_to mapping.archive_url, mapping.archive_url if mapping.archive_url.present? %></td>
-          <%= content_tag :td, link_to(image_tag('icons/delete.png', width: 16, height: 16), site_mapping_path(@site, mapping), {method: :delete, confirm: "Delete mapping for '#{mapping.path}'?"}), class: 'delete' %>
+      <div class="progress status-chart">
+        <% @mappings_data.counts_by_http_status.each do |status, status_count| %>
+            <div class="bar bar-<%= status %>" style="width: <%= number_to_percentage((status_count / @mappings_data.count.to_f) * 100.0) %>%" title="Status: <%= status %>, count: <%= status_count %>"></div>
+        <% end %>
+      </div>
+
+      <ul class="status-filter nav filter-block">
+        <li class="active"><a href="#" data-toggle="tab" data-status-code="all">All</a></li>
+        <% @mappings_data.http_statuses.each do |status_code| %>
+            <li><a href="#" data-toggle="tab" data-status-code="<%= status_code %>"><%= status_code %></a></li>
+        <% end %>
+      </ul>
+
+      <table class="status-filtered hit-table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>HTTP Status</th>
+          <th>Original URL</th>
+          <th>New URL</th>
+          <th>Suggested URL</th>
+          <th>Archive URL</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        <% @mappings_data.mappings.each do |mapping| %>
+            <tr data-status-code="<%= mapping.http_status %>">
+              <td><%= link_to 'Edit', edit_site_mapping_path(@site, mapping) %></td>
+              <td><%= mapping.http_status %></td>
+              <td><%= link_to mapping.path, 'http://'+@host.host+mapping.path %></td>
+              <td><%= link_to mapping.new_url, mapping.new_url if mapping.new_url.present? %></td>
+              <td><%= link_to mapping.suggested_url, mapping.suggested_url if mapping.suggested_url.present? %></td>
+              <td><%= link_to mapping.archive_url, mapping.archive_url if mapping.archive_url.present? %></td>
+              <%= content_tag :td, link_to(image_tag('icons/delete.png', width: 16, height: 16), site_mapping_path(@site, mapping), {method: :delete, confirm: "Delete mapping for '#{mapping.path}'?"}), class: 'delete' %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
 
-</section>
+    </section>
+  </div>
+</div>
