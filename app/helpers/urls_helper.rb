@@ -21,6 +21,12 @@ module UrlsHelper
     )
   end
 
+  def grouped_options_for_content_type_select(url)
+    ContentType.order(:type).map do |content_type|
+      [content_type.to_s, content_type.id, {'data-user_need_required' => content_type.user_need_required, 'data-scrapable' => content_type.scrapable}]
+    end
+  end
+
   def grouped_options_for_url_group_select(url)
     options = {}
     UrlGroupType.all.each do |group_type|

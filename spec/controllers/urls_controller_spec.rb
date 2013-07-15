@@ -33,7 +33,6 @@ describe UrlsController, expensive_setup: true do
 
       its([:site])          { should == @site1 }
       its([:url])           { should == @url1 }
-      its([:content_types]) { should == @content_types }
     end
   end
 

@@ -8,15 +8,17 @@ module Transition
         CsvMapper.import(filename) do
           named_columns
 
-          type      'Type'
-          subtype   'Sub-Type'
-          scrapable 'Scrapable?'
+          type             'Type'
+          subtype          'Sub-Type'
+          scrapable        'Scrapable?'
+          userneedrequired 'User Need Required?'
 
           after_row lambda { |row, type_struct|
             new_type = ContentType.where(type: type_struct.type, subtype: type_struct.subtype).first_or_initialize
 
             already_existed = new_type.persisted?
             new_type.scrapable = (type_struct.scrapable == 'Y')
+            new_type.user_need_required = (type_struct.userneedrequired == 'Y')
 
 
             if(new_type.save rescue false)
