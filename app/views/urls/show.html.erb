@@ -3,7 +3,7 @@
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT' do |f| %>
     <div class="inputs-block">
-      <%= f.select :url_group_id, grouped_options_for_url_group_select(@url), { include_blank: true }, class: 'select2 groupings-select' %>
+      <%= f.select :url_group_id, grouped_options_for_url_group_select(@url), { include_blank: true }, class: 'select2 groupings-select', placeholder: 'Groupings' %>
     </div>
     <div class="inputs-block comments">
       <%= f.text_area :comments, placeholder: 'Comments...' %>
@@ -40,7 +40,6 @@
   $(function() {
     $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 3, 1].max %>)').position().top - $('.urls').position().top);
     $(".select2").select2({
-      placeholder: "Groupings",
       allowClear: true
     });
   });
