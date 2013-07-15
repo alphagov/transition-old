@@ -9,6 +9,7 @@ describe Organisation do
     it { should have_many(:hits).through(:sites) }
     it { should have_many(:urls).through(:sites) }
     it { should have_many(:url_groups).dependent(:restrict) }
+    it { should have_many(:user_needs).dependent(:restrict) }
   end
 
   context :status_summary do

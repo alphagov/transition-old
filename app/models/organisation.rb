@@ -6,6 +6,7 @@ class Organisation < ActiveRecord::Base
   has_many :hits, through: :sites
   has_many :urls, through: :sites
   has_many :url_groups, dependent: :restrict
+  has_many :user_needs, dependent: :restrict, order: 'name'
 
   def self.with_counts
     scoped.

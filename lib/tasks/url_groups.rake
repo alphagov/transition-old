@@ -6,7 +6,7 @@ namespace :url_groups do
     Transition::UrlGroups.seed_group_types
   end
 
-  desc 'seed some url groups'
+  desc 'seed sample url groups for an organisation'
   task :seed_groups, [:org_abbr] => :environment do |t, args|
     Transition::UrlGroups.seed_groups(args[:org_abbr])
   end
