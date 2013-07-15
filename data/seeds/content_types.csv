@@ -1,58 +1,1 @@
-Type,Sub-type,Scrapable?
-Publication,Policy paper,Y
-Publication,Impact assessment,Y
-Publication,Guidance,Y
-Publication,Form,Y
-Publication,Statistics,Y
-Publication,National statistics,Y
-Publication,Research and analysis,Y
-Publication,Corporate reports,Y
-Publication,Transparency data,Y
-Publication,Treaties,Y
-Publication,FOI release,Y
-Publication,Independent reports,Y
-Publication,Correspondence,Y
-Publication,Promotional material,Y
-Consultation (incl responses),,Y
-Statistical data set,,N
-Document series,,N
-Detailed guide,,Y
-About us,,N
-Role,,N
-Person,,N
-Corporate information,Personal information charter,N
-Corporate information,Publication scheme,N
-Corporate information,Complaints procedure,N
-Corporate information,Our governance,N
-Corporate information,Statistics at x,N
-Corporate information,Procurement,N
-Corporate information,Working for x,N
-Corporate information,Our energy use,N
-Corporate information,Welsh language scheme,N
-Policy,,N
-Policy,Supporting detail,N
-Policy team,,N
-Policy advisory group,,N
-Case study,,Y
-Organisation,Ministerial dept,N
-Organisation,Non-ministerial dept,N
-Organisation,Executive agency,N
-Organisation,Executive non-departmental public body,N
-Organisation,Tribunal non-departmental public body,N
-Organisation,Advisory non-departmental public body,N
-Organisation,Public corporation,N
-Organisation,Other,N
-Organisation,Sub-org (high profile unit of an org),N
-Governance group,,N
-Speech,Transcript,Y
-Speech,Draft,Y
-Speech,Speaking notes,Y
-Speech,Written statement (to Parliament),Y
-Speech,Oral statement (to Parliament),Y
-News article,Press release,Y
-News article,News story,Y
-News article,Government response,Y
-Topical event page,,N
-Topic ,,N
-Fatality notice (MOD only),,N
-Worldwide priority (FCO only),,N
+Type,Sub-type,Scrapable?,User Need Required?Publication,Policy paper,Y,NPublication,Impact assessment,Y,NPublication,Guidance,Y,YPublication,Form,Y,NPublication,Statistics,Y,NPublication,National statistics,Y,NPublication,Research and analysis,Y,NPublication,Corporate reports,Y,NPublication,Transparency data,Y,NPublication,Treaties,Y,NPublication,FOI release,Y,NPublication,Independent reports,Y,NPublication,Correspondence,Y,NPublication,Promotional material,Y,NConsultation (incl responses),,Y,NStatistical data set,,N,NDocument series,,N,NDetailed guide,,Y,NAbout us,,N,NRole,,N,NPerson,,N,NCorporate information,Personal information charter,N,NCorporate information,Publication scheme,N,NCorporate information,Complaints procedure,N,NCorporate information,Our governance,N,NCorporate information,Statistics at x,N,NCorporate information,Procurement,N,NCorporate information,Working for x,N,NCorporate information,Our energy use,N,NCorporate information,Welsh language scheme,N,NPolicy,,N,NPolicy,Supporting detail,N,NPolicy team,,N,NPolicy advisory group,,N,NCase study,,Y,NOrganisation,Ministerial dept,N,NOrganisation,Non-ministerial dept,N,NOrganisation,Executive agency,N,NOrganisation,Executive non-departmental public body,N,NOrganisation,Tribunal non-departmental public body,N,NOrganisation,Advisory non-departmental public body,N,NOrganisation,Public corporation,N,NOrganisation,Other,N,NOrganisation,Sub-org (high profile unit of an org),N,NGovernance group,,N,NSpeech,Transcript,Y,NSpeech,Draft,Y,NSpeech,Speaking notes,Y,NSpeech,Written statement (to Parliament),Y,NSpeech,Oral statement (to Parliament),Y,NNews article,Press release,Y,NNews article,News story,Y,NNews article,Government response,Y,NTopical event page,,N,NTopic ,,N,NFatality notice (MOD only),,N,NWorldwide priority (FCO only),,N,N

@@ -84,8 +84,8 @@ feature 'Viewing a url for a site' do
   end
 
   scenario "Marking a URL unsure, setting a url group and user need, adding a comment and setting scrape to 'Yes'" do
-    UrlGroup.create(name: 'Bee Health', organisation: organisation, url_group_type: UrlGroupType.create(name: 'Guidance'))
-    UserNeed.create(name: 'I need to renew my passport')
+    create :url_group, name: 'Bee Health', organisation: organisation, url_group_type: create(:url_group_type, name: 'Guidance')
+    create :user_need, name: 'I need to renew my passport'
     visit site_url_path(site, first_url)
 
     select 'Bee Health', from: 'url[url_group_id]'
