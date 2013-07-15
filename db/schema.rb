@@ -113,7 +113,6 @@ ActiveRecord::Schema.define(:version => 20130712142637) do
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
-  add_index "urls", ["url"], :name => "index_urls_on_url", :length => {"url"=>255}
 
   create_table "users", :force => true do |t|
     t.string   "name"
