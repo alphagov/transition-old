@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Url do
   describe :relationships do
     it { should belong_to(:site) }
+    it { should belong_to(:url_group) }
   end
 
   describe :validations do

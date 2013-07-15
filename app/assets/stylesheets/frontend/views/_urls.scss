@@ -45,6 +45,11 @@
   width: 25%;
   float: left;
 
+  .groupings-select {
+    padding-right: 10px;
+    width: 100%;
+  }
+
   &.column-3 {
     font-weight: bold;
   }

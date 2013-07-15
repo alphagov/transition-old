@@ -17,7 +17,6 @@
 @import "styleguide/_brand-colours.scss";
 @import "styleguide/_dimensions.scss";
 
-
 // LAYOUTS
 // Styles scoped to a layout. Be careful.
 
@@ -52,3 +51,6 @@
   @import "views/_organisations.scss";
   @import "views/_urls.scss";
 }
+
+// select2
+@import 'select2.css.scss'

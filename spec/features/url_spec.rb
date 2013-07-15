@@ -83,9 +83,11 @@ feature 'Viewing a url for a site' do
     page.should have_selector('button.manual.selected')
   end
 
-  scenario "Marking a URL unsure, adding a comment and setting scrape to 'Yes'" do
+  scenario "Marking a URL unsure, setting a url group, adding a comment and setting scrape to 'Yes'" do
+    UrlGroup.create(name: 'Bee Health', organisation: organisation, url_group_type: UrlGroupType.create(name: 'Guidance'))
     visit site_url_path(site, first_url)
 
+    select 'Bee Health'
     fill_in 'url_comments', with: 'This could be either MS or IG'
     choose 'Yes'
     click_button 'Unsure'
@@ -98,6 +100,7 @@ feature 'Viewing a url for a site' do
 
     # The unsure button should be selected
     page.should have_selector('button.unsure.selected')
+    page.should have_select('url[url_group_id]', selected: 'Bee Health')
     page.should have_checked_field('Yes')
     page.should have_field('url_comments', with: 'This could be either MS or IG')
   end
