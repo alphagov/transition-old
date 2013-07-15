@@ -8,6 +8,7 @@ describe Organisation do
     it { should have_many(:totals).through(:hosts) }
     it { should have_many(:hits).through(:sites) }
     it { should have_many(:urls).through(:sites) }
+    it { should have_many(:url_groups).dependent(:restrict) }
   end
 
   context :status_summary do

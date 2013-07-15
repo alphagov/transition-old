@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130712142637) do
+ActiveRecord::Schema.define(:version => 20130712160134) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -101,6 +101,23 @@ ActiveRecord::Schema.define(:version => 20130712142637) do
 
   add_index "totals", ["host_id", "total_on", "http_status"], :name => "index_totals_on_host_id_and_total_on_and_http_status", :unique => true
 
+  create_table "url_group_types", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "url_groups", :force => true do |t|
+    t.string   "name",              :null => false
+    t.integer  "url_group_type_id", :null => false
+    t.integer  "organisation_id",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "url_groups", ["organisation_id"], :name => "index_url_groups_on_organisation_id"
+  add_index "url_groups", ["url_group_type_id", "organisation_id", "name"], :name => "index_url_groups_on_group_type_organisation_and_name"
+
   create_table "urls", :force => true do |t|
     t.string   "url",            :limit => 2048,                    :null => false
     t.integer  "site_id",                                           :null => false
@@ -109,9 +126,11 @@ ActiveRecord::Schema.define(:version => 20130712142637) do
     t.string   "workflow_state",                 :default => "new", :null => false
     t.text     "comments"
     t.boolean  "is_scrape"
+    t.integer  "url_group_id"
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
+  add_index "urls", ["url_group_id"], :name => "index_urls_on_url_group_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
