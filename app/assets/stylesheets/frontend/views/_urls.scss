@@ -53,9 +53,12 @@
   &.column-3 {
     font-weight: bold;
   }
+
   div.scrape {
     margin-bottom: 10px;
+    display: none;
   }
+
   .redirect-url {
     input {
       width: 200px;

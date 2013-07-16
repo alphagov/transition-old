@@ -48,20 +48,24 @@
       allowClear: true
     });
 
-    // set disabled property of user needs dropdown on page load
-    content_type_changed($('#url_content_type_id'));
-    
-    /**
-     * Enable/disable user needs dropdown according to the content type selected
-     */
-    $('#url_content_type_id').change(function() {
-      content_type_changed(this);
-    });
-  });
+    var content_type_dropdown = $('#url_content_type_id');
 
-  function content_type_changed(dropdown) {
-    user_need_enable_disable(dropdown);
-  }
+    /**
+     * according to the content type selected:
+     *   * Enable/disable user needs dropdown
+     *   * Enable/disable scrape buttons
+     */
+    content_type_dropdown.change(function() {
+        content_type_changed(this);
+    });
+    content_type_changed(content_type_dropdown.get(0));
+
+    function content_type_changed(dropdown) {
+        user_need_enable_disable($(dropdown));
+        var scrapable = dropdown.options[dropdown.selectedIndex].getAttribute('data-scrapable') == 'true';
+        $('.scrape').showEnableIf(scrapable);
+    }
+  });
 
   function user_need_enable_disable(content_type_dropdown) {
     var user_need_required;

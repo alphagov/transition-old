@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-feature 'Viewing a url for a site' do
+feature 'Viewing a url for a site', js: false do
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 
@@ -115,8 +115,8 @@ feature 'Viewing a url for a site' do
     visit site_url_path(site, first_url)
 
     page.should have_readonly_select('url[user_need_id]')
-    
-    select 'Publication / Guidance', from: 'url[content_type_id]'
+
+    select 'Guidance', from: 'url[content_type_id]'
     page.should have_non_readonly_select('url[user_need_id]')
     select 'I need to renew my passport', from: 'url[user_need_id]'
 
@@ -125,4 +125,21 @@ feature 'Viewing a url for a site' do
     page.should have_readonly_select('url[user_need_id]')
     page.should have_select('url[user_need_id]', selected: '')
   end
+
+  scenario 'showing/hiding the scrape box as we select scrapable/unscrapable content', js: true do
+    scrapable_type = create :content_type
+    unscrapable_type = create :unscrapable_content_type
+
+    visit site_url_path(site, first_url)
+
+    page.should_not have_selector('.scrape')
+
+    select scrapable_type.subtype, from: 'url[content_type_id]'
+    page.should have_selector('.scrape')
+
+    select unscrapable_type.subtype, from: 'url[content_type_id]'
+    page.should_not have_selector('.scrape')
+  end
 end
+
+
