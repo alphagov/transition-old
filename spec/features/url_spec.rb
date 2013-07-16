@@ -132,13 +132,13 @@ feature 'Viewing a url for a site', js: false do
 
     visit site_url_path(site, first_url)
 
-    page.should_not have_selector('.scrape')
+    page.should_not have_selector('.column-3 .scrape')
 
     select scrapable_type.subtype, from: 'url[content_type_id]'
-    page.should have_selector('.scrape')
+    page.should have_selector('.column-3 .scrape')
 
     select unscrapable_type.subtype, from: 'url[content_type_id]'
-    page.should_not have_selector('.scrape')
+    page.should_not have_selector('.column-3 .scrape')
   end
 end
 

@@ -6,6 +6,10 @@
   background: white !important;
 }
 
+#url_form {
+  margin: 0;
+}
+
 .urls {
   list-style: none;
   margin: 0;
@@ -16,6 +20,10 @@
     line-height: 1.1em;
     margin: 0.1em 0;
     padding: 0 0.25em;
+
+    a {
+      text-decoration:  none;
+    }
 
     &.selected {
       background-color: white !important;
@@ -52,11 +60,13 @@
 
   &.column-3 {
     font-weight: bold;
-  }
-
-  div.scrape {
-    margin-bottom: 10px;
-    display: none;
+    div.scrape {
+      margin-bottom: 10px;
+      display: none;
+      label {
+        display: inline;
+      }
+    }
   }
 
   .redirect-url {
