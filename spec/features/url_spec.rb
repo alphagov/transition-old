@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-feature 'Viewing a url for a site' do
+feature 'Viewing a url for a site', js: false do
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 
@@ -107,4 +107,39 @@ feature 'Viewing a url for a site' do
     page.should have_checked_field('Yes')
     page.should have_field('url_comments', with: 'This could be either MS or IG')
   end
+
+  scenario "Selecting content type sets user need dropdown to readonly or editable depending on content type", js: true do
+    create :content_type, type: 'Policy Team', subtype: nil, user_need_required: false
+    create :content_type, type: 'Publication', subtype: 'Guidance', user_need_required: true
+    create :user_need, name: 'I need to renew my passport'
+    visit site_url_path(site, first_url)
+
+    page.should have_readonly_select('url[user_need_id]')
+
+    select 'Guidance', from: 'url[content_type_id]'
+    page.should have_non_readonly_select('url[user_need_id]')
+    select 'I need to renew my passport', from: 'url[user_need_id]'
+
+    select 'Policy Team', from: 'url[content_type_id]'
+    # user needs dropdown should be readonly and reset to nil
+    page.should have_readonly_select('url[user_need_id]')
+    page.should have_select('url[user_need_id]', selected: '')
+  end
+
+  scenario 'showing/hiding the scrape box as we select scrapable/unscrapable content', js: true do
+    scrapable_type = create :content_type
+    unscrapable_type = create :unscrapable_content_type
+
+    visit site_url_path(site, first_url)
+
+    page.should_not have_selector('.scrape')
+
+    select scrapable_type.subtype, from: 'url[content_type_id]'
+    page.should have_selector('.scrape')
+
+    select unscrapable_type.subtype, from: 'url[content_type_id]'
+    page.should_not have_selector('.scrape')
+  end
 end
+
+
