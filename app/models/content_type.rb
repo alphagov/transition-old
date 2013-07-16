@@ -1,8 +1,10 @@
-##
-# An Inside Government content type
 class ContentType < ActiveRecord::Base
-  attr_accessible :scrapable, :subtype, :type
+  attr_accessible :user_need_required, :scrapable, :subtype, :type
 
+  # relationships
+  has_many :urls, dependent: :restrict
+
+  # validations
   validates_presence_of :type
   validates_uniqueness_of :subtype, scope: :type, case_sensitive: false
 

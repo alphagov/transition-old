@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe ContentType do
 
+  describe :relationships do
+    it { should have_many(:urls).dependent(:restrict) }
+  end
+
   describe 'Validations' do
     it { should validate_uniqueness_of(:subtype).scoped_to(:type).case_insensitive }
     it { should validate_presence_of(:type) }
