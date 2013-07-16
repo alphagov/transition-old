@@ -134,25 +134,18 @@ end
 feature 'The scrape button\'s visibility', js: true do
   include_examples 'all the factoried instances for these scenarios'
 
-  scenario 'showing the scrape box when a content type is not scrapable' do
+  scenario 'showing/hiding the scrape box as we select scrapable/unscrapable content' do
     scrapable_type = create :content_type
+    unscrapable_type = create :unscrapable_content_type
 
     visit site_url_path(site, first_url)
 
     page.should_not have_selector('.scrape')
 
     select scrapable_type.subtype, from: 'url[content_type_id]'
-
     page.should have_selector('.scrape')
-  end
-
-  scenario 'showing the scrape box when a content type is not scrapable' do
-    unscrapable_type = create :unscrapable_content_type
-
-    visit site_url_path(site, first_url)
 
     select unscrapable_type.subtype, from: 'url[content_type_id]'
-
     page.should_not have_selector('.scrape')
   end
 end
