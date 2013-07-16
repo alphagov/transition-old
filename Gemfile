@@ -38,6 +38,7 @@ group :test do
   gem 'webmock', require: false
   gem 'shoulda-matchers'
   gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 group :development, :test do
