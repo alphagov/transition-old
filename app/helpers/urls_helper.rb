@@ -21,10 +21,21 @@ module UrlsHelper
     )
   end
 
+  def entry_for_content_type(content_type)
+    [
+      content_type.subtype || content_type.type,
+      content_type.id,
+      {
+        'data-user_need_required' => content_type.user_need_required,
+        'data-scrapable'          => content_type.scrapable
+      }
+    ]
+  end
+
   def grouped_options_for_content_type_select(url)
     options = {}
     ContentType.all.group_by(&:type).each do |type, content_types|
-      options[type] = content_types.map { |content_type| [content_type.subtype || content_type.type, content_type.id, {'data-user_need_required' => content_type.user_need_required, 'data-scrapable' => content_type.scrapable}] }
+      options[type] = content_types.map { |content_type| entry_for_content_type(content_type) }
     end
     grouped_options_for_select(options, url.content_type_id)
   end
