@@ -1,18 +1,7 @@
 .hit-table {
   margin-top: $gutter;
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0px;
 
-  th {
-    font-weight: bold;
-    border-bottom: 2px solid $border-colour;
-  }
-  td {
-    border-bottom: 1px solid $border-colour;
-    padding: 5px 8px 3px;
-  }
-  
   &.show-error {
     tbody tr { display: none; }
     tr.error { display: table-row; }
