@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-shared_examples 'all the factoried instances for these scenarios' do
+feature 'Viewing a url for a site', js: false do
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 
@@ -10,10 +10,6 @@ shared_examples 'all the factoried instances for these scenarios' do
   let!(:selected_url) { create :url, url: 'http://www.naturalengland.org.uk/about_us/default.aspx', site: site }
   let(:middle_url) { selected_url }
   let!(:last_url) { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site }
-end
-
-feature 'Viewing a url for a site', js: false do
-  include_examples 'all the factoried instances for these scenarios'
 
   background do
     login_as_stub_user
@@ -129,12 +125,8 @@ feature 'Viewing a url for a site', js: false do
     page.should have_readonly_select('url[user_need_id]')
     page.should have_select('url[user_need_id]', selected: '')
   end
-end
 
-feature 'The scrape button\'s visibility', js: true do
-  include_examples 'all the factoried instances for these scenarios'
-
-  scenario 'showing/hiding the scrape box as we select scrapable/unscrapable content' do
+  scenario 'showing/hiding the scrape box as we select scrapable/unscrapable content', js: true do
     scrapable_type = create :content_type
     unscrapable_type = create :unscrapable_content_type
 
@@ -149,3 +141,5 @@ feature 'The scrape button\'s visibility', js: true do
     page.should_not have_selector('.scrape')
   end
 end
+
+
