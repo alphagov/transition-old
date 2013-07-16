@@ -137,9 +137,9 @@ feature 'The scrape button\'s visibility', js: true do
   scenario 'showing the scrape box when a content type is not scrapable' do
     scrapable_type = create :content_type
 
-    page.should_not have_selector('.scrape')
-
     visit site_url_path(site, first_url)
+
+    page.should_not have_selector('.scrape')
 
     select scrapable_type.subtype, from: 'url[content_type_id]'
 

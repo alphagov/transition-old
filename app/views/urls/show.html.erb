@@ -63,13 +63,7 @@
     function content_type_changed(dropdown) {
         user_need_enable_disable($(dropdown));
         var scrapable = dropdown.options[dropdown.selectedIndex].getAttribute('data-scrapable') == 'true';
-        if(scrapable) {
-            $('.scrape input').removeAttr('disabled').show();
-            $('.scrape').show();
-        } else {
-            $('.scrape input').hide().attr('disabled', 'disabled');
-            $('.scrape').hide();
-        };
+        $('.scrape').showEnableIf(scrapable);
     }
   });
 
