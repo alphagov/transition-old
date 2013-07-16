@@ -83,7 +83,7 @@ feature 'Viewing a url for a site' do
     page.should have_selector('button.manual.selected')
   end
 
-  scenario "Marking a URL unsure, setting a url group and user need, adding a comment and setting scrape to 'Yes'" do
+  scenario "Marking a URL unfinished, setting a url group and user need, adding a comment and setting scrape to 'Yes'" do
     create :url_group, name: 'Bee Health', organisation: organisation, url_group_type: create(:url_group_type, name: 'Guidance')
     create :user_need, name: 'I need to renew my passport'
     visit site_url_path(site, first_url)
@@ -92,15 +92,15 @@ feature 'Viewing a url for a site' do
     select 'I need to renew my passport', from: 'url[user_need_id]'
     fill_in 'url_comments', with: 'This could be either MS or IG'
     choose 'Yes'
-    click_button 'Unsure'
+    click_button 'Save for review later'
 
-    # Go back to the url we just marked manual
+    # Go back to the url we just marked unfinished
     click_link(first_url.url, exact: true)
 
-    # The first URL should be marked unsure and be selected
+    # The first URL should be marked unfinished and be selected
     page.should have_selector('.urls li.unsure.selected')
 
-    # The unsure button should be selected
+    # The unfinished button should be selected
     page.should have_selector('button.unsure.selected')
     page.should have_select('url[url_group_id]', selected: 'Bee Health')
     page.should have_select('url[user_need_id]', selected: 'I need to renew my passport')
