@@ -47,6 +47,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    childprocess (0.3.9)
+      ffi (~> 1.0, >= 1.0.11)
     chronic (0.9.1)
     ci_reporter (1.8.0)
       builder (>= 2.1.2)
@@ -69,6 +71,7 @@ GEM
     fastercsv (1.5.5)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
+    ffi (1.7.0)
     gds-sso (3.0.0)
       omniauth-gds (= 0.0.3)
       rack-accept (~> 0.4.4)
@@ -168,6 +171,7 @@ GEM
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
       rspec-mocks (~> 2.13.0)
+    rubyzip (0.9.9)
     sass (3.2.8)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -176,6 +180,11 @@ GEM
     select2-rails (3.4.3)
       sass-rails
       thor (~> 0.14)
+    selenium-webdriver (2.32.1)
+      childprocess (>= 0.2.5)
+      multi_json (~> 1.0)
+      rubyzip
+      websocket (~> 1.0.4)
     shoulda-matchers (2.2.0)
       activesupport (>= 3.0.0)
     sprockets (2.2.2)
@@ -204,6 +213,7 @@ GEM
     webmock (1.11.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
+    websocket (1.0.7)
     whenever (0.8.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -237,6 +247,7 @@ DEPENDENCIES
   sass
   sass-rails (~> 3.2)
   select2-rails
+  selenium-webdriver
   shoulda-matchers
   therubyracer
   uglifier (>= 1.0.3)

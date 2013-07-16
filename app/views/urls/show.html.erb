@@ -47,7 +47,33 @@
     $(".select2").select2({
       allowClear: true
     });
+
+    // set disabled property of user needs dropdown on page load
+    content_type_changed($('#url_content_type_id'));
+    
+    /**
+     * Enable/disable user needs dropdown according to the content type selected
+     */
+    $('#url_content_type_id').change(function() {
+      content_type_changed(this);
+    });
   });
+
+  function content_type_changed(dropdown) {
+    user_need_enable_disable(dropdown);
+  }
+
+  function user_need_enable_disable(content_type_dropdown) {
+    var user_need_required;
+    user_need_required = $(content_type_dropdown).find('option:selected').attr('data-user_need_required');
+    if (user_need_required && user_need_required == 'true') {
+      $('#url_user_need_id').attr('readonly', false);
+    } else {
+      $('#url_user_need_id').val(null);
+      $('#url_user_need_id').select2().val(null);
+      $('#url_user_need_id').attr('readonly', true);  
+    }
+  }
 <% end %>
 
 <iframe src="<%= @url.url %>" class="preview" />
