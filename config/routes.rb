@@ -21,6 +21,7 @@ Transition::Application.routes.draw do
   root :to => 'organisations#index'
 
   namespace :admin do
+    resources :content_types, only: [:index, :new, :create, :edit, :update, :destroy]
     get 'import_urls' => "import_urls#import"
     post 'import_urls' => "import_urls#import"
 
