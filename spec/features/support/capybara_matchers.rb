@@ -16,8 +16,8 @@ RSpec::Matchers.define :have_non_readonly_select do |name|
   end
 end
 
-RSpec::Matchers.define :have_list_in_this_order do |selector, list|
-  match do |page|
+module CapybaraExtension
+  def has_list_in_this_order?(selector, list)
     within selector do
       list.each_with_index do |expected_text, line_idx|
         xpath = "li[#{line_idx + 1}]"
@@ -27,16 +27,14 @@ RSpec::Matchers.define :have_list_in_this_order do |selector, list|
 
       # check number of rows are as expected
       if list.empty?
-        page.should have_no_xpath('li')
+        has_no_xpath?('li').should == true
       else
-        page.should have_xpath('li', count: list.size)
+        has_xpath?('li', count: list.size).should == true
       end
     end
   end
-end
 
-RSpec::Matchers.define :have_exact_table do |selector, arr|
-  match do |page|
+  def has_exact_table?(selector, arr)
     within selector do
       arr.each_with_index do |row, row_idx|
         row.each_with_index do |expected_text, cell_idx|
@@ -45,8 +43,8 @@ RSpec::Matchers.define :have_exact_table do |selector, arr|
           if expected_text != '*'
             # need to use xpath if we're in a js test in order to have waiting applied
             # Xpath doesn't appear to handle a forward slash so we're cheating
-            if page.driver.class == Capybara::Poltergeist::Driver and elem.text.exclude?('/')
-              page.should have_xpath(xpath, text: expected_text)
+            if driver.class == Capybara::Poltergeist::Driver and elem.text.exclude?('/')
+              has_xpath?(xpath, text: expected_text).should == true
             else
               "'#{elem.text.strip}' for element '#{xpath}'".should == expected_text unless elem.text.strip.gsub(/(\n*\s{2,})/, " ") == expected_text.to_s.strip
             end
@@ -56,10 +54,12 @@ RSpec::Matchers.define :have_exact_table do |selector, arr|
 
       # check number of rows are as expected
       if arr.size == 0
-        page.should have_no_xpath('tr')
+        has_no_xpath?('tr').should == true
       else  
-        page.should have_xpath('tr', count: arr.size)
+        has_xpath?('tr', count: arr.size).should == true
       end
     end
   end
 end
+
+Capybara::Session.send(:include, CapybaraExtension) 

@@ -7,7 +7,7 @@ describe Site do
     it { should have_many(:hits).through(:hosts) }
     it { should have_many(:totals).through(:hosts) }
     it { should have_many(:mappings) }
-    it { should have_many(:urls).order(:id).dependent(:restrict) }
+    it { should have_many(:urls).dependent(:restrict) }
   end
 
   describe '#adjacent_urls' do

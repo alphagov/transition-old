@@ -9,6 +9,13 @@ class Url < ActiveRecord::Base
   validates :url, uniqueness: {case_sensitive: false}
   validates :site, presence: true
 
+  # scopes
+  scope :scrapable, where(is_scrape: true).
+        joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
+        joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
+        includes(:content_type, :url_group).
+        order('content_types.type, content_types.subtype, url_groups.name')
+
   def next
     site.urls.where('id > ?', id).order('id ASC').first
   end
