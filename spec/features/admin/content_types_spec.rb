@@ -37,7 +37,7 @@ feature 'View, create or edit content types' do
       click_button 'Save'
 
       page.current_path.should == admin_content_types_path
-      page.should have_content('Content type saved')
+      page.should have_content("Content type 'Type 1 mod / Subtype 1 mod' saved")
       page.should have_exact_table 'table tbody', [
         ['Type 1 mod / Subtype 1 mod', '', 'Yes', ''],
         ['Type 2',                     '', 'Yes', '']]
@@ -52,7 +52,7 @@ feature 'View, create or edit content types' do
       fill_in('Type', with: 'New type')
       click_button 'Save'
 
-      page.should have_content('Content type saved')
+      page.should have_content("Content type 'New type' saved")
       page.should have_exact_table 'table tbody', [
         ['New type', '', '', '']]
     end
