@@ -11,7 +11,7 @@ class Admin::ContentTypesController < ApplicationController
   def create
     @content_type = ContentType.new(params[:content_type])
     if @content_type.save
-      redirect_to admin_content_types_path, notice: "Content type saved"
+      redirect_to admin_content_types_path, notice: "Content type '#{@content_type}' saved"
     else
       render action: 'new'
     end
@@ -24,7 +24,7 @@ class Admin::ContentTypesController < ApplicationController
   def update
     @content_type = ContentType.find(params[:id])
     if @content_type.update_attributes(params[:content_type])
-      redirect_to admin_content_types_path(@site), notice: "Content type saved"
+      redirect_to admin_content_types_path(@site), notice: "Content type '#{@content_type}' saved"
     else
       render action: 'edit'
     end
@@ -33,6 +33,6 @@ class Admin::ContentTypesController < ApplicationController
   def destroy
     @content_type = ContentType.find(params[:id])
     @content_type.destroy
-    redirect_to admin_content_types_path(@site), notice: "Content type deleted"
+    redirect_to admin_content_types_path(@site), notice: "Content type '#{@content_type}' deleted"
   end
 end
