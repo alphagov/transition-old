@@ -1,6 +1,7 @@
 class MappingsController < ApplicationController
   layout 'frontend'
 
+  protect_from_forgery :except => [:destroy]
   before_filter :find_site
 
   def index
