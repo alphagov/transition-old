@@ -28,10 +28,6 @@
 
     ready: function() {
       $(document).ready(function() {
-        $('.urls').scrollTop(
-            $('.urls li:nth-child(<%= [@site.urls.index(@url) - 3, 1].max %>)')
-                .position().top - $('.urls').position().top
-        );
         $(".select2").select2({
           allowClear: true
         });
