@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe ContentType do
 
-  describe :relationships do
+  describe 'Relationships' do
     it { should have_many(:urls).dependent(:restrict) }
+    it { should have_and_belong_to_many(:scrapable_fields) }
   end
 
   describe 'Validations' do
