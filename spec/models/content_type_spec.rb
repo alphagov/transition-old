@@ -14,7 +14,7 @@ describe ContentType do
 
     it 'differentiates on subtype' do
       create :content_type
-      create :content_type_with_no_subtype
+      lambda { create :content_type_with_no_subtype }.should_not raise_error
     end
   end
 
