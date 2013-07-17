@@ -21,6 +21,16 @@ describe UrlsController, expensive_setup: true do
       get :index, site_id: @site1
       assigns(:site).should == @site1
     end
+
+    it "should render the index template" do
+      get :index, site_id: @site1
+      response.should render_template('index')
+    end
+
+    it "should render the scrapable_urls template" do
+      get :index, site_id: @site1, scrapable: 'true'
+      response.should render_template('scrapable_urls')
+    end
   end
 
   describe :show do

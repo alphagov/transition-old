@@ -9,6 +9,9 @@ class Url < ActiveRecord::Base
   validates :url, uniqueness: {case_sensitive: false}
   validates :site, presence: true
 
+  # scopes
+  scope :scrapable, where(is_scrape: true)
+
   def next
     site.urls.where('id > ?', id).order('id ASC').first
   end

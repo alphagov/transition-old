@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped scrapable">
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Content type</th>
+      <th>Grouping</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @site.urls.scrapable.each do |url| %>
+      <tr>
+        <td><%= url.url %></td>
+        <td><%= url.content_type.try(:to_s) %></td>
+        <td><%= url.url_group.try(:name) %></td>
+        <td><%= url.comments %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
