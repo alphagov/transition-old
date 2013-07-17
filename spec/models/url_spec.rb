@@ -22,7 +22,6 @@ describe Url do
       url3 = create :url, is_scrape: true
       Url.scrapable.size.should == 2
       Url.scrapable.should include(url1, url3)
-      Url.scrapable.should_not include(url2)
     end
   end
 
