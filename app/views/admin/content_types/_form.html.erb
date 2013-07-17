@@ -1,0 +1,26 @@
+<div class="block">
+  <div class="inner-block">
+    <%= form_for [:admin, @content_type] do |f| %>
+      <%= render "shared/error_messages", target: f.object %>
+        <div>
+          <%= f.label :type %>
+          <%= f.text_field :type, autofocus: true %>
+        </div>
+        <div>
+          <%= f.label :subtype %>
+          <%= f.text_field :subtype %>
+        </div>
+        <div>
+          <%= f.label :scrapable %>
+          <%= f.check_box :scrapable %>
+        </div>
+        <div>
+          <%= f.label :user_need_required %>
+          <%= f.check_box :user_need_required %>
+        </div>
+        <div>
+          <%= f.submit 'Save' %>
+        </div>
+    <% end %>
+  </div>
+</div>

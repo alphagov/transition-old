@@ -1,0 +1,21 @@
+<%= link_to 'New content type', new_admin_content_type_path %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Type / Subtype</th>
+      <th>Scrapable?</th>
+      <th>User need required?</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @content_types.each do |content_type| %>
+      <tr>
+        <td><%= link_to content_type.to_s, edit_admin_content_type_path(content_type) %></td>
+        <td><%= content_type.scrapable ? 'Yes' : '' %></td>
+        <td><%= content_type.user_need_required ? 'Yes' : '' %></td>
+        <%= content_tag :td, link_to(image_tag('icons/delete.png', width: 16, height: 16), admin_content_type_path(content_type), {method: :delete, confirm: "Delete content type '#{content_type.to_s}'?"}), class: 'delete' %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
