@@ -40,6 +40,21 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.include FactoryGirl::Syntax::Methods
+
+  # to turn deferred garbage collection on temporarily, run: export DEFERRED_GARBAGE_COLLECTION=true
+  # or DGC=true
+  # to turn on permanently, add a line to .bash_login or .bashrc: export DEFERRED_GARBAGE_COLLECTION=true
+  # and then run: source {path of file}
+  dgc = ENV['DEFERRED_GARBAGE_COLLECTION'].present? || ENV['DGC'].present?
+  puts "Deferred garbage collection is #{dgc ? 'on' : 'off'}"
+  if dgc
+    config.before(:all) do
+      DeferredGarbageCollection.start
+    end
+    config.after(:all) do
+      DeferredGarbageCollection.reconsider
+    end
+  end
 end
 
 def fixture_file(filename)
