@@ -1,22 +1,27 @@
 (function() {
   "use strict"
+  var root = this,
+      $ = root.jQuery;
+
+  if(typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
 
   var Urls = {
-    user_need_enable_disable: function(content_type_dropdown) {
-      var user_need_required;
-      user_need_required = $(content_type_dropdown).find('option:selected').attr('data-user_need_required');
-      if (user_need_required && user_need_required == 'true') {
-        $('#url_user_need_id').removeAttr('readonly', false);
-        $('#url_user_need_id').select2().removeAttr('readonly', false);
+    userNeedEnableDisable: function(content_type_dropdown) {
+      var userNeedRequired = $(content_type_dropdown).find('option:selected').attr('data-user_need_required');
+      var $needsDropdown = $('#url_user_need_id');
+
+      if (userNeedRequired === 'true') {
+        $needsDropdown.removeAttr('readonly', false);
+        $needsDropdown.select2().removeAttr('readonly', false);
       } else {
-        $('#url_user_need_id').val(null);
-        $('#url_user_need_id').select2().val(null);
-        $('#url_user_need_id').select2().attr('readonly', 'readonly');
+        $needsDropdown.val(null);
+        $needsDropdown.select2().val(null);
+        $needsDropdown.select2().attr('readonly', 'readonly');
       }
     },
 
-    content_type_changed: function(dropdown) {
-      Urls.user_need_enable_disable($(dropdown));
+    contentTypeChanged: function(dropdown) {
+      Urls.userNeedEnableDisable($(dropdown));
       var scrapable = dropdown.options[dropdown.selectedIndex].getAttribute('data-scrapable') == 'true';
       $('.column-3 .scrape').showEnableIf(scrapable);
     },
@@ -39,12 +44,12 @@
          *   * Enable/disable scrape buttons
          */
         content_type_dropdown.change(function() {
-            Urls.content_type_changed(this);
+            Urls.contentTypeChanged(this);
         });
-        Urls.content_type_changed(content_type_dropdown.get(0));
+        Urls.contentTypeChanged(content_type_dropdown.get(0));
       });
     }
   };
 
-  GOVUK.Urls = Urls;
+  root.GOVUK.Urls = Urls;
 }).call(this);
