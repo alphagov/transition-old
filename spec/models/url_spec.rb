@@ -40,30 +40,6 @@ describe Url do
 
       its(:workflow_state) { should eql(:archive) }
     end
-
-    describe 'Indicating URLs will have manual content for them' do
-      context "when we don''t have a to_url" do
-        it 'should be manual' do
-          url.manual!
-          url.workflow_state.should == :manual
-        end
-
-        it 'creates no mapping' do
-          url.should_not_receive(:set_mapping_url)
-          url.manual!
-        end
-      end
-
-      context 'when we have a to_url' do
-        let(:to_url) { 'http://goes.here/' }
-
-        it 'should be manual' do
-          url.should_receive(:set_mapping_url).with(to_url)
-          url.manual!(to_url)
-          url.workflow_state.should == :manual
-        end
-      end
-    end
   end
 
   describe :mappings do
