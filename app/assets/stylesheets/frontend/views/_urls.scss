@@ -100,23 +100,17 @@
       padding: 0 0 0.15em 1.0em;
     }
 
-    button {
+    button, a {
       @include destiny-button;
       font-size: 1em;
       padding: 0.35em 0.5em 0.15em 0.5em;
+    }
 
+    button {
       &.selected {
         border-left: 12px solid #DDD;
       }
 
-      &.cancel {
-        background-color: $cancel-color;
-        box-shadow: 0 2px 0 $cancel-shadow;
-        -webkit-box-shadow: 0 2px 0 $cancel-shadow;
-        &:hover {
-          background-color: $cancel-dark;
-        }
-      }
       &.finished {
         background-color: $finished-color;
         box-shadow: 0 2px 0 $finished-shadow;
@@ -135,6 +129,18 @@
       }
     }
 
+    a.cancel {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+
+      background-color: $cancel-color;
+      box-shadow: 0 2px 0 $cancel-shadow;
+      -webkit-box-shadow: 0 2px 0 $cancel-shadow;
+      &:hover {
+        background-color: $cancel-dark;
+      }
+    }
   }
 }
 
