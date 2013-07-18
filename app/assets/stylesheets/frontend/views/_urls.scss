@@ -125,12 +125,12 @@
           background-color: $finished-dark;
         }
       }
-      &.unsure {
-        background-color: $unsure-color;
-        box-shadow: 0 2px 0 $unsure-shadow;
-        -webkit-box-shadow: 0 2px 0 $unsure-shadow;
+      &.unfinished {
+        background-color: $unfinished-color;
+        box-shadow: 0 2px 0 $unfinished-shadow;
+        -webkit-box-shadow: 0 2px 0 $unfinished-shadow;
         &:hover {
-          background-color: $unsure-dark
+          background-color: $unfinished-dark
         }
       }
     }

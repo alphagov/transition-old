@@ -33,7 +33,7 @@
     <div class="inputs-block">
       <ul class="destinies">
         <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.workflow_state == :finished ? 'selected ' : ''}finished" %></li>
-        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unsure', class: "#{@url.workflow_state == :unsure ? 'selected ' : ''}unsure" %></li>
+        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.workflow_state == :unfinished ? 'selected ' : ''}unfinished" %></li>
         <li><%= button_tag 'Cancel', class: 'cancel' %></li>
       </ul>
     </div>

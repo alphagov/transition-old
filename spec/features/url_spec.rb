@@ -98,10 +98,10 @@ feature 'Viewing a url for a site' do
     click_link(first_url.url, exact: true)
 
     # The first URL should be marked unfinished and be selected
-    page.should have_selector('.urls li.unsure.selected')
+    page.should have_selector('.urls li.unfinished.selected')
 
     # The unfinished button should be selected
-    page.should have_selector('button.unsure.selected')
+    page.should have_selector('button.unfinished.selected')
     page.should have_select('url[url_group_id]', selected: 'Bee Health')
     page.should have_select('url[user_need_id]', selected: 'I need to renew my passport')
     page.should have_checked_field('Yes')

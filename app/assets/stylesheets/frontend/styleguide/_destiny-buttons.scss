@@ -6,9 +6,9 @@ $finished-color: #0fa660;
 $finished-shadow: #096037;
 $finished-light: #b8f4cc;
 $finished-dark: #0d8f52;
-$unsure-color: #2b8cc4;
-$unsure-shadow: #1d5f85;
-$unsure-dark: #267daf;
+$unfinished-color: #2b8cc4;
+$unfinished-shadow: #1d5f85;
+$unfinished-dark: #267daf;
 
 @mixin destiny-button($border-radius: 0.25em) {
   color: white;
