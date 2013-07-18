@@ -93,20 +93,23 @@
   }
 
   .destinies {
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
-    li {
-      padding: 0 0 0.15em 1.0em;
+    * {
+      margin: 0;
+      padding: 0;
     }
 
-    button, a {
+    list-style: none;
+
+    li {
+      padding: 0 0 0.6em 1.0em;
+    }
+
+    button, a.button {
       @include destiny-button;
+
       font-size: 1em;
       padding: 0.35em 0.5em 0.15em 0.5em;
-    }
 
-    button {
       &.selected {
         border-left: 12px solid #DDD;
       }
@@ -119,26 +122,26 @@
           background-color: $finished-dark;
         }
       }
+
       &.unfinished {
         background-color: $unfinished-color;
         box-shadow: 0 2px 0 $unfinished-shadow;
         -webkit-box-shadow: 0 2px 0 $unfinished-shadow;
         &:hover {
-          background-color: $unfinished-dark
+          background-color: $unfinished-dark;
         }
       }
-    }
 
-    a.cancel {
-      display: block;
-      text-align: center;
-      text-decoration: none;
+      &.cancel {
+        padding-left: 0;
+        padding-right: 0;
 
-      background-color: $cancel-color;
-      box-shadow: 0 2px 0 $cancel-shadow;
-      -webkit-box-shadow: 0 2px 0 $cancel-shadow;
-      &:hover {
-        background-color: $cancel-dark;
+        background-color: $cancel-color;
+        box-shadow: 0 2px 0 $cancel-shadow;
+        -webkit-box-shadow: 0 2px 0 $cancel-shadow;
+        &:hover {
+          background-color: $cancel-dark;
+        }
       }
     }
   }

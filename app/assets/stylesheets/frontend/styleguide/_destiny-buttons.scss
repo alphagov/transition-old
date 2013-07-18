@@ -11,12 +11,14 @@ $unfinished-shadow: #1d5f85;
 $unfinished-dark: #267daf;
 
 @mixin destiny-button($border-radius: 0.25em) {
+  display: block;
+  text-decoration: none;
   color: white;
   border: 0;
-  width: 7em;
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
-  line-height: 1.25;
+  line-height: 1.25em;
   width: 100%;
   font-weight: bold;
+  text-align: center;
 }
