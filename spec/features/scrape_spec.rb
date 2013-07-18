@@ -49,4 +49,25 @@ feature 'Scraping' do
     page.should have_field('Title', with: 'Anna Karenina')
     page.should have_field('Body', with: 'Once upon a time')
   end
+
+  scenario 'Create scrape results for urls belonging to the same detailed guide' do
+    content_type = create :detailed_guide_content_type
+    content_type.scrapable_fields << create(:scrapable_field_title) << create(:scrapable_field_body)
+    url5 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/1', site: site1, is_scrape: true, 
+                content_type: content_type, url_group: url_group
+    url6 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/2', site: site1, is_scrape: true, 
+                content_type: content_type, url_group: url_group
+
+    visit site_urls_path(site1, scrapable: true)
+    click_link '/detailed_guide/1'
+
+    fill_in 'Title', with: 'Anna Karenina'
+    fill_in 'Body', with: 'Once upon a time'
+    click_button 'Save'
+
+    visit site_urls_path(site1, scrapable: true)
+    click_link '/detailed_guide/2'
+    page.should have_field('Title', with: 'Anna Karenina')
+    page.should have_field('Body', with: 'Once upon a time')
+  end
 end

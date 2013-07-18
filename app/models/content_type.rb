@@ -1,4 +1,5 @@
 class ContentType < ActiveRecord::Base
+  DETAILED_GUIDE = 'Detailed guide'
   attr_accessible :user_need_required, :scrapable, :subtype, :type
 
   # relationships
@@ -15,5 +16,9 @@ class ContentType < ActiveRecord::Base
 
   def ContentType.inheritance_column
     'is_not_in_use'
+  end
+
+  def is_detailed_guide?
+    type == DETAILED_GUIDE
   end
 end
