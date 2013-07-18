@@ -37,10 +37,6 @@
       background-color: $archive-light;
       a { color: black };
     }
-    &.manual {
-      background-color: $manual-light;
-      a { color: black };
-    }
     &.scrape {
       background-color: $scrape-light;
       a { color: black };
@@ -117,15 +113,6 @@
         border-left: 12px solid #DDD;
       }
 
-      &.manual {
-        background-color: $manual-color;
-        box-shadow: 0 2px 0 $manual-shadow;
-        -webkit-box-shadow: 0 2px 0 $manual-shadow;
-        &:hover {
-          background-color: $manual-dark;
-        }
-        margin-right: 1em;
-      }
       &.archive {
         background-color: $archive-color;
         box-shadow: 0 2px 0 $archive-shadow;
