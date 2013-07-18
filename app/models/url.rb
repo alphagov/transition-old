@@ -71,7 +71,7 @@ class Url < ActiveRecord::Base
 
   # is scraping done per url group as opposed to per url
   def is_scrape_group_per_url_group?
-    self.content_type.try(:is_detailed_guide?) and self.url_group
+    self.content_type.try(:detailed_guide?) and self.url_group
   end
 
   def host

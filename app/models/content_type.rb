@@ -18,7 +18,7 @@ class ContentType < ActiveRecord::Base
     'is_not_in_use'
   end
 
-  def is_detailed_guide?
+  def detailed_guide?
     type == DETAILED_GUIDE
   end
 end
