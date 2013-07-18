@@ -34,7 +34,7 @@
       <ul class="destinies">
         <li><%= destiny_button @url, :manual %></li>
         <li><%= button_tag 'Save as final', name: 'destiny', value: 'scrape', class: "#{@url.workflow_state == :scrape ? 'selected ' : ''}scrape" %></li>
-        <li><%= destiny_button @url, :archive %></li>
+        <li><%= button_tag 'Cancel', class: 'archive' %></li>
         <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unsure', class: "#{@url.workflow_state == :unsure ? 'selected ' : ''}unsure" %></li>
       </ul>
     </div>
