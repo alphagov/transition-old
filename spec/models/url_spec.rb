@@ -34,12 +34,6 @@ describe Url do
     subject(:url) { create(:url) }
 
     its(:workflow_state) { should eql(:new) }
-
-    describe 'archiving URLs' do
-      before { url.archive! }
-
-      its(:workflow_state) { should eql(:archive) }
-    end
   end
 
   describe :mappings do
