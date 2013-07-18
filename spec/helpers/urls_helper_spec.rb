@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe '#destiny_button' do
-  context 'the URL is :new and we''re creating a button for the state "manual"' do
+  context 'the URL is :new and we''re creating a button for the state "unsure"' do
     let(:url) { FactoryGirl.build(:url) }
 
-    subject { helper.destiny_button(url, :manual) }
+    subject { helper.destiny_button(url, :unsure) }
 
     it { should include('name="destiny"') }
-    it { should include('class="manual"') }
+    it { should include('class="unsure"') }
     it { should include('type="submit"') }
-    it { should include('value="manual"') }
+    it { should include('value="unsure"') }
   end
 
   context 'the URL has a state of :archive and we''re creating a button for the state "archive"' do
