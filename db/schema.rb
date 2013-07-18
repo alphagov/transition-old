@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717133803) do
+ActiveRecord::Schema.define(:version => 20130717141642) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(:version => 20130717133803) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "scrape_results", :force => true do |t|
+    t.text     "data",           :limit => 16777215
+    t.integer  "scrapable_id",                       :null => false
+    t.string   "scrapable_type",                     :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "scrape_results", ["scrapable_id", "scrapable_type"], :name => "index_scrape_results_on_scrapable_id_and_scrapable_type"
 
   create_table "sites", :force => true do |t|
     t.integer  "organisation_id"
