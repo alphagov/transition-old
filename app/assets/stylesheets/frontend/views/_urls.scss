@@ -33,16 +33,8 @@
       margin: 0.2em 0;
     }
 
-    &.archive {
-      background-color: $archive-light;
-      a { color: black };
-    }
-    &.manual {
-      background-color: $manual-light;
-      a { color: black };
-    }
-    &.scrape {
-      background-color: $scrape-light;
+    &.finished {
+      background-color: $finished-light;
       a { color: black };
     }
   }
@@ -101,15 +93,20 @@
   }
 
   .destinies {
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
-    li {
-      padding: 0 0 0.15em 1.0em;
+    * {
+      margin: 0;
+      padding: 0;
     }
 
-    button {
+    list-style: none;
+
+    li {
+      padding: 0 0 0.6em 1.0em;
+    }
+
+    button, a.button {
       @include destiny-button;
+
       font-size: 1em;
       padding: 0.35em 0.5em 0.15em 0.5em;
 
@@ -117,41 +114,36 @@
         border-left: 12px solid #DDD;
       }
 
-      &.manual {
-        background-color: $manual-color;
-        box-shadow: 0 2px 0 $manual-shadow;
-        -webkit-box-shadow: 0 2px 0 $manual-shadow;
+      &.finished {
+        background-color: $finished-color;
+        box-shadow: 0 2px 0 $finished-shadow;
+        -webkit-box-shadow: 0 2px 0 $finished-shadow;
         &:hover {
-          background-color: $manual-dark;
-        }
-        margin-right: 1em;
-      }
-      &.archive {
-        background-color: $archive-color;
-        box-shadow: 0 2px 0 $archive-shadow;
-        -webkit-box-shadow: 0 2px 0 $archive-shadow;
-        &:hover {
-          background-color: $archive-dark;
+          background-color: $finished-dark;
         }
       }
-      &.scrape {
-        background-color: $scrape-color;
-        box-shadow: 0 2px 0 $scrape-shadow;
-        -webkit-box-shadow: 0 2px 0 $scrape-shadow;
+
+      &.unfinished {
+        background-color: $unfinished-color;
+        box-shadow: 0 2px 0 $unfinished-shadow;
+        -webkit-box-shadow: 0 2px 0 $unfinished-shadow;
         &:hover {
-          background-color: $scrape-dark;
+          background-color: $unfinished-dark;
         }
       }
-      &.unsure {
-        background-color: $unsure-color;
-        box-shadow: 0 2px 0 $unsure-shadow;
-        -webkit-box-shadow: 0 2px 0 $unsure-shadow;
+
+      &.cancel {
+        padding-left: 0;
+        padding-right: 0;
+
+        background-color: $cancel-color;
+        box-shadow: 0 2px 0 $cancel-shadow;
+        -webkit-box-shadow: 0 2px 0 $cancel-shadow;
         &:hover {
-          background-color: $unsure-dark
+          background-color: $cancel-dark;
         }
       }
     }
-
   }
 }
 
