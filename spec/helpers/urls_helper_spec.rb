@@ -12,15 +12,15 @@ describe '#destiny_button' do
     it { should include('value="unsure"') }
   end
 
-  context 'the URL has a state of :archive and we''re creating a button for the state "archive"' do
-    let(:url) { create(:url, workflow_state: :archive) }
+  context 'the URL has a state of :unsure and we''re creating a button for the state "unsure"' do
+    let(:url) { create(:url, workflow_state: :unsure) }
 
-    subject { helper.destiny_button(url, :archive) }
+    subject { helper.destiny_button(url, :unsure) }
 
     it { should include('name="destiny"') }
-    it { should include('class="selected archive"') }
+    it { should include('class="selected unsure"') }
     it { should include('type="submit"') }
-    it { should include('value="archive"') }
+    it { should include('value="unsure"') }
   end
 end
 

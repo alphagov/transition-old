@@ -22,18 +22,13 @@ describe Organisation do
       create(:url, site: @site, workflow_state: "redirected")
       create(:url, site: @site, workflow_state: "redirected")
       create(:url, site: @site, workflow_state: "redirected")
-      create(:url, site: @site, workflow_state: "archived")
-      create(:url, site: @site, workflow_state: "archived")
-      create(:url, site: @site, workflow_state: "archived")
-      create(:url, site: @site, workflow_state: "archived")
     end
 
     it "should summarise the workflow state of urls" do
       @organisation.summarise_url_state.should == {
         "new" => 1,
         "unsure" => 2,
-        "redirected" => 3,
-        "archived" => 4
+        "redirected" => 3
       }
     end
   end
