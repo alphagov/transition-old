@@ -109,12 +109,12 @@
         border-left: 12px solid #DDD;
       }
 
-      &.archive {
-        background-color: $archive-color;
-        box-shadow: 0 2px 0 $archive-shadow;
-        -webkit-box-shadow: 0 2px 0 $archive-shadow;
+      &.cancel {
+        background-color: $cancel-color;
+        box-shadow: 0 2px 0 $cancel-shadow;
+        -webkit-box-shadow: 0 2px 0 $cancel-shadow;
         &:hover {
-          background-color: $archive-dark;
+          background-color: $cancel-dark;
         }
       }
       &.scrape {
