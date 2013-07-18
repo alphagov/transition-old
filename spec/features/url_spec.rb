@@ -21,9 +21,9 @@ feature 'Viewing a url for a site' do
     page.should have_link('DFID', href: organisation_path(organisation))
 
     page.should have_list_in_this_order '.urls',
-                                        ['http://www.naturalengland.org.uk/',
-                                         'http://www.naturalengland.org.uk/about_us/default.aspx',
-                                         'http://www.naturalengland.org.uk/contact_us']
+                                        ['/',
+                                         '/about_us/default.aspx',
+                                         '/contact_us']
 
     [first_url, middle_url, last_url].each { |url| page.should have_link(url.url, href: site_url_path(site, url)) }
   end
@@ -35,9 +35,9 @@ feature 'Viewing a url for a site' do
 
     page.should have_list_in_this_order(
                     '.urls',
-                    ['http://www.naturalengland.org.uk/',
-                     'http://www.naturalengland.org.uk/about_us/default.aspx',
-                     'http://www.naturalengland.org.uk/contact_us']
+                    ['/',
+                     '/about_us/default.aspx',
+                     '/contact_us']
                 )
 
     page.should have_link(first_url.url, href: site_url_path(site, first_url))

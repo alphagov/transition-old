@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :error_404
 
+  protected
+
+  def find_site
+    @site = Site.find_by_site!(params[:site_id])
+  end
+
   private
 
   def error(status_code)
