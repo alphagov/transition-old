@@ -1,6 +1,18 @@
-<div class="column2">
-  <%= form_for [@site, @scrape_result] do |f| %>
-    <%= render "shared/error_messages", target: f.object %>
-    <%= f.submit 'Save' %>
-  <% end %>
+<div class="top">
+  <%= render 'url_list' %>
+
+  <div class="column2">
+    <%= form_for [@site, @scrape_result] do |f| %>
+      <%= render "shared/error_messages", target: f.object %>
+      <%= hidden_field_tag 'url_id', @url.id %>
+
+      <% @url.content_type.scrapable_fields.each do |field| %>
+        <div><%= scrape_field_and_label(field, @scrape_result) %></div>
+      <% end %>
+
+      <%= f.submit 'Save' %>
+    <% end if @url.content_type and @url.content_type.scrapable_fields.any? %>
+  </div>
 </div>
+
+<%= render 'preview' %>

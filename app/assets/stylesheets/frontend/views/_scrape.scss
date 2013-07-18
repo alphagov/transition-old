@@ -26,4 +26,14 @@
       line-height: 1em;
     }
   }
+
+  .column2 {
+    min-width: 30em;
+    form {
+      margin: 0 0;
+      input[type=text], textarea {
+        width: 100%;
+      }
+    }
+  }
 }
