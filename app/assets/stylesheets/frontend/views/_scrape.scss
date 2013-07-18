@@ -1,0 +1,29 @@
+.scrape-results-new, .scrape-results-edit {
+  width: 100%;
+  padding-top: 1em;
+
+  .column1, .column2 {
+    margin-top: 1em;
+    margin-left: 1em;
+    float: left;
+  }
+
+  .column1 {
+    width: 50em;
+    .urls {
+      font-size: 0.85em;
+      height: 15em;
+
+      overflow: scroll;
+      border: 1px solid gray;
+      height: 12em;
+
+      li {
+        white-space: nowrap;
+      }
+    }
+    p {
+      line-height: 1em;
+    }
+  }
+}
