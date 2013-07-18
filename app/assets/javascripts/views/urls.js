@@ -11,8 +11,8 @@
       var $needsDropdown = $('#url_user_need_id');
 
       if (userNeedRequired === 'true') {
-        $needsDropdown.removeAttr('readonly', false);
-        $needsDropdown.select2().removeAttr('readonly', false);
+        $needsDropdown.removeAttr('readonly');
+        $needsDropdown.select2().removeAttr('readonly');
       } else {
         $needsDropdown.val(null);
         $needsDropdown.select2().val(null);
@@ -20,10 +20,14 @@
       }
     },
 
-    contentTypeChanged: function(dropdown) {
-      Urls.userNeedEnableDisable($(dropdown));
+    scrapeRadioEnableDisable: function(dropdown) {
       var scrapable = dropdown.options[dropdown.selectedIndex].getAttribute('data-scrapable') == 'true';
       $('.column-3 .scrape').showEnableIf(scrapable);
+    },
+
+    contentTypeChanged: function(dropdown) {
+      Urls.userNeedEnableDisable($(dropdown));
+      Urls.scrapeRadioEnableDisable(dropdown);
     },
 
     ready: function() {

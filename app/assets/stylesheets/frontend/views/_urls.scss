@@ -62,7 +62,6 @@
     font-weight: bold;
     div.scrape {
       margin-bottom: 10px;
-      display: none;
       label {
         display: inline;
       }
@@ -164,4 +163,9 @@
 
 table.scrapable {
   width: 100%;
+  td {
+    a {
+      word-wrap: break-word;
+    }
+  }
 }

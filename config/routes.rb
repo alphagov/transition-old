@@ -4,6 +4,7 @@ Transition::Application.routes.draw do
   end
 
   resources :sites do
+    resources :scrape_results, only: [:new, :create, :edit, :update]
     resources :urls, only: [:index, :show, :update]
     get :hits_download, on: :member
     resources :mappings, only: [:index, :new, :create, :edit, :update, :destroy]

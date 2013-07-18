@@ -3,6 +3,7 @@ class Url < ActiveRecord::Base
   belongs_to :site
   belongs_to :url_group
   belongs_to :content_type
+  has_one :scrape_result, :as => :scrapable
   delegate :new_url, to: :mapping, allow_nil: true
 
   # validations
@@ -10,7 +11,8 @@ class Url < ActiveRecord::Base
   validates :site, presence: true
 
   # scopes
-  scope :scrapable, where(is_scrape: true).
+  scope :scrapable, where(is_scrape: true)
+  scope :order_for_scrape,
         joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
         joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
         includes(:content_type, :url_group).
@@ -54,6 +56,10 @@ class Url < ActiveRecord::Base
     end
   end
 
+  def request_uri
+    @request_uri ||= uri.path + (uri.query.present? ? '?' + uri.query : '')
+  end
+
   def to_s
     url
   end
@@ -62,10 +68,6 @@ class Url < ActiveRecord::Base
 
   def host
     @host ||= site.hosts.find_by_host(uri.host)
-  end
-
-  def request_uri
-    @request_uri ||= uri.path + (uri.query.present? ? '?' + uri.query : '')
   end
 
   def uri
