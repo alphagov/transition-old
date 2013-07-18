@@ -33,8 +33,8 @@
       margin: 0.2em 0;
     }
 
-    &.scrape {
-      background-color: $scrape-light;
+    &.finished {
+      background-color: $finished-light;
       a { color: black };
     }
   }
@@ -117,12 +117,12 @@
           background-color: $cancel-dark;
         }
       }
-      &.scrape {
-        background-color: $scrape-color;
-        box-shadow: 0 2px 0 $scrape-shadow;
-        -webkit-box-shadow: 0 2px 0 $scrape-shadow;
+      &.finished {
+        background-color: $finished-color;
+        box-shadow: 0 2px 0 $finished-shadow;
+        -webkit-box-shadow: 0 2px 0 $finished-shadow;
         &:hover {
-          background-color: $scrape-dark;
+          background-color: $finished-dark;
         }
       }
       &.unsure {

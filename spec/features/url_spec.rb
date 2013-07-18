@@ -77,10 +77,10 @@ feature 'Viewing a url for a site' do
     click_link(first_url.url, exact: true)
 
     # The first URL should be marked as finished and be selected
-    page.should have_selector('.urls li.scrape.selected')
+    page.should have_selector('.urls li.finished.selected')
 
     # The finished button should be selected
-    page.should have_selector('button.scrape.selected')
+    page.should have_selector('button.finished.selected')
   end
 
   scenario "Marking a URL unfinished, setting a url group and user need, adding a comment and setting scrape to 'Yes'" do
