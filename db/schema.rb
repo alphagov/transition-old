@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715135439) do
+ActiveRecord::Schema.define(:version => 20130717133803) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(:version => 20130715135439) do
   end
 
   add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
+
+  create_table "content_types_scrapable_fields", :force => true do |t|
+    t.integer "content_type_id"
+    t.integer "scrapable_field_id"
+  end
+
+  add_index "content_types_scrapable_fields", ["scrapable_field_id", "content_type_id"], :name => "index_content_type_scrapable_field", :unique => true
 
   create_table "hits", :force => true do |t|
     t.integer "host_id",                     :null => false
@@ -78,6 +85,13 @@ ActiveRecord::Schema.define(:version => 20130715135439) do
   end
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
+
+  create_table "scrapable_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "sites", :force => true do |t|
     t.integer  "organisation_id"

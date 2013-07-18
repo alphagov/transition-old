@@ -58,5 +58,8 @@ dirs.each do |file|
   end
 end
 
+Transition::Import::ContentTypes.from_csv!('data/seeds/content_types.csv')
+Transition::Import::ScrapableFields.seed!
+
 # seed url group types
 Transition::UrlGroups.seed_group_types

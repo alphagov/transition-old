@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe ContentType do
 
-  describe :relationships do
+  describe 'Relationships' do
     it { should have_many(:urls).dependent(:restrict) }
+    it { should have_and_belong_to_many(:scrapable_fields) }
   end
 
   describe 'Validations' do
@@ -13,7 +14,7 @@ describe ContentType do
 
     it 'differentiates on subtype' do
       create :content_type
-      create :content_type_with_no_subtype
+      lambda { create :content_type_with_no_subtype }.should_not raise_error
     end
   end
 
