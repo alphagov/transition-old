@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-feature 'Viewing a url for a site', js: false do
+feature 'Viewing a url for a site' do
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 

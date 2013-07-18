@@ -15,6 +15,16 @@ describe Url do
     it { should validate_presence_of(:site) }
   end
 
+  describe '.scrapable' do
+    it 'should return urls marked to be scraped' do
+      url1 = create :url, is_scrape: true
+      url2 = create :url, is_scrape: false
+      url3 = create :url, is_scrape: true
+      Url.scrapable.size.should == 2
+      Url.scrapable.should include(url1, url3)
+    end
+  end
+
   describe 'URL workflow' do
     it 'should default to new' do
       Url.new.workflow_state.should == :new
