@@ -5,7 +5,7 @@ describe Url do
     it { should belong_to(:site) }
     it { should belong_to(:url_group) }
     it { should belong_to(:content_type) }
-    it { should have_one(:scrape_result) }
+    it { should have_one(:scrape) }
   end
 
   describe :validations do
@@ -23,6 +23,22 @@ describe Url do
       url3 = create :url, is_scrape: true
       Url.scrapable.size.should == 2
       Url.scrapable.should include(url1, url3)
+    end
+  end
+
+  describe :scrape_result do
+    it 'should return the scrape result attached directly to the url' do
+      url = create :url
+      scrape = url.create_scrape!
+      url.scrape_result.should == scrape
+    end
+
+    it 'should return the scrape result attached to the url group' do
+      content_type = create :detailed_guide_content_type
+      url_group = create(:url_group)
+      scrape = url_group.create_scrape!
+      url = create :url, content_type: content_type, url_group: url_group
+      url.scrape_result.should == scrape
     end
   end
 

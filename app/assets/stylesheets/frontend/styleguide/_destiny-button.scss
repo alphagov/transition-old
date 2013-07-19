@@ -10,7 +10,7 @@ $unfinished-color: #2b8cc4;
 $unfinished-shadow: #1d5f85;
 $unfinished-dark: #267daf;
 
-@mixin destiny-button($border-radius: 0.25em) {
+@mixin destiny-button {
   display: block;
   text-decoration: none;
   color: white;

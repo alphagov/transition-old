@@ -3,7 +3,7 @@ class Url < ActiveRecord::Base
   belongs_to :site
   belongs_to :url_group
   belongs_to :content_type
-  has_one :scrape_result, :as => :scrapable
+  has_one :scrape, :as => :scrapable, class_name: 'ScrapeResult'
   delegate :new_url, to: :mapping, allow_nil: true
 
   # validations
@@ -20,6 +20,18 @@ class Url < ActiveRecord::Base
 
   def next
     site.urls.where('id > ?', id).order('id ASC').first
+  end
+
+  def scrape_result
+    scrape_for_url_group? ? self.url_group.scrape : self.scrape
+  end
+
+  def build_scrape_result(options = {})
+    scrape_for_url_group? ? self.url_group.build_scrape(options) : self.build_scrape(options)
+  end
+
+  def create_scrape_result!(options = {})
+    scrape_for_url_group? ? self.url_group.create_scrape!(options) : self.create_scrape!(options)
   end
 
   def workflow_state
@@ -56,6 +68,11 @@ class Url < ActiveRecord::Base
   end
 
   private
+
+  # is scraping done per url group as opposed to per url
+  def scrape_for_url_group?
+    self.content_type.try(:detailed_guide?) and self.url_group
+  end
 
   def host
     @host ||= site.hosts.find_by_host(uri.host)
