@@ -10,21 +10,23 @@
     padding: 1em 0;
   }
 
+  $iframe-width: 70em;
+  $column-height: 600px;
   .column1 {
     float: left;
-    width: 70em;
+    width: $iframe-width;
     height: 100%;
     iframe {
       width: 100%;
-      height: 600px;
+      height: $column-height;
     }
   }
 
   .column2 {
     overflow: auto;
-    height: 600px;
+    height: $column-height;
     float: right;
-    width: calc(100% - 70em);
+    width: calc(100% - #{$iframe-width});
     .content {
       padding: 0 10px;
     }
