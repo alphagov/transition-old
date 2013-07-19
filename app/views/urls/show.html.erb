@@ -16,12 +16,12 @@
     <div class="inputs-block column-3">
       <div class="scrape">
         Scrape:
-        <%= f.label :is_scrape_true do %>
-          <%= f.radio_button(:is_scrape, true) %>
+        <%= f.label :for_scraping_true do %>
+          <%= f.radio_button(:for_scraping, true) %>
           Yes
         <% end -%>
-        <%= f.label :is_scrape_false do %>
-          <%= f.radio_button(:is_scrape, false) %>
+        <%= f.label :for_scraping_false do %>
+          <%= f.radio_button(:for_scraping, false) %>
           No
         <% end -%>
       </div>
@@ -32,8 +32,8 @@
     </div>
     <div class="inputs-block">
       <ul class="destinies">
-        <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.workflow_state == :finished ? 'selected ' : ''}finished" %></li>
-        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.workflow_state == :unfinished ? 'selected ' : ''}unfinished" %></li>
+        <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.state == :finished ? 'selected ' : ''}finished" %></li>
+        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.state == :unfinished ? 'selected ' : ''}unfinished" %></li>
         <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>
       </ul>
     </div>

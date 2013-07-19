@@ -3,8 +3,8 @@ require 'spec_helper'
 describe ScrapeResultsController do
   let!(:organisation) { create :organisation, abbr: 'DFID', title: 'DFID' }
   let!(:site) { create :site, organisation: organisation }
-  let!(:url1) { create :url, site: site, is_scrape: false }
-  let!(:url2) { create :url, site: site, is_scrape: true }
+  let!(:url1) { create :url, site: site, for_scraping: false }
+  let!(:url2) { create :url, site: site, for_scraping: true }
 
   before :each do
     login_as_stub_user

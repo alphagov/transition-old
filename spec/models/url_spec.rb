@@ -16,13 +16,13 @@ describe Url do
     it { should validate_presence_of(:site) }
   end
 
-  describe '.scrapable' do
+  describe '.for_scraping' do
     it 'should return urls marked to be scraped' do
-      url1 = create :url, is_scrape: true
-      url2 = create :url, is_scrape: false
-      url3 = create :url, is_scrape: true
-      Url.scrapable.size.should == 2
-      Url.scrapable.should include(url1, url3)
+      url1 = create :url, for_scraping: true
+      url2 = create :url, for_scraping: false
+      url3 = create :url, for_scraping: true
+      Url.for_scraping.size.should == 2
+      Url.for_scraping.should include(url1, url3)
     end
   end
 
@@ -42,14 +42,14 @@ describe Url do
     end
   end
 
-  describe 'URL workflow' do
+  describe 'URL state' do
     it 'should default to new' do
-      Url.new.workflow_state.should == :new
+      Url.new.state.should == :new
     end
 
     subject(:url) { create(:url) }
 
-    its(:workflow_state) { should eql(:new) }
+    its(:state) { should eql(:new) }
   end
 
   describe :mappings do
