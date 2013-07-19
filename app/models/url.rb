@@ -13,7 +13,7 @@ class Url < ActiveRecord::Base
 
   # scopes
   scope :for_scraping, where(for_scraping: true)
-  scope :order_for_scrape,
+  scope :in_scraping_order,
         joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
         joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
         includes(:content_type, :url_group).
