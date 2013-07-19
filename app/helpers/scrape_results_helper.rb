@@ -6,7 +6,9 @@ module ScrapeResultsHelper
       csv << COLUMN_NAMES
 
       scrape_results.each do |result|
-        csv << result.attributes.merge(result.field_values).values_at(*COLUMN_NAMES)
+        export_hash = result.attributes.merge(result.field_values)
+        export_hash['body'] = Kramdown::Document.new(export_hash['body'], input: 'html').to_kramdown
+        csv << export_hash.values_at(*COLUMN_NAMES)
       end
     end.html_safe
   end

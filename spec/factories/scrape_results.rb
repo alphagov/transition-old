@@ -6,7 +6,7 @@ FactoryGirl.define do
       {
         "title": "Keeping bees out of fire engines",
         "summary": "This summer, bees are sleeping in fire engines",
-        "body": "BZZZZZZZZZZZZZZZZZZZZZZZZ WOO WOO WOO BZZZZZZZZZZZZZZZZZZZ"
+        "body": "<h1>Bees</h1><p>BZZZZZZZZZZZZZZZZZZZZZZZZ</p> <ul><li>WOO</li><li>WOO</li><li>WOO</li></ul> <a href='http://apiary.org'>BZZZZZZZZZZZZZZZZZZZ</a>"
       }
 JSON
   end

@@ -26,6 +26,17 @@ describe 'scrape_results/index.csv.erb' do
     its(['id'])       { should eql(first_scrape_result.id.to_s)  }
     its(['title'])    { should eql(first_scrape_result.field_values['title']) }
     its(['summary'])  { should eql(first_scrape_result.field_values['summary']) }
-    its(['body'])     { should eql(first_scrape_result.field_values['body']) }
+
+    describe 'the body conversion to markdown' do
+      subject(:markdown) { row['body'] }
+
+      it { should include('# Bees') }
+      it { should include("* WOO\n* WOO\n* WOO") }
+
+      describe 'the link' do
+        it { should include('[BZZZZZZZZZZZZZZZZZZZ][1]') }
+        it { should include('[1]: http://apiary.org') }
+      end
+    end
   end
 end
