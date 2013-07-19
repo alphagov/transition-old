@@ -18,9 +18,9 @@ describe Url do
 
   describe '.scrapable' do
     it 'should return urls marked to be scraped' do
-      url1 = create :url, is_scrape: true
-      url2 = create :url, is_scrape: false
-      url3 = create :url, is_scrape: true
+      url1 = create :url, for_scraping: true
+      url2 = create :url, for_scraping: false
+      url3 = create :url, for_scraping: true
       Url.scrapable.size.should == 2
       Url.scrapable.should include(url1, url3)
     end

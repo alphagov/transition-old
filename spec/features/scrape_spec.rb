@@ -9,11 +9,11 @@ feature 'Scraping' do
   let!(:content_type1) { create :content_type, type: 'Publishing', subtype: 'Detail'}
   let!(:content_type2) { create :content_type, type: 'Topic', subtype: nil}
   let!(:url_group) { create :url_group, name: 'Bee health'}
-  let!(:url1) { create :url, url: 'http://www.naturalengland.org.uk/', site: site1, is_scrape: true, content_type: content_type2 }
-  let!(:url2) { create :url, site: site2, is_scrape: true }
-  let!(:url3) { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site1, is_scrape: true, 
+  let!(:url1) { create :url, url: 'http://www.naturalengland.org.uk/', site: site1, for_scraping: true, content_type: content_type2 }
+  let!(:url2) { create :url, site: site2, for_scraping: true }
+  let!(:url3) { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site1, for_scraping: true,
                 content_type: content_type1, url_group: url_group, comments: 'Hello'}
-  let!(:url4) { create :url, url: 'http://www.naturalengland.org.uk/hello', site: site1, is_scrape: false }
+  let!(:url4) { create :url, url: 'http://www.naturalengland.org.uk/hello', site: site1, for_scraping: false }
 
   background do
     login_as_stub_user
@@ -58,9 +58,9 @@ feature 'Scraping' do
   scenario 'Create scrape results for urls belonging to the same detailed guide' do
     content_type = create :detailed_guide_content_type
     content_type.scrapable_fields << create(:scrapable_field_title) << create(:scrapable_field_body)
-    url5 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/1', site: site1, is_scrape: true, 
+    url5 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/1', site: site1, for_scraping: true,
                 content_type: content_type, url_group: url_group
-    url6 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/2', site: site1, is_scrape: true, 
+    url6 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/2', site: site1, for_scraping: true,
                 content_type: content_type, url_group: url_group
 
     visit site_urls_path(site1, scrapable: true)

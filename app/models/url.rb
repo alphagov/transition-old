@@ -12,7 +12,7 @@ class Url < ActiveRecord::Base
   validates :site, presence: true
 
   # scopes
-  scope :scrapable, where(is_scrape: true)
+  scope :scrapable, where(for_scraping: true)
   scope :order_for_scrape,
         joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
         joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
