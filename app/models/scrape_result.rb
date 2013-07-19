@@ -16,9 +16,10 @@ class ScrapeResult < ActiveRecord::Base
   end
 
   def field_value(field_name)
-    if data
-      @data_hash ||= JSON.parse(data)
-      @data_hash[field_name]
-    end
+    field_values[field_name]
+  end
+
+  def field_values
+    data ? @data_hash ||= JSON.parse(data) : {}
   end
 end

@@ -34,6 +34,17 @@ describe ScrapeResultsController do
     end
   end
 
+  describe '#index' do
+    before do
+      @results = [create(:scrape_result)]
+      get :index, site_id: site
+    end
+
+    it 'assigns the results' do
+      assigns[:scrape_results].should == @results
+    end
+  end
+
   describe :create do
     it "should create a new scrape result" do
       post :create, site_id: site, url_id: url2, scrape_result: {field_a: 'Yeah'}

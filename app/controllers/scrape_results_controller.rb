@@ -3,6 +3,8 @@ class ScrapeResultsController < ApplicationController
 
   before_filter :find_site
 
+  respond_to :csv, only: [:index]
+
   def new
     @url = @site.urls.for_scraping.find(params[:url_id])
     # cater for scrape result already existing
@@ -44,5 +46,9 @@ class ScrapeResultsController < ApplicationController
       end
     end
     render 'edit'
+  end
+
+  def index
+    respond_with(@scrape_results = ScrapeResult.all)
   end
 end
