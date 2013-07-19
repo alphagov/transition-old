@@ -49,7 +49,7 @@ describe ScrapeResultsController do
     it "should create a new scrape result" do
       post :create, site_id: site, url_id: url2, scrape_result: {field_a: 'Yeah'}
       url2.scrape_result.should_not be_nil
-      url2.scrape_result.field_value('field_a').should == 'Yeah'
+      url2.scrape_result.field_values['field_a'].should == 'Yeah'
     end
 
     it "should redirect to the edit page" do
@@ -83,7 +83,7 @@ describe ScrapeResultsController do
     it "should update a scrape result and redirect to the edit page" do
       scrape = url2.create_scrape_result!
       put :update, site_id: site, id: scrape, url_id: url2, scrape_result: {field_a: 'Yeah'}
-      scrape.reload.field_value('field_a').should == 'Yeah'
+      scrape.reload.field_values['field_a'].should == 'Yeah'
       response.should redirect_to(edit_site_scrape_result_path(site, url2.scrape_result, url_id: url2))
     end
     

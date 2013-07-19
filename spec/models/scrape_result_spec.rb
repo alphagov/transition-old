@@ -64,12 +64,12 @@ describe ScrapeResult do
 
   describe :field_value do
     it 'should return nil if data is empty' do
-      ScrapeResult.new.field_value('not_known').should be_nil
+      ScrapeResult.new.field_values['not_known'].should be_nil
     end
 
     it 'should return the value for a specific field stored as json in data' do
       scrape = ScrapeResult.new(data: {field_a: 'Hello'}.to_json)
-      scrape.field_value('field_a').should == 'Hello'
+      scrape.field_values['field_a'].should == 'Hello'
     end
   end
 end
