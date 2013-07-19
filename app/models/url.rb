@@ -19,8 +19,6 @@ class Url < ActiveRecord::Base
         includes(:content_type, :url_group).
         order('content_types.type, content_types.subtype, url_groups.name')
 
-  MOVED_PERMANENTLY = Rack::Utils.status_code(:moved_permanently)
-
   def next
     site.urls.where('id > ?', id).order('id ASC').first
   end
@@ -53,7 +51,7 @@ class Url < ActiveRecord::Base
     if mapping
       mapping.update_attributes!(new_url: new_url)
     else
-      site.mappings.create!(new_url: new_url, path: request_uri, http_status: MOVED_PERMANENTLY)
+      site.mappings.redirects.create!(new_url: new_url, path: request_uri)
     end
   end
 
