@@ -30,15 +30,6 @@ class Url < ActiveRecord::Base
     write_attribute(:workflow_state, value)
   end
 
-  def manual!(new_url = nil)
-    self.workflow_state = :manual
-    set_mapping_url(new_url) if new_url
-  end
-
-  def archive!
-    self.workflow_state = :archive
-  end
-
   # return mapping if there is one
   def mapping
     return nil if host.nil?
