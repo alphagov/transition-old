@@ -1,18 +1,23 @@
 <div class="top">
-  <%= render 'url_list' %>
+  <div class="column1">
+    <%= render 'preview' %>
+  </div>
 
   <div class="column2">
-    <%= form_for [@site, @scrape_result] do |f| %>
-      <%= render "shared/error_messages", target: f.object %>
-      <%= hidden_field_tag 'url_id', @url.id %>
+    <div class="content">
+      <%= render 'url_list' %>
 
-      <% @url.content_type.scrapable_fields.each do |field| %>
-        <div><%= scrape_field_and_label(field, @scrape_result) %></div>
-      <% end %>
+      <%= form_for [@site, @scrape_result] do |f| %>
+        <%= render "shared/error_messages", target: f.object %>
+        <%= hidden_field_tag 'url_id', @url.id %>
 
-      <%= f.submit 'Save' %>
-    <% end if @url.content_type and @url.content_type.scrapable_fields.any? %>
+        <% @url.content_type.scrapable_fields.each do |field| %>
+          <div><%= scrape_field_and_label(field, @scrape_result) %></div>
+        <% end %>
+
+        <%= f.button 'Save as final', value: 'finished', class: 'finished' %>
+        <%= f.button 'Save for later', value: 'unfinished', class: 'unfinished' %>
+      <% end if @url.content_type and @url.content_type.scrapable_fields.any? %>
+    </div>
   </div>
 </div>
-
-<%= render 'preview' %>

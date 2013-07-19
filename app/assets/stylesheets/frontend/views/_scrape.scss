@@ -2,16 +2,51 @@
   width: 100%;
   padding-top: 1em;
 
-  .column1, .column2 {
-    margin-top: 1em;
-    margin-left: 1em;
-    float: left;
+  .top {
+    width: 100%;
   }
 
+  .column1, .column2 {
+    padding: 1em 0;
+  }
+
+  $iframe-width: 70em;
+  $column-height: 600px;
   .column1 {
-    width: 50em;
+    float: left;
+    width: $iframe-width;
+    height: 100%;
+    iframe {
+      width: 100%;
+      height: $column-height;
+    }
+  }
+
+  .column2 {
+    overflow: auto;
+    height: $column-height;
+    float: right;
+    width: calc(100% - #{$iframe-width});
+    .content {
+      padding: 0 10px;
+    }
+    form {
+      margin: 0 0;
+      input[type=text], textarea {
+        width: 100%;
+      }
+      textarea {
+        height: 400px;
+      }
+      button {
+        @include destiny-button;
+        display: inline;
+        width: auto;
+      }
+    }
     .urls {
       font-size: 0.85em;
+      width: 100%;
       height: 15em;
 
       overflow: scroll;
@@ -24,16 +59,6 @@
     }
     p {
       line-height: 1em;
-    }
-  }
-
-  .column2 {
-    min-width: 30em;
-    form {
-      margin: 0 0;
-      input[type=text], textarea {
-        width: 100%;
-      }
     }
   }
 }

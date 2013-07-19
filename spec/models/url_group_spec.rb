@@ -5,6 +5,7 @@ describe UrlGroup do
     it { should belong_to(:url_group_type) }
     it { should belong_to(:organisation) }
     it { should have_many(:urls).dependent(:restrict) }
+    it { should have_one(:scrape) }
   end
 
   describe :validations do

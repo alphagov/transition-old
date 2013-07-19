@@ -13,7 +13,7 @@
 
 // App-specific styleguide
 @import "styleguide/_brand-colours.scss";
-@import "styleguide/_destiny-buttons.scss";
+@import "styleguide/_destiny-button.scss";
 @import "styleguide/_dimensions.scss";
 
 // LAYOUTS
@@ -32,6 +32,7 @@
 
 #transition-wrapper {
   @import "helpers/_dl.scss";
+  @import "helpers/_destiny-buttons.scss";
   @import "helpers/_blocks.scss";
   @import "helpers/_filter-block.scss";
   @import "helpers/_hit-graph.scss";

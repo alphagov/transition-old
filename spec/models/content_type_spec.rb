@@ -32,4 +32,15 @@ describe ContentType do
     end
   end
 
+  describe :detailed_guide? do
+    it 'should return true where content type is Detailed guide' do
+      content = build :content_type, type: 'Detailed guide'
+      content.should be_detailed_guide
+    end
+
+    it 'should return false where content type is not Detailed guide' do
+      content = build :content_type, type: 'News'
+      content.should_not be_detailed_guide
+    end
+  end
 end
