@@ -27,9 +27,9 @@ describe UrlsController, expensive_setup: true do
       response.should render_template('index')
     end
 
-    it "should render the scrapable_urls template" do
-      get :index, site_id: @site1, scrapable: 'true'
-      response.should render_template('scrapable_urls')
+    it "should render the urls_for_scraping template" do
+      get :index, site_id: @site1, for_scraping: 'true'
+      response.should render_template('urls_for_scraping')
     end
   end
 
@@ -61,7 +61,7 @@ describe UrlsController, expensive_setup: true do
 
         describe 'the URL' do
           subject(:url) { Url.find_by_id(@url1.id) }
-          its(:workflow_state) { should eql(:unfinished) }
+          its(:state) { should eql(:unfinished) }
         end
 
         it 'redirects to the next url in the list' do
@@ -79,8 +79,9 @@ describe UrlsController, expensive_setup: true do
         describe 'the URL' do
           subject { Url.find_by_id(@url1.id) }
 
-          its(:workflow_state) { should eql(:unfinished) }
+          its(:state) { should eql(:unfinished) }
           its(:new_url) { should eql(test_destination) }
+          its(:http_status) { should == '301' }
         end
       end
     end

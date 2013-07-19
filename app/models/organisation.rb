@@ -36,7 +36,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def weekly_totals
-    self.totals.aggregated_by_week_and_site
+    totals.aggregated_by_week_and_site
   end
 
   def self.manages_own_redirects
@@ -60,11 +60,11 @@ class Organisation < ActiveRecord::Base
   end
 
   def summarise_url_state
-    urls.group(:workflow_state).count
+    urls.group(:state).count
   end
 
   def aggregated_totals
-    self.totals.aggregated
+    totals.aggregated
   end
 
   def to_param

@@ -105,9 +105,9 @@ class Hit < ActiveRecord::Base
   end
   protected
   def set_path_hash
-    self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
+    self.path_hash = Digest::SHA1.hexdigest(path) if path_changed?
   end
   def normalize_hit_on
-    self.hit_on = self.hit_on.beginning_of_day if self.hit_on_changed?
+    self.hit_on = hit_on.beginning_of_day if hit_on_changed?
   end
 end
