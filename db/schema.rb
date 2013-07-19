@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130719101854) do
+ActiveRecord::Schema.define(:version => 20130719105420) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -148,7 +148,7 @@ ActiveRecord::Schema.define(:version => 20130719101854) do
     t.integer  "site_id",                                            :null => false
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
-    t.string   "workflow_state",                  :default => "new", :null => false
+    t.string   "state",                           :default => "new", :null => false
     t.text     "comments"
     t.boolean  "is_scrape"
     t.integer  "url_group_id"

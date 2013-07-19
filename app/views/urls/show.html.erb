@@ -32,8 +32,8 @@
     </div>
     <div class="inputs-block">
       <ul class="destinies">
-        <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.workflow_state == :finished ? 'selected ' : ''}finished" %></li>
-        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.workflow_state == :unfinished ? 'selected ' : ''}unfinished" %></li>
+        <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.state == :finished ? 'selected ' : ''}finished" %></li>
+        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.state == :unfinished ? 'selected ' : ''}unfinished" %></li>
         <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>
       </ul>
     </div>

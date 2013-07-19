@@ -61,7 +61,7 @@ describe UrlsController, expensive_setup: true do
 
         describe 'the URL' do
           subject(:url) { Url.find_by_id(@url1.id) }
-          its(:workflow_state) { should eql(:unfinished) }
+          its(:state) { should eql(:unfinished) }
         end
 
         it 'redirects to the next url in the list' do
@@ -79,7 +79,7 @@ describe UrlsController, expensive_setup: true do
         describe 'the URL' do
           subject { Url.find_by_id(@url1.id) }
 
-          its(:workflow_state) { should eql(:unfinished) }
+          its(:state) { should eql(:unfinished) }
           its(:new_url) { should eql(test_destination) }
           its(:http_status) { should == '301' }
         end

@@ -35,7 +35,7 @@ class Url < ActiveRecord::Base
     scrape_result_delegate.create_scrape!(options)
   end
 
-  def workflow_state
+  def state
     super.to_sym
   end
 

@@ -42,14 +42,14 @@ describe Url do
     end
   end
 
-  describe 'URL workflow' do
+  describe 'URL state' do
     it 'should default to new' do
-      Url.new.workflow_state.should == :new
+      Url.new.state.should == :new
     end
 
     subject(:url) { create(:url) }
 
-    its(:workflow_state) { should eql(:new) }
+    its(:state) { should eql(:new) }
   end
 
   describe :mappings do

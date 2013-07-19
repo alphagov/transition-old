@@ -60,7 +60,7 @@ class Organisation < ActiveRecord::Base
   end
 
   def summarise_url_state
-    urls.group(:workflow_state).count
+    urls.group(:state).count
   end
 
   def aggregated_totals

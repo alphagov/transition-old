@@ -16,15 +16,15 @@ describe Organisation do
     before :each do
       @organisation = create :organisation
       @site = create :site, organisation: @organisation
-      create(:url, site: @site, workflow_state: "new")
-      create(:url, site: @site, workflow_state: "unfinished")
-      create(:url, site: @site, workflow_state: "unfinished")
-      create(:url, site: @site, workflow_state: "finished")
-      create(:url, site: @site, workflow_state: "finished")
-      create(:url, site: @site, workflow_state: "finished")
+      create(:url, site: @site, state: "new")
+      create(:url, site: @site, state: "unfinished")
+      create(:url, site: @site, state: "unfinished")
+      create(:url, site: @site, state: "finished")
+      create(:url, site: @site, state: "finished")
+      create(:url, site: @site, state: "finished")
     end
 
-    it "should summarise the workflow state of urls" do
+    it "should summarise the state of urls" do
       @organisation.summarise_url_state.should == {
         "new" => 1,
         "unfinished" => 2,
