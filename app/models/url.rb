@@ -39,10 +39,6 @@ class Url < ActiveRecord::Base
     super.to_sym
   end
 
-  def workflow_state=(value)
-    write_attribute(:workflow_state, value)
-  end
-
   # return mapping if there is one
   def mapping
     return nil if host.nil?
