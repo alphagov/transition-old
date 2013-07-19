@@ -81,6 +81,7 @@ describe UrlsController, expensive_setup: true do
 
           its(:workflow_state) { should eql(:unfinished) }
           its(:new_url) { should eql(test_destination) }
+          its(:http_status) { should == '301' }
         end
       end
     end

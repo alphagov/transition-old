@@ -4,7 +4,7 @@ class Url < ActiveRecord::Base
   belongs_to :url_group
   belongs_to :content_type
   has_one :scrape, :as => :scrapable, class_name: 'ScrapeResult'
-  delegate :new_url, to: :mapping, allow_nil: true
+  delegate :new_url, :http_status, to: :mapping, allow_nil: true
   delegate :request_uri, :to_s, to: :uri
 
   # validations
@@ -18,6 +18,8 @@ class Url < ActiveRecord::Base
         joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
         includes(:content_type, :url_group).
         order('content_types.type, content_types.subtype, url_groups.name')
+
+  MOVED_PERMANENTLY = Rack::Utils.status_code(:moved_permanently)
 
   def next
     site.urls.where('id > ?', id).order('id ASC').first
@@ -51,7 +53,7 @@ class Url < ActiveRecord::Base
     if mapping
       mapping.update_attributes!(new_url: new_url)
     else
-      site.mappings.create!(new_url: new_url, path: request_uri, http_status: '301')
+      site.mappings.create!(new_url: new_url, path: request_uri, http_status: MOVED_PERMANENTLY)
     end
   end
 
