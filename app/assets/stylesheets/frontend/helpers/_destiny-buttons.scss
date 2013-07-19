@@ -1,26 +1,5 @@
-$cancel-color: #b10e1e;
-$cancel-shadow: #6a0812;
-$cancel-light: #f4c1ba;
-$cancel-dark: #990c1a;
-$finished-color: #0fa660;
-$finished-shadow: #096037;
-$finished-light: #b8f4cc;
-$finished-dark: #0d8f52;
-$unfinished-color: #2b8cc4;
-$unfinished-shadow: #1d5f85;
-$unfinished-dark: #267daf;
-
-@mixin destiny-button {
-  display: block;
-  text-decoration: none;
-  color: white;
-  border: 0;
-  -webkit-font-smoothing: antialiased;
-  cursor: pointer;
-  line-height: 1.25em;
-  width: 100%;
-  font-weight: bold;
-  text-align: center;
+button, a.button {
+  @include destiny-button;
 
   font-size: 1em;
   padding: 0.35em 0.5em 0.15em 0.5em;
@@ -48,9 +27,6 @@ $unfinished-dark: #267daf;
   }
 
   &.cancel {
-    padding-left: 0;
-    padding-right: 0;
-
     background-color: $cancel-color;
     box-shadow: 0 2px 0 $cancel-shadow;
     -webkit-box-shadow: 0 2px 0 $cancel-shadow;

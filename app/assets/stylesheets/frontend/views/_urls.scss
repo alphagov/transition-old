@@ -93,19 +93,19 @@
   }
 
   .destinies {
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
     list-style: none;
 
     li {
-      padding: 0 0 0.6em 1.0em;
-    }
+      margin: 0 0 0.6em 1.0em;
 
-    button, a.button {
-      @include destiny-button;
+      button, a.button {
+        width: 100%;
+
+        &.cancel {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
     }
   }
 }
