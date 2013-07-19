@@ -16,12 +16,8 @@ class UrlsController < ApplicationController
   def update
     destiny = params[:destiny].try(:to_sym)
     url = Url.find(params[:id])
-    case destiny
-      when :manual
-        url.manual!(params[:new_url])
-      else
-        url.workflow_state = destiny
-    end if destiny
+    url.workflow_state = destiny if destiny
+    url.set_mapping_url(params[:new_url]) if params[:new_url]
     url.update_attributes!(params[:url])
 
     redirect_to site_url_path(url.site, url.next)

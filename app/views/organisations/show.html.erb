@@ -18,7 +18,7 @@
       <dt>Progress:</dt>
       <dd>
         <table>
-        <% %w{new manual archived redirected}.each do |state| %>
+        <% %w{new unfinished finished}.each do |state| %>
           <tr>
             <td><%= state %></td>
             <td><%= @counts[state] || 0 %></td>
