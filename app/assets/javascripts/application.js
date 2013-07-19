@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require_tree .
 //= require ./vendor/bootstrap
+//= require ./vendor/advanced
+//= require ./vendor/wysihtml5-0.3.0.min
 //= require select2

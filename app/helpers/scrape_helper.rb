@@ -7,8 +7,16 @@ module ScrapeHelper
     when :string
       text_field_tag(field_name, scrape_result.field_value(field.name))
     when :text
-      text_area_tag(field_name, scrape_result.field_value(field.name))
+      rich_text_editor_toolbar + text_area_tag(field_name, scrape_result.field_value(field.name), id: 'wysihtml5-textarea')
     end
     html
+  end
+
+  def rich_text_editor_toolbar
+    %Q{
+      <span id="wysihtml5-toolbar" style="display: none;">
+        <a data-wysihtml5-action="change_view" href="javascript:;" unselectable="on" class="wysihtml5-action-active">html view</a>
+      </span>
+    }.html_safe
   end
 end

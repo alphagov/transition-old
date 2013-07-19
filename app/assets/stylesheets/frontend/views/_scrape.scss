@@ -32,6 +32,9 @@
     }
     form {
       margin: 0 0;
+      label {
+        display: inline;
+      }
       input[type=text], textarea {
         width: 100%;
       }
