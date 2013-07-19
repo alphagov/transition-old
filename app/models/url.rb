@@ -51,8 +51,7 @@ class Url < ActiveRecord::Base
     if mapping
       mapping.update_attributes!(new_url: new_url)
     else
-      map = site.mappings.build(new_url: new_url, path: request_uri, http_status: '301')
-      map.save!
+      site.mappings.create!(new_url: new_url, path: request_uri, http_status: '301')
     end
   end
 
