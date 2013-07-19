@@ -13,6 +13,9 @@ class Mapping < ActiveRecord::Base
 
   validates :new_url, :suggested_url, :archive_url, length: { maximum: (64.kilobytes - 1) }
 
+  scope :with_status, -> status { where(http_status: Rack::Utils.status_code(status)) }
+  scope :redirects, with_status(:moved_permanently)
+
   def self.leave_uniqueness_check_to_db?
     @leave_uniqueness_check_to_db || false
   end
@@ -33,6 +36,6 @@ class Mapping < ActiveRecord::Base
   end
   protected
   def set_path_hash
-    self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
+    self.path_hash = Digest::SHA1.hexdigest(path) if path_changed?
   end
 end

@@ -74,6 +74,6 @@ class Total < ActiveRecord::Base
   end
   protected
   def normalize_hit_on
-    self.total_on = self.total_on.beginning_of_day if self.total_on_changed?
+    self.total_on = total_on.beginning_of_day if total_on_changed?
   end
 end
