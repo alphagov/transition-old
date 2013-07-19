@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @site.urls.scrapable.order_for_scrape.each do |url| %>
+    <% @site.urls.for_scraping.order_for_scrape.each do |url| %>
       <tr class="<%= url.scrape_finished ? 'finished' : nil %>">
         <td><%= link_to url.request_uri, calculate_scrape_result_path(url), title: url.url %></td>
         <td><%= url.content_type.try(:to_s) %></td>
