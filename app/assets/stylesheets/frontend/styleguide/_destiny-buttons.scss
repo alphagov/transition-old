@@ -10,7 +10,7 @@ $unfinished-color: #2b8cc4;
 $unfinished-shadow: #1d5f85;
 $unfinished-dark: #267daf;
 
-@mixin destiny-button($border-radius: 0.25em) {
+@mixin destiny-button {
   display: block;
   text-decoration: none;
   color: white;
@@ -21,4 +21,41 @@ $unfinished-dark: #267daf;
   width: 100%;
   font-weight: bold;
   text-align: center;
+
+  font-size: 1em;
+  padding: 0.35em 0.5em 0.15em 0.5em;
+
+  &.selected {
+    border-left: 12px solid #DDD;
+  }
+
+  &.finished {
+    background-color: $finished-color;
+    box-shadow: 0 2px 0 $finished-shadow;
+    -webkit-box-shadow: 0 2px 0 $finished-shadow;
+    &:hover {
+      background-color: $finished-dark;
+    }
+  }
+
+  &.unfinished {
+    background-color: $unfinished-color;
+    box-shadow: 0 2px 0 $unfinished-shadow;
+    -webkit-box-shadow: 0 2px 0 $unfinished-shadow;
+    &:hover {
+      background-color: $unfinished-dark;
+    }
+  }
+
+  &.cancel {
+    padding-left: 0;
+    padding-right: 0;
+
+    background-color: $cancel-color;
+    box-shadow: 0 2px 0 $cancel-shadow;
+    -webkit-box-shadow: 0 2px 0 $cancel-shadow;
+    &:hover {
+      background-color: $cancel-dark;
+    }
+  }
 }

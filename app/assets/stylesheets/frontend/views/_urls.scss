@@ -106,43 +106,6 @@
 
     button, a.button {
       @include destiny-button;
-
-      font-size: 1em;
-      padding: 0.35em 0.5em 0.15em 0.5em;
-
-      &.selected {
-        border-left: 12px solid #DDD;
-      }
-
-      &.finished {
-        background-color: $finished-color;
-        box-shadow: 0 2px 0 $finished-shadow;
-        -webkit-box-shadow: 0 2px 0 $finished-shadow;
-        &:hover {
-          background-color: $finished-dark;
-        }
-      }
-
-      &.unfinished {
-        background-color: $unfinished-color;
-        box-shadow: 0 2px 0 $unfinished-shadow;
-        -webkit-box-shadow: 0 2px 0 $unfinished-shadow;
-        &:hover {
-          background-color: $unfinished-dark;
-        }
-      }
-
-      &.cancel {
-        padding-left: 0;
-        padding-right: 0;
-
-        background-color: $cancel-color;
-        box-shadow: 0 2px 0 $cancel-shadow;
-        -webkit-box-shadow: 0 2px 0 $cancel-shadow;
-        &:hover {
-          background-color: $cancel-dark;
-        }
-      }
     }
   }
 }
@@ -155,9 +118,14 @@
 
 table.scrapable {
   width: 100%;
-  td {
-    a {
-      word-wrap: break-word;
+  tr {
+    &.finished {
+      background-color: $finished-light;
+    }
+    td {
+      a {
+        word-wrap: break-word;
+      }
     }
   }
 }
