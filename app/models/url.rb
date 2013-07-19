@@ -5,6 +5,7 @@ class Url < ActiveRecord::Base
   belongs_to :content_type
   has_one :scrape, :as => :scrapable, class_name: 'ScrapeResult'
   delegate :new_url, to: :mapping, allow_nil: true
+  delegate :request_uri, :to_s, to: :uri
 
   # validations
   validates :url, uniqueness: {case_sensitive: false}
@@ -57,14 +58,6 @@ class Url < ActiveRecord::Base
       map = site.mappings.build(new_url: new_url, path: request_uri, http_status: '301')
       map.save!
     end
-  end
-
-  def request_uri
-    @request_uri ||= uri.path + (uri.query.present? ? '?' + uri.query : '')
-  end
-
-  def to_s
-    url
   end
 
   private
