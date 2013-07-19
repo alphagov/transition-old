@@ -33,6 +33,6 @@ class Mapping < ActiveRecord::Base
   end
   protected
   def set_path_hash
-    self.path_hash = Digest::SHA1.hexdigest(self.path) if self.path_changed?
+    self.path_hash = Digest::SHA1.hexdigest(path) if path_changed?
   end
 end

@@ -25,15 +25,15 @@ class Site < ActiveRecord::Base
   end
 
   def aggregated_hits
-    self.hits.aggregated
+    hits.aggregated
   end
 
   def aggregated_totals
-    self.totals.aggregated
+    totals.aggregated
   end
 
   def weekly_totals
-    self.totals.aggregated_by_week_and_site
+    totals.aggregated_by_week_and_site
   end
 
   def default_host
