@@ -23,15 +23,15 @@ class Url < ActiveRecord::Base
   end
 
   def scrape_result
-    is_scrape_group_per_url_group? ? self.url_group.scrape : self.scrape
+    scrape_for_url_group? ? self.url_group.scrape : self.scrape
   end
 
   def build_scrape_result(options = {})
-    is_scrape_group_per_url_group? ? self.url_group.build_scrape(options) : self.build_scrape(options)
+    scrape_for_url_group? ? self.url_group.build_scrape(options) : self.build_scrape(options)
   end
 
   def create_scrape_result!(options = {})
-    is_scrape_group_per_url_group? ? self.url_group.create_scrape!(options) : self.create_scrape!(options)
+    scrape_for_url_group? ? self.url_group.create_scrape!(options) : self.create_scrape!(options)
   end
 
   def workflow_state
@@ -70,7 +70,7 @@ class Url < ActiveRecord::Base
   private
 
   # is scraping done per url group as opposed to per url
-  def is_scrape_group_per_url_group?
+  def scrape_for_url_group?
     self.content_type.try(:detailed_guide?) and self.url_group
   end
 
