@@ -40,6 +40,11 @@ describe ScrapeResultsController do
       post :create, site_id: site, url_id: url2, scrape_result: {field_a: 'Yeah'}
       response.should redirect_to(edit_site_scrape_result_path(site, url2.scrape_result, url_id: url2))
     end
+
+    it "should update the url as scrape_finished if 'Save as final'" do
+      post :create, site_id: site, url_id: url2, scrape_result: {field_a: 'Yeah'}, button: 'finished'
+      url2.reload.should be_scrape_finished
+    end
   end
 
   describe :edit do
@@ -57,6 +62,12 @@ describe ScrapeResultsController do
       put :update, site_id: site, id: scrape, url_id: url2, scrape_result: {field_a: 'Yeah'}
       scrape.reload.field_value('field_a').should == 'Yeah'
       response.should redirect_to(edit_site_scrape_result_path(site, url2.scrape_result, url_id: url2))
+    end
+    
+    it "should update the url as scrape_finished if 'Save as final'" do
+      scrape = url2.create_scrape_result!
+      put :update, site_id: site, id: scrape, url_id: url2, scrape_result: {field_a: 'Yeah'}, button: 'finished'
+      url2.reload.should be_scrape_finished
     end
   end
 end
