@@ -33,7 +33,7 @@ feature 'Scraping' do
   scenario 'View a url for scraping that currently has not been scraped and save scrape results first with "Save for later" and then "Save as final"' do
     content_type1.scrapable_fields << create(:scrapable_field_title) << create(:scrapable_field_body)
 
-    visit site_urls_path(site1, scrapable: true)
+    visit site_urls_path(site1, for_scraping: true)
     click_link '/contact_us'
 
     page.should have_list_in_this_order '.urls', ['/contact_us - Publishing / Detail - Bee health', '/ - Topic', ]
@@ -44,7 +44,7 @@ feature 'Scraping' do
     fill_in 'Body', with: 'Once upon a time'
     click_button 'Save for later'
 
-    visit site_urls_path(site1, scrapable: true)
+    visit site_urls_path(site1, for_scraping: true)
     click_link '/contact_us'
     page.should have_field('Title', with: 'Anna Karenina')
     page.should have_field('Body', with: 'Once upon a time')
@@ -63,14 +63,14 @@ feature 'Scraping' do
     url6 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/2', site: site1, for_scraping: true,
                 content_type: content_type, url_group: url_group
 
-    visit site_urls_path(site1, scrapable: true)
+    visit site_urls_path(site1, for_scraping: true)
     click_link '/detailed_guide/1'
 
     fill_in 'Title', with: 'Anna Karenina'
     fill_in 'Body', with: 'Once upon a time'
     click_button 'Save for later'
 
-    visit site_urls_path(site1, scrapable: true)
+    visit site_urls_path(site1, for_scraping: true)
     click_link '/detailed_guide/2'
     page.should have_field('Title', with: 'Anna Karenina')
     page.should have_field('Body', with: 'Once upon a time')

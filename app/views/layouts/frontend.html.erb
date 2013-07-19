@@ -83,7 +83,7 @@
               <li><a href="/">Organisations</a></li>
               <% if @site %>
                 <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
-                <li><%= nav_link 'Scrape', site_urls_path(@site, scrapable: true) %></li>
+                <li><%= nav_link 'Scrape', site_urls_path(@site, for_scraping: true) %></li>
               <% end %>
               <li><%= nav_link 'Admin', admin_root_path %></li>
               <li class="clear-child"><%= link_to "Signed in as #{current_user.name}", Plek.current.find('signon') %></li>

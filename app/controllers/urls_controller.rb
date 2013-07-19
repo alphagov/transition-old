@@ -3,7 +3,7 @@ class UrlsController < ApplicationController
 
   def index
     @site = Site.find_by_site!(params[:site_id])
-    if params[:scrapable] == 'true'
+    if params[:for_scraping] == 'true'
       render 'urls_for_scraping' and return
     end
   end

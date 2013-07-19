@@ -28,7 +28,7 @@ describe UrlsController, expensive_setup: true do
     end
 
     it "should render the urls_for_scraping template" do
-      get :index, site_id: @site1, scrapable: 'true'
+      get :index, site_id: @site1, for_scraping: 'true'
       response.should render_template('urls_for_scraping')
     end
   end
