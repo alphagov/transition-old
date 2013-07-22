@@ -33,6 +33,11 @@
       margin: 0.2em 0;
     }
 
+    &.unfinished {
+      background-color: $unfinished-light;
+      a { color: black };
+    }
+
     &.finished {
       background-color: $finished-light;
       a { color: black };

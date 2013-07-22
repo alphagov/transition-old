@@ -51,6 +51,23 @@ feature 'Viewing a url for a site' do
     page.should_not have_link('.selected')
   end
 
+  scenario 'Marking a URL as unfinished' do
+    visit site_url_path(site, first_url)
+
+    within '.controls' do
+      click_button 'Save for review later'
+    end
+
+    # Go back to the url we just marked unfinished
+    click_link(first_url.url, exact: true)
+
+    # The first URL should be marked as unfinished and be selected
+    page.should have_selector('.urls li.unfinished.selected')
+
+    # The unfinished button should be selected
+    page.should have_selector('button.unfinished.selected')
+  end
+
   scenario 'Marking a URL as finished without a new URL' do
     visit site_url_path(site, selected_url)
 
