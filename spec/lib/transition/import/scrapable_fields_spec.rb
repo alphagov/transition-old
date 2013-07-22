@@ -8,6 +8,9 @@ module Transition
       describe ".seed!" do
         before :all do
           @detailed_guide = create(:content_type, type: 'Detailed guide', subtype: nil)
+          ['Press release', 'News story', 'Government response'].each do |subtype|
+            create(:content_type, type: 'News article', subtype: subtype)
+          end
           ScrapableFields.seed!
         end
 

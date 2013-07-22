@@ -13,6 +13,13 @@ module Transition
           type.scrapable_fields = [title, summary, body, published_date]
           type.save!
         end
+
+        ['Press release', 'News story', 'Government response'].each do |news_subtype|
+          ContentType.where(type: 'News article', subtype: news_subtype).first!.tap do |type|
+            type.scrapable_fields = [title, summary, body, published_date]
+            type.save!
+          end
+        end
       end
     end
   end
