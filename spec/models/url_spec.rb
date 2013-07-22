@@ -1,19 +1,35 @@
 require 'spec_helper'
 
 describe Url do
-  describe :relationships do
+  describe 'relationships' do
     it { should belong_to(:site) }
     it { should belong_to(:url_group) }
     it { should belong_to(:content_type) }
     it { should have_one(:scrape) }
   end
 
-  describe :validations do
+  describe 'validations' do
     it 'should make url unique' do
       create :url
       should validate_uniqueness_of(:url).case_insensitive
     end
     it { should validate_presence_of(:site) }
+
+    context 'validate url group depending on content type' do
+      context 'the url content type has mandatory_url_group set to true and there is a url group' do
+        it 'should be valid' do
+          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: build(:url_group)
+          url.should be_valid
+        end
+      end
+
+      context 'the url content type has mandatory_url_group set to true but there is no url group' do
+        it 'should be invalid' do
+          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: nil
+          url.should_not be_valid
+        end
+      end
+    end
   end
 
   describe '.for_scraping' do
@@ -26,7 +42,7 @@ describe Url do
     end
   end
 
-  describe :scrape_result do
+  describe '#scrape_result' do
     it 'should return the scrape result attached directly to the url' do
       url = create :url
       scrape = url.create_scrape!
@@ -43,16 +59,12 @@ describe Url do
   end
 
   describe 'URL state' do
-    it 'should default to new' do
-      Url.new.state.should == :new
-    end
-
     subject(:url) { create(:url) }
 
     its(:state) { should eql(:new) }
   end
 
-  describe :mappings do
+  describe 'Mappings' do
     before :each do
       @site = create :site
       @host1 = create :host, host: 'www.attorney-general.gov.uk', site: @site
@@ -61,7 +73,7 @@ describe Url do
       @mapping1 = create :mapping, path: '/this-is-a-url?hello', new_url: 'http://news.bbc.co.uk', site: @site
     end
 
-    describe :new_url do
+    describe '#new_url' do
       it 'should return nil' do
         build(:url).new_url.should be_nil
       end
@@ -72,7 +84,7 @@ describe Url do
       end
     end
 
-    context :mapping do
+    describe '#mapping' do
       it 'should find a mapping with the url http://www.attorney-general.gov.uk/this-is-a-url?hello' do
         url = create :url, url: 'http://www.attorney-general.gov.uk/this-is-a-url?hello', site: @site
         url.mapping.should == @mapping1
@@ -89,8 +101,8 @@ describe Url do
       end
     end
 
-    context :set_mapping_url do
-      it "should update the existing mapping url" do
+    describe '#set_mapping_url' do
+      it 'should update the existing mapping url' do
         url = create :url, url: 'http://www.attorney-general.gov.uk/this-is-a-url?hello', site: @site
         url.mapping.should == @mapping1
         url.set_mapping_url('http://news.bbc.co.uk')
@@ -98,19 +110,22 @@ describe Url do
         @mapping1.new_url.should == 'http://news.bbc.co.uk'
       end
 
-      it "should create a new mapping" do
+      it 'should create a new mapping' do
         url = create :url, url: 'http://www.attorney-general.gov.uk/hello?is_the_truth', site: @site
         url.mapping.should be_nil
         url.set_mapping_url('http://news.bbc.co.uk')
         url.mapping.new_url.should == 'http://news.bbc.co.uk'
       end
 
-      it "should throw an exception if we try to create a mapping for a url where the site hosts do not match the url host" do
-        url = create :url, url: 'http://www.dfid.gov.uk/hello?is_the_truth', site: @site
-        url.mapping.should be_nil
-        lambda {
-          url.set_mapping_url('http://news.bbc.co.uk')
-        }.should raise_error(RuntimeError, 'No site host found for http://www.dfid.gov.uk/hello?is_the_truth')
+      context 'site hosts do not match the URL host' do
+        it 'should complain with a RuntimeError' do
+          url = create :url, url: 'http://www.dfid.gov.uk/hello?is_the_truth', site: @site
+          url.mapping.should be_nil
+          lambda {
+            url.set_mapping_url('http://news.bbc.co.uk')
+          }.should raise_error(RuntimeError, 'No site host found for http://www.dfid.gov.uk/hello?is_the_truth')
+        end
+
       end
     end
   end

@@ -3,13 +3,14 @@ class Url < ActiveRecord::Base
   belongs_to :site
   belongs_to :url_group
   belongs_to :content_type
-  has_one :scrape, :as => :scrapable, class_name: 'ScrapeResult'
+  has_one :scrape, as: :scrapable, class_name: 'ScrapeResult'
   delegate :new_url, :http_status, to: :mapping, allow_nil: true
   delegate :request_uri, :to_s, to: :uri
 
   # validations
   validates :url, uniqueness: {case_sensitive: false}
   validates :site, presence: true
+  validates :url_group, presence: true, if: Proc.new { |url| url.content_type.try(:mandatory_url_group) }
 
   # scopes
   scope :for_scraping, where(for_scraping: true)
