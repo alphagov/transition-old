@@ -16,7 +16,7 @@ class ScrapeResultsController < ApplicationController
     @url = @site.urls.for_scraping.find(params[:url_id])
     @url.build_scrape_result(data: params[:scrape_result].to_json)
     @url.scrape_result.save!
-    @url.update_attribute(:scrape_finished, true) if params[:button] == 'finished'
+    @url.update_attribute(:scrape_finished, params[:button] == 'finished')
     redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url)
   end
 
@@ -28,7 +28,7 @@ class ScrapeResultsController < ApplicationController
   def update
     @url = @site.urls.for_scraping.find(params[:url_id])
     @scrape_result = @url.scrape_result.update_attributes!(data: params[:scrape_result].to_json)
-    @url.update_attribute(:scrape_finished, true) if params[:button] == 'finished'
+    @url.update_attribute(:scrape_finished, params[:button] == 'finished')
     redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url)
   end
 end
