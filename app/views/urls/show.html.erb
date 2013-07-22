@@ -2,6 +2,7 @@
   <%= render partial: 'url_list' %>
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
+    <%= render "shared/error_messages", target: @url %>
     <div class="inputs-block">
       <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
                               class: 'select2', placeholder: 'Content type' %>
