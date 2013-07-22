@@ -11,7 +11,7 @@ module Transition
           ScrapableFields.seed!
         end
 
-        specify { ScrapableField.all.should have(3).scrapable_fields }
+        specify { ScrapableField.all.should have(4).scrapable_fields }
 
         describe 'The first scrapable field' do
           subject(:field) { ScrapableField.first }
