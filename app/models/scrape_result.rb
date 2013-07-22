@@ -18,4 +18,20 @@ class ScrapeResult < ActiveRecord::Base
   def field_values
     data ? @data_hash ||= JSON.parse(data) : {}
   end
+
+  def self.find_by_url_group_all_scraped(site)
+    sql = <<-SQL
+      SELECT
+        r.*, MIN(u.scrape_finished) as all_scraping_finished
+      FROM
+        scrape_results r
+      INNER JOIN url_groups g ON g.id = r.scrapable_id AND r.scrapable_type = 'UrlGroup'
+      INNER JOIN urls u ON u.url_group_id = g.id
+      WHERE
+        u.site_id = ?
+      HAVING all_scraping_finished = 1
+SQL
+
+    ScrapeResult.find_by_sql([sql, site.id])
+  end
 end

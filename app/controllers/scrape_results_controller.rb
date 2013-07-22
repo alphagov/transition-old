@@ -49,6 +49,9 @@ class ScrapeResultsController < ApplicationController
   end
 
   def index
-    respond_with(@scrape_results = ScrapeResult.all)
+    @scrape_results = @site.urls.where(scrape_finished: true, url_group_id: nil).includes(:scrape).map { |u| u.scrape }
+    @scrape_results.concat ScrapeResult.find_by_url_group_all_scraped(@site)
+
+    respond_with @scrape_results
   end
 end

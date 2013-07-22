@@ -18,6 +18,9 @@ class UrlGroup < ActiveRecord::Base
     !urls.for_scraping.detect {|url| !url.scrape_finished}
   end
 
+  ##
+  # Here because of the +ScrapeResult+ polymorphic - needs to behave like +Url+.
+  # Reliant on the assumption that all +Url+s in this group have the same +content_type+
   def content_type
     self.urls.for_scraping.first.content_type if self.urls.for_scraping.first
   end
