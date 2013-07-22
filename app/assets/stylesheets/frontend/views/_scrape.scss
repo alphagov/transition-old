@@ -35,11 +35,14 @@
       label {
         display: inline;
       }
-      input[type=text], textarea {
+      input[type=text], textarea, .text {
         width: 100%;
       }
       textarea {
-        height: 400px;
+        height: 100px;
+      }
+      #scrape_result_body {
+        height: 400px; 
       }
       button {
         @include destiny-button;
