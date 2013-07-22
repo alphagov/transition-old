@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Url do
+  its(:state) { should eql(:new) }
+
   describe 'relationships' do
     it { should belong_to(:site) }
     it { should belong_to(:url_group) }
@@ -56,12 +58,6 @@ describe Url do
       url = create :url, content_type: content_type, url_group: url_group
       url.scrape_result.should == scrape
     end
-  end
-
-  describe 'URL state' do
-    subject(:url) { create(:url) }
-
-    its(:state) { should eql(:new) }
   end
 
   describe 'Mappings' do

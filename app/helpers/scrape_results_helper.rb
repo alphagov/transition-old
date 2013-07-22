@@ -8,6 +8,7 @@ module ScrapeResultsHelper
       scrape_results.each do |result|
         export_hash = result.attributes.merge(result.field_values)
         export_hash['body'] = Kramdown::Document.new(export_hash['body'], input: 'html').to_kramdown
+        export_hash['old_urls'] = result.urls.to_json(only: [], methods: :link)
         csv << export_hash.values_at(*COLUMN_NAMES)
       end
     end.html_safe

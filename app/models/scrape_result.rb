@@ -34,4 +34,15 @@ SQL
 
     ScrapeResult.find_by_sql([sql, site.id])
   end
+
+  def urls
+    case scrapable
+      when Url
+        [scrapable]
+      when UrlGroup
+        scrapable.urls
+      else
+        raise 'wtfbbq'
+    end
+  end
 end

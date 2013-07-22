@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe ScrapeResult do
-  describe :relationships do
+  describe 'Relationships' do
     it { should belong_to(:scrapable) }
   end
 
-  describe :validations do
+  describe 'Validations' do
     it { should validate_presence_of(:scrapable) }
 
     describe 'mandatory scrapable fields' do
@@ -62,7 +62,7 @@ describe ScrapeResult do
     end
   end
 
-  describe :field_value do
+  describe '#field_values' do
     it 'should return nil if data is empty' do
       ScrapeResult.new.field_values['not_known'].should be_nil
     end
@@ -71,5 +71,24 @@ describe ScrapeResult do
       scrape = ScrapeResult.new(data: {field_a: 'Hello'}.to_json)
       scrape.field_values['field_a'].should == 'Hello'
     end
+  end
+
+  describe '#old_urls' do
+    context '#scrapable is a Url' do
+      let(:url) { create :url }
+
+      subject(:scrape_result) { create :scrape_result, scrapable: url }
+
+      its(:urls) { should eql([url]) }
+    end
+
+    context '#scrapable is a UrlGroup' do
+      let(:url) { create :scraped_url_with_content_type_in_url_group }
+
+      subject(:scrape_result) { build :scrape_result, scrapable: url.url_group }
+
+      its(:urls) { should eql([url]) }
+    end
+
   end
 end
