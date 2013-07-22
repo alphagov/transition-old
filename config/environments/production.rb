@@ -47,6 +47,7 @@ Transition::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += %w(
+    frontend.css
     frontend/base.css
     frontend/base-ie8.css
     frontend/base-ie7.css
