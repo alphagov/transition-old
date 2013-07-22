@@ -14,6 +14,18 @@ describe Url do
       should validate_uniqueness_of(:url).case_insensitive
     end
     it { should validate_presence_of(:site) }
+
+    context 'validate url group depending on content type' do
+      it 'should be valid if the url content type has mandatory_url_group set to true and there is a url group' do
+        url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: build(:url_group)
+        url.should be_valid
+      end
+
+      it 'should be invalid if the url content type has mandatory_url_group set to true and there is no url group' do
+        url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: nil
+        url.should_not be_valid
+      end
+    end
   end
 
   describe '.for_scraping' do

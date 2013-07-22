@@ -5,6 +5,7 @@
       <th>Type / Subtype</th>
       <th>Scrapable?</th>
       <th>User need required?</th>
+      <th>Mandatory url group?</th>
       <th></th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
         <td><%= link_to content_type.to_s, edit_admin_content_type_path(content_type) %></td>
         <td><%= content_type.scrapable ? 'Yes' : '' %></td>
         <td><%= content_type.user_need_required ? 'Yes' : '' %></td>
+        <td><%= content_type.mandatory_url_group ? 'Yes' : '' %></td>
         <%= content_tag :td, link_to(image_tag('icons/delete.png', width: 16, height: 16), admin_content_type_path(content_type), {method: :delete, confirm: "Delete content type '#{content_type.to_s}'?"}), class: 'delete' %>
       </tr>
     <% end %>

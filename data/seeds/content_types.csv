@@ -1,58 +1,58 @@
-Type,Sub-type,Scrapable?,User Need Required?
-Publication,Policy paper,Y,N
-Publication,Impact assessment,Y,N
-Publication,Guidance,Y,Y
-Publication,Form,Y,N
-Publication,Statistics,Y,N
-Publication,National statistics,Y,N
-Publication,Research and analysis,Y,N
-Publication,Corporate reports,Y,N
-Publication,Transparency data,Y,N
-Publication,Treaties,Y,N
-Publication,FOI release,Y,N
-Publication,Independent reports,Y,N
-Publication,Correspondence,Y,N
-Publication,Promotional material,Y,N
-Consultation (incl responses),,Y,N
-Statistical data set,,N,N
-Document series,,N,N
-Detailed guide,,Y,N
-About us,,N,N
-Role,,N,N
-Person,,N,N
-Corporate information,Personal information charter,N,N
-Corporate information,Publication scheme,N,N
-Corporate information,Complaints procedure,N,N
-Corporate information,Our governance,N,N
-Corporate information,Statistics at x,N,N
-Corporate information,Procurement,N,N
-Corporate information,Working for x,N,N
-Corporate information,Our energy use,N,N
-Corporate information,Welsh language scheme,N,N
-Policy,,N,N
-Policy,Supporting detail,N,N
-Policy team,,N,N
-Policy advisory group,,N,N
-Case study,,Y,N
-Organisation,Ministerial dept,N,N
-Organisation,Non-ministerial dept,N,N
-Organisation,Executive agency,N,N
-Organisation,Executive non-departmental public body,N,N
-Organisation,Tribunal non-departmental public body,N,N
-Organisation,Advisory non-departmental public body,N,N
-Organisation,Public corporation,N,N
-Organisation,Other,N,N
-Organisation,Sub-org (high profile unit of an org),N,N
-Governance group,,N,N
-Speech,Transcript,Y,N
-Speech,Draft,Y,N
-Speech,Speaking notes,Y,N
-Speech,Written statement (to Parliament),Y,N
-Speech,Oral statement (to Parliament),Y,N
-News article,Press release,Y,N
-News article,News story,Y,N
-News article,Government response,Y,N
-Topical event page,,N,N
-Topic ,,N,N
-Fatality notice (MOD only),,N,N
-Worldwide priority (FCO only),,N,N
+Type,Sub-type,Scrapable?,User Need Required?,Mandatory Url Group?
+Publication,Policy paper,Y,N,N
+Publication,Impact assessment,Y,N,N
+Publication,Guidance,Y,Y,N
+Publication,Form,Y,N,N
+Publication,Statistics,Y,N,N
+Publication,National statistics,Y,N,N
+Publication,Research and analysis,Y,N,N
+Publication,Corporate reports,Y,N,N
+Publication,Transparency data,Y,N,N
+Publication,Treaties,Y,N,N
+Publication,FOI release,Y,N,N
+Publication,Independent reports,Y,N,N
+Publication,Correspondence,Y,N,N
+Publication,Promotional material,Y,N,N
+Consultation (incl responses),,Y,N,N
+Statistical data set,,N,N,N
+Document series,,N,N,N
+Detailed guide,,Y,N,Y
+About us,,N,N,N
+Role,,N,N,N
+Person,,N,N,N
+Corporate information,Personal information charter,N,N,N
+Corporate information,Publication scheme,N,N,N
+Corporate information,Complaints procedure,N,N,N
+Corporate information,Our governance,N,N,N
+Corporate information,Statistics at x,N,N,N
+Corporate information,Procurement,N,N,N
+Corporate information,Working for x,N,N,N
+Corporate information,Our energy use,N,N,N
+Corporate information,Welsh language scheme,N,N,N
+Policy,,N,N,N
+Policy,Supporting detail,N,N,N
+Policy team,,N,N,N
+Policy advisory group,,N,N,N
+Case study,,Y,N,N
+Organisation,Ministerial dept,N,N,N
+Organisation,Non-ministerial dept,N,N,N
+Organisation,Executive agency,N,N,N
+Organisation,Executive non-departmental public body,N,N,N
+Organisation,Tribunal non-departmental public body,N,N,N
+Organisation,Advisory non-departmental public body,N,N,N
+Organisation,Public corporation,N,N,N
+Organisation,Other,N,N,N
+Organisation,Sub-org (high profile unit of an org),N,N,N
+Governance group,,N,N,N
+Speech,Transcript,Y,N,N
+Speech,Draft,Y,N,N
+Speech,Speaking notes,Y,N,N
+Speech,Written statement (to Parliament),Y,N,N
+Speech,Oral statement (to Parliament),Y,N,N
+News article,Press release,Y,N,N
+News article,News story,Y,N,N
+News article,Government response,Y,N,N
+Topical event page,,N,N,N
+Topic ,,N,N,N
+Fatality notice (MOD only),,N,N,N
+Worldwide priority (FCO only),,N,N,N
