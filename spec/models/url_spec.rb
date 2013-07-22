@@ -15,15 +15,19 @@ describe Url do
     end
     it { should validate_presence_of(:site) }
 
-    context 'validate url group depending on content type' do
-      it 'should be valid if the url content type has mandatory_url_group set to true and there is a url group' do
-        url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: build(:url_group)
-        url.should be_valid
+    describe 'validate url group depending on content type' do
+      context 'the content type requires a URL group and one exists' do
+        it 'should be valid if the url content type has mandatory_url_group set to true and there is a url group' do
+          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: build(:url_group)
+          url.should be_valid
+        end
       end
 
-      it 'should be invalid if the url content type has mandatory_url_group set to true and there is no url group' do
-        url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: nil
-        url.should_not be_valid
+      context 'the content type requires a URL group and none exists' do
+        it 'should be invalid if the url content type has mandatory_url_group set to true and there is no url group' do
+          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: nil
+          url.should_not be_valid
+        end
       end
     end
   end
