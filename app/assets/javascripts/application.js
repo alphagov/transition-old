@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.datepicker
 //= require_tree .
 //= require ./vendor/bootstrap
+//= require ./vendor/advanced
+//= require ./vendor/wysihtml5-0.3.0.min
 //= require select2
