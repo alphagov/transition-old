@@ -18,10 +18,11 @@ module Transition
         describe 'The first entry' do
           subject(:content_type) { ContentType.first }
 
-          its(:type)               { should eql('Publication') }
-          its(:subtype)            { should eql('Policy paper') }
-          its(:scrapable)          { should be_true }
-          its(:user_need_required) { should be_false }
+          its(:type)                { should eql('Publication') }
+          its(:subtype)             { should eql('Policy paper') }
+          its(:scrapable)           { should be_true }
+          its(:user_need_required)  { should be_false }
+          its(:mandatory_url_group) { should be_true }
         end
       end
     end

@@ -55,6 +55,16 @@ describe UrlsController, expensive_setup: true do
       end
     end
 
+    context 'invalid url' do
+      it 'should fail to update the url' do
+        content_type = create :content_type, type: 'Detailed Guide', subtype: nil, mandatory_url_group: true
+        post :update, site_id: @site1, id: @url1, url: { content_type_id: content_type.id, comments: 'Hello' }
+        response.should be_success
+        @url1.reload
+        @url1.comments.should_not == 'Hello'
+      end
+    end
+
     context 'Save for review later is clicked' do
       context 'without a mapping URL' do
         before { post :update, site_id: @site1, id: @url1, destiny: 'unfinished' }
