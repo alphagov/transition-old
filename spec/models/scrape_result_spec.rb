@@ -16,7 +16,7 @@ describe ScrapeResult do
         @content_type.scrapable_fields << field1 << field2
       end
       
-      context 'url as scrapable' do
+      describe 'url as scrapable' do
         it 'should be invalid for a scrape result to have empty mandatory fields if the associated url is marked as scrape finished' do
           url = create :url, content_type: @content_type, scrape_finished: true
           scrape = build :scrape_result, scrapable: url, data: nil
@@ -36,7 +36,7 @@ describe ScrapeResult do
         end
       end
 
-      context 'url group as scrapable' do
+      describe 'url group as scrapable' do
         before :each do
           @url1 = create :url, content_type: @content_type, scrape_finished: true, for_scraping: true
           @url_group = create :url_group
