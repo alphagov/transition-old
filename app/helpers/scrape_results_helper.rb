@@ -1,3 +1,5 @@
+require 'csv'
+
 module ScrapeResultsHelper
   COLUMN_NAMES = %w(id title summary body updated_at old_urls)
 
