@@ -29,6 +29,7 @@ describe 'scrape_results/index.csv.erb' do
     its(['title'])        { should eql(first_scrape_result.field_values['title']) }
     its(['summary'])      { should eql(first_scrape_result.field_values['summary']) }
     its(['organisation']) { should eql(first_scrape_result.organisation.abbr) }
+    its(['old_url'])      { should eql(%(["#{test_results.first.scrapable.url}"])) }
 
     describe 'the body conversion to markdown' do
       subject(:markdown) { row['body'] }
@@ -40,12 +41,6 @@ describe 'scrape_results/index.csv.erb' do
         it { should include('[BZZZZZZZZZZZZZZZZZZZ][1]') }
         it { should include('[1]: http://apiary.org') }
       end
-    end
-
-    describe 'the old urls' do
-      subject(:old_urls) { JSON.parse(row['old_urls']) }
-
-      specify { old_urls.should eql(['link' => test_results.first.scrapable.url])  }
     end
   end
 end
