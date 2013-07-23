@@ -1,17 +1,16 @@
 require 'spec_helper'
 
 describe 'scrape_results/index.csv.erb' do
-  let(:url_in_url_group) { create(:scraped_url_with_content_type_in_url_group) }
+  let(:url_in_url_group)  { create(:scraped_url_with_content_type_in_url_group) }
   let(:urlgroup_result)   { create(:scrape_result, scrapable: url_in_url_group.url_group) }
 
   let(:test_results)        { 3.times.map { create :scrape_result } << urlgroup_result }
   let(:first_scrape_result) { test_results[0] }
 
   before do
-    create :detailed_guide_content_type
-    Transition::Import::ScrapableFields.seed!
-    assign(:scrape_results, test_results)
+    [:scrapable_field_title, :scrapable_field_summary, :scrapable_field_body].each { |field_type| create(field_type) }
 
+    assign(:scrape_results, test_results)
     render
 
     @csv = CSV.parse(rendered)
