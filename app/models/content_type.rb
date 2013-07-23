@@ -10,6 +10,9 @@ class ContentType < ActiveRecord::Base
   validates_presence_of :type
   validates_uniqueness_of :subtype, scope: :type, case_sensitive: false
 
+  # scopes
+  scope :for_site, ->(site) { select('distinct content_types.*').joins(:urls).where('urls.site_id = ?', site.id).order(:type) }
+
   def to_s
     [type, subtype.presence].compact.join(' / ')
   end
