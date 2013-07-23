@@ -19,6 +19,8 @@ FactoryGirl.define do
     factory :detailed_guide_content_type do
       type    'Detailed guide'
       subtype nil
+
+      scrapable true
     end
   end
 end
