@@ -5,6 +5,11 @@ describe ScrapeResultsController do
   let!(:site) { create :site, organisation: organisation }
   let!(:url1) { create :url, site: site, for_scraping: false }
   let!(:url2) { create :url, site: site, for_scraping: true }
+  let(:content_type) do
+    content_type = create :content_type, scrapable: true
+    content_type.scrapable_fields << create(:scrapable_field, name: 'body', mandatory: true)
+    content_type
+  end
 
   before :each do
     login_as_stub_user
@@ -45,6 +50,13 @@ describe ScrapeResultsController do
       post :create, site_id: site, url_id: url2, scrape_result: {field_a: 'Yeah'}, button: 'finished'
       url2.reload.should be_scrape_finished
     end
+
+    it "should fail to update the url as scrape_finished if 'Save as final' when mandatory fields are empty" do
+      url2.update_attributes!(content_type_id: content_type.id)
+      post :create, site_id: site, url_id: url2, scrape_result: {field_a: 'Yeah'}, button: 'finished'
+      url2.reload.should_not be_scrape_finished
+      assigns(:scrape_result).errors.full_messages.should == ['Body must be populated before scrape is marked as final']
+    end
   end
 
   describe :edit do
@@ -68,6 +80,14 @@ describe ScrapeResultsController do
       scrape = url2.create_scrape_result!
       put :update, site_id: site, id: scrape, url_id: url2, scrape_result: {field_a: 'Yeah'}, button: 'finished'
       url2.reload.should be_scrape_finished
+    end
+
+    it "should fail to update the url as scrape_finished if 'Save as final' when mandatory fields are empty" do
+      url2.update_attributes!(content_type_id: content_type.id)
+      scrape = url2.create_scrape_result!
+      put :update, site_id: site, id: scrape, url_id: url2, scrape_result: {field_a: 'Yeah'}, button: 'finished'
+      url2.reload.should_not be_scrape_finished
+      assigns(:scrape_result).errors.full_messages.should == ['Body must be populated before scrape is marked as final']
     end
   end
 end
