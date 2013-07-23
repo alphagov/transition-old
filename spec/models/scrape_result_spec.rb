@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe ScrapeResult do
-  describe :relationships do
+  describe 'Relationships' do
     it { should belong_to(:scrapable) }
   end
 
-  describe :validations do
+  describe 'Validations' do
     it { should validate_presence_of(:scrapable) }
 
     describe 'mandatory scrapable fields' do
@@ -62,14 +62,35 @@ describe ScrapeResult do
     end
   end
 
-  describe :field_value do
+  describe '#field_values' do
     it 'should return nil if data is empty' do
-      ScrapeResult.new.field_value('not_known').should be_nil
+      ScrapeResult.new.field_values['not_known'].should be_nil
     end
 
     it 'should return the value for a specific field stored as json in data' do
       scrape = ScrapeResult.new(data: {field_a: 'Hello'}.to_json)
-      scrape.field_value('field_a').should == 'Hello'
+      scrape.field_values['field_a'].should == 'Hello'
     end
+  end
+
+  describe '#urls and #organisation' do
+    context '#scrapable is a Url' do
+      let(:url) { create :url }
+
+      subject(:scrape_result) { build :scrape_result, scrapable: url }
+
+      its(:urls)         { should eql([url]) }
+      its(:organisation) { should eql(url.site.organisation) }
+    end
+
+    context '#scrapable is a UrlGroup' do
+      let(:grouped_url) { create :scraped_url_with_content_type_in_url_group }
+
+      subject(:scrape_result) { build :scrape_result, scrapable: grouped_url.url_group }
+
+      its(:urls) { should eql([grouped_url]) }
+      its(:organisation) { should eql(grouped_url.url_group.organisation) }
+    end
+
   end
 end
