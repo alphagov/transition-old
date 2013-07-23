@@ -3,6 +3,8 @@ class ScrapeResultsController < ApplicationController
 
   before_filter :find_site
 
+  respond_to :csv, only: [:index]
+
   def new
     @url = @site.urls.for_scraping.find(params[:url_id])
     # cater for scrape result already existing
@@ -14,10 +16,17 @@ class ScrapeResultsController < ApplicationController
 
   def create
     @url = @site.urls.for_scraping.find(params[:url_id])
-    @url.build_scrape_result(data: params[:scrape_result].to_json)
-    @url.scrape_result.save!
-    @url.update_attribute(:scrape_finished, params[:button] == 'finished')
-    redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url)
+    Url.transaction do
+      @url.update_attribute(:scrape_finished, params[:button] == 'finished')
+      @url.build_scrape_result(data: params[:scrape_result].to_json)
+      if @url.scrape_result.save
+        redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url) and return
+      else
+        @scrape_result = @url.scrape_result
+        raise ActiveRecord::Rollback
+      end
+    end
+    render 'new'
   end
 
   def edit
@@ -27,8 +36,22 @@ class ScrapeResultsController < ApplicationController
 
   def update
     @url = @site.urls.for_scraping.find(params[:url_id])
-    @scrape_result = @url.scrape_result.update_attributes!(data: params[:scrape_result].to_json)
-    @url.update_attribute(:scrape_finished, params[:button] == 'finished')
-    redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url)
+    Url.transaction do
+      @url.update_attribute(:scrape_finished, params[:button] == 'finished')
+      @scrape_result = @url.scrape_result
+      if @scrape_result.update_attributes(data: params[:scrape_result].to_json)
+        redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url) and return
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+    render 'edit'
+  end
+
+  def index
+    @scrape_results = @site.urls.where(scrape_finished: true, url_group_id: nil).includes(:scrape).map { |u| u.scrape }
+    @scrape_results.concat ScrapeResult.find_by_url_group_all_scraped(@site)
+
+    respond_with @scrape_results
   end
 end

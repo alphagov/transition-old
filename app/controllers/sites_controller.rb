@@ -1,4 +1,6 @@
 class SitesController < ApplicationController
+  layout 'frontend'
+
   # GET /sites
   # GET /sites.json
   def index

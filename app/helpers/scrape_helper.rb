@@ -2,15 +2,16 @@ module ScrapeHelper
 
   def scrape_field_and_label(field, scrape_result)
     field_name = "scrape_result[#{field.name}]"
+
     html = label_tag(field_name, field.name.humanize)
     html += if field.type.to_sym == :string
-      text_field_tag(field_name, scrape_result.field_value(field.name))
+      text_field_tag(field_name, scrape_result.field_values[field.name])
     elsif field.type.to_sym == :date
-      text_field_tag(field_name, scrape_result.field_value(field.name), class: 'datepicker')
+      text_field_tag(field_name, scrape_result.field_values[field.name], class: 'datepicker')
     elsif field.type.to_sym == :text and field.name == 'body'
-      rich_text_editor_toolbar + text_area_tag(field_name, scrape_result.field_value(field.name))
+      rich_text_editor_toolbar + text_area_tag(field_name, scrape_result.field_values[field.name])
     elsif field.type.to_sym == :text
-      text_area_tag(field_name, scrape_result.field_value(field.name))
+      text_area_tag(field_name, scrape_result.field_values[field.name])
     end
     html
   end

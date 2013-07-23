@@ -97,6 +97,7 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     kgio (2.8.0)
+    kramdown (1.1.0)
     launchy (2.3.0)
       addressable (~> 2.3)
     libv8 (3.11.8.17)
@@ -241,6 +242,7 @@ DEPENDENCIES
   htmlentities
   jquery-rails (= 2.0.2)
   jquery-ui-rails
+  kramdown
   launchy
   mysql2
   plek (= 1.2.0)

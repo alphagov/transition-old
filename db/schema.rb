@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722112433) do
+ActiveRecord::Schema.define(:version => 20130722155213) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -90,8 +90,9 @@ ActiveRecord::Schema.define(:version => 20130722112433) do
   create_table "scrapable_fields", :force => true do |t|
     t.string   "name"
     t.string   "type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "mandatory",  :default => false, :null => false
   end
 
   create_table "scrape_results", :force => true do |t|

@@ -13,4 +13,15 @@ class UrlGroup < ActiveRecord::Base
   # scopes
   scope :for_organisation, ->(organisation) { where(organisation_id: organisation.id).order(:name) }
 
+  # this only returns true if all 'for scraping' urls are marked as scrape_finished
+  def scrape_finished?
+    !urls.for_scraping.detect {|url| !url.scrape_finished}
+  end
+
+  ##
+  # Here because of the +ScrapeResult+ polymorphic - needs to behave like +Url+.
+  # Reliant on the assumption that all +Url+s in this group have the same +content_type+
+  def content_type
+    urls.for_scraping.first.try(:content_type)
+  end
 end

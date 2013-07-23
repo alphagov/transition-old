@@ -56,6 +56,14 @@ class Url < ActiveRecord::Base
     end
   end
 
+  def link
+    url
+  end
+
+  def organisation
+    site.organisation
+  end
+
   private
 
   # is scraping done per url group as opposed to per url
