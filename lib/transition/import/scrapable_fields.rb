@@ -3,10 +3,12 @@ module Transition
     class ScrapableFields
       def self.seed!
         title   = ScrapableField.where(name: 'title', type: 'string').first_or_create!
+        title.update_attribute(:mandatory, true)
         summary = ScrapableField.where(name: 'summary', type: 'string').first
         summary.update_attribute(:type, 'text') if summary
         summary = ScrapableField.where(name: 'summary', type: 'text').first_or_create!
         body    = ScrapableField.where(name: 'body', type: 'text').first_or_create!
+        body.update_attribute(:mandatory, true)
         published_date = ScrapableField.where(name: 'published_date', type: 'date').first_or_create!
 
         ContentType.where(type: 'Detailed guide').first!.tap do |type|

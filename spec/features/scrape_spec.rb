@@ -31,7 +31,7 @@ feature 'Scraping' do
   end
 
   scenario 'View a url for scraping that currently has not been scraped and save scrape results first with "Save for later" and then "Save as final"' do
-    content_type1.scrapable_fields << create(:scrapable_field_title) << create(:scrapable_field_body)
+    content_type1.scrapable_fields << create(:scrapable_field_title) << create(:scrapable_field_body, mandatory: true)
 
     visit site_urls_path(site1, for_scraping: true)
     click_link '/contact_us'
@@ -41,17 +41,23 @@ feature 'Scraping' do
     page.should have_an_iframe_for(url3.url)
 
     fill_in 'Title', with: 'Anna Karenina'
-    fill_in 'Body', with: 'Once upon a time'
     click_button 'Save for later'
 
     visit site_urls_path(site1, for_scraping: true)
     click_link '/contact_us'
     page.should have_field('Title', with: 'Anna Karenina')
-    page.should have_field('Body', with: 'Once upon a time')
+    page.should have_field('Body')
     page.should have_no_selector('.urls li.finished', text: '/contact_us')
 
     click_button 'Save as final'
 
+    page.should have_no_selector('.urls li.finished', text: '/contact_us')
+    page.should have_content('Body must be populated before scrape is marked as final')
+
+    fill_in 'Body', with: 'Once upon a time'
+    click_button 'Save as final'
+
+    page.should have_field('Body', with: 'Once upon a time')
     page.should have_selector('.urls li.finished', text: '/contact_us')
   end
 
