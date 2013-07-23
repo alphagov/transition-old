@@ -25,9 +25,10 @@ describe 'scrape_results/index.csv.erb' do
       CSV::Row.new(ScrapeResultsHelper::COLUMN_NAMES, @csv[1], true)
     }
 
-    its(['id'])       { should eql(first_scrape_result.id.to_s)  }
-    its(['title'])    { should eql(first_scrape_result.field_values['title']) }
-    its(['summary'])  { should eql(first_scrape_result.field_values['summary']) }
+    its(['id'])           { should eql(first_scrape_result.id.to_s)  }
+    its(['title'])        { should eql(first_scrape_result.field_values['title']) }
+    its(['summary'])      { should eql(first_scrape_result.field_values['summary']) }
+    its(['organisation']) { should eql(first_scrape_result.organisation.abbr) }
 
     describe 'the body conversion to markdown' do
       subject(:markdown) { row['body'] }

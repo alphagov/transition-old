@@ -73,21 +73,23 @@ describe ScrapeResult do
     end
   end
 
-  describe '#old_urls' do
+  describe '#urls and #organisation' do
     context '#scrapable is a Url' do
       let(:url) { create :url }
 
-      subject(:scrape_result) { create :scrape_result, scrapable: url }
+      subject(:scrape_result) { build :scrape_result, scrapable: url }
 
-      its(:urls) { should eql([url]) }
+      its(:urls)         { should eql([url]) }
+      its(:organisation) { should eql(url.site.organisation) }
     end
 
     context '#scrapable is a UrlGroup' do
-      let(:url) { create :scraped_url_with_content_type_in_url_group }
+      let(:grouped_url) { create :scraped_url_with_content_type_in_url_group }
 
-      subject(:scrape_result) { build :scrape_result, scrapable: url.url_group }
+      subject(:scrape_result) { build :scrape_result, scrapable: grouped_url.url_group }
 
-      its(:urls) { should eql([url]) }
+      its(:urls) { should eql([grouped_url]) }
+      its(:organisation) { should eql(grouped_url.url_group.organisation) }
     end
 
   end

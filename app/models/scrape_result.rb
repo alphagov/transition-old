@@ -35,6 +35,8 @@ SQL
     ScrapeResult.find_by_sql([sql, site.id])
   end
 
+  delegate :organisation, to: :scrapable
+
   def urls
     case scrapable
       when Url
