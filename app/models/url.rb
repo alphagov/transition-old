@@ -13,12 +13,18 @@ class Url < ActiveRecord::Base
   validates :url_group, presence: true, if: Proc.new { |url| url.content_type.try(:mandatory_url_group) }
 
   # scopes
+  scope :for_content_types, ->(content_types) { where('urls.content_type_id in (?)', content_types.map(&:id)) }
   scope :for_scraping, where(for_scraping: true)
   scope :in_scraping_order,
         joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
         joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
         includes(:content_type, :url_group).
-        order('content_types.type, content_types.subtype, url_groups.name')
+        order('content_types.type, content_types.subtype, url_groups.name, urls.id')
+
+  def self.for_type(type)
+    content_types = ContentType.where(type: type)
+    content_types.any? ? for_content_types(ContentType.where(type: type)) : scoped
+  end
 
   def next
     site.urls.where('id > ?', id).order('id ASC').first

@@ -38,21 +38,46 @@ describe ScrapeResultsController do
   end
 
   describe '#index' do
-    let!(:scraped_url)      { create :url, site: site, for_scraping: true, scrape_finished: true }
-    let!(:onsite_result)    { create(:scrape_result, scrapable: scraped_url) }
-    let!(:offsite_result)   { create(:scrape_result, scrapable: offsite_url) }
-    let!(:url_in_url_group) { create(:scraped_url_with_content_type_in_url_group) }
-    let!(:urlgroup_result)  { create(:scrape_result, scrapable: url_in_url_group.url_group) }
+    describe 'html' do
+      let!(:content_type1) { create :content_type, type: 'Publication' }
+      let!(:content_type2) { create :content_type, type: 'Bling' }
+      let!(:content_type3) { create :content_type, type: 'Publication' }
+      let!(:url1) { create :url, for_scraping: true, content_type: content_type2 }
+      let!(:url2) { create :url, for_scraping: false, content_type: content_type1 }
+      let!(:url3) { create :url, for_scraping: true, content_type: content_type3 }
+      
+      describe 'no :type specified' do
+        it 'should create a hash of types' do
+          get :index, site_id: site
+          assigns(:content_types_hash).should == {'Bling' => [content_type2], 'Publication' => [content_type3]}
+        end
+      end
 
-    before do
-      get :index, site_id: site
+      describe ':type specified' do
+        it 'should create no hash of types' do
+          get :index, site_id: site, type: 'Publication'
+          assigns(:content_types_hash).should be_nil
+        end
+      end
     end
 
-    subject(:results) { assigns[:scrape_results].to_a }
+    describe 'csv' do
+      let!(:scraped_url)      { create :url, site: site, for_scraping: true, scrape_finished: true }
+      let!(:onsite_result)    { create(:scrape_result, scrapable: scraped_url) }
+      let!(:offsite_result)   { create(:scrape_result, scrapable: offsite_url) }
+      let!(:url_in_url_group) { create(:scraped_url_with_content_type_in_url_group) }
+      let!(:urlgroup_result)  { create(:scrape_result, scrapable: url_in_url_group.url_group) }
 
-    it { should     include(onsite_result) }
-    it { should_not include(offsite_result) }
-    it { should     include(urlgroup_result) }
+      before do
+        get :index, site_id: site, format: 'csv'
+      end
+
+      subject(:results) { assigns[:scrape_results].to_a }
+
+      it { should     include(onsite_result) }
+      it { should_not include(offsite_result) }
+      it { should     include(urlgroup_result) }
+    end
   end
 
   describe :create do

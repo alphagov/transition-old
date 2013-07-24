@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :content_type do
     type 'Publication'
-    subtype 'Policy paper'
+    sequence(:subtype) { |n| "Policy paper #{n}" }
 
     scrapable true
 

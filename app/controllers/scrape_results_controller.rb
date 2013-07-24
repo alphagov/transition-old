@@ -3,8 +3,6 @@ class ScrapeResultsController < ApplicationController
 
   before_filter :find_site
 
-  respond_to :csv, only: [:index]
-
   def new
     @url = @site.urls.for_scraping.find(params[:url_id])
     # cater for scrape result already existing
@@ -49,9 +47,17 @@ class ScrapeResultsController < ApplicationController
   end
 
   def index
-    @scrape_results = @site.urls.where(scrape_finished: true, url_group_id: nil).includes(:scrape).map { |u| u.scrape }
-    @scrape_results.concat ScrapeResult.find_by_url_group_all_scraped(@site)
-
-    respond_with @scrape_results
+    respond_to do |format|
+      format.csv do
+        @scrape_results = @site.urls.where(scrape_finished: true, url_group_id: nil).includes(:scrape).map { |u| u.scrape }
+        @scrape_results.concat ScrapeResult.find_by_url_group_all_scraped(@site)
+        render csv: @scrape_results
+      end
+      format.html do
+        if params[:type].blank?
+          @content_types_hash = ContentType.for_site(@site).for_scrape.group_by {|content_type| content_type.type}
+        end
+      end
+    end
   end
 end
