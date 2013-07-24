@@ -37,9 +37,9 @@ describe ContentType do
 
   describe '#to_s' do
     context 'both parts are supplied' do
-      subject(:content_type) { build(:content_type) }
+      subject(:content_type) { build(:content_type, type: 'Publication', subtype: 'Policy paper') }
 
-      its(:to_s) { should eql("Publication / #{subject.subtype}") }
+      its(:to_s) { should eql("Publication / Policy paper") }
     end
 
     context 'only the main type is supplied' do
