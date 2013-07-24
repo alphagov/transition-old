@@ -4,9 +4,6 @@ class UrlsController < ApplicationController
   before_filter :find_site
 
   def index
-    if params[:for_scraping] == 'true'
-      render 'urls_for_scraping' and return
-    end
   end
 
   def show

@@ -1,6 +1,6 @@
 <div>
   <ul class="urls scrape">
-    <% @site.urls.for_scraping.in_scraping_order.each do |url| %>
+    <% @site.urls.for_scraping.for_type(params[:type]).in_scraping_order.each do |url| %>
        <%= content_tag :li, class: "#{@url == url ? ' selected' : nil}#{url.scrape_finished ? ' finished' : nil}" do %>
         <%= link_to_if url != @url, url.request_uri, calculate_scrape_result_path(url), title: url.url %> - <%= url.content_type.try(:to_s) %> 
             <%= url.url_group ? "- #{url.url_group.name}" : '' %>
@@ -8,14 +8,16 @@
     <% end %>
   </ul>
 
-  <p>Comments: <%= @url.comments %></p>
+  <% if @url %>
+    <p>Comments: <%= @url.comments %></p>
 
-  <%= javascript_tag do %>
-      $(function() {
-        $('.urls').scrollTop(
-          $('.urls li:nth-child(<%= [@site.urls.for_scraping.in_scraping_order.index(@url) - 3, 1].max %>)')
-            .position().top - $('.urls').position().top
-        );
-      });
+    <%= javascript_tag do %>
+        $(function() {
+          $('.urls').scrollTop(
+            $('.urls li:nth-child(<%= [@site.urls.for_scraping.in_scraping_order.index(@url) - 3, 1].max %>)')
+              .position().top - $('.urls').position().top
+          );
+        });
+    <% end %>
   <% end %>
 </div>

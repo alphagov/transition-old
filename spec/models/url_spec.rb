@@ -34,11 +34,24 @@ describe Url do
     end
   end
 
-  describe '.for_scraping' do
+  describe 'scopes' do
+    let!(:content_type1) { create :content_type, type: 'Publication' }
+    let!(:content_type2) { create :content_type, type: 'Bling' }
+    let!(:content_type3) { create :content_type, type: 'Publication' }
+    let!(:url1) { create :url, for_scraping: true, content_type: content_type2 }
+    let!(:url2) { create :url, for_scraping: false, content_type: content_type1 }
+    let!(:url3) { create :url, for_scraping: true, content_type: content_type3 }
+
+    it 'should return the urls assigned to a specific content type' do
+      Url.for_content_types([content_type1]).should == [url2]
+    end
+
+    it 'should return the urls assigned to a content type with the specified type' do
+      Url.for_type('Publication').size.should == 2
+      Url.for_type('Publication').should include(url2, url3)
+    end
+
     it 'should return urls marked to be scraped' do
-      url1 = create :url, for_scraping: true
-      url2 = create :url, for_scraping: false
-      url3 = create :url, for_scraping: true
       Url.for_scraping.size.should == 2
       Url.for_scraping.should include(url1, url3)
     end

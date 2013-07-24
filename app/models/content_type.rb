@@ -11,7 +11,8 @@ class ContentType < ActiveRecord::Base
   validates_uniqueness_of :subtype, scope: :type, case_sensitive: false
 
   # scopes
-  scope :for_site, ->(site) { select('distinct content_types.*').joins(:urls).where('urls.site_id = ?', site.id).order(:type) }
+  scope :for_site, ->(site) { select('distinct content_types.*').joins(:urls).where('urls.site_id = ?', site.id).order(:type, :subtype) }
+  scope :for_scrape, where('urls.for_scraping = ?', true)
 
   def to_s
     [type, subtype.presence].compact.join(' / ')
