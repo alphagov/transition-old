@@ -1,0 +1,12 @@
+<% if params[:type].present? %>
+  <%= render 'url_list' %>
+<% else %>
+  <h1>Scrape</h1>
+  <ul class="types">
+    <% @content_types_hash.keys.each do |type| %>
+      <li>
+        <%= link_to type, site_scrape_results_path(@site, type: type) %></td>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

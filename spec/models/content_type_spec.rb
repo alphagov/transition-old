@@ -18,11 +18,28 @@ describe ContentType do
     end
   end
 
+  describe 'scopes' do
+    describe 'for_site' do
+      it 'should return content types associated with the site urls' do
+        site = create :site
+        content_type1 = create :content_type
+        content_type2 = create :content_type
+        content_type3 = create :content_type
+        create :url, site: site, content_type: content_type1
+        create :url, site: site, content_type: content_type2
+        create :url, site: site, content_type: content_type1
+        content_types = ContentType.for_site(site)
+        content_types.to_a.length.should == 2
+        content_types.should include(content_type1, content_type2)
+      end
+    end
+  end
+
   describe '#to_s' do
     context 'both parts are supplied' do
-      subject(:content_type) { build(:content_type) }
+      subject(:content_type) { build(:content_type, type: 'Publication', subtype: 'Policy paper') }
 
-      its(:to_s) { should eql('Publication / Policy paper') }
+      its(:to_s) { should eql("Publication / Policy paper") }
     end
 
     context 'only the main type is supplied' do
