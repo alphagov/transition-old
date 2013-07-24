@@ -25,7 +25,7 @@ module Transition
           }
         end
 
-        logger.info "#{successes} successfully imported, #{failures} failed."
+        logger.info "Urls - #{successes} successfully imported, #{failures} failed."
         logger.close
         logfilename
       end

@@ -11,18 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715135439) do
+ActiveRecord::Schema.define(:version => 20130722155213) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
     t.string   "subtype"
     t.boolean  "scrapable"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.boolean  "user_need_required", :default => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.boolean  "user_need_required",  :default => false
+    t.boolean  "mandatory_url_group", :default => false, :null => false
   end
 
   add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
+
+  create_table "content_types_scrapable_fields", :force => true do |t|
+    t.integer "content_type_id"
+    t.integer "scrapable_field_id"
+  end
+
+  add_index "content_types_scrapable_fields", ["scrapable_field_id", "content_type_id"], :name => "index_content_type_scrapable_field", :unique => true
 
   create_table "hits", :force => true do |t|
     t.integer "host_id",                     :null => false
@@ -79,6 +87,24 @@ ActiveRecord::Schema.define(:version => 20130715135439) do
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
 
+  create_table "scrapable_fields", :force => true do |t|
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "mandatory",  :default => false, :null => false
+  end
+
+  create_table "scrape_results", :force => true do |t|
+    t.text     "data",           :limit => 16777215
+    t.integer  "scrapable_id",                       :null => false
+    t.string   "scrapable_type",                     :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "scrape_results", ["scrapable_id", "scrapable_type"], :name => "index_scrape_results_on_scrapable_id_and_scrapable_type"
+
   create_table "sites", :force => true do |t|
     t.integer  "organisation_id"
     t.string   "site"
@@ -124,12 +150,13 @@ ActiveRecord::Schema.define(:version => 20130715135439) do
     t.integer  "site_id",                                            :null => false
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
-    t.string   "workflow_state",                  :default => "new", :null => false
+    t.string   "state",                           :default => "new", :null => false
     t.text     "comments"
-    t.boolean  "is_scrape"
+    t.boolean  "for_scraping"
     t.integer  "url_group_id"
     t.integer  "user_need_id"
     t.integer  "content_type_id"
+    t.boolean  "scrape_finished",                 :default => false, :null => false
   end
 
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"

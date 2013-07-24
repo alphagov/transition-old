@@ -6,18 +6,20 @@ feature 'View, create or edit content types' do
   end
 
   describe :index_edit do
-    let!(:content_type1) { create :content_type, type: 'Type 1', subtype: 'Subtype 1', scrapable: true, user_need_required: false }
-    let!(:content_type2) { create :content_type, type: 'Type 2', subtype: nil, scrapable: false, user_need_required: true }
+    let!(:content_type1) { create :content_type, type: 'Type 1', subtype: 'Subtype 1', scrapable: true, 
+                                  user_need_required: false, mandatory_url_group: false }
+    let!(:content_type2) { create :content_type, type: 'Type 2', subtype: nil, scrapable: false, 
+                                  user_need_required: true, mandatory_url_group: true }
   
     scenario 'Visit the contents page' do
       visit admin_root_path
       click_link 'Content types'
 
       page.should have_exact_table 'table thead', [
-        ['Type / Subtype', 'Scrapable?', 'User need required?', '']]
+        ['Type / Subtype', 'Scrapable?', 'User need required?', 'Mandatory url group?', '']]
       page.should have_exact_table 'table tbody', [
-        ['Type 1 / Subtype 1', 'Yes', '',    ''],
-        ['Type 2',              '',   'Yes', '']]
+        ['Type 1 / Subtype 1', 'Yes',    '',    '', ''],
+        ['Type 2',                '', 'Yes', 'Yes', '']]
     end
 
     scenario 'Edit a content type' do
@@ -28,19 +30,21 @@ feature 'View, create or edit content types' do
       page.should have_field('Subtype', with: 'Subtype 1')
       page.should have_checked_field('Scrapable')
       page.should have_unchecked_field('User need required')
+      page.should have_unchecked_field('Mandatory url group')
 
       fill_in 'Type', with: 'Type 1 mod'
       fill_in 'Subtype', with: 'Subtype 1 mod'
       uncheck 'Scrapable'
       check 'User need required'
+      check 'Mandatory url group'
 
       click_button 'Save'
 
       page.current_path.should == admin_content_types_path
       page.should have_content("Content type 'Type 1 mod / Subtype 1 mod' saved")
       page.should have_exact_table 'table tbody', [
-        ['Type 1 mod / Subtype 1 mod', '', 'Yes', ''],
-        ['Type 2',                     '', 'Yes', '']]
+        ['Type 1 mod / Subtype 1 mod', '', 'Yes', 'Yes', ''],
+        ['Type 2',                     '', 'Yes', 'Yes', '']]
     end
   end
 

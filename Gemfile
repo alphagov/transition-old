@@ -12,12 +12,14 @@ gem 'gds-sso', '3.0.0'
 
 gem 'therubyracer'
 gem 'jquery-rails', '2.0.2' # TODO: Newer versions break publisher sortable parts. Will need attention.
+gem 'jquery-ui-rails'
 gem 'select2-rails'
 gem 'htmlentities'
 gem 'whenever'
 
 gem 'activerecord-import'
 gem 'rgarner-csv-mapper'
+gem 'kramdown'
 
 # Gems used only for assets and not required in production
 # environments by default.

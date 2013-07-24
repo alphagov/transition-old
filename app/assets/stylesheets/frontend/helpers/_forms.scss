@@ -6,7 +6,7 @@ form {
   }
 
   input[type="submit"] {
-    @include destiny-button(1em);
+    @include destiny-button;
     background-color: $green;
     width: 10em;
   }

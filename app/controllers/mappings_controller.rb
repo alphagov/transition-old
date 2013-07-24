@@ -1,7 +1,6 @@
 class MappingsController < ApplicationController
   layout 'frontend'
 
-  protect_from_forgery :except => [:destroy]
   before_filter :find_site
 
   def index
@@ -45,11 +44,4 @@ class MappingsController < ApplicationController
     @mapping.destroy
     redirect_to site_mappings_path(@site), notice: "Mapping deleted"
   end
-
-  protected
-
-  def find_site
-    @site = Site.find_by_site!(params[:site_id])
-  end
-  
 end

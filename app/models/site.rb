@@ -5,7 +5,7 @@ class Site < ActiveRecord::Base
   has_many :hits, through: :hosts
   has_many :totals, through: :hosts
   has_many :mappings
-  has_many :urls, order: :id, dependent: :restrict
+  has_many :urls, dependent: :restrict
 
   # grab the closest urls either side of the given url
   def adjacent_urls(url, count = 15)
@@ -25,15 +25,15 @@ class Site < ActiveRecord::Base
   end
 
   def aggregated_hits
-    self.hits.aggregated
+    hits.aggregated
   end
 
   def aggregated_totals
-    self.totals.aggregated
+    totals.aggregated
   end
 
   def weekly_totals
-    self.totals.aggregated_by_week_and_site
+    totals.aggregated_by_week_and_site
   end
 
   def default_host

@@ -3,31 +3,47 @@ class Url < ActiveRecord::Base
   belongs_to :site
   belongs_to :url_group
   belongs_to :content_type
-  delegate :new_url, to: :mapping, allow_nil: true
+  has_one :scrape, as: :scrapable, class_name: 'ScrapeResult'
+  delegate :new_url, :http_status, to: :mapping, allow_nil: true
+  delegate :request_uri, :to_s, to: :uri
 
   # validations
   validates :url, uniqueness: {case_sensitive: false}
   validates :site, presence: true
+  validates :url_group, presence: true, if: Proc.new { |url| url.content_type.try(:mandatory_url_group) }
+
+  # scopes
+  scope :for_content_types, ->(content_types) { where('urls.content_type_id in (?)', content_types.map(&:id)) }
+  scope :for_scraping, where(for_scraping: true)
+  scope :in_scraping_order,
+        joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
+        joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
+        includes(:content_type, :url_group).
+        order('content_types.type, content_types.subtype, url_groups.name, urls.id')
+
+  def self.for_type(type)
+    content_types = ContentType.where(type: type)
+    content_types.any? ? for_content_types(ContentType.where(type: type)) : scoped
+  end
 
   def next
     site.urls.where('id > ?', id).order('id ASC').first
   end
 
-  def workflow_state
+  def scrape_result
+    scrape_result_delegate.scrape
+  end
+
+  def build_scrape_result(options = {})
+    scrape_result_delegate.build_scrape(options)
+  end
+
+  def create_scrape_result!(options = {})
+    scrape_result_delegate.create_scrape!(options)
+  end
+
+  def state
     super.to_sym
-  end
-
-  def workflow_state=(value)
-    write_attribute(:workflow_state, value)
-  end
-
-  def manual!(new_url = nil)
-    self.workflow_state = :manual
-    set_mapping_url(new_url) if new_url
-  end
-
-  def archive!
-    self.workflow_state = :archive
   end
 
   # return mapping if there is one
@@ -42,23 +58,31 @@ class Url < ActiveRecord::Base
     if mapping
       mapping.update_attributes!(new_url: new_url)
     else
-      map = site.mappings.build(new_url: new_url, path: request_uri, http_status: '301')
-      map.save!
+      site.mappings.redirects.create!(new_url: new_url, path: request_uri)
     end
   end
 
-  def to_s
+  def link
     url
+  end
+
+  def organisation
+    site.organisation
   end
 
   private
 
-  def host
-    @host ||= site.hosts.find_by_host(uri.host)
+  # is scraping done per url group as opposed to per url
+  def scrape_for_url_group?
+    content_type.try(:detailed_guide?) and url_group
   end
 
-  def request_uri
-    @request_uri ||= uri.path + (uri.query.present? ? '?' + uri.query : '')
+  def scrape_result_delegate
+    scrape_for_url_group? ? url_group : self
+  end
+
+  def host
+    @host ||= site.hosts.find_by_host(uri.host)
   end
 
   def uri

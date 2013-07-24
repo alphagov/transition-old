@@ -10,6 +10,7 @@
       (function(){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var d=document,c="appendChild",a=d.createElement("style");a[c](d.createTextNode("@-ms-viewport{width:auto!important}"));d.getElementsByTagName("head")[0][c](a);}})();
     </script>
     <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tag %>
 
     <!--[if gt IE 8]><!--><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-dd07ebece57f6837682d304d58d525fd.css" media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
     <!--[if IE 6]><link href="https://assets.digital.cabinet-office.gov.uk/static/header-footer-only-ie6-2146054bb41b9533a070daa18801359c.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
@@ -18,6 +19,7 @@
 
     <link href="https://assets.digital.cabinet-office.gov.uk/static/print-0d9fb31f928fd75de11684e3753752fc.css" media="print" rel="stylesheet" type="text/css" />
 
+    <%= stylesheet_link_tag "frontend", :media => "all" %>
     <!--[if gt IE 8]><!--><%= stylesheet_link_tag "frontend/base.css" %><!--<![endif]-->
     <!--[if IE 6]><%= stylesheet_link_tag "frontend/base-ie6.css" %><script>var ieVersion = 6;</script><![endif]-->
     <!--[if IE 7]><%= stylesheet_link_tag "frontend/base-ie7.css" %><script>var ieVersion = 7;</script><![endif]-->
@@ -82,6 +84,7 @@
               <li><a href="/">Organisations</a></li>
               <% if @site %>
                 <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
+                <li><%= nav_link 'Scrape', site_scrape_results_path(@site) %></li>
               <% end %>
               <li><%= nav_link 'Admin', admin_root_path %></li>
               <li class="clear-child"><%= link_to "Signed in as #{current_user.name}", Plek.current.find('signon') %></li>

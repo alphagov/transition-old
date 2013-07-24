@@ -2,6 +2,7 @@
   <%= render partial: 'url_list' %>
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
+    <%= render "shared/error_messages", target: @url %>
     <div class="inputs-block">
       <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
                               class: 'select2', placeholder: 'Content type' %>
@@ -16,12 +17,12 @@
     <div class="inputs-block column-3">
       <div class="scrape">
         Scrape:
-        <%= f.label :is_scrape_true do %>
-          <%= f.radio_button(:is_scrape, true) %>
+        <%= f.label :for_scraping_true do %>
+          <%= f.radio_button(:for_scraping, true) %>
           Yes
         <% end -%>
-        <%= f.label :is_scrape_false do %>
-          <%= f.radio_button(:is_scrape, false) %>
+        <%= f.label :for_scraping_false do %>
+          <%= f.radio_button(:for_scraping, false) %>
           No
         <% end -%>
       </div>
@@ -32,53 +33,22 @@
     </div>
     <div class="inputs-block">
       <ul class="destinies">
-        <li><%= destiny_button @url, :manual %></li>
-        <li><%= destiny_button @url, :scrape %></li>
-        <li><%= destiny_button @url, :archive %></li>
-        <li><%= destiny_button @url, :unsure %></li>
+        <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.state == :finished ? 'selected ' : ''}finished" %></li>
+        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.state == :unfinished ? 'selected ' : ''}unfinished" %></li>
+        <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>
       </ul>
     </div>
   <% end %>
 </div>
 
 <%= javascript_tag do %>
-  $(function() {
-    $('.urls').scrollTop($('.urls li:nth-child(<%= [@site.urls.index(@url) - 3, 1].max %>)').position().top - $('.urls').position().top);
-    $(".select2").select2({
-      allowClear: true
+    GOVUK.Urls.ready();
+    $(function() {
+      $('.urls').scrollTop(
+        $('.urls li:nth-child(<%= [@site.urls.index(@url) - 3, 1].max %>)')
+          .position().top - $('.urls').position().top
+      );
     });
-
-    var content_type_dropdown = $('#url_content_type_id');
-
-    /**
-     * according to the content type selected:
-     *   * Enable/disable user needs dropdown
-     *   * Enable/disable scrape buttons
-     */
-    content_type_dropdown.change(function() {
-        content_type_changed(this);
-    });
-    content_type_changed(content_type_dropdown.get(0));
-  });
-
-  function content_type_changed(dropdown) {
-    user_need_enable_disable($(dropdown));
-    var scrapable = dropdown.options[dropdown.selectedIndex].getAttribute('data-scrapable') == 'true';
-    $('.column-3 .scrape').showEnableIf(scrapable);
-  }
-
-  function user_need_enable_disable(content_type_dropdown) {
-    var user_need_required;
-    user_need_required = $(content_type_dropdown).find('option:selected').attr('data-user_need_required');
-    if (user_need_required && user_need_required == 'true') {
-      $('#url_user_need_id').removeAttr('readonly', false);
-      $('#url_user_need_id').select2().removeAttr('readonly', false);
-    } else {
-      $('#url_user_need_id').val(null);
-      $('#url_user_need_id').select2().val(null);
-      $('#url_user_need_id').select2().attr('readonly', 'readonly');  
-    }
-  }
 <% end %>
 
-<iframe src="<%= @url.url %>" class="preview" />
+<iframe src="<%= @url.url %>" class="preview"></iframe>
