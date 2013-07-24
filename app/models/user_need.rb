@@ -1,5 +1,4 @@
 class UserNeed < ActiveRecord::Base
-  ARBITRARY_NEEDOTRON_ID_GAP = 5000
   after_create :assign_needotron_id
 
   # relationships
@@ -11,6 +10,6 @@ class UserNeed < ActiveRecord::Base
   private
 
   def assign_needotron_id
-    update_attribute(:needotron_id, id + ARBITRARY_NEEDOTRON_ID_GAP)
+    update_attribute(:needotron_id, "T#{id}")
   end
 end

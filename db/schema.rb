@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724123858) do
+ActiveRecord::Schema.define(:version => 20130724142922) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -72,16 +72,6 @@ ActiveRecord::Schema.define(:version => 20130724123858) do
   add_index "mappings", ["site_id", "http_status"], :name => "index_mappings_on_site_id_and_http_status"
   add_index "mappings", ["site_id", "path_hash"], :name => "index_mappings_on_site_id_and_path_hash", :unique => true
   add_index "mappings", ["site_id"], :name => "index_mappings_on_site_id"
-
-  create_table "needs", :force => true do |t|
-    t.string   "title"
-    t.text     "as_a"
-    t.text     "i_want_to"
-    t.text     "so_that"
-    t.integer  "organisation_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
 
   create_table "organisations", :force => true do |t|
     t.string   "abbr"
@@ -181,7 +171,7 @@ ActiveRecord::Schema.define(:version => 20130724123858) do
     t.text     "as_a"
     t.text     "i_want_to"
     t.text     "so_that"
-    t.integer  "needotron_id"
+    t.string   "needotron_id"
   end
 
   add_index "user_needs", ["needotron_id"], :name => "index_user_needs_on_needotron_id"

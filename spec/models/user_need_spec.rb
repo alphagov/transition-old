@@ -12,6 +12,6 @@ describe UserNeed do
 
   it 'generates needotron-compatible ids' do
     need = create :user_need
-    need.needotron_id.should == need.id + UserNeed::ARBITRARY_NEEDOTRON_ID_GAP
+    need.needotron_id.should == "T#{need.id}"
   end
 end
