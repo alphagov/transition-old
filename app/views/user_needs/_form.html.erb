@@ -1,0 +1,34 @@
+<div class="user_need">
+  <%= form_for @user_need do |f| %>
+    <%= render "shared/error_messages", target: f.object %>
+    <div>
+      <%= f.label :organisation_id %>
+      <%= f.select :organisation_id, Organisation.order(:title).collect {|p| [ p.title, p.id ] }, 
+          { include_blank: true }, class: 'select2' %>
+    </div>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :as_a %>
+      <%= f.text_area :as_a %>
+    </div>
+    <div>
+      <%= f.label :i_want_to %>
+      <%= f.text_area :i_want_to %>
+    </div>
+    <div>
+      <%= f.label :so_that %>
+      <%= f.text_area :so_that %>
+    </div>
+    <div>
+      <%= f.submit 'Save' %>
+      <%= link_to 'Delete', user_need_path(@user_need), {method: :delete, confirm: "Delete user need '#{@user_need.name}'?", class: 'delete'} unless @user_need.new_record? %>
+    </div>
+  <% end %>
+</div>
+
+<%= javascript_tag do %>
+  GOVUK.UserNeeds.ready();
+<% end %>

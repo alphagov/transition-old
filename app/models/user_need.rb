@@ -3,8 +3,10 @@ class UserNeed < ActiveRecord::Base
 
   # relationships
   belongs_to :organisation
+  has_many :urls, dependent: :restrict
 
   # validations
+  validates :organisation_id, presence: true
   validates :name, presence: true, uniqueness: {case_sensitive: false}
 
   private

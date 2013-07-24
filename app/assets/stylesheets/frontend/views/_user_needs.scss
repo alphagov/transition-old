@@ -1,0 +1,35 @@
+.user_needs {
+  margin: 2em 2em;
+
+  .select2 {
+    min-width: 30em;
+  }
+}
+
+.user_need {
+  margin: 2em 2em;
+  input[type=text] {
+    width: 50em;
+  }
+  textarea {
+    width: 50em;
+    height: 5em;
+  }  
+  .select2 {
+    min-width: 30em;
+  }
+
+  input[type=submit] {
+    display: inline;
+  }
+  a.delete {
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    width: 10em;
+    text-decoration: none;
+    line-height: 1.25em;
+    margin: 0 0 0 1.0em;
+    padding: 0.1em 3em;
+  }
+}

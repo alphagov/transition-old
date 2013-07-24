@@ -1,0 +1,12 @@
+<div class="user_needs">
+  <%= select_tag :user_need_id, user_needs_select, class: 'select2', placeholder: 'User need', 
+      include_blank: true, onchange: "window.location='/user_needs/' + this.value + '/edit'" %>
+</div>
+
+<div class="user_needs">
+  <%= link_to 'New user need', new_user_need_path %>
+</div>
+
+<%= javascript_tag do %>
+  GOVUK.UserNeeds.ready();
+<% end %>
