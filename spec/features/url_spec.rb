@@ -6,7 +6,7 @@ feature 'Viewing a url for a site' do
 
   let!(:host) { create :natural_england_host }
 
-  let!(:first_url) { create :url, url: 'http://www.naturalengland.org.uk/', site: site }
+  let!(:first_url) { create :url, url: 'http://www.naturalengland.org.uk/site', site: site }
   let!(:selected_url) { create :url, url: 'http://www.naturalengland.org.uk/about_us/default.aspx', site: site }
   let(:middle_url) { selected_url }
   let!(:last_url) { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site }
@@ -15,17 +15,16 @@ feature 'Viewing a url for a site' do
     login_as_stub_user
   end
 
-  scenario 'Visiting all URLs for a site' do
+  scenario 'Visiting the urls index pre-selects the first url' do
     visit site_urls_path(site)
 
     page.should have_link('DFID', href: organisation_path(organisation))
 
     page.should have_list_in_this_order '.urls',
-                                        ['/',
-                                         '/about_us/default.aspx',
-                                         '/contact_us']
-
-    [first_url, middle_url, last_url].each { |url| page.should have_link(url.url, href: site_url_path(site, url)) }
+      ['/site', '/about_us/default.aspx', '/contact_us']
+    page.should_not have_link(first_url.url)
+    page.should have_link(middle_url.url, href: site_url_path(site, middle_url))
+    page.should have_link(last_url.url, href: site_url_path(site, last_url))
   end
 
   scenario "Visiting a single highlighted url's page when there are URLs" do
@@ -33,12 +32,8 @@ feature 'Viewing a url for a site' do
 
     page.should have_link('DFID', href: organisation_path(organisation))
 
-    page.should have_list_in_this_order(
-                    '.urls',
-                    ['/',
-                     '/about_us/default.aspx',
-                     '/contact_us']
-                )
+    page.should have_list_in_this_order('.urls',
+      ['/site', '/about_us/default.aspx', '/contact_us'])
 
     page.should have_link(first_url.url, href: site_url_path(site, first_url))
     page.should_not have_link(selected_url.url)
@@ -158,5 +153,3 @@ feature 'Viewing a url for a site' do
     page.should_not have_selector('.column-3 .scrape')
   end
 end
-
-

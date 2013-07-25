@@ -38,7 +38,6 @@ feature 'Scraping' do
 
     visit site_scrape_results_path(site1)
     click_link 'Publishing'
-    click_link '/contact_us'
 
     page.should have_list_in_this_order '.urls', ['/contact_us - Publishing / Detail - Bee health', '/jumping - Publishing / Detail - Bee health']
     page.should have_content 'Hello'
@@ -73,7 +72,6 @@ feature 'Scraping' do
 
     visit site_scrape_results_path(site1)
     click_link 'Detailed guide'
-    click_link '/detailed_guide/1'
 
     page.should have_list_in_this_order '.urls', 
       ['/detailed_guide/1 - Detailed guide - Bee health', '/detailed_guide/2 - Detailed guide - Bee health']

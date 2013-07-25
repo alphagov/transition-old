@@ -17,14 +17,15 @@ describe UrlsController, expensive_setup: true do
   end
 
   describe :index do
-    it 'should populate site' do
+    it 'should populate site and url' do
       get :index, site_id: @site1
+      assigns(:url).should == @url1
       assigns(:site).should == @site1
     end
 
     it "should render the index template" do
       get :index, site_id: @site1
-      response.should render_template('index')
+      response.should render_template('show')
     end
   end
 

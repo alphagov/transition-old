@@ -50,13 +50,16 @@ describe ScrapeResultsController do
         it 'should create a hash of types' do
           get :index, site_id: site
           assigns(:content_types_hash).should == {'Bling' => [content_type2], 'Publication' => [content_type3]}
+          response.should render_template('index')
         end
       end
 
       describe ':type specified' do
-        it 'should create no hash of types' do
+        it 'should assign url to the first url in the list' do
           get :index, site_id: site, type: 'Publication'
-          assigns(:content_types_hash).should be_nil
+          assigns(:url).should == url3
+          assigns(:scrape_result).should be_a(ScrapeResult)
+          response.should render_template('new')
         end
       end
     end
