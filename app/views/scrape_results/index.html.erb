@@ -1,6 +1,4 @@
-<% if params[:type].present? %>
-  <%= render 'url_list' %>
-<% else %>
+<div class="scrape_index">
   <h1>Scrape</h1>
   <ul class="types">
     <% @content_types_hash.keys.each do |type| %>
@@ -9,4 +7,4 @@
       </li>
     <% end %>
   </ul>
-<% end %>
+</div>
