@@ -12,7 +12,7 @@ module UrlsHelper
 
   def entry_for_content_type(content_type)
     [
-      content_type.subtype || content_type.type,
+      content_type.subtype.presence || content_type.type,
       content_type.id,
       {
         'data-user_need_required' => content_type.user_need_required,
