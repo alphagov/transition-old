@@ -61,5 +61,12 @@ describe UserNeedsController do
       delete :destroy, id: user_need
       UserNeed.find_by_id(user_need).should be_nil
     end
+
+    it "should not delete an existing user need if there is an associated Url" do
+      create :url, user_need_id: user_need.id
+      delete :destroy, id: user_need
+      UserNeed.find_by_id(user_need).should == user_need
+      response.should render_template('edit')
+    end
   end
 end

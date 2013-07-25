@@ -25,6 +25,7 @@
     <div>
       <%= f.submit 'Save' %>
       <%= link_to 'Delete', user_need_path(@user_need), {method: :delete, confirm: "Delete user need '#{@user_need.name}'?", class: 'delete'} unless @user_need.new_record? %>
+      <%= link_to "Cancel", user_needs_path, class: 'cancel' unless @user_need.new_record? %>
     </div>
   <% end %>
 </div>

@@ -107,6 +107,11 @@
 
     <div id="transition-wrapper" class="group">
       <div class="transition-inner<%= page_class %>">
+        <% [:notice, :alert, :error].select { |k| flash[k].present? }.each do |k| %>
+          <div class="alert <%= k %>">
+            <%= flash[k] %>
+          </div>
+        <% end %>
         <div class="top-bar"></div>
         <%= yield %>
       </div>

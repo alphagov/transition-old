@@ -39,14 +39,19 @@ h2.user_need {
   input[type=submit] {
     display: inline;
   }
-  a.delete {
+  a.delete, a.cancel {
     color: white;
     font-weight: bold;
-    background-color: red;
     width: 10em;
     text-decoration: none;
     line-height: 1.25em;
     margin: 0 0 0 1.0em;
     padding: 0.1em 3em;
+  }
+  a.delete {
+    background-color: red;
+  }
+  a.cancel {
+    background-color: gray;
   }
 }
