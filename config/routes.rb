@@ -17,7 +17,7 @@ Transition::Application.routes.draw do
 
   resources :pages
 
-  resources :user_needs
+  resources :user_needs, only: [:index, :create, :edit, :update, :destroy]
 
   match 'dashboard' => 'dashboard#index'
 

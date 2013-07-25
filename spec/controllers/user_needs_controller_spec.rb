@@ -8,9 +8,9 @@ describe UserNeedsController do
     login_as_stub_user
   end
 
-  describe :new do
-    it "should instantiate a new user need" do
-      get :new
+  describe :index do
+    it "shoukd instantiate a new user need" do
+      get :index
       assigns(:user_need).should be_a(UserNeed)
     end
   end
@@ -27,7 +27,7 @@ describe UserNeedsController do
     context "invalid data is provided" do
       it "should fail to save a new content type" do
         post :create, user_need: { }
-        response.should render_template('new')
+        response.should render_template('index')
       end
     end
   end

@@ -2,9 +2,6 @@ class UserNeedsController < ApplicationController
   layout 'frontend'
 
   def index
-  end
-
-  def new
     @user_need = UserNeed.new
   end
 
@@ -13,7 +10,7 @@ class UserNeedsController < ApplicationController
     if @user_need.save
       redirect_to user_needs_path, notice: "User need '#{@user_need.name}' saved"
     else
-      render action: 'new'
+      render action: 'index'
     end
   end
 
