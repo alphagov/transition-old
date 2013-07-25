@@ -44,10 +44,12 @@
 <%= javascript_tag do %>
     GOVUK.Urls.ready();
     $(function() {
-      $('.urls').scrollTop(
-        $('.urls li:nth-child(<%= [@site.urls.index(@url) - 3, 1].max %>)')
-          .position().top - $('.urls').position().top
-      );
+      <% url_pos_in_list = @site.urls.index(@url) 
+      if url_pos_in_list > 3 %>
+        $('.urls').scrollTop(
+          $('.urls li:nth-child(<%= url_pos_in_list - 3 %>)').position().top - $('.urls').position().top
+        );
+      <% end %>
     });
 <% end %>
 
