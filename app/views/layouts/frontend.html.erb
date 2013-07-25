@@ -82,6 +82,7 @@
             <nav id="proposition-menu"><a href="/" id="proposition-name">Transition</a>
             <ul id="proposition-links">
               <li><a href="/">Organisations</a></li>
+              <li><%= nav_link 'User needs', user_needs_path %></li>
               <% if @site %>
                 <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
                 <li><%= nav_link 'Scrape', site_scrape_results_path(@site) %></li>
@@ -106,6 +107,11 @@
 
     <div id="transition-wrapper" class="group">
       <div class="transition-inner<%= page_class %>">
+        <% [:notice, :alert, :error].select { |k| flash[k].present? }.each do |k| %>
+          <div class="alert <%= k %>">
+            <%= flash[k] %>
+          </div>
+        <% end %>
         <div class="top-bar"></div>
         <%= yield %>
       </div>

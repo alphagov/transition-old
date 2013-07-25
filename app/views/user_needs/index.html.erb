@@ -1,0 +1,12 @@
+<div class="user_needs">
+  <%= select_tag :user_need_id, user_needs_select, class: 'select2', placeholder: 'Search user needs...', 
+      include_blank: true %> <a href="" class="edit_link">Edit</a>
+
+  <p><span class="label">As a: </span><span id="as_a"></span></p>
+  <p><span class="label">I want to: </span><span id="i_want_to"></span></p>
+  <p><span class="label">So that: </span><span id="so_that"></span></p>
+</div>
+
+<h2 class="user_need">New User Need</h2>
+
+<%= render 'form' %>
