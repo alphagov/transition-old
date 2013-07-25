@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722155213) do
+ActiveRecord::Schema.define(:version => 20130724142922) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -168,8 +168,13 @@ ActiveRecord::Schema.define(:version => 20130722155213) do
     t.integer  "organisation_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.text     "as_a"
+    t.text     "i_want_to"
+    t.text     "so_that"
+    t.string   "needotron_id"
   end
 
+  add_index "user_needs", ["needotron_id"], :name => "index_user_needs_on_needotron_id"
   add_index "user_needs", ["organisation_id", "name"], :name => "index_user_needs_on_organisation_id_and_name"
 
   create_table "users", :force => true do |t|
