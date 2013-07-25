@@ -13,7 +13,7 @@ feature 'View, create, edit and delete user needs' do
     visit root_path
     click_link 'User needs'
 
-    page.should have_xpath('//option[text()="Project overview (DFID)"]')
+    page.should have_xpath("//option[text()='Project overview (DFID) ##{@user_need.needotron_id}']")
     page.should_not have_link('Edit')
 
     select 'Project overview'
@@ -32,7 +32,7 @@ feature 'View, create, edit and delete user needs' do
     fill_in 'Name', with: 'Mission'
     click_button 'Save'
 
-    page.should have_xpath('//option[text()="Mission (BIS)"]')
+    page.should have_xpath("//option[text()='Mission (BIS) ##{@user_need.needotron_id}']")
   end
 
   scenario 'Create a new user need' do
@@ -45,7 +45,8 @@ feature 'View, create, edit and delete user needs' do
     fill_in('So that', with: "I stay fit")
     click_button 'Save'
 
-    page.should have_select('user_need_id', options: ['', 'Passport renewal (BIS)', 'Project overview (DFID)'])
+    page.should have_select('user_need_id', options: ['', "Passport renewal (BIS) ##{UserNeed.last.needotron_id}", 
+      "Project overview (DFID) ##{@user_need.needotron_id}"])
   end
 
   scenario 'Delete a user need' do
