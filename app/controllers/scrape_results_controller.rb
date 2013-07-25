@@ -49,7 +49,7 @@ class ScrapeResultsController < ApplicationController
   def index
     respond_to do |format|
       format.csv do
-        @scrape_results = @site.urls.where(scrape_finished: true, url_group_id: nil).includes(:scrape).map { |u| u.scrape }
+        @scrape_results = @site.urls.where(scrape_finished: true).joins(:scrape).includes(:scrape).map { |u| u.scrape }
         @scrape_results.concat ScrapeResult.find_by_url_group_all_scraped(@site)
         render csv: @scrape_results
       end
