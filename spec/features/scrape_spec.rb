@@ -46,6 +46,7 @@ feature 'Scraping' do
     fill_in 'Title', with: 'Anna Karenina'
     click_button 'Save for later'
 
+    page.should have_list_in_this_order '.urls', ['/contact_us - Publishing / Detail - Bee health', '/jumping - Publishing / Detail - Bee health']
     page.should have_field('Title', with: 'Anna Karenina')
     page.should have_field('Body')
     page.should have_no_selector('.urls li.finished', text: '/contact_us')
