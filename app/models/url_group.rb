@@ -16,7 +16,7 @@ class UrlGroup < ActiveRecord::Base
 
   # this only returns true if all 'for scraping' urls are marked as scrape_finished
   def scrape_finished?
-    !guidance_urls.for_scraping.detect {|url| !url.scrape_finished}
+    guidance_urls.for_scraping.all?(&:scrape_finished?)
   end
 
   ##
