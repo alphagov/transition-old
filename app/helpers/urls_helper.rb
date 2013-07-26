@@ -16,7 +16,8 @@ module UrlsHelper
       content_type.id,
       {
         'data-user_need_required' => content_type.user_need_required,
-        'data-scrapable'          => content_type.scrapable
+        'data-scrapable'          => content_type.scrapable,
+        'data-mandatory_guidance' => content_type.mandatory_guidance
       }
     ]
   end

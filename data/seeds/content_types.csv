@@ -1,7 +1,7 @@
 Type,Sub-type,Scrapable?,User Need Required?,Mandatory Guidance?
 Publication,Policy paper,Y,N,N
 Publication,Impact assessment,Y,N,N
-Publication,Guidance,Y,Y,N
+Publication,Guidance,Y,Y,Y
 Publication,Form,Y,N,N
 Publication,Statistics,Y,N,N
 Publication,National statistics,Y,N,N
