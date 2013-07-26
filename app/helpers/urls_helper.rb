@@ -16,7 +16,8 @@ module UrlsHelper
       content_type.id,
       {
         'data-user_need_required' => content_type.user_need_required,
-        'data-scrapable'          => content_type.scrapable
+        'data-scrapable'          => content_type.scrapable,
+        'data-mandatory_guidance' => content_type.mandatory_guidance
       }
     ]
   end
@@ -31,12 +32,22 @@ module UrlsHelper
     end.join.html_safe
   end
 
-  def grouped_options_for_url_group_select(url)
-    options = {}
-    UrlGroupType.all.each do |group_type|
-      options[group_type.name] = group_type.url_groups.for_organisation(url.site.organisation).map {|url_group| [url_group.name, url_group.id]}
+  def guidance_select(url)
+    url_group_select(url, UrlGroupType::GUIDANCE, url.guidance_id)
+  end
+
+  def series_select(url)
+    url_group_select(url, UrlGroupType::SERIES, url.series_id)
+  end
+
+  def url_group_select(url, url_group_type, selected)
+    url_group_type = UrlGroupType.find_by_name(url_group_type)
+    options = if url_group_type
+      url_group_type.url_groups.for_organisation(url.site.organisation).map {|url_group| [url_group.name, url_group.id]}
+    else
+      []
     end
-    grouped_options_for_select(options, url.url_group_id)
+    options_for_select(options, selected)
   end
 
   # optgroup and options for user needs where needs are grouped by the given url's organisation and then all other organisations' user needs
