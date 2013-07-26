@@ -95,12 +95,14 @@ feature 'Viewing a url for a site' do
     page.should have_selector('button.finished.selected')
   end
 
-  scenario "Marking a URL unfinished, setting a url group and user need, adding a comment and setting scrape to 'Yes'" do
+  scenario "Marking a URL unfinished, setting guidance, series and user need, adding a comment and setting scrape to 'Yes'" do
     create :url_group, name: 'Bee Health', organisation: organisation, url_group_type: create(:url_group_type, name: 'Guidance')
+    create :url_group, name: 'Series 1', organisation: organisation, url_group_type: create(:url_group_type, name: 'Series')
     create :user_need, name: 'I need to renew my passport'
     visit site_url_path(site, first_url)
 
-    select 'Bee Health', from: 'url[url_group_id]'
+    select 'Bee Health', from: 'url[guidance_id]'
+    select 'Series 1', from: 'url[series_id]'
     select 'I need to renew my passport', from: 'url[user_need_id]'
     fill_in 'url_comments', with: 'This could be either MS or IG'
     choose 'Yes'
@@ -114,7 +116,8 @@ feature 'Viewing a url for a site' do
 
     # The unfinished button should be selected
     page.should have_selector('button.unfinished.selected')
-    page.should have_select('url[url_group_id]', selected: 'Bee Health')
+    page.should have_select('url[guidance_id]', selected: 'Bee Health')
+    page.should have_select('url[series_id]', selected: 'Series 1')
     page.should have_select('url[user_need_id]', selected: 'I need to renew my passport')
     page.should have_checked_field('Yes')
     page.should have_field('url_comments', with: 'This could be either MS or IG')

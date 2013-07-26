@@ -5,7 +5,8 @@ describe Url do
 
   describe 'relationships' do
     it { should belong_to(:site) }
-    it { should belong_to(:url_group) }
+    it { should belong_to(:guidance) }
+    it { should belong_to(:series) }
     it { should belong_to(:content_type) }
     it { should have_one(:scrape) }
   end
@@ -18,16 +19,16 @@ describe Url do
     it { should validate_presence_of(:site) }
 
     context 'validate url group depending on content type' do
-      context 'the url content type has mandatory_url_group set to true and there is a url group' do
+      context 'the url content type has mandatory_guidance set to true and there is a guidance' do
         it 'should be valid' do
-          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: build(:url_group)
+          url = build :url, content_type: build(:content_type, mandatory_guidance: true), guidance: build(:url_group)
           url.should be_valid
         end
       end
 
-      context 'the url content type has mandatory_url_group set to true but there is no url group' do
+      context 'the url content type has mandatory_guidance set to true but there is no guidance' do
         it 'should be invalid' do
-          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: nil
+          url = build :url, content_type: build(:content_type, mandatory_guidance: true), guidance: nil
           url.should_not be_valid
         end
       end
@@ -68,7 +69,7 @@ describe Url do
       content_type = create :detailed_guide_content_type
       url_group = create(:url_group)
       scrape = url_group.create_scrape!
-      url = create :url, content_type: content_type, url_group: url_group
+      url = create :url, content_type: content_type, guidance: url_group
       url.scrape_result.should == scrape
     end
   end

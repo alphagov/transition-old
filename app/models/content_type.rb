@@ -1,6 +1,6 @@
 class ContentType < ActiveRecord::Base
   DETAILED_GUIDE = 'Detailed guide'
-  attr_accessible :mandatory_url_group, :user_need_required, :scrapable, :subtype, :type
+  attr_accessible :mandatory_guidance, :user_need_required, :scrapable, :subtype, :type
 
   # relationships
   has_many :urls, dependent: :restrict

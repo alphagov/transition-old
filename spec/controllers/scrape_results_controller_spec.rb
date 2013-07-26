@@ -69,7 +69,7 @@ describe ScrapeResultsController do
       let!(:onsite_result)    { create(:scrape_result, scrapable: scraped_url) }
       let!(:offsite_result)   { create(:scrape_result, scrapable: offsite_url) }
       let!(:url_in_url_group) { create(:scraped_url_with_content_type_in_url_group) }
-      let!(:urlgroup_result)  { create(:scrape_result, scrapable: url_in_url_group.url_group) }
+      let!(:urlgroup_result)  { create(:scrape_result, scrapable: url_in_url_group.guidance) }
 
       before do
         get :index, site_id: site, format: 'csv'
