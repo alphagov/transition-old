@@ -6,8 +6,10 @@
     <div class="inputs-block">
       <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
                               class: 'select2', placeholder: 'Content type' %>
-      <%= f.select :url_group_id, grouped_options_for_url_group_select(@url), { include_blank: true }, 
-                   class: 'select2', placeholder: "Groupings" %>
+      <%= f.select :guidance_id, guidance_select(@url), { include_blank: true }, 
+                   class: 'select2', placeholder: "Guidance" %>
+      <%= f.select :series_id, series_select(@url), { include_blank: true }, 
+                   class: 'select2', placeholder: "Document series" %>
       <%= f.select :user_need_id, grouped_options_for_user_needs_group_select(@url), { include_blank: true }, 
                    class: 'select2', placeholder: 'User need' %>
     </div>

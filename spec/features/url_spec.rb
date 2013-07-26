@@ -95,12 +95,14 @@ feature 'Viewing a url for a site' do
     page.should have_selector('button.finished.selected')
   end
 
-  scenario "Marking a URL unfinished, setting a url group and user need, adding a comment and setting scrape to 'Yes'" do
+  scenario "Marking a URL unfinished, setting guidance, series and user need, adding a comment and setting scrape to 'Yes'" do
     create :url_group, name: 'Bee Health', organisation: organisation, url_group_type: create(:url_group_type, name: 'Guidance')
+    create :url_group, name: 'Series 1', organisation: organisation, url_group_type: create(:url_group_type, name: 'Series')
     create :user_need, name: 'I need to renew my passport'
     visit site_url_path(site, first_url)
 
-    select 'Bee Health', from: 'url[url_group_id]'
+    select 'Bee Health', from: 'url[guidance_id]'
+    select 'Series 1', from: 'url[series_id]'
     select 'I need to renew my passport', from: 'url[user_need_id]'
     fill_in 'url_comments', with: 'This could be either MS or IG'
     choose 'Yes'
@@ -114,10 +116,47 @@ feature 'Viewing a url for a site' do
 
     # The unfinished button should be selected
     page.should have_selector('button.unfinished.selected')
-    page.should have_select('url[url_group_id]', selected: 'Bee Health')
+    page.should have_select('url[guidance_id]', selected: 'Bee Health')
+    page.should have_select('url[series_id]', selected: 'Series 1')
     page.should have_select('url[user_need_id]', selected: 'I need to renew my passport')
     page.should have_checked_field('Yes')
     page.should have_field('url_comments', with: 'This could be either MS or IG')
+  end
+
+  scenario "Selecting content type sets guidance dropdown to readonly or editable depending on content type", js: true do
+    create :content_type, type: 'Policy Team', subtype: nil, mandatory_guidance: false
+    create :content_type, type: 'Publication', subtype: 'Guidance', mandatory_guidance: true
+    create :url_group, name: 'Bee Health', organisation: organisation, url_group_type: create(:url_group_type, name: 'Guidance')
+    visit site_url_path(site, first_url)
+
+    page.should have_readonly_select('url[guidance_id]')
+
+    select 'Guidance', from: 'url[content_type_id]'
+    page.should have_non_readonly_select('url[guidance_id]')
+    select 'Bee Health', from: 'url[guidance_id]'
+
+    select 'Policy Team', from: 'url[content_type_id]'
+    # guidance dropdown should be readonly and reset to nil
+    page.should have_readonly_select('url[guidance_id]')
+    page.should have_select('url[guidance_id]', selected: '')
+  end
+
+  scenario "Selecting content type sets document series dropdown to readonly or editable depending on content type", js: true do
+    create :content_type, type: 'Policy Team', subtype: nil, scrapable: false
+    create :content_type, type: 'Publication', subtype: 'Guidance', scrapable: true
+    create :url_group, name: 'Series 1', organisation: organisation, url_group_type: create(:url_group_type, name: 'Series')
+    visit site_url_path(site, first_url)
+
+    page.should have_readonly_select('url[series_id]')
+
+    select 'Guidance', from: 'url[content_type_id]'
+    page.should have_non_readonly_select('url[series_id]')
+    select 'Series 1', from: 'url[series_id]'
+
+    select 'Policy Team', from: 'url[content_type_id]'
+    # document series dropdown should be readonly and reset to nil
+    page.should have_readonly_select('url[series_id]')
+    page.should have_select('url[series_id]', selected: '')
   end
 
   scenario "Selecting content type sets user need dropdown to readonly or editable depending on content type", js: true do

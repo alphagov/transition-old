@@ -7,16 +7,16 @@ feature 'View, create or edit content types' do
 
   describe :index_edit do
     let!(:content_type1) { create :content_type, type: 'Type 1', subtype: 'Subtype 1', scrapable: true, 
-                                  user_need_required: false, mandatory_url_group: false }
+                                  user_need_required: false, mandatory_guidance: false }
     let!(:content_type2) { create :content_type, type: 'Type 2', subtype: nil, scrapable: false, 
-                                  user_need_required: true, mandatory_url_group: true }
+                                  user_need_required: true, mandatory_guidance: true }
   
     scenario 'Visit the contents page' do
       visit admin_root_path
       click_link 'Content types'
 
       page.should have_exact_table 'table thead', [
-        ['Type / Subtype', 'Scrapable?', 'User need required?', 'Mandatory url group?', '']]
+        ['Type / Subtype', 'Scrapable?', 'User need required?', 'Mandatory guidance?', '']]
       page.should have_exact_table 'table tbody', [
         ['Type 1 / Subtype 1', 'Yes',    '',    '', ''],
         ['Type 2',                '', 'Yes', 'Yes', '']]
@@ -30,13 +30,13 @@ feature 'View, create or edit content types' do
       page.should have_field('Subtype', with: 'Subtype 1')
       page.should have_checked_field('Scrapable')
       page.should have_unchecked_field('User need required')
-      page.should have_unchecked_field('Mandatory url group')
+      page.should have_unchecked_field('Mandatory guidance')
 
       fill_in 'Type', with: 'Type 1 mod'
       fill_in 'Subtype', with: 'Subtype 1 mod'
       uncheck 'Scrapable'
       check 'User need required'
-      check 'Mandatory url group'
+      check 'Mandatory guidance'
 
       click_button 'Save'
 
