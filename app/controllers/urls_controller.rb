@@ -4,6 +4,8 @@ class UrlsController < ApplicationController
   before_filter :find_site
 
   def index
+    @url = @site.urls.first
+    render 'show'
   end
 
   def show

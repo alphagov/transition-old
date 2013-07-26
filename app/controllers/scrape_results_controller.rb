@@ -56,6 +56,10 @@ class ScrapeResultsController < ApplicationController
       format.html do
         if params[:type].blank?
           @content_types_hash = ContentType.for_site(@site).for_scrape.group_by {|content_type| content_type.type}
+        else
+          @url = @site.urls.for_scraping.for_type(params[:type]).in_scraping_order.first
+          @scrape_result = @url.scrape_result || ScrapeResult.new
+          render 'new'
         end
       end
     end
