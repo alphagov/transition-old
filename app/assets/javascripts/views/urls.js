@@ -70,10 +70,12 @@
 
         $('.dialog form').bind('ajax:success', function(evt, data) {
           if (data['errors'].length == 0) {
-            // add url group name to relevant dropdown and select it
+            // add url group name to relevant dropdown and select it if dropdown is enabled
             _this.$url_group_select.append('<option value="' + data['model']['id'] + '">' + data['model']['name'] + '</option>');
-            _this.$url_group_select.val(data['model']['id']);
-            _this.$url_group_select.select2().val(data['model']['id']);
+            if (!_this.$url_group_select.attr('readonly')) {
+              _this.$url_group_select.val(data['model']['id']);
+              _this.$url_group_select.select2().val(data['model']['id']);
+            }
             $(this).closest('.dialog').dialog('close');
             $(this).find('input[type=text]').val('');
           } else {
