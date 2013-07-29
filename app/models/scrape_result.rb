@@ -26,7 +26,7 @@ class ScrapeResult < ActiveRecord::Base
       FROM
         scrape_results r
       INNER JOIN url_groups g ON g.id = r.scrapable_id AND r.scrapable_type = 'UrlGroup'
-      INNER JOIN urls u ON u.url_group_id = g.id
+      INNER JOIN urls u ON u.guidance_id = g.id
       WHERE
         u.site_id = ?
       HAVING all_scraping_finished = 1
@@ -42,7 +42,7 @@ SQL
       when Url
         [scrapable]
       when UrlGroup
-        scrapable.urls
+        scrapable.guidance_urls
       else
         raise 'wtfbbq'
     end

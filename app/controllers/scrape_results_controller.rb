@@ -18,7 +18,7 @@ class ScrapeResultsController < ApplicationController
       @url.update_attribute(:scrape_finished, params[:button] == 'finished')
       @url.build_scrape_result(data: params[:scrape_result].to_json)
       if @url.scrape_result.save
-        redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url) and return
+        redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url, type: params[:type]) and return
       else
         @scrape_result = @url.scrape_result
         raise ActiveRecord::Rollback
@@ -38,7 +38,7 @@ class ScrapeResultsController < ApplicationController
       @url.update_attribute(:scrape_finished, params[:button] == 'finished')
       @scrape_result = @url.scrape_result
       if @scrape_result.update_attributes(data: params[:scrape_result].to_json)
-        redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url) and return
+        redirect_to edit_site_scrape_result_path(@site, @url.scrape_result, url_id: @url, type: params[:type]) and return
       else
         raise ActiveRecord::Rollback
       end

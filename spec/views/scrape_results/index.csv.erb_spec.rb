@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'scrape_results/index.csv.erb' do
   let(:url_in_url_group)  { create(:scraped_url_with_content_type_in_url_group) }
-  let(:urlgroup_result)   { create(:scrape_result, scrapable: url_in_url_group.url_group) }
+  let(:urlgroup_result)   { create(:scrape_result, scrapable: url_in_url_group.guidance) }
 
   let(:test_results)        { 3.times.map { create :scrape_result } << urlgroup_result }
   let(:first_scrape_result) { test_results[0] }
