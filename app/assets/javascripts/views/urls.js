@@ -81,6 +81,7 @@
           }
         });
         $(".cancel").click(function() {
+          $(this).closest('.dialog').find('input[type=text]').val('');
           $(this).closest('.dialog').find('.errors').text('');
           $(this).closest('.dialog').dialog('close');
         });
