@@ -5,7 +5,11 @@ class UrlsController < ApplicationController
 
   def index
     @url = @site.urls.first
-    render 'show'
+    if @url.nil?
+      render 'no_urls'
+    else
+      render 'show'
+    end
   end
 
   def show
