@@ -7,7 +7,7 @@ class UrlGroup < ActiveRecord::Base
   has_one :scrape, :as => :scrapable, class_name: 'ScrapeResult'
 
   # validations
-  validates :name, uniqueness: {scope: :organisation_id, case_sensitive: false}
+  validates :name, uniqueness: {scope: [:organisation_id, :url_group_type_id], case_sensitive: false}, presence: true
   validates :url_group_type, :organisation, presence: true
 
   # scopes

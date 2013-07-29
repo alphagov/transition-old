@@ -11,9 +11,10 @@ describe UrlGroup do
   describe :validations do
     it 'should make url group name unique' do
       create :url_group
-      should validate_uniqueness_of(:name).scoped_to(:organisation_id).case_insensitive
+      should validate_uniqueness_of(:name).scoped_to(:organisation_id, :url_group_type_id).case_insensitive
     end
     
+    it { should validate_presence_of(:name) }
     it { should validate_presence_of(:url_group_type) }
     it { should validate_presence_of(:organisation) }
   end

@@ -32,8 +32,43 @@
 
     ready: function() {
       $(document).ready(function() {
+        var _this = this;
+        var $url_group_select;
+
         $(".select2").select2({
           allowClear: true
+        });
+
+        $(".dialog").dialog({ 
+          autoOpen: false,
+          width: 350,
+          modal: true
+        });
+        
+        $("#add_guidance").click(function() {
+          _this.$url_group_select = $('#url_guidance_id');
+          $("#dialog_guidance").dialog("open");
+        });
+        $("#add_series").click(function() {
+          _this.$url_group_select = $('#url_series_id');
+          $("#dialog_series").dialog("open");
+        });
+
+        $('.dialog form').bind('ajax:success', function(evt, data) {
+          if (data['errors'].length == 0) {
+            // add url group name to relevant dropdown and select it
+            _this.$url_group_select.append('<option value="' + data['model']['id'] + '">' + data['model']['name'] + '</option>');
+            _this.$url_group_select.val(data['model']['id']);
+            _this.$url_group_select.select2().val(data['model']['id']);
+            $(this).closest('.dialog').dialog('close');
+            $(this).find('input[type=text]').val('');
+          } else {
+            $(this).find('.errors').text(data['errors'].join());
+          }
+        });
+        $(".cancel").click(function() {
+          $(this).closest('.dialog').find('.errors').text('');
+          $(this).closest('.dialog').dialog('close');
         });
 
         var content_type_dropdown = $('#url_content_type_id');
