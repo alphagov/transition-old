@@ -1,0 +1,23 @@
+.ui-dialog {
+  .ui-dialog-titlebar-close {
+    display: none;
+  }
+  .errors {
+    color: red;
+    font-size: 0.8em;
+  }
+  input#url_group_name {
+    margin: 15px 0;
+  }
+  input[type=submit], a {
+    float: right;
+    font-size: 0.8em;
+  }
+  input[type=submit] {
+    width: 6em;
+  }
+  a {
+    text-decoration: none;
+    margin-right: 10px;
+  }
+}

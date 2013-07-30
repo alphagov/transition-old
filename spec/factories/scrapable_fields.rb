@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     factory :that_belong_to_content_types do
       after(:build) do |f|
-        f.content_types << build(:detailed_guide_content_type)
+        f.content_types << build(:scrapable_content_type)
       end
 
       factory :scrapable_field_title do

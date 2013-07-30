@@ -23,9 +23,15 @@ describe UrlsController, expensive_setup: true do
       assigns(:site).should == @site1
     end
 
-    it "should render the index template" do
+    it 'should render the index template' do
       get :index, site_id: @site1
       response.should render_template('show')
+    end
+
+    it 'should render no_urls if there are no site urls' do
+      site = create :site
+      get :index, site_id: site
+      response.should render_template('no_urls')
     end
   end
 

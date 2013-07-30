@@ -16,11 +16,17 @@ FactoryGirl.define do
       scrapable false
     end
 
-    factory :detailed_guide_content_type do
-      type    'Detailed guide'
-      subtype nil
+    factory :scrapable_content_type do
+      type               'Scrapable'
+      subtype             nil
+      scrapable          true
+    end
 
-      scrapable true
+    factory :detailed_guide_content_type do
+      type               'Detailed guide'
+      subtype             nil
+      mandatory_guidance true
+      scrapable          true
     end
   end
 end
