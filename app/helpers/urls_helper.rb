@@ -27,6 +27,11 @@ module UrlsHelper
     options_for_select(options, state)
   end
 
+  def options_for_scrape_select(for_scrape)
+    options = [['For scrape', 'true'], ['Not for scrape', 'false']]
+    options_for_select(options, for_scrape)
+  end
+
   def grouped_options_for_content_type_select(url_or_content_type_id)
     content_type_id = url_or_content_type_id.is_a?(Url) ? url_or_content_type_id.content_type_id : url_or_content_type_id
     ContentType.all.group_by(&:type).map do |type, content_types|
@@ -65,7 +70,7 @@ module UrlsHelper
   end
 
   def url_filter_hash
-    filter_hash = {content_type: params[:content_type], state: params[:state]}
+    filter_hash = {content_type: params[:content_type], state: params[:state], for_scrape: params[:for_scrape]}
     filter_hash.delete_if { |k, v| v.blank? }
     filter_hash
   end

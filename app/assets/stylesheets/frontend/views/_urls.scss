@@ -80,7 +80,7 @@
 
 .controls {
   width: 100%;
-  padding-top: 1em;
+  padding-top: 10px;
 
   .urls {
     font-size: 0.85em;
@@ -114,8 +114,11 @@
   }
 }
 
-#s2id_filter_by_state, #s2id_filter_by_content_type {
+#s2id_filter_by_state, #s2id_filter_by_content_type, #s2id_filter_by_scrape_status {
   margin-bottom: 3px;  
+}
+#s2id_filter_by_scrape_status {
+  width: 190px;
 }
 #s2id_filter_by_state {
   width: 170px;

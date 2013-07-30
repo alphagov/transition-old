@@ -55,15 +55,14 @@
       }
        
       // Add new parameters or update existing ones
-      if ($('#filter_by_content_type').val()) {
-        queryParameters['content_type'] = $('#filter_by_content_type').val();
-      } else {
-        delete queryParameters['content_type']; 
-      }
-      if ($('#filter_by_state').val()) {
-        queryParameters['state'] = $('#filter_by_state').val();
-      } else {
-        delete queryParameters['state'];  
+      var params = [['#filter_by_content_type', 'content_type' ],
+        ['#filter_by_state', 'state'], ['#filter_by_scrape_status', 'for_scrape']];
+      for (var i = 0; i < params.length; i++) {
+        if ($(params[i][0]).val()) {
+          queryParameters[params[i][1]] = $(params[i][0]).val();
+        } else {
+          delete queryParameters[params[i][1]]; 
+        }  
       }
       location.search = $.param(queryParameters); // Causes page to reload
     },
@@ -77,7 +76,7 @@
           allowClear: true
         });
 
-        $('#filter_by_content_type, #filter_by_state').change(function() {
+        $('#filter_by_content_type, #filter_by_state, #filter_by_scrape_status').change(function() {
           Urls.filterChange();
         });
 

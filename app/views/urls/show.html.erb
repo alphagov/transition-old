@@ -5,6 +5,8 @@
     <%= render "shared/error_messages", target: @url %>
     <%= hidden_field_tag :content_type, params[:content_type] %>
     <%= hidden_field_tag :state, params[:state] %>
+    <%= hidden_field_tag :for_scrape, params[:for_scrape] %>
+
     <div class="inputs-block">
       <div class="select">
         <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 

@@ -1,5 +1,6 @@
-<%= select_tag 'filter_by_state', options_for_url_state_select(params[:state]), class: 'select2', include_blank: true, placeholder: 'Filter by State' %>
-<%= select_tag 'filter_by_content_type', grouped_options_for_content_type_select(params[:content_type]), class: 'select2', include_blank: true, placeholder: 'Filter by Content Type' %>
+<%= select_tag 'filter_by_state', options_for_url_state_select(params[:state]), class: 'select2', include_blank: true, placeholder: 'Filter by state' %>
+<%= select_tag 'filter_by_content_type', grouped_options_for_content_type_select(params[:content_type]), class: 'select2', include_blank: true, placeholder: 'Filter by content type' %>
+<%= select_tag 'filter_by_scrape_status', options_for_scrape_select(params[:for_scrape]), class: 'select2', include_blank: true, placeholder: 'Filter by scrape status' %>
 
 <ul class="urls">
   <% @urls.each do |url| %>
