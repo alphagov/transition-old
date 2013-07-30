@@ -10,9 +10,9 @@ describe UrlGroupsController do
     login_as_stub_user
   end
 
-  describe :create do
-    context "valid url group data is provided" do
-      it "should save a new url group" do
+  describe 'create' do
+    context 'valid url group data is provided' do
+      it 'should save a new url group' do
         post :create, url_group: {name: 'Aloha', organisation_id: organisation2.id, url_group_type_id: guidance_group_type.id }
         UrlGroup.where(name: 'Aloha').size.should == 2
         attributes = UrlGroup.last.attributes
@@ -22,8 +22,8 @@ describe UrlGroupsController do
       end
     end
 
-    context "invalid url group data is provided" do
-      it "should fail to save a new url group" do
+    context 'invalid url group data is provided' do
+      it 'should fail to save a new url group' do
         post :create, url_group: {name: 'Aloha', organisation_id: organisation1.id, url_group_type_id: guidance_group_type.id }
         UrlGroup.where(name: 'Aloha').size.should == 1
         JSON.parse(response.body)['errors'].should == ["Name has already been taken"]
