@@ -47,21 +47,21 @@
     // see http://www.samaxes.com/2011/09/change-url-parameters-with-jquery/
     filterChange: function() {
       var queryParameters = {}, queryString = location.search.substring(1),
-          re = /([^&=]+)=([^&]*)/g, m;
+          paramCapturer = /([^&=]+)=([^&]*)/g, m;
  
       // Creates a map with the query string parameters
-      while (m = re.exec(queryString)) {
+      while (m = paramCapturer.exec(queryString)) {
           queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
       }
        
       // Add new parameters or update existing ones
-      var params = [['#filter_by_content_type', 'content_type' ],
-        ['#filter_by_state', 'state'], ['#filter_by_scrape_status', 'for_scrape']];
-      for (var i = 0; i < params.length; i++) {
-        if ($(params[i][0]).val()) {
-          queryParameters[params[i][1]] = $(params[i][0]).val();
+      var filterNames = { '#filter_by_content_type': 'content_type', '#filter_by_state': 'state', 
+        '#filter_by_scrape_status': 'for_scrape' };
+      for (var filterName in filterNames) {
+        if ($(filterName).val()) {
+          queryParameters[filterNames[filterName]] = $(filterName).val();
         } else {
-          delete queryParameters[params[i][1]]; 
+          delete queryParameters[filterNames[filterName]]; 
         }  
       }
       location.search = $.param(queryParameters); // Causes page to reload
