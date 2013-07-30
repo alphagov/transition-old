@@ -58,6 +58,23 @@ describe Url do
     end
   end
 
+  describe 'next' do
+    let!(:site1) { create :site }
+    let!(:site2) { create :site }
+    let!(:onsite_url1) { create :url, site: site1 }
+    let!(:offsite_url) { create :url, site: site2 }
+    let!(:onsite_url2) { create :url, site: site1 }
+
+    it 'should return the next url in the list ordered by id' do
+      onsite_url1.next(Url.scoped).should == offsite_url
+      onsite_url1.next(site1.urls).should == onsite_url2
+    end
+
+    it 'should return the same url if the current url is the last one in the list ordered by id' do
+      onsite_url2.next(site1.urls).should == onsite_url2
+    end
+  end
+
   describe '#scrape_result' do
     it 'should return the scrape result attached directly to the url' do
       url = create :url
