@@ -44,6 +44,29 @@
       Urls.scrapeRadioEnableDisable(dropdown);
     },
 
+    // see http://www.samaxes.com/2011/09/change-url-parameters-with-jquery/
+    filterChange: function() {
+      var queryParameters = {}, queryString = location.search.substring(1),
+          paramCapturer = /([^&=]+)=([^&]*)/g, m;
+ 
+      // Creates a map with the query string parameters
+      while (m = paramCapturer.exec(queryString)) {
+          queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+      }
+       
+      // Add new parameters or update existing ones
+      var filterNames = { '#filter_by_content_type': 'content_type', '#filter_by_state': 'state', 
+        '#filter_by_scrape_status': 'for_scrape' };
+      for (var filterName in filterNames) {
+        if ($(filterName).val()) {
+          queryParameters[filterNames[filterName]] = $(filterName).val();
+        } else {
+          delete queryParameters[filterNames[filterName]]; 
+        }  
+      }
+      location.search = $.param(queryParameters); // Causes page to reload
+    },
+
     urlGroupDialogSetup: function() {
       var _this = this;
       var $url_group_select;
@@ -64,19 +87,9 @@
       });
 
       $('.dialog form').bind('ajax:success', function(evt, data) {
-        if (data['errors'].length == 0) {
-          // add url group name to relevant dropdown and select it if dropdown is enabled
-          _this.$url_group_select.append('<option value="' + data['model']['id'] + '">' + data['model']['name'] + '</option>');
-          if (!_this.$url_group_select.attr('readonly')) {
-            _this.$url_group_select.val(data['model']['id']);
-            _this.$url_group_select.select2().val(data['model']['id']);
-          }
-          $(this).closest('.dialog').dialog('close');
-          $(this).find('input[type=text]').val('');
-        } else {
-          $(this).find('.errors').text(data['errors'].join());
-        }
+        Urls.urlGroupCreationHandler(evt, data, _this.$url_group_select, this)
       });
+
       $(".cancel").click(function() {
         $(this).closest('.dialog').find('input[type=text]').val('');
         $(this).closest('.dialog').find('.errors').text('');
@@ -84,10 +97,29 @@
       });
     },
 
+    urlGroupCreationHandler: function(evt, data, url_group_select, _this) {
+      if (data['errors'].length == 0) {
+        // add url group name to relevant dropdown and select it if dropdown is enabled
+        url_group_select.append('<option value="' + data['model']['id'] + '">' + data['model']['name'] + '</option>');
+        if (!url_group_select.attr('readonly')) {
+          url_group_select.val(data['model']['id']);
+          url_group_select.select2().val(data['model']['id']);
+        }
+        $(_this).closest('.dialog').dialog('close');
+        $(_this).find('input[type=text]').val('');
+      } else {
+        $(_this).find('.errors').text(data['errors'].join());
+      }
+    },
+
     ready: function() {
       $(document).ready(function() {
         $(".select2").select2({
           allowClear: true
+        });
+
+        $('#filter_by_content_type, #filter_by_state, #filter_by_scrape_status').change(function() {
+          Urls.filterChange();
         });
 
         Urls.urlGroupDialogSetup();
@@ -102,7 +134,10 @@
         content_type_dropdown.change(function() {
             Urls.contentTypeChanged(this);
         });
-        Urls.contentTypeChanged(content_type_dropdown.get(0));
+        // only run contentTypeChanged if there is a content type dropdown
+        if (content_type_dropdown.length > 0) {
+          Urls.contentTypeChanged(content_type_dropdown.get(0));
+        }
       });
     }
   };

@@ -22,12 +22,23 @@ module UrlsHelper
     ]
   end
 
-  def grouped_options_for_content_type_select(url)
+  def options_for_url_state_select(state)
+    options = [['Unseen', 'unseen'], ['Saved for review', 'review'], ['Saved as final', 'final']]
+    options_for_select(options, state)
+  end
+
+  def options_for_scrape_select(for_scrape)
+    options = [['For scrape', 'true'], ['Not for scrape', 'false']]
+    options_for_select(options, for_scrape)
+  end
+
+  def grouped_options_for_content_type_select(url_or_content_type_id)
+    content_type_id = url_or_content_type_id.is_a?(Url) ? url_or_content_type_id.content_type_id : url_or_content_type_id
     ContentType.all.group_by(&:type).map do |type, content_types|
       if content_types.one? && (content_type = content_types.first).subtype.blank?
-        options_for_select([entry_for_content_type(content_type)], url.content_type_id)
+        options_for_select([entry_for_content_type(content_type)], content_type_id)
       else
-        grouped_options_for_select({ type => content_types.map { |content_type| entry_for_content_type(content_type) } }, url.content_type_id)
+        grouped_options_for_select({ type => content_types.map { |content_type| entry_for_content_type(content_type) } }, content_type_id)
       end
     end.join.html_safe
   end
@@ -56,5 +67,11 @@ module UrlsHelper
     options[url.site.organisation.title] = url.site.organisation.user_needs.map {|user_need| [user_need.name, user_need.id]}
     options['Other'] = UserNeed.where('organisation_id <> ? or organisation_id is null', url.site.organisation.id).map {|user_need| [user_need.name, user_need.id]}
     grouped_options_for_select(options, url.user_need_id)
+  end
+
+  def url_filter_hash
+    filter_hash = {content_type: params[:content_type], state: params[:state], for_scrape: params[:for_scrape]}
+    filter_hash.delete_if { |k, v| v.blank? }
+    filter_hash
   end
 end

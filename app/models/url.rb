@@ -24,11 +24,11 @@ class Url < ActiveRecord::Base
 
   def self.for_type(type)
     content_types = ContentType.where(type: type)
-    content_types.any? ? for_content_types(ContentType.where(type: type)) : scoped
+    content_types.any? ? for_content_types(content_types) : scoped
   end
 
-  def next
-    site.urls.where('id > ?', id).order('id ASC').first
+  def next(scope)
+    scope.where('id > ?', id).order('id ASC').first || self
   end
 
   def scrape_result
