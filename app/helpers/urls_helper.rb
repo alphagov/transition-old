@@ -22,12 +22,13 @@ module UrlsHelper
     ]
   end
 
-  def grouped_options_for_content_type_select(url)
+  def grouped_options_for_content_type_select(url_or_content_type_id)
+    content_type_id = url_or_content_type_id.is_a?(Url) ? url_or_content_type_id.content_type_id : url_or_content_type_id
     ContentType.all.group_by(&:type).map do |type, content_types|
       if content_types.one? && (content_type = content_types.first).subtype.blank?
-        options_for_select([entry_for_content_type(content_type)], url.content_type_id)
+        options_for_select([entry_for_content_type(content_type)], content_type_id)
       else
-        grouped_options_for_select({ type => content_types.map { |content_type| entry_for_content_type(content_type) } }, url.content_type_id)
+        grouped_options_for_select({ type => content_types.map { |content_type| entry_for_content_type(content_type) } }, content_type_id)
       end
     end.join.html_safe
   end

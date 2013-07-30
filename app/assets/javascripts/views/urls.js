@@ -44,6 +44,33 @@
       Urls.scrapeRadioEnableDisable(dropdown);
     },
 
+    // see http://www.samaxes.com/2011/09/change-url-parameters-with-jquery/
+    filterChange: function() {
+      /*
+       * queryParameters -> handles the query string parameters
+       * queryString -> the query string without the fist '?' character
+       * re -> the regular expression
+       * m -> holds the string matching the regular expression
+       */
+      var queryParameters = {}, queryString = location.search.substring(1),
+          re = /([^&=]+)=([^&]*)/g, m;
+ 
+      // Creates a map with the query string parameters
+      while (m = re.exec(queryString)) {
+          queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+      }
+       
+      // Add new parameters or update existing ones
+      queryParameters['content_type'] = $('#filter_by_content_type').val();
+       
+      /*
+       * Replace the query portion of the URL.
+       * jQuery.param() -> create a serialized representation of an array or
+       * object, suitable for use in a URL query string or Ajax request.
+       */
+       location.search = $.param(queryParameters); // Causes page to reload
+    },
+
     ready: function() {
       $(document).ready(function() {
         var _this = this;
@@ -51,6 +78,10 @@
 
         $(".select2").select2({
           allowClear: true
+        });
+
+        $('#filter_by_content_type').change(function() {
+          Urls.filterChange();
         });
 
         $(".dialog").dialog({ 
@@ -98,7 +129,10 @@
         content_type_dropdown.change(function() {
             Urls.contentTypeChanged(this);
         });
-        Urls.contentTypeChanged(content_type_dropdown.get(0));
+        // only run contentTypeChanged if there is a content type dropdown
+        if (content_type_dropdown.length > 0) {
+          Urls.contentTypeChanged(content_type_dropdown.get(0));
+        }
       });
     }
   };

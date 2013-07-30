@@ -1,11 +1,5 @@
 @import 'status_colours';
 
-.urls-index .urls {
-  overflow: none;
-  margin: 2em;
-  background: white !important;
-}
-
 #url_form {
   margin: 0;
 }
@@ -118,6 +112,11 @@
       }
     }
   }
+}
+
+#s2id_filter_by_content_type {
+  margin-bottom: 3px;
+  width: 240px;
 }
 
 .preview {
