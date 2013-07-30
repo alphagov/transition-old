@@ -1,9 +1,10 @@
+<%= select_tag 'filter_by_state', options_for_url_state_select(params[:state]), class: 'select2', include_blank: true, placeholder: 'Filter by State' %>
 <%= select_tag 'filter_by_content_type', grouped_options_for_content_type_select(params[:content_type]), class: 'select2', include_blank: true, placeholder: 'Filter by Content Type' %>
 
 <ul class="urls">
   <% @urls.each do |url| %>
       <%= content_tag :li, class: "#{url.state}#{@url == url ? ' selected' : nil}" do %>
-        <%= link_to_if url != @url, url.request_uri, site_url_path(@site, url, content_type: params[:content_type]), title: url.url %>
+        <%= link_to_if url != @url, url.request_uri, site_url_path(@site, url, url_filter_hash), title: url.url %>
     <% end %>
   <% end %>
 </ul>

@@ -35,7 +35,7 @@ group :test do
   gem 'capybara', '~> 2.1.0', require: false
   gem 'factory_girl_rails', '4.1.0'
   gem 'ci_reporter', '1.8.0'
-  gem 'database_cleaner', '0.9.1'
+  gem 'database_cleaner'
   gem 'poltergeist'
   gem 'webmock', require: false
   gem 'shoulda-matchers'
@@ -45,4 +45,5 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  # gem 'debugger'
 end

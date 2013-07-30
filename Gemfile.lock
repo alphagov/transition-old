@@ -53,7 +53,7 @@ GEM
     ci_reporter (1.8.0)
       builder (>= 2.1.2)
     crack (0.3.2)
-    database_cleaner (0.9.1)
+    database_cleaner (1.0.1)
     diff-lcs (1.2.4)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -234,7 +234,7 @@ DEPENDENCIES
   bootstrap-sass (= 2.3.1.0)
   capybara (~> 2.1.0)
   ci_reporter (= 1.8.0)
-  database_cleaner (= 0.9.1)
+  database_cleaner
   exception_notification (= 2.6.1)
   factory_girl_rails (= 4.1.0)
   gds-sso (= 3.0.0)

@@ -46,12 +46,6 @@
 
     // see http://www.samaxes.com/2011/09/change-url-parameters-with-jquery/
     filterChange: function() {
-      /*
-       * queryParameters -> handles the query string parameters
-       * queryString -> the query string without the fist '?' character
-       * re -> the regular expression
-       * m -> holds the string matching the regular expression
-       */
       var queryParameters = {}, queryString = location.search.substring(1),
           re = /([^&=]+)=([^&]*)/g, m;
  
@@ -61,14 +55,17 @@
       }
        
       // Add new parameters or update existing ones
-      queryParameters['content_type'] = $('#filter_by_content_type').val();
-       
-      /*
-       * Replace the query portion of the URL.
-       * jQuery.param() -> create a serialized representation of an array or
-       * object, suitable for use in a URL query string or Ajax request.
-       */
-       location.search = $.param(queryParameters); // Causes page to reload
+      if ($('#filter_by_content_type').val()) {
+        queryParameters['content_type'] = $('#filter_by_content_type').val();
+      } else {
+        delete queryParameters['content_type']; 
+      }
+      if ($('#filter_by_state').val()) {
+        queryParameters['state'] = $('#filter_by_state').val();
+      } else {
+        delete queryParameters['state'];  
+      }
+      location.search = $.param(queryParameters); // Causes page to reload
     },
 
     ready: function() {
@@ -80,7 +77,7 @@
           allowClear: true
         });
 
-        $('#filter_by_content_type').change(function() {
+        $('#filter_by_content_type, #filter_by_state').change(function() {
           Urls.filterChange();
         });
 

@@ -22,6 +22,11 @@ module UrlsHelper
     ]
   end
 
+  def options_for_url_state_select(state)
+    options = [['Unseen', 'unseen'], ['Saved for review', 'review'], ['Saved as final', 'final']]
+    options_for_select(options, state)
+  end
+
   def grouped_options_for_content_type_select(url_or_content_type_id)
     content_type_id = url_or_content_type_id.is_a?(Url) ? url_or_content_type_id.content_type_id : url_or_content_type_id
     ContentType.all.group_by(&:type).map do |type, content_types|
@@ -57,5 +62,11 @@ module UrlsHelper
     options[url.site.organisation.title] = url.site.organisation.user_needs.map {|user_need| [user_need.name, user_need.id]}
     options['Other'] = UserNeed.where('organisation_id <> ? or organisation_id is null', url.site.organisation.id).map {|user_need| [user_need.name, user_need.id]}
     grouped_options_for_select(options, url.user_need_id)
+  end
+
+  def url_filter_hash
+    filter_hash = {content_type: params[:content_type], state: params[:state]}
+    filter_hash.delete_if { |k, v| v.blank? }
+    filter_hash
   end
 end
