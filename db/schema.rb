@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726090317) do
+ActiveRecord::Schema.define(:version => 20130731074151) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -86,6 +86,19 @@ ActiveRecord::Schema.define(:version => 20130726090317) do
   end
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
+
+  create_table "raw_urls", :force => true do |t|
+    t.string   "url",        :limit => 4096, :null => false
+    t.string   "host",                       :null => false
+    t.string   "path",                       :null => false
+    t.string   "query",      :limit => 2048
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "raw_urls", ["host"], :name => "index_raw_urls_on_host"
+  add_index "raw_urls", ["path"], :name => "index_raw_urls_on_path"
+  add_index "raw_urls", ["query"], :name => "index_raw_urls_on_query", :length => {"query"=>255}
 
   create_table "scrapable_fields", :force => true do |t|
     t.string   "name"
