@@ -19,8 +19,7 @@ module Transition
                     url: url.to_s
                 ) do |raw_url|
                   raw_url.query_parts = url.query_hash.map { |k, v| ::Raw::QueryPart.create(key: k, value: v) }
-                  ext = /\.(.*)$/.match(url.path)
-                  raw_url.extension = ext[1] if ext && ext.length > 1
+                  ext = ::Raw::Url.parse_extension(url.path)
 
                   begin
                     failures[url.to_s] = raw_url.errors unless raw_url.save

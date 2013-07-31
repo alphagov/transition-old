@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20130731112811) do
     t.string   "url",        :limit => 4096, :null => false
     t.string   "host",                       :null => false
     t.string   "path",                       :null => false
+    t.string   "extension"
     t.string   "query",      :limit => 2048
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
