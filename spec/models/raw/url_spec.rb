@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "spec_helper"
 
 module Raw
@@ -10,6 +12,9 @@ module Raw
       specify { Url.parse_extension('/themes/basic.new.css').should eql('css') }
       specify { Url.parse_extension('/inshtm/section3/000001.htm++++').should eql('htm') }
       specify { Url.parse_extension('/inshtm/section3/000001.htm%20%20%20%20').should eql('htm') }
+      specify { Url.parse_extension(
+          '/management_information/senior_civil_service/scs_performance_and%A0_reward/index.asp') \
+        .should eql('asp') }
     end
   end
 end
