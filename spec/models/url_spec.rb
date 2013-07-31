@@ -5,7 +5,8 @@ describe Url do
 
   describe 'relationships' do
     it { should belong_to(:site) }
-    it { should belong_to(:url_group) }
+    it { should belong_to(:guidance) }
+    it { should belong_to(:series) }
     it { should belong_to(:content_type) }
     it { should have_one(:scrape) }
   end
@@ -18,16 +19,16 @@ describe Url do
     it { should validate_presence_of(:site) }
 
     context 'validate url group depending on content type' do
-      context 'the url content type has mandatory_url_group set to true and there is a url group' do
+      context 'the url content type has mandatory_guidance set to true and there is a guidance' do
         it 'should be valid' do
-          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: build(:url_group)
+          url = build :url, content_type: build(:content_type, mandatory_guidance: true), guidance: build(:url_group)
           url.should be_valid
         end
       end
 
-      context 'the url content type has mandatory_url_group set to true but there is no url group' do
+      context 'the url content type has mandatory_guidance set to true but there is no guidance' do
         it 'should be invalid' do
-          url = build :url, content_type: build(:content_type, mandatory_url_group: true), url_group: nil
+          url = build :url, content_type: build(:content_type, mandatory_guidance: true), guidance: nil
           url.should_not be_valid
         end
       end
@@ -57,6 +58,23 @@ describe Url do
     end
   end
 
+  describe 'next' do
+    let!(:site1) { create :site }
+    let!(:site2) { create :site }
+    let!(:onsite_url1) { create :url, site: site1 }
+    let!(:offsite_url) { create :url, site: site2 }
+    let!(:onsite_url2) { create :url, site: site1 }
+
+    it 'should return the next url in the list ordered by id' do
+      onsite_url1.next(Url.scoped).should == offsite_url
+      onsite_url1.next(site1.urls).should == onsite_url2
+    end
+
+    it 'should return the same url if the current url is the last one in the list ordered by id' do
+      onsite_url2.next(site1.urls).should == onsite_url2
+    end
+  end
+
   describe '#scrape_result' do
     it 'should return the scrape result attached directly to the url' do
       url = create :url
@@ -68,7 +86,7 @@ describe Url do
       content_type = create :detailed_guide_content_type
       url_group = create(:url_group)
       scrape = url_group.create_scrape!
-      url = create :url, content_type: content_type, url_group: url_group
+      url = create :url, content_type: content_type, guidance: url_group
       url.scrape_result.should == scrape
     end
   end

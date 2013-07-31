@@ -12,7 +12,7 @@ module Transition
           subtype           'Sub-Type'
           scrapable         'Scrapable?'
           userneedrequired  'User Need Required?'
-          mandatoryurlgroup 'Mandatory Url Group?'
+          mandatoryguidance 'Mandatory Guidance?'
 
           after_row lambda { |row, type_struct|
             new_type = ContentType.where(type: type_struct.type, subtype: type_struct.subtype).first_or_initialize
@@ -21,7 +21,7 @@ module Transition
 
             new_type.scrapable = (type_struct.scrapable == 'Y')
             new_type.user_need_required = (type_struct.userneedrequired == 'Y')
-            new_type.mandatory_url_group = (type_struct.mandatoryurlgroup == 'Y')
+            new_type.mandatory_guidance = (type_struct.mandatoryguidance == 'Y')
 
             if(new_type.save rescue false)
               already_existed ? (updated += 1) : (created += 1)

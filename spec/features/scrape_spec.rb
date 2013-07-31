@@ -13,10 +13,10 @@ feature 'Scraping' do
   let!(:url1) { create :url, url: 'http://www.naturalengland.org.uk/', site: site1, for_scraping: true, content_type: content_type2 }
   let!(:url2) { create :url, site: site2, for_scraping: true }
   let!(:url3) { create :url, url: 'http://www.naturalengland.org.uk/contact_us', site: site1, for_scraping: true,
-                content_type: content_type1, url_group: url_group, comments: 'Hello'}
+                content_type: content_type1, guidance: url_group, comments: 'Hello'}
   let!(:url4) { create :url, url: 'http://www.naturalengland.org.uk/hello', site: site1, for_scraping: false, content_type: content_type3 }
   let!(:url5) { create :url, url: 'http://www.naturalengland.org.uk/jumping', site: site1, for_scraping: true,
-                content_type: content_type1, url_group: url_group}
+                content_type: content_type1, guidance: url_group}
 
   background do
     login_as_stub_user
@@ -38,7 +38,6 @@ feature 'Scraping' do
 
     visit site_scrape_results_path(site1)
     click_link 'Publishing'
-    click_link '/contact_us'
 
     page.should have_list_in_this_order '.urls', ['/contact_us - Publishing / Detail - Bee health', '/jumping - Publishing / Detail - Bee health']
     page.should have_content 'Hello'
@@ -47,6 +46,7 @@ feature 'Scraping' do
     fill_in 'Title', with: 'Anna Karenina'
     click_button 'Save for later'
 
+    page.should have_list_in_this_order '.urls', ['/contact_us - Publishing / Detail - Bee health', '/jumping - Publishing / Detail - Bee health']
     page.should have_field('Title', with: 'Anna Karenina')
     page.should have_field('Body')
     page.should have_no_selector('.urls li.finished', text: '/contact_us')
@@ -67,13 +67,12 @@ feature 'Scraping' do
     content_type = create :detailed_guide_content_type
     content_type.scrapable_fields << create(:scrapable_field_title) << create(:scrapable_field_body)
     url5 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/1', site: site1, for_scraping: true,
-                content_type: content_type, url_group: url_group
+                content_type: content_type, guidance: url_group
     url6 = create :url, url: 'http://www.naturalengland.org.uk/detailed_guide/2', site: site1, for_scraping: true,
-                content_type: content_type, url_group: url_group
+                content_type: content_type, guidance: url_group
 
     visit site_scrape_results_path(site1)
     click_link 'Detailed guide'
-    click_link '/detailed_guide/1'
 
     page.should have_list_in_this_order '.urls', 
       ['/detailed_guide/1 - Detailed guide - Bee health', '/detailed_guide/2 - Detailed guide - Bee health']

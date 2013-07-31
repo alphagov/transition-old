@@ -40,7 +40,7 @@ describe ScrapeResult do
         before :each do
           @url1 = create :url, content_type: @content_type, scrape_finished: true, for_scraping: true
           @url_group = create :url_group
-          @url_group.urls << @url1
+          @url_group.guidance_urls << @url1
         end
         it 'should be invalid for a scrape result to have empty mandatory fields if the url group is scrape finished' do
           scrape = build :scrape_result, scrapable: @url_group, data: nil
@@ -86,10 +86,10 @@ describe ScrapeResult do
     context '#scrapable is a UrlGroup' do
       let(:grouped_url) { create :scraped_url_with_content_type_in_url_group }
 
-      subject(:scrape_result) { build :scrape_result, scrapable: grouped_url.url_group }
+      subject(:scrape_result) { build :scrape_result, scrapable: grouped_url.guidance }
 
       its(:urls) { should eql([grouped_url]) }
-      its(:organisation) { should eql(grouped_url.url_group.organisation) }
+      its(:organisation) { should eql(grouped_url.guidance.organisation) }
     end
 
   end

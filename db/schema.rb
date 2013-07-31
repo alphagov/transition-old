@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724142922) do
+ActiveRecord::Schema.define(:version => 20130726090317) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
     t.string   "subtype"
     t.boolean  "scrapable"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.boolean  "user_need_required",  :default => false
-    t.boolean  "mandatory_url_group", :default => false, :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "user_need_required", :default => false
+    t.boolean  "mandatory_guidance", :default => false, :null => false
   end
 
   add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
@@ -153,14 +153,15 @@ ActiveRecord::Schema.define(:version => 20130724142922) do
     t.string   "state",                           :default => "new", :null => false
     t.text     "comments"
     t.boolean  "for_scraping"
-    t.integer  "url_group_id"
+    t.integer  "guidance_id"
     t.integer  "user_need_id"
     t.integer  "content_type_id"
     t.boolean  "scrape_finished",                 :default => false, :null => false
+    t.integer  "series_id"
   end
 
+  add_index "urls", ["guidance_id"], :name => "index_urls_on_url_group_id"
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
-  add_index "urls", ["url_group_id"], :name => "index_urls_on_url_group_id"
   add_index "urls", ["user_need_id"], :name => "index_urls_on_user_need_id"
 
   create_table "user_needs", :force => true do |t|

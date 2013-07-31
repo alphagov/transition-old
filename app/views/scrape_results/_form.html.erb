@@ -10,6 +10,7 @@
       <%= form_for [@site, @scrape_result] do |f| %>
         <%= render "shared/error_messages", target: f.object %>
         <%= hidden_field_tag 'url_id', @url.id %>
+        <%= hidden_field_tag 'type', params[:type] %>
 
         <% @url.content_type.scrapable_fields.each do |field| %>
           <div><%= scrape_field_and_label(field, @scrape_result) %></div>

@@ -1,7 +1,8 @@
 class Url < ActiveRecord::Base
   # relationships
   belongs_to :site
-  belongs_to :url_group
+  belongs_to :guidance, class_name: 'UrlGroup'
+  belongs_to :series, class_name: 'UrlGroup'
   belongs_to :content_type
   has_one :scrape, as: :scrapable, class_name: 'ScrapeResult'
   delegate :new_url, :http_status, to: :mapping, allow_nil: true
@@ -10,24 +11,24 @@ class Url < ActiveRecord::Base
   # validations
   validates :url, uniqueness: {case_sensitive: false}
   validates :site, presence: true
-  validates :url_group, presence: true, if: Proc.new { |url| url.content_type.try(:mandatory_url_group) }
+  validates :guidance, presence: true, if: Proc.new { |url| url.content_type.try(:mandatory_guidance) }
 
   # scopes
   scope :for_content_types, ->(content_types) { where('urls.content_type_id in (?)', content_types.map(&:id)) }
   scope :for_scraping, where(for_scraping: true)
   scope :in_scraping_order,
         joins('LEFT JOIN content_types ON urls.content_type_id = content_types.id').
-        joins('LEFT JOIN url_groups ON urls.url_group_id = url_groups.id').
-        includes(:content_type, :url_group).
+        joins('LEFT JOIN url_groups ON urls.guidance_id = url_groups.id').
+        includes(:content_type, :guidance).
         order('content_types.type, content_types.subtype, url_groups.name, urls.id')
 
   def self.for_type(type)
     content_types = ContentType.where(type: type)
-    content_types.any? ? for_content_types(ContentType.where(type: type)) : scoped
+    content_types.any? ? for_content_types(content_types) : scoped
   end
 
-  def next
-    site.urls.where('id > ?', id).order('id ASC').first
+  def next(scope)
+    scope.where('id > ?', id).order('id ASC').first || self
   end
 
   def scrape_result
@@ -72,13 +73,13 @@ class Url < ActiveRecord::Base
 
   private
 
-  # is scraping done per url group as opposed to per url
+  # is scraping done per guidance as opposed to per url
   def scrape_for_url_group?
-    content_type.try(:detailed_guide?) and url_group
+    content_type.try(:detailed_guide?) and guidance
   end
 
   def scrape_result_delegate
-    scrape_for_url_group? ? url_group : self
+    scrape_for_url_group? ? guidance : self
   end
 
   def host

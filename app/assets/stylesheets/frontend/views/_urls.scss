@@ -1,11 +1,5 @@
 @import 'status_colours';
 
-.urls-index .urls {
-  overflow: none;
-  margin: 2em;
-  background: white !important;
-}
-
 #url_form {
   margin: 0;
 }
@@ -49,10 +43,15 @@
   width: 25%;
   float: left;
 
-  .select2 {
-    padding: 0 10px 10px;
-    padding-right: 10px;
+  .select {
     width: 100%;
+    padding: 0 10px 10px 0;
+    .select2 {
+      width: 94%;
+    }
+    a {
+      text-decoration: none;
+    }
   }
 
   &.column-3 {
@@ -81,7 +80,7 @@
 
 .controls {
   width: 100%;
-  padding-top: 1em;
+  padding-top: 10px;
 
   .urls {
     font-size: 0.85em;
@@ -115,22 +114,21 @@
   }
 }
 
+#s2id_filter_by_state, #s2id_filter_by_content_type, #s2id_filter_by_scrape_status {
+  margin-bottom: 3px;  
+}
+#s2id_filter_by_scrape_status {
+  width: 190px;
+}
+#s2id_filter_by_state {
+  width: 170px;
+}
+#s2id_filter_by_content_type {
+  width: 240px;
+}
+
 .preview {
   margin-top: 10px;
   width: 100%;
   height: 800px;
-}
-
-table.scrapable {
-  width: 100%;
-  tr {
-    &.finished {
-      background-color: $finished-light;
-    }
-    td {
-      a {
-        word-wrap: break-word;
-      }
-    }
-  }
 }

@@ -1,0 +1,12 @@
+<div id="<%= dialog_id %>" title="<%= dialog_title %>" class="dialog">
+  <%= form_for url_group, remote: true do |f| %>
+    <%= f.hidden_field :organisation_id, value: @site.organisation_id %>
+    <%= f.hidden_field :url_group_type_id %>
+    <p class="errors"></p>
+
+    <%= f.text_field :name %>
+
+    <%= f.submit 'Save', :disable_with => "Saving..." %>
+    <%= link_to 'Cancel', '#', class: 'cancel' %>
+  <% end %>
+</div>

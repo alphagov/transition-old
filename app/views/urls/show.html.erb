@@ -3,13 +3,29 @@
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
     <%= render "shared/error_messages", target: @url %>
+    <%= hidden_field_tag :content_type, params[:content_type] %>
+    <%= hidden_field_tag :state, params[:state] %>
+    <%= hidden_field_tag :for_scrape, params[:for_scrape] %>
+
     <div class="inputs-block">
-      <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
-                              class: 'select2', placeholder: 'Content type' %>
-      <%= f.select :url_group_id, grouped_options_for_url_group_select(@url), { include_blank: true }, 
-                   class: 'select2', placeholder: "Groupings" %>
-      <%= f.select :user_need_id, grouped_options_for_user_needs_group_select(@url), { include_blank: true }, 
-                   class: 'select2', placeholder: 'User need' %>
+      <div class="select">
+        <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
+                                class: 'select2', placeholder: 'Content type' %>
+      </div>
+      <div class="select">
+        <%= f.select :guidance_id, guidance_select(@url), { include_blank: true }, 
+                     class: 'select2', placeholder: "Guidance" %>
+        <%= link_to '+', '#', title: 'Add Guidance', id: 'add_guidance' %>
+      </div>
+      <div class="select">
+        <%= f.select :series_id, series_select(@url), { include_blank: true }, 
+                     class: 'select2', placeholder: "Document series" %>
+        <%= link_to '+', '#', title: 'Add Series', id: 'add_series' %>
+      </div>
+      <div class="select">
+        <%= f.select :user_need_id, grouped_options_for_user_needs_group_select(@url), { include_blank: true }, 
+                     class: 'select2', placeholder: 'User need' %>
+      </div>
     </div>
     <div class="inputs-block comments">
       <%= f.text_area :comments, placeholder: 'Comments...' %>
@@ -38,17 +54,24 @@
         <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>
       </ul>
     </div>
-  <% end %>
+  <% end if @url %>
 </div>
+
+<%= render partial: 'url_group_dialog', locals: {url_group: UrlGroup.new(url_group_type: UrlGroupType.guidance), dialog_id: 'dialog_guidance', dialog_title: 'Create Guidance'} %>
+<%= render partial: 'url_group_dialog', locals: {url_group: UrlGroup.new(url_group_type: UrlGroupType.series), dialog_id: 'dialog_series', dialog_title: 'Create Document Series'} %>
 
 <%= javascript_tag do %>
     GOVUK.Urls.ready();
-    $(function() {
-      $('.urls').scrollTop(
-        $('.urls li:nth-child(<%= [@site.urls.index(@url) - 3, 1].max %>)')
-          .position().top - $('.urls').position().top
-      );
-    });
+    <% if @url %>
+      $(function() {
+        <% url_pos_in_list = @urls.index(@url) 
+        if url_pos_in_list > 3 %>
+          $('.urls').scrollTop(
+            $('.urls li:nth-child(<%= url_pos_in_list - 3 %>)').position().top - $('.urls').position().top
+          );
+        <% end %>
+      });
+    <% end %>
 <% end %>
 
-<iframe src="<%= @url.url %>" class="preview"></iframe>
+<iframe src="<%= @url.try(:url) %>" class="preview"></iframe>
