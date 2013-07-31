@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731074151) do
+ActiveRecord::Schema.define(:version => 20130731111814) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(:version => 20130731074151) do
   end
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
+
+  create_table "raw_query_parts", :force => true do |t|
+    t.string  "key"
+    t.string  "value"
+    t.integer "raw_url_id"
+  end
+
+  add_index "raw_query_parts", ["key"], :name => "index_raw_query_parts_on_key"
+  add_index "raw_query_parts", ["raw_url_id"], :name => "index_raw_query_parts_on_raw_url_id"
 
   create_table "raw_urls", :force => true do |t|
     t.string   "url",        :limit => 4096, :null => false
