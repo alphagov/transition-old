@@ -8,6 +8,7 @@ describe Url do
     it { should belong_to(:guidance) }
     it { should belong_to(:series) }
     it { should belong_to(:content_type) }
+    it { should belong_to(:user_need) }
     it { should have_one(:scrape) }
   end
 
@@ -39,17 +40,27 @@ describe Url do
     let!(:content_type1) { create :content_type, type: 'Publication' }
     let!(:content_type2) { create :content_type, type: 'Bling' }
     let!(:content_type3) { create :content_type, type: 'Publication' }
-    let!(:url1) { create :url, for_scraping: true, content_type: content_type2 }
+    let!(:url1) { create :url, for_scraping: true, content_type: content_type2, state: 'finished' }
     let!(:url2) { create :url, for_scraping: false, content_type: content_type1 }
     let!(:url3) { create :url, for_scraping: true, content_type: content_type3 }
+    let!(:url4) { create :url, for_scraping: nil, content_type: content_type1 }
+
+    it 'should return urls that have a completed state' do
+      Url.final.should == [url1]
+    end
+
+    it 'should return urls that are not for scraping' do
+      Url.manual.size.should == 2
+      Url.manual.should include(url2, url4)
+    end
 
     it 'should return the urls assigned to a specific content type' do
-      Url.for_content_types([content_type1]).should == [url2]
+      Url.for_content_types([content_type3]).should == [url3]
     end
 
     it 'should return the urls assigned to a content type with the specified type' do
-      Url.for_type('Publication').size.should == 2
-      Url.for_type('Publication').should include(url2, url3)
+      Url.for_type('Publication').size.should == 3
+      Url.for_type('Publication').should include(url2, url3, url4)
     end
 
     it 'should return urls marked to be scraped' do
@@ -148,11 +159,9 @@ describe Url do
         it 'should complain with a RuntimeError' do
           url = create :url, url: 'http://www.dfid.gov.uk/hello?is_the_truth', site: @site
           url.mapping.should be_nil
-          lambda {
-            url.set_mapping_url('http://news.bbc.co.uk')
-          }.should raise_error(RuntimeError, 'No site host found for http://www.dfid.gov.uk/hello?is_the_truth')
+          mapping = url.set_mapping_url('http://news.bbc.co.uk')
+          mapping.errors.full_messages.should == ['No site host found']
         end
-
       end
     end
   end

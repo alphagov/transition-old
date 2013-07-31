@@ -12,7 +12,7 @@ feature "View Organisation page with associated sites" do
     visit organisation_path(@organisation)
 
     page.should have_content('DFID')
-    page.should have_link('View DFID-site1 urls', href: site_urls_path(@site1))
-    page.should have_link('View DFID-site2 urls', href: site_urls_path(@site2))
+    page.should have_link('Analysis', href: site_urls_path(@site1))
+    page.should have_link('Analysis', href: site_urls_path(@site2))
   end
 end

@@ -1,0 +1,14 @@
+.manual_urls {
+  width: 100%;
+
+  form {
+    margin-top: 0px;
+
+    input[type=text], .cancel {
+      display:none;
+    }
+  }
+  .url {
+    word-wrap: break-word;
+  }
+}
