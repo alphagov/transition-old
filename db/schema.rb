@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130731112529) do
+ActiveRecord::Schema.define(:version => 20130731112811) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -86,6 +86,12 @@ ActiveRecord::Schema.define(:version => 20130731112529) do
   end
 
   add_index "organisations", ["abbr"], :name => "index_organisations_on_abbr", :unique => true
+
+  create_table "raw_failed_urls", :force => true do |t|
+    t.string  "url",                  :limit => 8192
+    t.string  "failure",              :limit => 2048
+    t.integer "raw_imported_file_id"
+  end
 
   create_table "raw_imported_files", :force => true do |t|
     t.string   "fullpath"
