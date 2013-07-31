@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/alphagov/optic14n.git
+  revision: 011de06ac46130570e99d8ad26b0f26957b244f9
+  specs:
+    optic14n (0.0.1)
+      addressable (~> 2.3)
+
 GEM
   remote: https://rubygems.org/
   remote: https://BnrJb6FZyzspBboNJzYZ@gem.fury.io/govuk/
@@ -245,6 +252,7 @@ DEPENDENCIES
   kramdown
   launchy
   mysql2
+  optic14n!
   plek (= 1.2.0)
   poltergeist
   rails (= 3.2.13)
