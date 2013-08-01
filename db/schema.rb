@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726090317) do
+ActiveRecord::Schema.define(:version => 20130801112348) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(:version => 20130726090317) do
     t.datetime "updated_at",                            :null => false
     t.boolean  "user_need_required", :default => false
     t.boolean  "mandatory_guidance", :default => false, :null => false
+    t.integer  "position"
   end
 
+  add_index "content_types", ["position"], :name => "index_content_types_on_position"
   add_index "content_types", ["type", "subtype"], :name => "index_content_types_on_type_and_subtype", :unique => true
 
   create_table "content_types_scrapable_fields", :force => true do |t|

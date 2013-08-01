@@ -23,6 +23,7 @@ module Transition
           its(:scrapable)           { should be_true }
           its(:user_need_required)  { should be_false }
           its(:mandatory_guidance)  { should be_true }
+          its(:position)            { should eql(1) }
         end
       end
     end
