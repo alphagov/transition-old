@@ -46,12 +46,21 @@ module CapybaraExtension
       arr.each_with_index do |row, row_idx|
         row.each_with_index do |expected_text, cell_idx|
           xpath = "tr[#{row_idx + 1}]/*[not (contains(@class, 'hidden'))][#{cell_idx + 1}]"
-          if expected_text != '*'
+          elem = find(:xpath, xpath)
+          if expected_text.start_with?('field:') or expected_text.start_with?('hidden_field:')
+            visible_field = expected_text.start_with?('field:')
+            field_value = visible_field ? expected_text.sub('field:', '') : expected_text.sub('hidden_field:', '')
+            if field_value.blank?
+              elem.has_xpath?(".//input[@type='text' and (not(@value) or @value='')]", :visible => visible_field).should == true
+            else
+              elem.has_xpath?(".//input[@type='text' and @value='#{field_value.strip}']", :visible => visible_field).should == true
+            end
+          elsif expected_text != '*'
+
             # need to use xpath if we're in a js test in order to have waiting applied
             if driver.class == Capybara::Poltergeist::Driver
               has_xpath?(xpath, text: expected_text).should == true
             else
-              elem = find(:xpath, xpath)
               "'#{elem.text.strip}' for element '#{xpath}'".should == expected_text unless elem.text.strip.gsub(/(\n*\s{2,})/, " ") == expected_text.to_s.strip
             end
           end
