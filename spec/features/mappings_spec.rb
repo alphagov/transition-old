@@ -14,7 +14,7 @@ feature 'Viewing mappings for a site' do
   
     scenario 'Visiting the mappings page for a site' do
       visit organisation_path(organisation)
-      click_link 'View naturalengland mappings'
+      click_link 'Mappings'
 
       page.should have_exact_table 'table thead', [
         ['', 'HTTP Status', 'Original URL', 'New URL', 'Suggested URL', 'Archive URL', '']]

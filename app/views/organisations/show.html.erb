@@ -36,9 +36,10 @@
         <h3><%= site.site %></h3>
         <div class="site-links">
           <ul>
-            <li><%= link_to "View #{site.site} requests", page_path(@organisation, site: site.id) %></li>
-            <li><%= link_to "View #{site.site} urls", site_urls_path(site_id: site) %></li>
-            <li><%= link_to "View #{site.site} mappings", site_mappings_path(site_id: site) %></li>
+            <li><%= link_to "Requests", page_path(@organisation, site: site.id) %></li>
+            <li><%= link_to "Analysis", site_urls_path(site_id: site) %></li>
+            <li><%= link_to "Manual", site_manual_urls_path(site_id: site) %></li>
+            <li><%= link_to "Mappings", site_mappings_path(site_id: site) %></li>
           </ul>
         </div>
 

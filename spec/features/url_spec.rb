@@ -1,6 +1,6 @@
 require 'features/features_helper'
 
-feature 'Viewing a url for a site' do
+feature 'Viewing and editing urls for a site' do
   let(:organisation) { site.organisation }
   let(:site) { host.site }
 
@@ -63,7 +63,7 @@ feature 'Viewing a url for a site' do
     page.should have_selector('button.unfinished.selected')
   end
 
-  scenario 'Marking a URL as finished without a new URL' do
+  scenario 'Marking a URL as finished' do
     visit site_url_path(site, selected_url)
 
     within '.controls' do
@@ -75,24 +75,6 @@ feature 'Viewing a url for a site' do
 
     # We should have a selected URL
     page.should have_selector('.urls li.selected')
-  end
-
-  scenario 'Marking a URL as finished with a new URL' do
-    visit site_url_path(site, first_url)
-
-    within '.controls' do
-      fill_in 'new_url', with: 'http://somewhere.com'
-      click_button 'Save as final'
-    end
-
-    # Go back to the url we just marked finished
-    click_link(first_url.url, exact: true)
-
-    # The first URL should be marked as finished and be selected
-    page.should have_selector('.urls li.finished.selected')
-
-    # The finished button should be selected
-    page.should have_selector('button.finished.selected')
   end
 
   scenario "Marking a URL unfinished, setting guidance, series and user need, adding a comment and setting scrape to 'Yes'" do

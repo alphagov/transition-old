@@ -6,6 +6,7 @@ Transition::Application.routes.draw do
   resources :sites do
     resources :scrape_results, only: [:new, :index, :create, :edit, :update]
     resources :urls, only: [:index, :show, :update]
+    resources :urls, only: [:index, :update], as: 'manual_urls', controller: 'manual_urls', path: 'manual_urls'
     get :hits_download, on: :member
     resources :mappings, only: [:index, :new, :create, :edit, :update, :destroy]
   end

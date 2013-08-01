@@ -4,6 +4,7 @@ class Url < ActiveRecord::Base
   belongs_to :guidance, class_name: 'UrlGroup'
   belongs_to :series, class_name: 'UrlGroup'
   belongs_to :content_type
+  belongs_to :user_need
   has_one :scrape, as: :scrapable, class_name: 'ScrapeResult'
   delegate :new_url, :http_status, to: :mapping, allow_nil: true
   delegate :request_uri, :to_s, to: :uri
@@ -14,6 +15,8 @@ class Url < ActiveRecord::Base
   validates :guidance, presence: true, if: Proc.new { |url| url.content_type.try(:mandatory_guidance) }
 
   # scopes
+  scope :final, where('state = ?', 'finished')
+  scope :manual, where('for_scraping = ? or for_scraping is null', false)
   scope :for_content_types, ->(content_types) { where('urls.content_type_id in (?)', content_types.map(&:id)) }
   scope :for_scraping, where(for_scraping: true)
   scope :in_scraping_order,
@@ -53,14 +56,18 @@ class Url < ActiveRecord::Base
     @mapping ||= site.mappings.find_by_path(request_uri)
   end
 
-  # if existing mapping found then update path else create maaping
+  # if existing mapping found then update path else create mapping
   def set_mapping_url(new_url)
-    raise "No site host found for #{url}" if host.nil?
-    if mapping
-      mapping.update_attributes!(new_url: new_url)
+    map = mapping
+    if host.nil?
+      map = Mapping.new
+      map.errors.add(:base, "No site host found")
+    elsif map
+      map.update_attributes(new_url: new_url)
     else
-      site.mappings.redirects.create!(new_url: new_url, path: request_uri)
+      map = site.mappings.redirects.create(new_url: new_url, path: request_uri)
     end
+    map
   end
 
   def link
