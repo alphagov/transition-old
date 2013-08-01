@@ -1,3 +1,9 @@
+<%= form_tag site_urls_path(@site), method: 'get', class: 'search_form' do %>
+  <%= text_field_tag 'q', params[:q], placeholder: 'Search on Url' %>
+  <%= render "url_filter_hidden_fields" %>
+  <%= submit_tag 'Find', class: 'search_button' %>
+<% end %>
+
 <%= select_tag 'filter_by_state', options_for_url_state_select(params[:state]), class: 'select2', include_blank: true, placeholder: 'Filter by state' %>
 <%= select_tag 'filter_by_content_type', grouped_options_for_content_type_select(params[:content_type]), class: 'select2', include_blank: true, placeholder: 'Filter by content type' %>
 <%= select_tag 'filter_by_scrape_status', options_for_scrape_select(params[:for_scrape]), class: 'select2', include_blank: true, placeholder: 'Filter by scrape status' %>
