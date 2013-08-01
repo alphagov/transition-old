@@ -114,8 +114,25 @@
   }
 }
 
+form.search_form {
+  margin: 0;
+  display: inline;
+  input[type=text] {
+    line-height: normal;
+    width: 300px;
+    margin-bottom: 3px;
+  }
+  input.search_button {
+    display: inline;
+    width: auto;
+    background-color: gray;
+    padding-top: 4px;
+    margin-right: 20px;
+  }
+}
+
 #s2id_filter_by_state, #s2id_filter_by_content_type, #s2id_filter_by_scrape_status {
-  margin-bottom: 3px;  
+  margin-bottom: 3px;
 }
 #s2id_filter_by_scrape_status {
   width: 190px;

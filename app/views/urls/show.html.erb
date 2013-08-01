@@ -3,10 +3,9 @@
 
   <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
     <%= render "shared/error_messages", target: @url %>
-    <%= hidden_field_tag :content_type, params[:content_type] %>
-    <%= hidden_field_tag :state, params[:state] %>
-    <%= hidden_field_tag :for_scrape, params[:for_scrape] %>
-
+    <%= render "url_filter_hidden_fields" %>
+    <%= hidden_field_tag :q, params[:q] if params[:q].present? %>
+    
     <div class="inputs-block">
       <div class="select">
         <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
