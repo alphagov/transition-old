@@ -1,58 +1,63 @@
-Type,Sub-type,Scrapable?,User Need Required?,Mandatory Guidance?
-Publication,Policy paper,Y,N,N
-Publication,Impact assessment,Y,N,N
-Publication,Guidance,Y,Y,Y
-Publication,Form,Y,N,N
-Publication,Statistics,Y,N,N
-Publication,National statistics,Y,N,N
-Publication,Research and analysis,Y,N,N
-Publication,Corporate reports,Y,N,N
-Publication,Transparency data,Y,N,N
-Publication,Treaties,Y,N,N
-Publication,FOI release,Y,N,N
-Publication,Independent reports,Y,N,N
-Publication,Correspondence,Y,N,N
-Publication,Promotional material,Y,N,N
-Consultation (incl responses),,Y,N,N
-Statistical data set,,N,N,N
-Document series,,N,N,N
-Detailed guide,,Y,N,Y
-About us,,N,N,N
-Role,,N,N,N
-Person,,N,N,N
-Corporate information,Personal information charter,N,N,N
-Corporate information,Publication scheme,N,N,N
-Corporate information,Complaints procedure,N,N,N
-Corporate information,Our governance,N,N,N
-Corporate information,Statistics at x,N,N,N
-Corporate information,Procurement,N,N,N
-Corporate information,Working for x,N,N,N
-Corporate information,Our energy use,N,N,N
-Corporate information,Welsh language scheme,N,N,N
-Policy,,N,N,N
-Policy,Supporting detail,N,N,N
-Policy team,,N,N,N
-Policy advisory group,,N,N,N
-Case study,,Y,N,N
-Organisation,Ministerial dept,N,N,N
-Organisation,Non-ministerial dept,N,N,N
-Organisation,Executive agency,N,N,N
-Organisation,Executive non-departmental public body,N,N,N
-Organisation,Tribunal non-departmental public body,N,N,N
-Organisation,Advisory non-departmental public body,N,N,N
-Organisation,Public corporation,N,N,N
-Organisation,Other,N,N,N
-Organisation,Sub-org (high profile unit of an org),N,N,N
-Governance group,,N,N,N
-Speech,Transcript,Y,N,N
-Speech,Draft,Y,N,N
-Speech,Speaking notes,Y,N,N
-Speech,Written statement (to Parliament),Y,N,N
-Speech,Oral statement (to Parliament),Y,N,N
-News article,Press release,Y,N,N
-News article,News story,Y,N,N
-News article,Government response,Y,N,N
-Topical event page,,N,N,N
-Topic ,,N,N,N
-Fatality notice (MOD only),,N,N,N
-Worldwide priority (FCO only),,N,N,N
+Type,Sub-type,Scrapable?,User Need Required?,Mandatory Guidance?,Position
+Archive,,N,N,N,1
+Mainstream,,N,N,N,2
+New Content Type,IG,N,N,N,3
+New Content Type,MS,N,N,N,4
+Already exists,,N,N,N,5
+Publication,Policy paper,Y,N,N,6
+Publication,Impact assessment,Y,N,N,7
+Publication,Guidance,Y,Y,Y,8
+Publication,Form,Y,N,N,9
+Publication,Statistics,Y,N,N,10
+Publication,National statistics,Y,N,N,11
+Publication,Research and analysis,Y,N,N,12
+Publication,Corporate reports,Y,N,N,13
+Publication,Transparency data,Y,N,N,14
+Publication,Treaties,Y,N,N,15
+Publication,FOI release,Y,N,N,16
+Publication,Independent reports,Y,N,N,17
+Publication,Correspondence,Y,N,N,18
+Publication,Promotional material,Y,N,N,19
+Consultation (incl responses),,Y,N,N,20
+Statistical data set,,N,N,N,21
+Document series,,N,N,N,22
+Detailed guide,,Y,N,Y,23
+About us,,N,N,N,24
+Role,,N,N,N,25
+Person,,N,N,N,26
+Corporate information,Personal information charter,N,N,N,27
+Corporate information,Publication scheme,N,N,N,28
+Corporate information,Complaints procedure,N,N,N,29
+Corporate information,Our governance,N,N,N,30
+Corporate information,Statistics at x,N,N,N,31
+Corporate information,Procurement,N,N,N,32
+Corporate information,Working for x,N,N,N,33
+Corporate information,Our energy use,N,N,N,34
+Corporate information,Welsh language scheme,N,N,N,35
+Policy,,N,N,N,36
+Policy,Supporting detail,N,N,N,37
+Policy team,,N,N,N,38
+Policy advisory group,,N,N,N,39
+Case study,,Y,N,N,40
+Organisation,Ministerial dept,N,N,N,41
+Organisation,Non-ministerial dept,N,N,N,42
+Organisation,Executive agency,N,N,N,43
+Organisation,Executive non-departmental public body,N,N,N,44
+Organisation,Tribunal non-departmental public body,N,N,N,45
+Organisation,Advisory non-departmental public body,N,N,N,46
+Organisation,Public corporation,N,N,N,47
+Organisation,Other,N,N,N,48
+Organisation,Sub-org (high profile unit of an org),N,N,N,49
+Governance group,,N,N,N,50
+Speech,Transcript,Y,N,N,51
+Speech,Draft,Y,N,N,52
+Speech,Speaking notes,Y,N,N,53
+Speech,Written statement (to Parliament),Y,N,N,54
+Speech,Oral statement (to Parliament),Y,N,N,55
+News article,Press release,Y,N,N,56
+News article,News story,Y,N,N,57
+News article,Government response,Y,N,N,58
+Topical event page,,N,N,N,59
+Topic ,,N,N,N,60
+Fatality notice (MOD only),,N,N,N,61
+Worldwide priority (FCO only),,N,N,N,62

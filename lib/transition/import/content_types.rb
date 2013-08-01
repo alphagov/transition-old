@@ -13,6 +13,7 @@ module Transition
           scrapable         'Scrapable?'
           userneedrequired  'User Need Required?'
           mandatoryguidance 'Mandatory Guidance?'
+          position          'Position'
 
           after_row lambda { |row, type_struct|
             new_type = ContentType.where(type: type_struct.type, subtype: type_struct.subtype).first_or_initialize
@@ -22,6 +23,7 @@ module Transition
             new_type.scrapable = (type_struct.scrapable == 'Y')
             new_type.user_need_required = (type_struct.userneedrequired == 'Y')
             new_type.mandatory_guidance = (type_struct.mandatoryguidance == 'Y')
+            new_type.position = type_struct.position
 
             if(new_type.save rescue false)
               already_existed ? (updated += 1) : (created += 1)
