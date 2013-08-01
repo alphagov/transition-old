@@ -1,0 +1,37 @@
+<table class="manual_urls">
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Content type</th>
+      <th>Guidance</th>
+      <th>Document series</th>
+      <th>User needs</th>
+      <th>Comments</th>
+      <th>Mapping</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @urls.each do |url| %>
+      <tr>
+        <td class="url"><%= url.request_uri %></td>
+        <td><%= url.content_type.try(:to_s) %></td>
+        <td><%= url.guidance.try(:name) %></td>
+        <td><%= url.series.try(:name) %></td>
+        <td><%= url.user_need.try(:name) %></td>
+        <td><%= url.comments %></td>
+        <td>
+          <span><%= url.mapping.try(:new_url) %></span>
+          <%= form_tag site_manual_url_path(@site, url), method: 'PUT', remote: true do %> 
+            <%= text_field_tag "mapping_url_#{url.id}", url.mapping.try(:new_url), placeholder: 'http://' %>
+            <%= submit_tag 'Edit' %>
+            <%= link_to 'Cancel', '#', class: 'cancel' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= javascript_tag do %>
+  GOVUK.ManualUrls.ready();
+<% end %>

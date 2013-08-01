@@ -26,7 +26,6 @@ class UrlsController < ApplicationController
     destiny = params[:destiny].try(:to_sym)
     @url = @site.urls.find(params[:id])
     @url.state = destiny if destiny
-    @url.set_mapping_url(params[:new_url]) if params[:new_url]
     @url.for_scraping = nil if params[:url] && params[:url][:for_scraping].nil?
     if @url.update_attributes(params[:url])
       redirect_to site_url_path(@url.site, @url.next(url_filter(@site.urls)), url_filter_hash) and return
@@ -42,6 +41,7 @@ class UrlsController < ApplicationController
     urls = urls.where(content_type_id: params[:content_type]) if params[:content_type].present?
     urls = urls.where(state: URL_FILTER_QUERY_TO_STATE[params[:state]]) if params[:state].present?
     urls = urls.where(for_scraping: params[:for_scrape] == 'true') if params[:for_scrape].present?
+    urls = urls.order(:id)
     urls
   end
 end
