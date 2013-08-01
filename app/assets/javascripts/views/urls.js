@@ -55,7 +55,7 @@
       }
        
       // Add new parameters or update existing ones
-      var filterNames = { '#filter_by_content_type': 'content_type', '#filter_by_state': 'state', 
+      var filterNames = { '#filter_by_state': 'state', '#filter_by_content_type': 'content_type',
         '#filter_by_scrape_status': 'for_scrape' };
       for (var filterName in filterNames) {
         if ($(filterName).val()) {
@@ -65,6 +65,10 @@
         }  
       }
       location.search = $.param(queryParameters); // Causes page to reload
+    },
+
+    resetFilters: function() {
+      location = location.pathname;
     },
 
     urlGroupDialogSetup: function() {
@@ -120,6 +124,10 @@
 
         $('#filter_by_content_type, #filter_by_state, #filter_by_scrape_status').change(function() {
           Urls.filterChange();
+        });
+
+        $('#reset').click(function() {
+          Urls.resetFilters();
         });
 
         Urls.urlGroupDialogSetup();

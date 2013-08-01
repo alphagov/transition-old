@@ -54,7 +54,7 @@ feature 'Filter urls for a site' do
     page.should have_list_in_this_order '.urls', ['/site']
   end
 
-  scenario 'Filter urls by scrape status and url', js: true do
+  scenario 'Filter urls by scrape status and url, and then reset filters', js: true do
     (1..3).each do |i| 
       instance_variable_set("@url_site#{i}", create(:url, url: "http://www.naturalengland.org.uk/site#{i}", 
         site: @site1, for_scraping: true, content_type: @content_type1))
@@ -90,6 +90,11 @@ feature 'Filter urls for a site' do
     # when the Scrape radio buttons are not displayed and the form is submitted
     page.should have_list_in_this_order '.urls',
       ['/site', '/site2', '/site3']
+
+    click_button 'Reset'
+
+    page.should have_list_in_this_order '.urls',
+      ['/site', '/about_us/default.aspx', '/contact_us', '/help', '/site1', '/site2', '/site3']
   end
 
   scenario 'Filter urls so that no url meets the filter criteria', js: true do
