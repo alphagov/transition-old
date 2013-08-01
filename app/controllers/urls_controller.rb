@@ -25,14 +25,23 @@ class UrlsController < ApplicationController
   def update
     destiny = params[:destiny].try(:to_sym)
     @url = @site.urls.find(params[:id])
-    @url.state = destiny if destiny
-    @url.for_scraping = nil if params[:url] && params[:url][:for_scraping].nil?
-    if @url.update_attributes(params[:url])
-      redirect_to site_url_path(@url.site, @url.next(url_filter(@site.urls)), url_filter_hash) and return
-    else
-      @urls = url_filter(@site.urls)
-      render 'show'
+
+    # update @url and any other urls that have been selected, with the same values
+    selected_urls = [@url]
+    selected_urls += @site.urls.find(params[:url_select].keys) if params[:url_select].present?
+    Url.transaction do
+      selected_urls.each do |url|
+        url.state = destiny if destiny
+        url.for_scraping = nil if params[:url] && params[:url][:for_scraping].nil?
+      end
+      if selected_urls.all? {|url| url.update_attributes(params[:url]) }
+        redirect_to site_url_path(@url.site, @url.next(url_filter(@site.urls)), url_filter_hash) and return
+      else
+        @urls = url_filter(@site.urls)
+        raise ActiveRecord::Rollback
+      end
     end
+    render 'show'
   end
 
   protected

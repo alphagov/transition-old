@@ -20,8 +20,7 @@ feature 'Viewing and editing urls for a site' do
 
     page.should have_link('DFID', href: organisation_path(organisation))
 
-    page.should have_list_in_this_order '.urls',
-      ['/site', '/about_us/default.aspx', '/contact_us']
+    page.should have_url_list_in_this_order ['/site', '/about_us/default.aspx', '/contact_us']
     page.should_not have_link(first_url.url)
     page.should have_link(middle_url.url, href: site_url_path(site, middle_url))
     page.should have_link(last_url.url, href: site_url_path(site, last_url))
@@ -32,8 +31,7 @@ feature 'Viewing and editing urls for a site' do
 
     page.should have_link('DFID', href: organisation_path(organisation))
 
-    page.should have_list_in_this_order('.urls',
-      ['/site', '/about_us/default.aspx', '/contact_us'])
+    page.should have_url_list_in_this_order ['/site', '/about_us/default.aspx', '/contact_us']
 
     page.should have_link(first_url.url, href: site_url_path(site, first_url))
     page.should_not have_link(selected_url.url)
@@ -49,32 +47,32 @@ feature 'Viewing and editing urls for a site' do
   scenario 'Marking a URL as unfinished' do
     visit site_url_path(site, first_url)
 
-    within '.controls' do
-      click_button 'Save for review later'
-    end
+    click_button 'Save for review later'
 
     # Go back to the url we just marked unfinished
     click_link(first_url.url, exact: true)
 
     # The first URL should be marked as unfinished and be selected
-    page.should have_selector('.urls li.unfinished.selected')
+    page.should have_selector('.urls tr.unfinished.selected')
 
     # The unfinished button should be selected
     page.should have_selector('button.unfinished.selected')
   end
 
-  scenario 'Marking a URL as finished' do
+  scenario 'Marking multiple URLs as finished' do
     visit site_url_path(site, selected_url)
-
-    within '.controls' do
-      click_button 'Save as final'
+    within(:xpath, "(//table/tbody/tr)[1]") do
+      find('input').set(true)
     end
 
-    # The first URL (which is now previous) is marked finished
-    page.should have_link(first_url.url)
+    click_button 'Save as final'
 
-    # We should have a selected URL
-    page.should have_selector('.urls li.selected')
+    # The first 2 urls should be marked as complete but not the third
+    within(:xpath, "//table/tbody") do
+      page.should have_xpath('./tr[1][@class="finished"]')
+      page.should have_xpath('./tr[2][@class="finished"]')
+      page.should have_xpath('./tr[3][@class="new selected"]')
+    end
   end
 
   scenario "Marking a URL unfinished, setting guidance, series and user need, adding a comment and setting scrape to 'Yes'" do
@@ -94,7 +92,7 @@ feature 'Viewing and editing urls for a site' do
     click_link(first_url.url, exact: true)
 
     # The first URL should be marked unfinished and be selected
-    page.should have_selector('.urls li.unfinished.selected')
+    page.should have_selector('.urls tr.unfinished.selected')
 
     # The unfinished button should be selected
     page.should have_selector('button.unfinished.selected')
