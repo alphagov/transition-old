@@ -21,6 +21,10 @@ module Transition
           it { should_not be_nil }
           its(:url) { should eql('http://www.bis.gov.uk/cicregulator') }
         end
+
+        it 'should not include the duplicated canonicalize!d URL' do
+          Url.where(url: 'https://www.bis.gov.uk/CicRegulator').first.should be_nil
+        end
       end
     end
 
