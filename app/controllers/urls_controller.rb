@@ -26,7 +26,6 @@ class UrlsController < ApplicationController
     destiny = params[:destiny].try(:to_sym)
     @url = @site.urls.find(params[:id])
     @url.state = destiny if destiny
-    @url.set_mapping_url(params[:new_url]) if params[:new_url]
     @url.for_scraping = nil if params[:url] && params[:url][:for_scraping].nil?
     if @url.update_attributes(params[:url])
       redirect_to site_url_path(@url.site, @url.next(url_filter(@site.urls)), url_filter_hash) and return

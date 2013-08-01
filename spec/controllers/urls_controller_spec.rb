@@ -122,22 +122,6 @@ describe UrlsController, expensive_setup: true do
           response.should redirect_to(site_url_path(@site1, @url2))
         end
       end
-
-      context 'with a mapping URL' do
-        let(:test_destination) { 'http://gov.uk/somewhere' }
-
-        before do
-          post :update, site_id: @site1, id: @url1, destiny: 'unfinished', new_url: test_destination
-        end
-
-        describe 'the URL' do
-          subject { Url.find_by_id(@url1.id) }
-
-          its(:state) { should eql(:unfinished) }
-          its(:new_url) { should eql(test_destination) }
-          its(:http_status) { should == '301' }
-        end
-      end
     end
   end
 end
