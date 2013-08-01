@@ -4,7 +4,7 @@ class ManualUrlsController < ApplicationController
   before_filter :find_site
 
   def index
-    @urls = @site.urls.manual.final
+    @urls = @site.urls.manual.final.order(:id)
     flash.now[:error] = 'No Urls were found' if @urls.empty?
   end
 
