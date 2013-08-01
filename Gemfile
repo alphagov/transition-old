@@ -20,7 +20,7 @@ gem 'whenever'
 gem 'activerecord-import'
 gem 'rgarner-csv-mapper'
 gem 'kramdown'
-gem 'optic14n', git: 'https://github.com/alphagov/optic14n.git'
+gem 'optic14n'
 
 # Gems used only for assets and not required in production
 # environments by default.
