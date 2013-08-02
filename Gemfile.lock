@@ -247,7 +247,7 @@ DEPENDENCIES
   kramdown
   launchy
   mysql2
-  optic14n
+  optic14n (>= 0.0.4)
   plek (= 1.2.0)
   poltergeist
   rails (= 3.2.13)
