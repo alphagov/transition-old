@@ -31,7 +31,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    addressable (2.3.4)
+    addressable (2.3.5)
     arel (3.0.2)
     aws-ses (0.4.4)
       builder
@@ -126,7 +126,7 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    optic14n (0.0.3)
+    optic14n (0.0.4)
       addressable (~> 2.3)
     plek (1.2.0)
       builder
