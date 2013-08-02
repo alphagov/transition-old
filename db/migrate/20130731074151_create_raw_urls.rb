@@ -12,6 +12,6 @@ class CreateRawUrls < ActiveRecord::Migration
 
     add_index :raw_urls, :path
     add_index :raw_urls, :host
-    add_index :raw_urls, :query
+    add_index :raw_urls, :query, length: 255
   end
 end
