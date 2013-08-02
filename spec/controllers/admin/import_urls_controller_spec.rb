@@ -8,8 +8,8 @@ describe Admin::ImportUrlsController do
     login_as_stub_user
   end
 
-  describe :import do
-    describe :get do
+  describe 'import' do
+    describe 'get' do
       it "should assign organisations" do
         get :import
         assigns(:organisations).should == [site.organisation]
@@ -17,7 +17,7 @@ describe Admin::ImportUrlsController do
       end
     end
 
-    describe :post do
+    describe 'post' do
       it "should display errors when no site id is provided" do
         post :import
         flash.now[:error].should include('Site needs to be selected')
