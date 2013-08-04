@@ -15,6 +15,7 @@ module Transition
           url('Url')
 
           after_row lambda { |row, url|
+            url.url = BLURI(url.url).canonicalize!(allow_query: :all).to_s
             url.site = site
             if (url.save rescue false)
               successes += 1
