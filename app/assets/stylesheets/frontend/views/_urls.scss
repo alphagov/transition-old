@@ -5,36 +5,44 @@
 }
 
 .urls {
-  list-style: none;
   margin: 0;
   margin-bottom: 1em;
-  background: #EEE;
 
-  li {
-    line-height: 1.1em;
-    margin: 0.1em 0;
-    padding: 0 0.25em;
+  table {
+    background: #EEE;
 
-    a {
-      text-decoration:  none;
-    }
+    tr {
+      border: 0;
+      line-height: 0.8em;
 
-    &.selected {
-      background-color: white !important;
-      color: black !important;
-      border: 1px solid black;
-      padding: 0.25em;
-      margin: 0.2em 0;
-    }
+      a {
+        text-decoration:  none;
+      }
 
-    &.unfinished {
-      background-color: $unfinished-light;
-      a { color: black };
-    }
+      &.selected {
+        background-color: white !important;
+        color: black !important;
+        border: 1px solid black;
+        margin: 0.2em 0;
+      }
 
-    &.finished {
-      background-color: $finished-light;
-      a { color: black };
+      &.unfinished {
+        background-color: $unfinished-light;
+        a { color: black };
+      }
+
+      &.finished {
+        background-color: $finished-light;
+        a { color: black };
+      }
+
+      td {
+        border-bottom: 0;
+        padding: 0 0 0 5px;
+        &.url {
+          width: 100%;
+        }
+      }
     }
   }
 }
@@ -85,11 +93,10 @@
   .urls {
     font-size: 0.85em;
     width: 100%;
-    height: 15em;
 
     overflow: scroll;
     border: 1px solid gray;
-    height: 12em;
+    height: 13em;
 
     li {
       white-space: nowrap;

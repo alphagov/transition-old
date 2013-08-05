@@ -116,6 +116,32 @@
       }
     },
 
+    addCheckboxCountToButtons: function(checkboxSelector, buttonSelector) {
+      var checkboxes = $(checkboxSelector), buttons = $(buttonSelector);
+
+      buttons.each(function () {
+        var button = $(this), label = button.text();
+
+        checkboxes.change(function () {
+          var count = checkboxes.filter(':checked').size();
+
+          if (count == 1) {
+            button.text(label);
+          } else {
+            button.text(label + ' (' + count + ')');
+          }
+        });
+      });
+    },
+
+    setUrlPreview: function(checkboxSelector) {
+      $(checkboxSelector).change(function () {
+        if ($(this).is(':checked')) {
+          $('.preview').attr('src', $(this).closest('tr').attr('data-url'));
+        }
+      });
+    },
+
     ready: function() {
       $(document).ready(function() {
         $(".select2").select2({
@@ -129,6 +155,10 @@
         $('#reset').click(function() {
           Urls.resetFilters();
         });
+
+        Urls.addCheckboxCountToButtons('.urls input:checkbox', ':button[name=destiny]');
+
+        Urls.setUrlPreview('.urls input:checkbox');
 
         Urls.urlGroupDialogSetup();
 

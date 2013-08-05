@@ -86,6 +86,14 @@ describe UrlsController, expensive_setup: true do
         @url1.comments.should == 'Hello'
       end
 
+      it 'should update multiple urls with the same comment' do
+        post :update, site_id: @site1, id: @url1, url: {comments: 'Hello'}, url_select: {@url2.id => true}
+        [@url1, @url2].each do |url|
+          url.reload
+          url.comments.should == 'Hello'
+        end
+      end
+
       it 'should redirect and preserve the content type filter' do
         post :update, site_id: @site1, id: @url1, url: {comments: 'Hello'}, content_type: @content_type1.id
         response.should redirect_to site_url_path(@url1.site, @url1, content_type: @content_type1.id)

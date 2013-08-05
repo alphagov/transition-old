@@ -1,18 +1,26 @@
-<%= form_tag site_urls_path(@site), method: 'get', class: 'search_form' do %>
-  <%= text_field_tag 'q', params[:q], placeholder: 'Search on Url', id: 'search' %>
-  <%= render "url_filter_hidden_fields" %>
-  <%= submit_tag 'Find', class: 'search_button' %>
-<% end %>
+<div class="urls">
+  <table>
+    <tbody>
+      <% @urls.each do |url| %>
+        <%= content_tag :tr, class: "#{url.state}#{@url == url ? ' selected' : nil}", 'data-url' => url.url do %>
+          <td><%= check_box_tag "url_select[#{url.id}]", '1', (url == @url or params["url_select"].try(:[], url.id.to_s)), disabled: url == @url %></td>
+          <td class="url"><%= link_to_if url != @url, url.request_uri, site_url_path(@site, url, url_filter_hash), title: url.url %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
-<%= select_tag 'filter_by_state', options_for_url_state_select(params[:state]), class: 'select2', include_blank: true, placeholder: 'Filter by state' %>
-<%= select_tag 'filter_by_content_type', grouped_options_for_content_type_select(params[:content_type]), class: 'select2', include_blank: true, placeholder: 'Filter by content type' %>
-<%= select_tag 'filter_by_scrape_status', options_for_scrape_select(params[:for_scrape]), class: 'select2', include_blank: true, placeholder: 'Filter by scrape status' %>
-<%= button_tag 'Reset', id: 'reset' %>
-
-<ul class="urls">
-  <% @urls.each do |url| %>
-      <%= content_tag :li, class: "#{url.state}#{@url == url ? ' selected' : nil}" do %>
-        <%= link_to_if url != @url, url.request_uri, site_url_path(@site, url, url_filter_hash), title: url.url %>
-    <% end %>
+<%= javascript_tag do %>
+  GOVUK.Urls.ready();
+  <% if @url %>
+    $(function() {
+      <% url_pos_in_list = @urls.index(@url) 
+      if url_pos_in_list > 3 %>
+        $('.urls').scrollTop(
+          $('.urls tbody tr:nth-child(<%= url_pos_in_list - 3 %>)').position().top - $('.urls').position().top
+        );
+      <% end %>
+    });
   <% end %>
-</ul>
+<% end %>
