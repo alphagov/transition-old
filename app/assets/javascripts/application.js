@@ -12,8 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.datepicker
-//= require jquery.ui.dialog
+//= require jquery.ui.all
 //= require_tree .
 //= require ./vendor/bootstrap
 //= require ./vendor/advanced
