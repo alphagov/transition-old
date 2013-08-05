@@ -71,12 +71,12 @@
       location = location.pathname;
     },
 
-    prePopulateFormWithPreviouslySavedValues: function() {
+    populateFormWithPreviouslySavedValues: function() {
       var _this = this;
       var lastSavedUrl;
 
       $('#same_as_last').click(function() {
-        _this.lastSavedUrl = $.parseJSON($('#last_saved_url').val());
+        _this.lastSavedUrl = $.parseJSON($(this).attr('data-last-saved-url'));
         $('#url_form select').each(function() {
           $(this).select2().val(_this.lastSavedUrl[$(this).attr('id').slice(4)]);
           $(this).select2().trigger('change');
@@ -175,7 +175,7 @@
           Urls.resetFilters();
         });
 
-        Urls.prePopulateFormWithPreviouslySavedValues();
+        Urls.populateFormWithPreviouslySavedValues();
 
         Urls.addCheckboxCountToButtons('.urls input:checkbox', ':button[name=destiny]');
 
