@@ -1,8 +1,8 @@
 Type,Sub-type,Scrapable?,User Need Required?,Mandatory Guidance?,Position
 Archive,,N,N,N,1
 Mainstream,,N,N,N,2
-New Content Type,IG,N,N,N,3
-New Content Type,MS,N,N,N,4
+New Content Type - IG,,N,N,N,3
+New Content Type - MS,,N,N,N,4
 Already exists,,N,N,N,5
 Publication,Policy paper,Y,N,N,6
 Publication,Impact assessment,Y,N,N,7
