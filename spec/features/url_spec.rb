@@ -59,12 +59,15 @@ feature 'Viewing and editing urls for a site' do
     page.should have_selector('button.unfinished.selected')
   end
 
-  scenario 'Marking multiple URLs as finished' do
+  scenario 'Marking multiple URLs as finished and updating the iframe source when selecting a url', js: true do
     visit site_url_path(site, selected_url)
+
+    page.should have_an_iframe_for(selected_url.url)
+
     within(:xpath, "(//table/tbody/tr)[1]") do
       find('input').set(true)
     end
-
+    page.should have_an_iframe_for(first_url.url)
     click_button 'Save as final'
 
     # The first 2 urls should be marked as complete but not the third

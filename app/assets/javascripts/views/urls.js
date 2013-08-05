@@ -134,6 +134,14 @@
       });
     },
 
+    setUrlPreview: function(checkboxSelector) {
+      $(checkboxSelector).change(function () {
+        if ($(this).attr('checked')) {
+          $('.preview').attr('src', $(this).closest('tr').attr('data-url'));
+        }
+      });
+    },
+
     ready: function() {
       $(document).ready(function() {
         $(".select2").select2({
@@ -148,7 +156,9 @@
           Urls.resetFilters();
         });
 
-        Urls.addCheckboxCountToButtons('.urls :checkbox', ':button[name=destiny]');
+        Urls.addCheckboxCountToButtons('.urls input:checkbox', ':button[name=destiny]');
+
+        Urls.setUrlPreview('.urls input:checkbox');
 
         Urls.urlGroupDialogSetup();
 
