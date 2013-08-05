@@ -11,7 +11,7 @@ feature 'View, create or edit content types' do
     let!(:content_type2) { create :content_type, type: 'Type 2', subtype: nil, scrapable: false, 
                                   user_need_required: true, mandatory_guidance: true }
   
-    scenario 'Visit the contents page' do
+    scenario 'Visit the contents page and swap the order of the two contents type', js: true do
       visit admin_root_path
       click_link 'Content types'
 
@@ -20,6 +20,15 @@ feature 'View, create or edit content types' do
       page.should have_exact_table 'table tbody', [
         ['Type 1 / Subtype 1', 'Yes',    '',    '', ''],
         ['Type 2',                '', 'Yes', 'Yes', '']]
+
+      drop_place = find('table tbody tr:nth-child(2) td:nth-child(1) a')
+      find('table tbody tr:nth-child(1) td:nth-child(1) a').drag_to(drop_place)
+
+      # reload page to check that re-ordering has occurred
+      visit admin_content_types_path
+      page.should have_exact_table 'table tbody', [
+        ['Type 2',                '', 'Yes', 'Yes', ''],
+        ['Type 1 / Subtype 1', 'Yes',    '',    '', '']]
     end
 
     scenario 'Edit a content type' do

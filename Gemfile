@@ -16,6 +16,7 @@ gem 'jquery-ui-rails'
 gem 'select2-rails'
 gem 'htmlentities'
 gem 'whenever'
+gem 'acts_as_list'
 
 gem 'activerecord-import'
 gem 'rgarner-csv-mapper'
