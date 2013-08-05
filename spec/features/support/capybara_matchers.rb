@@ -17,6 +17,10 @@ RSpec::Matchers.define :have_non_readonly_select do |name|
 end
 
 module CapybaraExtension
+  def has_url_list_in_this_order?(url_list)
+    has_exact_table?('.urls table tbody', url_list.map {|url| ['*', url]})
+  end
+
   def has_list_in_this_order?(selector, list)
     within selector do
       list.each_with_index do |expected_text, line_idx|

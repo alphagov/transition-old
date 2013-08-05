@@ -17,8 +17,6 @@ feature 'Adding a Guidance or Document Series on a Url page' do
   scenario 'Adding Guidance', js: true do
     visit site_urls_path(site)
 
-    page.should have_list_in_this_order '.urls',
-      ['/site', '/about_us/default.aspx']
     select 'Detailed guide', from: 'url[content_type_id]'
     within(:xpath, '//*[@id="url_guidance_id"]/..') { click_link '+' }
 
@@ -51,8 +49,6 @@ feature 'Adding a Guidance or Document Series on a Url page' do
   scenario 'Adding Document Series', js: true do
     visit site_urls_path(site)
 
-    page.should have_list_in_this_order '.urls',
-      ['/site', '/about_us/default.aspx']
     within(:xpath, '//*[@id="url_series_id"]/..') { click_link '+' }
 
     page.should have_content 'Create Document Series'

@@ -1,72 +1,68 @@
 <div class="controls">
-  <%= render partial: 'url_list' %>
 
-  <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
-    <%= render "shared/error_messages", target: @url %>
-    <%= render "url_filter_hidden_fields" %>
-    <%= hidden_field_tag :q, params[:q] if params[:q].present? %>
-    
-    <div class="inputs-block">
-      <div class="select">
-        <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
-                                class: 'select2', placeholder: 'Content type' %>
+  <%= render partial: 'url_filters' %>
+
+  <% if @url.nil? %>
+    <%= render partial: 'url_list'  %>
+
+  <% else %>
+
+    <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
+
+      <%= render partial: 'url_list' %>
+
+      <%= render "shared/error_messages", target: @url %>
+      <%= render "url_filter_hidden_fields" %>
+      <%= hidden_field_tag :q, params[:q] if params[:q].present? %>
+      
+      <div class="inputs-block">
+        <div class="select">
+          <%= f.select :content_type_id, grouped_options_for_content_type_select(@url), { include_blank: true }, 
+                       class: 'select2', placeholder: 'Content type' %>
+        </div>
+        <div class="select">
+          <%= f.select :guidance_id, guidance_select(@url), { include_blank: true }, 
+                       class: 'select2', placeholder: "Guidance" %>
+          <%= link_to '+', '#', title: 'Add Guidance', id: 'add_guidance' %>
+        </div>
+        <div class="select">
+          <%= f.select :series_id, series_select(@url), { include_blank: true }, 
+                       class: 'select2', placeholder: "Document series" %>
+          <%= link_to '+', '#', title: 'Add Series', id: 'add_series' %>
+        </div>
+        <div class="select">
+          <%= f.select :user_need_id, grouped_options_for_user_needs_group_select(@url), { include_blank: true }, 
+                       class: 'select2', placeholder: 'User need' %>
+        </div>
       </div>
-      <div class="select">
-        <%= f.select :guidance_id, guidance_select(@url), { include_blank: true }, 
-                     class: 'select2', placeholder: "Guidance" %>
-        <%= link_to '+', '#', title: 'Add Guidance', id: 'add_guidance' %>
+      <div class="inputs-block comments">
+        <%= f.text_area :comments, placeholder: 'Comments...' %>
       </div>
-      <div class="select">
-        <%= f.select :series_id, series_select(@url), { include_blank: true }, 
-                     class: 'select2', placeholder: "Document series" %>
-        <%= link_to '+', '#', title: 'Add Series', id: 'add_series' %>
+      <div class="inputs-block column-3">
+        <div class="scrape">
+          Scrape:
+          <%= f.label :for_scraping_true do %>
+            <%= f.radio_button(:for_scraping, true) %>
+            Yes
+          <% end -%>
+          <%= f.label :for_scraping_false do %>
+            <%= f.radio_button(:for_scraping, false) %>
+            No
+          <% end -%>
+        </div>
       </div>
-      <div class="select">
-        <%= f.select :user_need_id, grouped_options_for_user_needs_group_select(@url), { include_blank: true }, 
-                     class: 'select2', placeholder: 'User need' %>
+      <div class="inputs-block">
+        <ul class="destinies">
+          <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.state == :finished ? 'selected ' : ''}finished" %></li>
+          <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.state == :unfinished ? 'selected ' : ''}unfinished" %></li>
+          <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>
+        </ul>
       </div>
-    </div>
-    <div class="inputs-block comments">
-      <%= f.text_area :comments, placeholder: 'Comments...' %>
-    </div>
-    <div class="inputs-block column-3">
-      <div class="scrape">
-        Scrape:
-        <%= f.label :for_scraping_true do %>
-          <%= f.radio_button(:for_scraping, true) %>
-          Yes
-        <% end -%>
-        <%= f.label :for_scraping_false do %>
-          <%= f.radio_button(:for_scraping, false) %>
-          No
-        <% end -%>
-      </div>
-    </div>
-    <div class="inputs-block">
-      <ul class="destinies">
-        <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.state == :finished ? 'selected ' : ''}finished" %></li>
-        <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.state == :unfinished ? 'selected ' : ''}unfinished" %></li>
-        <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>
-      </ul>
-    </div>
-  <% end if @url %>
+    <% end %>
+  <% end %>
 </div>
 
 <%= render partial: 'url_group_dialog', locals: {url_group: UrlGroup.new(url_group_type: UrlGroupType.guidance), dialog_id: 'dialog_guidance', dialog_title: 'Create Guidance'} %>
 <%= render partial: 'url_group_dialog', locals: {url_group: UrlGroup.new(url_group_type: UrlGroupType.series), dialog_id: 'dialog_series', dialog_title: 'Create Document Series'} %>
-
-<%= javascript_tag do %>
-    GOVUK.Urls.ready();
-    <% if @url %>
-      $(function() {
-        <% url_pos_in_list = @urls.index(@url) 
-        if url_pos_in_list > 3 %>
-          $('.urls').scrollTop(
-            $('.urls li:nth-child(<%= url_pos_in_list - 3 %>)').position().top - $('.urls').position().top
-          );
-        <% end %>
-      });
-    <% end %>
-<% end %>
 
 <iframe src="<%= @url.try(:url) %>" class="preview"></iframe>
