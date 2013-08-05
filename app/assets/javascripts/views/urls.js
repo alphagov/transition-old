@@ -136,7 +136,7 @@
 
     setUrlPreview: function(checkboxSelector) {
       $(checkboxSelector).change(function () {
-        if ($(this).attr('checked')) {
+        if ($(this).is(':checked')) {
           $('.preview').attr('src', $(this).closest('tr').attr('data-url'));
         }
       });
