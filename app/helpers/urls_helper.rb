@@ -70,7 +70,7 @@ module UrlsHelper
   end
 
   def url_filter_hash
-    filter_hash = {content_type: params[:content_type], state: params[:state], for_scrape: params[:for_scrape], q: params[:q]}
+    filter_hash = {content_type: params[:content_type], state: params[:state], for_scrape: params[:for_scrape], q: params[:q], last_saved_url: params[:last_saved_url]}
     filter_hash.delete_if { |k, v| v.blank? }
     filter_hash
   end

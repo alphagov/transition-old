@@ -71,6 +71,25 @@
       location = location.pathname;
     },
 
+    prePopulateFormWithPreviouslySavedValues: function() {
+      var _this = this;
+      var lastSavedUrl;
+
+      $('#same_as_last').click(function() {
+        _this.lastSavedUrl = $.parseJSON($('#last_saved_url').val());
+        $('#url_form select').each(function() {
+          $(this).select2().val(_this.lastSavedUrl[$(this).attr('id').slice(4)]);
+          $(this).select2().trigger('change');
+        });
+        $('#url_form textarea#url_comments').text(_this.lastSavedUrl['comments']);
+        $('#url_for_scraping_true, #url_for_scraping_false').prop('checked', false);
+        var for_scraping = _this.lastSavedUrl['for_scraping'];
+        if (for_scraping != null) {
+          $('#url_for_scraping_' + for_scraping.toString()).attr('checked', 'checked');
+        }
+      });
+    },
+
     urlGroupDialogSetup: function() {
       var _this = this;
       var $url_group_select;
@@ -155,6 +174,8 @@
         $('#reset').click(function() {
           Urls.resetFilters();
         });
+
+        Urls.prePopulateFormWithPreviouslySavedValues();
 
         Urls.addCheckboxCountToButtons('.urls input:checkbox', ':button[name=destiny]');
 

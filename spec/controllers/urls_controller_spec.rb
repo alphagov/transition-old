@@ -96,7 +96,7 @@ describe UrlsController, expensive_setup: true do
 
       it 'should redirect and preserve the content type filter' do
         post :update, site_id: @site1, id: @url1, url: {comments: 'Hello'}, content_type: @content_type1.id
-        response.should redirect_to site_url_path(@url1.site, @url1, content_type: @content_type1.id)
+        response.should redirect_to site_url_path(@url1.site, @url1, content_type: @content_type1.id, last_saved_url: @url1.id)
       end
     end
 
@@ -127,7 +127,7 @@ describe UrlsController, expensive_setup: true do
         end
 
         it 'redirects to the next url in the list' do
-          response.should redirect_to(site_url_path(@site1, @url2))
+          response.should redirect_to(site_url_path(@site1, @url2, last_saved_url: @url1.id))
         end
       end
     end
