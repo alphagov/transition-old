@@ -1,3 +1,4 @@
+<p>To re-order, drag the Content Type row to the desired position</p>
 <%= link_to 'New content type', new_admin_content_type_path %>
 <table class="table table-striped">
   <thead>
@@ -9,15 +10,30 @@
       <th></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="sortable" data-update-url="<%= set_ordering_admin_content_types_path %>">
     <% @content_types.each do |content_type| %>
-      <tr>
+      <%= content_tag_for :tr, content_type do %>
         <td><%= link_to content_type.to_s, edit_admin_content_type_path(content_type) %></td>
         <td><%= content_type.scrapable ? 'Yes' : '' %></td>
         <td><%= content_type.user_need_required ? 'Yes' : '' %></td>
         <td><%= content_type.mandatory_guidance ? 'Yes' : '' %></td>
         <%= content_tag :td, link_to(image_tag('icons/delete.png', width: 16, height: 16), admin_content_type_path(content_type), {method: :delete, confirm: "Delete content type '#{content_type.to_s}'?"}), class: 'delete' %>
-      </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+
+<%= javascript_tag do %>
+  $(function() {
+    $('#sortable').sortable({
+      axis: 'y',
+      update: function(event, ui) {
+        $.post($(this).data('update-url'), {
+          _method: 'put',
+          id: ui.item.attr('id').split('_').pop(),
+          position: $('tr', this).index(ui.item) + 1
+        });
+      }
+    });
+  });
+<% end %>

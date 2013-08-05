@@ -5,6 +5,7 @@ class ContentType < ActiveRecord::Base
   # relationships
   has_many :urls, dependent: :restrict
   has_and_belongs_to_many :scrapable_fields
+  acts_as_list
 
   # validations
   validates_presence_of :type

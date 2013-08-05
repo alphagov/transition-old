@@ -1,7 +1,7 @@
 class Admin::ContentTypesController < ApplicationController
 
   def index
-    @content_types = ContentType.all
+    @content_types = ContentType.order(:position)
   end
 
   def new
@@ -34,5 +34,11 @@ class Admin::ContentTypesController < ApplicationController
     @content_type = ContentType.find(params[:id])
     @content_type.destroy
     redirect_to admin_content_types_path(@site), notice: "Content type '#{@content_type}' deleted"
+  end
+
+  def set_ordering
+    content_type = ContentType.find(params[:id])
+    content_type.insert_at(params[:position].to_i)
+    render nothing: true
   end
 end

@@ -69,4 +69,22 @@ describe Admin::ContentTypesController do
       assigns(:content_types).should == [content_type1]
     end
   end
+
+  describe "PUT 'set_ordering'" do
+    let!(:content_type2) { create :content_type }
+    let!(:content_type3) { create :content_type }
+    let!(:content_type4) { create :content_type }
+
+    describe "with valid params" do
+      def do_put
+        put :set_ordering, :id => content_type4.id, :position => 2
+      end
+
+      it "should update the ordering of seasons" do
+        ContentType.order(:position).should == [content_type1, content_type2, content_type3, content_type4]
+        do_put
+        ContentType.order(:position).should == [content_type1, content_type4, content_type2, content_type3]
+      end
+    end
+  end
 end
