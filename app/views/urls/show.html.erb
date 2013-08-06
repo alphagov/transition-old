@@ -6,7 +6,6 @@
     <%= render partial: 'url_list'  %>
 
   <% else %>
-
     <%= form_for :url, url: site_url_path(@url.site, @url), method: 'PUT', html: { id: 'url_form' } do |f| %>
 
       <%= render partial: 'url_list' %>
@@ -53,6 +52,9 @@
       </div>
       <div class="inputs-block">
         <ul class="destinies">
+          <%= content_tag :li do %>
+            <%= link_to 'Same as last saved', '#', id: 'same_as_last', 'data-last-saved-url' => @last_saved_url.to_json %>
+          <% end if @last_saved_url %>
           <li><%= button_tag 'Save as final', name: 'destiny', value: 'finished', class: "#{@url.state == :finished ? 'selected ' : ''}finished" %></li>
           <li><%= button_tag 'Save for review later', name: 'destiny', value: 'unfinished', class: "#{@url.state == :unfinished ? 'selected ' : ''}unfinished" %></li>
           <li><%= link_to 'Cancel', site_urls_path(@url.site), class: 'cancel button' %></li>

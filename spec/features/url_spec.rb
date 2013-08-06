@@ -78,12 +78,14 @@ feature 'Viewing and editing urls for a site' do
     end
   end
 
-  scenario "Marking a URL unfinished, setting guidance, series and user need, adding a comment and setting scrape to 'Yes'" do
+  scenario "Marking a URL unfinished, setting guidance, series and user need, adding a comment and setting scrape to 'Yes'", js: true do
+    create :content_type, type: 'Good content', subtype: nil, scrapable: true, mandatory_guidance: true, user_need_required: true
     create :url_group, name: 'Bee Health', organisation: organisation, url_group_type: create(:url_group_type, name: 'Guidance')
     create :url_group, name: 'Series 1', organisation: organisation, url_group_type: create(:url_group_type, name: 'Series')
     create :user_need, name: 'I need to renew my passport'
     visit site_url_path(site, first_url)
 
+    select 'Good content', from: 'url[content_type_id]'
     select 'Bee Health', from: 'url[guidance_id]'
     select 'Series 1', from: 'url[series_id]'
     select 'I need to renew my passport', from: 'url[user_need_id]'
@@ -99,6 +101,18 @@ feature 'Viewing and editing urls for a site' do
 
     # The unfinished button should be selected
     page.should have_selector('button.unfinished.selected')
+    page.should have_select('url[content_type_id]', selected: 'Good content')
+    page.should have_select('url[guidance_id]', selected: 'Bee Health')
+    page.should have_select('url[series_id]', selected: 'Series 1')
+    page.should have_select('url[user_need_id]', selected: 'I need to renew my passport')
+    page.should have_checked_field('Yes')
+    page.should have_field('url_comments', with: 'This could be either MS or IG')
+
+    # check that clicking the 'Same as last saved' pre-populates the form
+    click_link(last_url.url, exact: true)
+    page.should have_select('url[content_type_id]', selected: '')
+    click_link 'Same as last saved'
+    page.should have_select('url[content_type_id]', selected: 'Good content')
     page.should have_select('url[guidance_id]', selected: 'Bee Health')
     page.should have_select('url[series_id]', selected: 'Series 1')
     page.should have_select('url[user_need_id]', selected: 'I need to renew my passport')
