@@ -19,6 +19,7 @@ class UrlsController < ApplicationController
       @url = url_filter(@site.urls).first
       redirect_to site_url_path(@site, @url, url_filter_hash) and return if @url
     end
+    @last_saved_url = @site.urls.find(params[:last_saved_url]) if params[:last_saved_url].present?
     flash.now[:error] = 'No Urls were found' if @url.nil?
   end
 
@@ -35,7 +36,7 @@ class UrlsController < ApplicationController
         url.for_scraping = nil if params[:url] && params[:url][:for_scraping].nil?
       end
       if selected_urls.all? {|url| url.update_attributes(params[:url]) }
-        redirect_to site_url_path(@url.site, @url.next(url_filter(@site.urls)), url_filter_hash) and return
+        redirect_to site_url_path(@url.site, @url.next(url_filter(@site.urls)), url_filter_hash.merge(last_saved_url: @url.id)) and return
       else
         @urls = url_filter(@site.urls)
         raise ActiveRecord::Rollback

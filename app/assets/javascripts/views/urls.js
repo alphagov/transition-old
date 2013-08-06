@@ -68,11 +68,28 @@
     },
 
     resetFilters: function() {
-      location = location.pathname;
+      window.location = location.pathname;
     },
 
-    urlGroupDialogSetup: function() {
-      var _this = this;
+    setupSameAsLastSavedUrlCopier: function() {
+      $('#same_as_last').click(function() {
+        var lastSavedUrl = $.parseJSON($(this).attr('data-last-saved-url'));
+
+        $('#url_form select').each(function() {
+          var attributeName = $(this).attr('id').slice(4);    // e.g. url_content_type_id => content_type_id
+          $(this).select2().val(lastSavedUrl[attributeName]);
+          $(this).select2().trigger('change');
+        });
+        $('#url_form textarea#url_comments').text(lastSavedUrl['comments']);
+        $('#url_for_scraping_true, #url_for_scraping_false').prop('checked', false);
+        var for_scraping = lastSavedUrl['for_scraping'];
+        if (for_scraping != null) {
+          $('#url_for_scraping_' + for_scraping.toString()).attr('checked', 'checked');
+        }
+      });
+    },
+
+    setupUrlGroupDialog: function() {
       var $url_group_select;
       
       $(".dialog").dialog({ 
@@ -82,16 +99,16 @@
       });
       
       $("#add_guidance").click(function() {
-        _this.$url_group_select = $('#url_guidance_id');
+        $url_group_select = $('#url_guidance_id');
         $("#dialog_guidance").dialog("open");
       });
       $("#add_series").click(function() {
-        _this.$url_group_select = $('#url_series_id');
+        $url_group_select = $('#url_series_id');
         $("#dialog_series").dialog("open");
       });
 
       $('.dialog form').bind('ajax:success', function(evt, data) {
-        Urls.urlGroupCreationHandler(evt, data, _this.$url_group_select, this)
+        Urls.urlGroupCreationHandler(evt, data, $url_group_select, this)
       });
 
       $(".cancel").click(function() {
@@ -156,11 +173,13 @@
           Urls.resetFilters();
         });
 
+        Urls.setupSameAsLastSavedUrlCopier();
+
         Urls.addCheckboxCountToButtons('.urls input:checkbox', ':button[name=destiny]');
 
         Urls.setUrlPreview('.urls input:checkbox');
 
-        Urls.urlGroupDialogSetup();
+        Urls.setupUrlGroupDialog();
 
         var content_type_dropdown = $('#url_content_type_id');
 
