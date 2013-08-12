@@ -8,19 +8,19 @@ describe UserNeedsController do
     login_as_stub_user
   end
 
-  describe :index do
-    it "shoukd instantiate a new user need" do
+  describe 'index' do
+    it "should instantiate a new user need" do
       get :index
       assigns(:user_need).should be_a(UserNeed)
     end
   end
 
-  describe :create do
+  describe 'create' do
     context "valid data is provided" do
       it "should save a new user need and redirect" do
         post :create, user_need: {name: 'User need 1', organisation_id: organisation.id}
         UserNeed.find_by_name('User need 1').should_not be_nil
-        response.should redirect_to(user_needs_path)
+        response.should redirect_to(user_needs_path(last_org_id: organisation.id))
       end
     end
 
@@ -32,14 +32,14 @@ describe UserNeedsController do
     end
   end
 
-  describe :edit do
+  describe 'edit' do
     it "should instantiate an existing user need" do
       get :edit, id: user_need
       assigns(:user_need).should == user_need
     end
   end
 
-  describe :update do
+  describe 'update' do
     context "valid data is provided" do
       it "should update an existing user_need" do
         put :update, id: user_need, user_need: {name: 'Name mod'}
@@ -56,7 +56,7 @@ describe UserNeedsController do
     end
   end
 
-  describe :destroy do
+  describe 'destroy' do
     it "should delete an existing user need" do
       delete :destroy, id: user_need
       UserNeed.find_by_id(user_need).should be_nil

@@ -9,4 +9,13 @@ module UserNeedsHelper
     end
     options_for_select(options)
   end
+
+  def organisation_select(f)
+    opts = { include_blank: true }
+    opts[:selected] = params[:last_org_id] if params[:last_org_id]
+    f.select :organisation_id,
+             Organisation.order(:title).collect {|p| [ p.title, p.id ] },
+             opts,
+             class: 'select2'
+  end
 end

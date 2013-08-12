@@ -15,3 +15,9 @@ RSpec::Matchers.define :have_non_readonly_select do |name|
     page.should have_xpath("//select[@name='#{name}' and not(@readonly)]")
   end
 end
+
+RSpec::Matchers.define :have_selected_option do |display_name|
+  match do |select_element|
+    select_element.should have_xpath(".//option[@selected]", text: display_name)
+  end
+end

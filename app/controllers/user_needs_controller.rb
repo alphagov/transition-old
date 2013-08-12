@@ -8,7 +8,7 @@ class UserNeedsController < ApplicationController
   def create
     @user_need = UserNeed.new(params[:user_need])
     if @user_need.save
-      redirect_to user_needs_path, notice: "User need saved"
+      redirect_to user_needs_path(last_org_id: @user_need.organisation.id), notice: "User need saved"
     else
       render action: 'index'
     end
