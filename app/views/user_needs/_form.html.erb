@@ -3,8 +3,7 @@
     <%= render "shared/error_messages", target: f.object %>
     <div>
       <%= f.label :organisation_id %>
-      <%= f.select :organisation_id, Organisation.order(:title).collect {|p| [ p.title, p.id ] }, 
-          { include_blank: true }, class: 'select2' %>
+      <%= organisation_select(f) %>
     </div>
     <div>
       <%= f.label :name %>
