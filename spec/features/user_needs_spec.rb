@@ -50,7 +50,6 @@ feature 'View, create, edit and delete user needs' do
       "Project overview (DFID) ##{@user_need.needotron_id}"])
 
     # Organisation should be remembered
-    save_and_open_page
     page.find('#user_need_organisation_id').
       should have_selected_option('Department for Business, Innovation and Skills')
   end
