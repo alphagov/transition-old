@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801112348) do
+ActiveRecord::Schema.define(:version => 20130813084507) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(:version => 20130801112348) do
     t.integer  "series_id"
   end
 
+  add_index "urls", ["content_type_id"], :name => "index_urls_on_content_type_id"
   add_index "urls", ["guidance_id"], :name => "index_urls_on_url_group_id"
   add_index "urls", ["site_id"], :name => "index_urls_on_site_id"
   add_index "urls", ["user_need_id"], :name => "index_urls_on_user_need_id"
