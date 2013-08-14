@@ -40,7 +40,7 @@ GEM
       mail (> 2.2.5)
       mime-types
       xml-simple
-    bootstrap-sass (2.3.1.0)
+    bootstrap-sass (2.3.2.1)
       sass (~> 3.2)
     builder (3.0.4)
     capybara (2.1.0)
@@ -233,7 +233,7 @@ DEPENDENCIES
   activerecord-import
   acts_as_list
   aws-ses
-  bootstrap-sass (= 2.3.1.0)
+  bootstrap-sass (= 2.3.2.1)
   capybara (~> 2.1.0)
   ci_reporter (= 1.8.0)
   database_cleaner

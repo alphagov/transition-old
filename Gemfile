@@ -28,7 +28,7 @@ gem 'optic14n', '>= 0.0.4'
 group :assets do
   gem 'sass'
   gem 'sass-rails', '~> 3.2'
-  gem "bootstrap-sass", "2.3.1.0" # 2.3.1.1 was yanked
+  gem "bootstrap-sass", "2.3.2.1"
   gem 'uglifier', '>= 1.0.3'
 end
 
