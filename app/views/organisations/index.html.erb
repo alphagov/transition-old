@@ -1,21 +1,17 @@
 <% @organisations.each do |title, orgs| %>
-  <div class="block organisations-list floated-children">
-    <div class="inner-block">
 
-      <div class="section-heading">
-        <h2><strong><%= orgs.length %></strong> Organisations are <%= title %></h2>
-      </div>
+  <h2><%= orgs.length %> Organisations are <%= title %></h2>
 
-      <div class="org-list">
-        <ul class="organisations">
-          <% orgs.each do |organisation| %>
-            <li class="organisation">
-              <%= render partial: 'organisation', locals: { organisation: organisation } %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-
-    </div>
+  <div class="org-list">
+    <ul class="organisations">
+      <% orgs.each do |organisation| %>
+        <li class="organisation">
+          <%= render partial: 'organisation', locals: { organisation: organisation } %>
+        </li>
+      <% end %>
+    </ul>
   </div>
+
+  <hr>
+
 <% end %>
