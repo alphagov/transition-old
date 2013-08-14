@@ -79,9 +79,6 @@ GEM
       rack-accept (~> 0.4.4)
       rails (>= 3.0.0)
       warden (~> 1.2)
-    govuk_frontend_toolkit (0.18.0)
-      rails (>= 3.1.0)
-      sass (>= 3.2.0)
     hashie (2.0.3)
     hike (1.2.2)
     htmlentities (4.3.1)
@@ -243,7 +240,6 @@ DEPENDENCIES
   exception_notification (= 2.6.1)
   factory_girl_rails (= 4.1.0)
   gds-sso (= 3.0.0)
-  govuk_frontend_toolkit (= 0.18.0)
   htmlentities
   jquery-rails (= 2.0.2)
   jquery-ui-rails
