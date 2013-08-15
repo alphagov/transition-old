@@ -82,12 +82,14 @@
             <nav id="proposition-menu"><a href="/" id="proposition-name">Transition</a>
             <ul id="proposition-links">
               <li><a href="/">Organisations</a></li>
-              <li><%= nav_link 'User needs', user_needs_path %></li>
-              <% if @site %>
-                <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
-                <li><%= nav_link 'Scrape', site_scrape_results_path(@site) %></li>
+              <% unless DISABLE_EDITING %>
+                <li><%= nav_link 'User needs', user_needs_path %></li>
+                <% if @site %>
+                  <li><%= nav_link @site.organisation.title, organisation_path(@site.organisation) %></li>
+                  <li><%= nav_link 'Scrape', site_scrape_results_path(@site) %></li>
+                <% end %>
+                <li><%= nav_link 'Admin', admin_root_path %></li>
               <% end %>
-              <li><%= nav_link 'Admin', admin_root_path %></li>
               <li class="clear-child"><%= link_to "Signed in as #{current_user.name}", Plek.current.find('signon') %></li>
               <li><%= link_to 'Sign out', gds_sign_out_path %></li>
             </ul></nav>
