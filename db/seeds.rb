@@ -46,7 +46,6 @@ dirs.each do |file|
   site.tna_timestamp = s['tna_timestamp']
   site.query_params = query_params
   site.homepage = s['homepage']
-  site.furl = s['furl']
   site.save
 
   [s['host'], s['aliases']].flatten.each do |name|
