@@ -1,18 +1,26 @@
+<h1>Organisations</h1>
+
+<hr>
+
 <% @organisations.each do |title, orgs| %>
 
   <h2><%= orgs.length %> Organisations are <%= title %></h2>
 
-  <div class="org-list">
-    <ul class="organisations">
+  <table class="table table-bordered">
+    <thead>
+      <th>Organisation</th>
+      <th>Launch date</th>
+      <th>Requests</th>
+      <th>Organisation Details</th>
+    </thead>
+    <tbody>
       <% orgs.each do |organisation| %>
-        <li class="organisation">
+        <tr>
           <%= render partial: 'organisation', locals: { organisation: organisation } %>
-        </li>
+        </tr>
       <% end %>
-    </ul>
-  </div>
-
-  <hr>
+    </tbody>
+  </table>
 
 <% end %>
 

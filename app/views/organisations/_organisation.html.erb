@@ -1,10 +1,6 @@
 <%= content_tag_for :div, organisation do %>
-  <h3 id="<%= organisation.abbr %>"><%= organisation.title %></h3>
-
-  <p class="launch-date"><strong>Launch date:</strong> <%= organisation.launch_date.to_s(:long_ordinal) %></p>
-
-  <ul class="inline">
-    <li><%= link_to "View requests", page_path(organisation) %></li>
-    <li><%= link_to "View organisation details", organisation_path(organisation) %></li>
-  </ul>
+  <td><span id="<%= organisation.abbr %>"><%= organisation.title %></span></td>
+  <td><%= organisation.launch_date.to_s(:long_ordinal) %></td>
+  <td><%= link_to "View requests", page_path(organisation) %></td>
+  <td><%= link_to "View organisation details", organisation_path(organisation) %></td>
 <% end %>
