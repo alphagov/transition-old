@@ -1,4 +1,4 @@
-<h1>Content Types</h1>
+<h1>Content types</h1>
 
 <p>To re-order, drag the Content Type row to the desired position</p>
 <p><%= link_to 'Add new content type', new_admin_content_type_path %></p>
@@ -39,4 +39,8 @@
       }
     });
   });
+<% end %>
+
+<% content_for :page_title do %>
+  Content types
 <% end %>
