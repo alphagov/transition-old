@@ -6,7 +6,7 @@
     <section class="mappings status-filtering">
       <h1>Mappings</h1>
 
-      <dl>
+      <dl class="dl-horizontal">
         <dt>Total</dt>
         <dd><%= number_with_delimiter (@mappings_data.count) %></dd>
       </dl>
@@ -26,16 +26,16 @@
         <% end %>
       </ul>
 
-      <table class="status-filtered hit-table">
+      <table class="status-filtered hit-table table table-bordered">
         <thead>
         <tr>
-          <th></th>
+          <th>Edit Mapping</th>
           <th>HTTP Status</th>
           <th>Original URL</th>
           <th>New URL</th>
           <th>Suggested URL</th>
           <th>Archive URL</th>
-          <th></th>
+          <th>Delete</th>
         </tr>
         </thead>
         <tbody>
