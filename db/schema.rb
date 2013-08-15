@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801112348) do
+ActiveRecord::Schema.define(:version => 20130815130152) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -151,7 +151,6 @@ ActiveRecord::Schema.define(:version => 20130801112348) do
     t.string   "query_params"
     t.datetime "tna_timestamp"
     t.string   "homepage"
-    t.string   "furl"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
@@ -194,8 +193,8 @@ ActiveRecord::Schema.define(:version => 20130801112348) do
     t.text     "comments"
     t.boolean  "for_scraping"
     t.integer  "guidance_id"
-    t.integer  "user_need_id"
     t.integer  "content_type_id"
+    t.integer  "user_need_id"
     t.boolean  "scrape_finished",                 :default => false, :null => false
     t.integer  "series_id"
   end
