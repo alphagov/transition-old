@@ -1,4 +1,6 @@
 class ScrapeResultsController < ApplicationController
+  include Transition::Controllers::ReadOnlyFilter
+
   layout 'frontend'
 
   before_filter :find_site
