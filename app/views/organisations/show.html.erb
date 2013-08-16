@@ -37,9 +37,11 @@
         <div class="site-links">
           <ul>
             <li><%= link_to "Requests", page_path(@organisation, site: site.id) %></li>
-            <li><%= link_to "Analysis", site_urls_path(site_id: site) %></li>
-            <li><%= link_to "Manual", site_manual_urls_path(site_id: site) %></li>
-            <li><%= link_to "Mappings", site_mappings_path(site_id: site) %></li>
+            <% unless DISABLE_EDITING %>
+              <li><%= link_to "Analysis", site_urls_path(site_id: site) %></li>
+              <li><%= link_to "Manual", site_manual_urls_path(site_id: site) %></li>
+              <li><%= link_to "Mappings", site_mappings_path(site_id: site) %></li>
+            <% end %>
           </ul>
         </div>
 

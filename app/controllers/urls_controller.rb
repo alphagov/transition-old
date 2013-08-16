@@ -1,4 +1,6 @@
 class UrlsController < ApplicationController
+  include Transition::Controllers::ReadOnlyFilter
+
   layout 'frontend'
   include UrlsHelper
   URL_FILTER_QUERY_TO_STATE = {'unseen' => 'new', 'review' => 'unfinished', 'final' => 'finished'}

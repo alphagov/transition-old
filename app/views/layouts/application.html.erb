@@ -25,10 +25,12 @@
         </a>
         <%= link_to 'GOV.UK Transition', root_path, :class => "brand" %>
         <nav role="navigation" class="nav-collapse">
-          <ul class="nav">
-            <%= nav_link 'Content types', admin_content_types_path %>
-            <%= nav_link 'Import URLs', admin_import_urls_path %>
-          </ul>
+          <% unless DISABLE_EDITING %>
+            <ul class="nav">
+              <%= nav_link 'Content types', admin_content_types_path %>
+              <%= nav_link 'Import URLs', admin_import_urls_path %>
+            </ul>
+          <% end %>
           <ul class="nav pull-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services<b class="caret"></b></a>
