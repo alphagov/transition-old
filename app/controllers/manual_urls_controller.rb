@@ -1,5 +1,4 @@
 class ManualUrlsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   layout 'frontend'
 

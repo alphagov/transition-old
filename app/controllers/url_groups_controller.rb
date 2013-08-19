@@ -1,5 +1,4 @@
 class UrlGroupsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   def create
     @url_group = UrlGroup.new(params[:url_group])

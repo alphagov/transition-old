@@ -1,5 +1,4 @@
 class ScrapeResultsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   layout 'frontend'
 

@@ -1,5 +1,4 @@
 class HostsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   # GET /hosts
   # GET /hosts.json

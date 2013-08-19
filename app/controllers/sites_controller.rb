@@ -1,5 +1,4 @@
 class SitesController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   layout 'frontend'
 

@@ -1,6 +1,5 @@
 require 'transition/import/urls'
 class Admin::ImportUrlsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   def import
     @organisations = Organisation.order(:title)
