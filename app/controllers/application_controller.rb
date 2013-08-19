@@ -29,6 +29,8 @@ class ApplicationController < ActionController::Base
 
   def require_action_enabled!
     return unless DISABLE_EDITING
+    gds_sso_controllers = [Api::UserController, AuthenticationsController]
+    return if gds_sso_controllers.detect { |skippable| self.is_a?(skippable) }
 
     enabled_actions = ['show', 'index', 'hits_download']
     unless enabled_actions.include?(params[:action])
