@@ -1,5 +1,4 @@
 class OrganisationsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   layout 'frontend'
   # GET /organisations

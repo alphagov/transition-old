@@ -1,5 +1,4 @@
 class UserNeedsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   layout 'frontend'
 

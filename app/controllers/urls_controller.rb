@@ -1,5 +1,4 @@
 class UrlsController < ApplicationController
-  include Transition::Controllers::ReadOnlyFilter
 
   layout 'frontend'
   include UrlsHelper
