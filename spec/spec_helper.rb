@@ -37,6 +37,8 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.filter_run_excluding :external_api => true
+
   config.include FactoryGirl::Syntax::Methods
 end
 
