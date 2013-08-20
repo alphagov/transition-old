@@ -47,7 +47,7 @@
   </div>
 
   <div class="span4">
-    <p>Click a column to pick a weeks view:</p>
+    <p><strong>Click a column to pick a weeks view:</strong></p>
     <%= render partial: 'totals/stacked', locals: { link_lists: true } %>
   </div>
 
@@ -59,10 +59,10 @@
 <div class="block js-pages">
   <div class="inner-block">
     <% unless  @most_recent_hit_data.hits.any? %>
-      <h1>We don't have requests for that time period yet</h1>
+      <h2>We don't have requests for that time period yet</h2>
       <p>Please select a different date range.</p>
     <% else %>
-      <h1>Page requests from <%= @start_date.to_date.to_s(:long_ordinal) %><%= " to #{@end_date.to_date.to_s(:long_ordinal)}" if @end_date %></h1>
+      <h2>Page requests from <%= @start_date.to_date.to_s(:long_ordinal) %><%= " to #{@end_date.to_date.to_s(:long_ordinal)}" if @end_date %></h2>
       <div class="filter-block js-hidden js-pages-navigation">
         <ol class="nav nav-tabs">
           <li class="all active" data-toggle="tab"><a href="#">All</a></li>
