@@ -8,7 +8,7 @@
 
     <p><strong>Filter results</strong></p>
 
-    <form method="get" action="">
+    <form method="get" action="" class="span4">
       <input type="hidden" name="site" value="<%= params[:site] %>">
       <input type="hidden" name="host" value="<%= params[:host] %>">
 
@@ -16,35 +16,37 @@
       <ul class="inline">
         <li><%= link_to 'Yesterday', page_path(site: params[:site], host: params[:host]) %></li>
         <li><%= link_to 'Last week', page_path(site: params[:site], host: params[:host], start: 7.days.ago.strftime('%Y-W%U')) %></li>
-        <li>
-          <label for="date">Date:</label> 
-          <input class="span2" name="date" placeholder="yyyy-mm-dd"> 
-          <input type="submit" class="btn btn-small btn-success">
-        </li>
       </ul>
-    </form>
 
-    <form method="get" action="">
-      <label for="site">Site:</label>
-      <select name="site">
-        <option value="">Pick a site</option>
-        <%= options_for_select(@organisation.sites.map { |site| [site.site, site.id] }, @site && @site.id ) %>
-      </select>
+      <label for="date">Date:</label> 
+      <input class="span2" name="date" placeholder="yyyy-mm-dd"> 
       <input type="submit" class="btn btn-small btn-success">
     </form>
 
-    <% if @site %>
+    <div class="span3">
       <form method="get" action="">
-        <label for="host">Host:</label>
-        <input type="hidden" name="site" value="<%= params[:site] %>">
-        <select name="host">
-          <option value="">Pick a host</option>
-            <%= options_for_select(@site.hosts.map { |host| [host.host, host.id] }, @host && @host.id ) %>
+        <label for="site">Site:</label>
+        <select name="site">
+          <option value="">Pick a site</option>
+          <%= options_for_select(@organisation.sites.map { |site| [site.site, site.id] }, @site && @site.id ) %>
         </select>
         <input type="submit" class="btn btn-small btn-success">
       </form>
-    <% end %>
-  </div>
+
+      <% if @site %>
+        <form method="get" action="">
+          <label for="host">Host:</label>
+          <input type="hidden" name="site" value="<%= params[:site] %>">
+          <select name="host">
+            <option value="">Pick a host</option>
+              <%= options_for_select(@site.hosts.map { |host| [host.host, host.id] }, @host && @host.id ) %>
+          </select>
+          <input type="submit" class="btn btn-small btn-success">
+        </form>
+      <% end %>
+    </div>
+    </div>
+
 
   <div class="span4">
     <p><strong>Click a column to pick a weeks view:</strong></p>
