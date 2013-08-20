@@ -6,26 +6,24 @@ bar_width = chart_width/@total_data.weeks.length
 left = 0;
 %>
 
-<section>
-  <div class="chart stacked" style="height:<%= chart_height %>px;width:<%= chart_width %>px">
-    <% @total_data.each_week do |week, totals_for_week| %>
-      <% categorized_totals = grouped_by_http_status_category(totals_for_week) %>
-      <% if local_assigns.include?(:link_lists) %>
-        <%= link_to "?#{ { host: params[:host], site: params[:site], start: week }.reject {|k, v| v.nil?}.to_param}" do %>
-          <ul style="left:<%= left %>px;width:<%= bar_width %>px">
-            <% for_each_http_status_category do |http_status_category| %>
-              <%= summation_line_for_label(http_status_category, categorized_totals, max_count, chart_height, week) %>
-            <% end %>
-          </ul>
-        <% end %>
-      <% else %>
+<div class="chart stacked" style="height:<%= chart_height %>px;width:<%= chart_width %>px">
+  <% @total_data.each_week do |week, totals_for_week| %>
+    <% categorized_totals = grouped_by_http_status_category(totals_for_week) %>
+    <% if local_assigns.include?(:link_lists) %>
+      <%= link_to "?#{ { host: params[:host], site: params[:site], start: week }.reject {|k, v| v.nil?}.to_param}" do %>
         <ul style="left:<%= left %>px;width:<%= bar_width %>px">
           <% for_each_http_status_category do |http_status_category| %>
             <%= summation_line_for_label(http_status_category, categorized_totals, max_count, chart_height, week) %>
           <% end %>
         </ul>
       <% end %>
-      <% left += bar_width %>
+    <% else %>
+      <ul style="left:<%= left %>px;width:<%= bar_width %>px">
+        <% for_each_http_status_category do |http_status_category| %>
+          <%= summation_line_for_label(http_status_category, categorized_totals, max_count, chart_height, week) %>
+        <% end %>
+      </ul>
     <% end %>
-  </div>
-</section>
+    <% left += bar_width %>
+  <% end %>
+</div>
