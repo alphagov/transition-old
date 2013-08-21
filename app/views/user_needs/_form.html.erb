@@ -1,28 +1,27 @@
 <div class="user_need">
   <%= form_for @user_need do |f| %>
     <%= render "shared/error_messages", target: f.object %>
-    <div>
-      <%= f.label :organisation_id %>
-      <%= organisation_select(f) %>
-    </div>
-    <div>
+      <div class="controls controls-row">
+        <%= f.label :organisation_id %>
+        <%= f.select :organisation_id, Organisation.order(:title).collect {|p| [ p.title, p.id ] },
+            { include_blank: true }, class: 'select2 span6' %>
+      </div>
+
       <%= f.label :name %>
-      <%= f.text_field :name %>
-    </div>
-    <div>
+      <%= f.text_field :name, class: 'span6' %>
+
       <%= f.label :as_a %>
-      <%= f.text_area :as_a %>
-    </div>
-    <div>
+      <%= f.text_area :as_a, class: 'span6', rows: '3' %>
+
       <%= f.label :i_want_to %>
-      <%= f.text_area :i_want_to %>
-    </div>
-    <div>
+      <%= f.text_area :i_want_to, class: 'span6', rows: '3' %>
+
       <%= f.label :so_that %>
-      <%= f.text_area :so_that %>
-    </div>
-    <div>
-      <%= f.submit 'Save' %>
+      <%= f.text_area :so_that, class: 'span6', rows: '3' %>
+
+      <hr>
+
+      <%= f.submit 'Save new user need', class: 'btn btn-success' %>
       <%= link_to 'Delete', user_need_path(@user_need), {method: :delete, confirm: "Delete user need '#{@user_need.name}'?", class: 'delete'} unless @user_need.new_record? %>
       <%= link_to "Cancel", user_needs_path, class: 'cancel' unless @user_need.new_record? %>
     </div>

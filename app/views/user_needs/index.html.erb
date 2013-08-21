@@ -1,15 +1,33 @@
-<div class="user_needs">
-  <%= select_tag :user_need_id, user_needs_select, class: 'select2', placeholder: 'Search user needs...', 
-      include_blank: true %> <a href="" class="edit_link">Edit</a>
+<h1 class="user_need">User Needs</h1>
 
-  <p><span class="label">As a: </span><span id="as_a"></span></p>
-  <p><span class="label">I want to: </span><span id="i_want_to"></span></p>
-  <p><span class="label">So that: </span><span id="so_that"></span></p>
+<div class="span6">
+
+	<div class="user_needs well">
+
+		<p>Search existing user needs or create a new need using the form</p>
+
+		<div class="controls controls-row">
+
+			<%= select_tag :user_need_id, user_needs_select, class: 'select2 span5', placeholder: 'Search user needs...', 
+										 include_blank: true %> <a href="" class="edit_link">Edit</a>
+
+		</div>
+
+		<dl class="dl-horizontal">
+			<dt><b>As a: </b></dt>
+			<dd><span id="as_a"></span></dd>
+			<dt><b>I want to: </b></dt>
+			<dd><span id="i_want_to"></span></dd>
+			<dt><b>So that: </b></dt>
+			<dd><span id="so_that"></span></dd>
+		</dl>
+	</div>
+
+	<hr>
+
+	<%= render 'form' %>
+
 </div>
-
-<h2 class="user_need">New User Need</h2>
-
-<%= render 'form' %>
 
 <% content_for :page_title do %>
   User needs
