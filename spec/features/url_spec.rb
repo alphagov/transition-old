@@ -18,8 +18,6 @@ feature 'Viewing and editing urls for a site' do
   scenario 'Visiting the urls index pre-selects the first url' do
     visit site_urls_path(site)
 
-    page.should have_link('DFID', href: organisation_path(organisation))
-
     page.should have_url_list_in_this_order ['/site', '/about_us/default.aspx', '/contact_us']
     page.should_not have_link(first_url.url)
     page.should have_link(middle_url.url, href: site_url_path(site, middle_url))
@@ -28,8 +26,6 @@ feature 'Viewing and editing urls for a site' do
 
   scenario "Visiting a single highlighted url's page when there are URLs" do
     visit site_url_path(site, selected_url)
-
-    page.should have_link('DFID', href: organisation_path(organisation))
 
     page.should have_url_list_in_this_order ['/site', '/about_us/default.aspx', '/contact_us']
 

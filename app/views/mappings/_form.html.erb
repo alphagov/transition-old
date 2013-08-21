@@ -1,28 +1,30 @@
-<div class="block">
-  <div class="inner-block">
-    <%= form_for @mapping, url: polymorphic_path([@site, @mapping]) do |f| %>
-        <%= render "shared/error_messages", target: f.object %>
-        <div>
-          <%= f.label :path %>
-          <%= f.text_field :path, class: 'url' %>
-        </div>
-        <div>
-          <%= f.label :new_url %>
-          <%= f.text_field :new_url, class: 'url' %>
-        </div>
-        <div>
-          <%= f.label :suggested_url %>
-          <%= f.text_field :suggested_url, class: 'url' %>
-        </div>
-        <div>
-          <%= f.label :archive_url %>
-          <%= f.text_field :archive_url, class: 'url' %>
-        </div>
-        <div>
-          <%= f.label :http_status %>
-          <%= f.select :http_status, ['301', '410'] %>
-        </div>
-        <%= f.submit 'Save' %>
-    <% end %>
-  </div>
-</div>
+<h1>New mapping</h1>
+
+<%= form_for @mapping, url: polymorphic_path([@site, @mapping]) do |f| %>
+  <fieldset class="span6">
+    <%= render "shared/error_messages", target: f.object %>
+
+      <%= f.label :path %>
+      <%= f.text_field :path, class: 'span6' %>
+
+      <%= f.label :new_url %>
+      <%= f.text_field :new_url, class: 'span6' %>
+
+      <%= f.label :suggested_url %>
+      <%= f.text_field :suggested_url, class: 'span6' %>
+
+      <%= f.label :archive_url %>
+      <%= f.text_field :archive_url, class: 'span6' %>
+
+      <%= f.label :http_status %>
+      <%= f.select :http_status, ['301', '410'] %>
+
+      <hr>
+
+    <%= f.submit 'Save mapping', class: 'btn btn-success' %>
+  </fieldset>
+<% end %>
+
+<% content_for :page_title do %>
+  New mapping
+<% end %>

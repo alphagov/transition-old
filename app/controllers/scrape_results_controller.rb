@@ -1,7 +1,5 @@
 class ScrapeResultsController < ApplicationController
 
-  layout 'frontend'
-
   before_filter :find_site
 
   def new

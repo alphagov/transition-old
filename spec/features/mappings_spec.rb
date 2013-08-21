@@ -17,7 +17,7 @@ feature 'Viewing mappings for a site' do
       click_link 'Mappings'
 
       page.should have_exact_table 'table thead', [
-        ['', 'HTTP Status', 'Original URL', 'New URL', 'Suggested URL', 'Archive URL', '']]
+        ['Edit Mapping', 'HTTP Status', 'Original URL', 'New URL', 'Suggested URL', 'Archive URL', 'Delete']]
       page.should have_exact_table 'table tbody', [
         ['Edit', '410', '/about_us/default.aspx', 'http://www.gov.uk/natural-england', '', ''],
         ['Edit', '301', '/contact_us', 'http://www.gov.uk/natural-england/contact-us', '', '']]

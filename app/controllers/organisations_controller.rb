@@ -1,6 +1,5 @@
 class OrganisationsController < ApplicationController
 
-  layout 'frontend'
   # GET /organisations
   # GET /organisations.json
   def index
