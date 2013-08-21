@@ -17,9 +17,11 @@ fi
 
 bundle exec rake db:seed
 
-bundle exec rake 'import_totals:'$STYLE'[data/transition-stats/totals/*.tsv]'
-bundle exec rake 'import_hits:'$STYLE'[data/transition-stats/hits/*.tsv]'
+# Get the mappings from director, update dependent data
 bundle exec rake 'import_mappings:'$STYLE'[data/redirector/data/mappings/*.csv]'
-
 bundle exec rake 'fetch_hosts_dns'
 bundle exec rake 'update_organisation_redirect_flag'
+
+# Populate the traffic data.
+bundle exec rake 'import_totals:'$STYLE'[data/transition-stats/totals/*.tsv]'
+bundle exec rake 'import_hits:'$STYLE'[data/transition-stats/hits/*.tsv]'
