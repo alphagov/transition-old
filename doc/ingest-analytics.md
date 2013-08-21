@@ -17,9 +17,9 @@ comes to authenticating in the way we really need to.
 
 # Getting results
 
-## With raw HTTP
+## With [raw HTTP](http://ga-dev-tools.appspot.com/explorer/)
 
-_(this assumes you have a bearer token and you're GETting with an `Authorization` header)_
+_(this assumes you have a bearer token and you're GETting with an `Authorization` header)._
 
 For a report with dimensions `pagePath`,`hostname` and a metric `pageViews`
 
@@ -40,4 +40,5 @@ Assume you've parsed the JSON into `results`:
 
 ## With Google::APIClient
 
-To follow
+Based on a Google Code
+[https://code.google.com/p/google-api-ruby-client/source/browse/service_account/analytics.rb?repo=samples](example)
