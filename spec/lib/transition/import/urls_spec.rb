@@ -32,6 +32,37 @@ module Transition
             .first.should be_a(Url)
         end
       end
+
+      describe '.from_hostpath_rows!' do
+        let!(:site) { create :site }
+        let!(:host) { create :host, site: site, host: 'host.co.uk' }
+
+        # These resemble what our GA query will return, see +Transition::Google::ResultsPager+
+        let(:hostpath_rows) {[
+          ['host.co.uk', '/path', 30],
+          ['host.co.uk', '/path2', 20],
+          ['nohost.co.uk', '/path', 10],
+        ]}
+
+        before do
+          Urls.from_hostpath_rows!(hostpath_rows).failed_instances.each { |hit| puts hit.errors.full_messages }
+        end
+
+        it 'should import 2 hits' do
+          Hit.count.should == 2
+        end
+
+        describe 'The first hit' do
+          subject(:hit) { Hit.first }
+
+          it              { should_not be_nil }
+          its(:path)      { should eql '/path' }
+          its(:path_hash) { should eql Digest::SHA1.hexdigest(hit.path) }
+          its(:host)      { should eql host }
+          its(:count)     { should eql(0) }
+          its(:hit_on)    { should eql(Date.new(1970)) }
+        end
+      end
     end
 
   end

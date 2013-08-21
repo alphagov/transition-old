@@ -38,6 +38,18 @@ module Transition
         logger = AuditLogger.new(Rails.root.join('log', 'import_urls', logfilename), 'Import urls')
         [logger, logfilename]
       end
+
+      def self.from_hostpath_rows!(rows)
+        cached_hosts = {}
+        hits = rows.map do |hostname, path, _|
+          host = cached_hosts[hostname] ||= Host.find_by_host(hostname)
+          case host
+          when nil then nil
+          else Hit.new(host_id: host.id, path: path, path_hash: Digest::SHA1.hexdigest(path), http_status: 0, count: 0, hit_on: Date.new(1970))
+          end
+        end.compact
+        Hit.import hits
+      end
     end
   end
 end
