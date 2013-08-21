@@ -17,9 +17,14 @@ fi
 
 bundle exec rake db:seed
 
-bundle exec rake 'import_totals:'$STYLE'[data/transition-stats/totals/*.tsv]'
-bundle exec rake 'import_hits:'$STYLE'[data/transition-stats/hits/*.tsv]'
+# Get the mappings from director, update dependent data
 bundle exec rake 'import_mappings:'$STYLE'[data/redirector/data/mappings/*.csv]'
-
 bundle exec rake 'fetch_hosts_dns'
 bundle exec rake 'update_organisation_redirect_flag'
+
+# Populate the traffic data. Empty the tables first so that we can use 'fast'
+# for speed. In production this should be done out of hours.
+bundle exec rake 'import_totals:truncate'
+bundle exec rake 'import_totals:fast[data/transition-stats/totals/*.tsv]'
+bundle exec rake 'import_hits:truncate'
+bundle exec rake 'import_hits:fast[data/transition-stats/hits/*.tsv]'
