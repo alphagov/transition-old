@@ -12,7 +12,7 @@
       <dt>Launch date:</dt>
       <dd><%= @organisation.launch_date.try(:to_s, :long_ordinal) %></dd>
       <dt>Homepage:</dt>
-      <dd><%= link_to @organisation.homepage %></dd>
+      <dd><%= link_to @organisation.homepage, @organisation.homepage %></dd>
       <dt>FURL:</dt>
       <dd><%= link_to @organisation.furl, "http://#{@organisation.furl}" %></dd>
       <dt>Progress:</dt>
@@ -47,7 +47,7 @@
 
         <dl class="dl-horizontal">
           <dt>Homepage:</dt>
-          <dd><%= link_to site.homepage %></dd>
+          <dd><%= link_to site.homepage, site.homepage %></dd>
 
           <% unless site.query_params.try(:empty?) %>
             <dt>query_params:</dt>
