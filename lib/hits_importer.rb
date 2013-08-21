@@ -35,6 +35,10 @@ class HitsImporter
   end
 
   class Fast < Base
+    def self.truncate!
+      ActiveRecord::Base.connection.execute("TRUNCATE #{Hit.table_name}")
+    end
+
     def consume_data_file(*args)
       @hits_to_import = []
       super

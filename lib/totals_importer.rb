@@ -39,6 +39,10 @@ class TotalsImporter
   end
 
   class Fast < Base
+    def self.truncate!
+      ActiveRecord::Base.connection.execute("TRUNCATE #{Total.table_name}")
+    end
+
     def consume_data_file(*args)
       @totals_to_import = []
       super
