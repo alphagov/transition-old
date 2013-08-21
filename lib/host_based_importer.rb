@@ -32,8 +32,9 @@ class HostBasedImporter
   end
 
   def consume_data(&block)
-    Dir[@data_file].each do |data_file|
-      $stdout.puts "Processing: #{data_file}"
+    files = Dir[@data_file]
+    files.each_with_index do |data_file, index|
+      $stdout.puts "Processing: #{data_file} (#{index + 1}/#{files.size})"
       consume_data_file(data_file, &block)
       $stdout.puts "\n"
     end
