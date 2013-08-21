@@ -40,7 +40,7 @@ feature 'View, create or edit content types' do
   describe :create do
     scenario 'Create a new content type' do
       visit admin_content_types_path
-      click_link 'New content type'
+      click_link 'Add new content type'
 
       fill_in('Type', with: 'New type')
       click_button 'Save'

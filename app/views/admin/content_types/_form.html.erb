@@ -1,30 +1,31 @@
-<div class="block">
-  <div class="inner-block">
-    <%= form_for [:admin, @content_type] do |f| %>
+<h1>Add new content type</h1>
+
+<div class="span6">
+  <%= form_for [:admin, @content_type] do |f| %>
+    <fieldset>
       <%= render "shared/error_messages", target: f.object %>
-      <div>
-        <%= f.label :type %>
-        <%= f.text_field :type, autofocus: true %>
-      </div>
-      <div>
-        <%= f.label :subtype %>
-        <%= f.text_field :subtype %>
-      </div>
-      <div>
-        <%= f.label :scrapable %>
+
+      <%= f.label :type %>
+      <%= f.text_field :type, autofocus: true, class: 'span6' %>
+
+      <%= f.label :subtype %>
+      <%= f.text_field :subtype, class: 'span6' %>
+
+      <label class="checkbox" for="content_type_scrapable">Scrapable 
         <%= f.check_box :scrapable %>
-      </div>
-      <div>
-        <%= f.label :user_need_required %>
+      </label>
+
+      <label class="checkbox" for="content_type_user_need_required">User need required 
         <%= f.check_box :user_need_required %>
-      </div>
-      <div>
-        <%= f.label :mandatory_guidance %>
+      </label>
+
+      <label class="checkbox" for="content_type_mandatory_guidance">Mandatory guidance 
         <%= f.check_box :mandatory_guidance %>
-      </div>
-      <div>
-        <%= f.submit 'Save' %>
-      </div>
-    <% end %>
-  </div>
+      </label>
+
+      <hr>
+
+      <%= f.submit 'Save new content type', class: 'btn btn-success' %>
+    </fieldset>
+  <% end %>
 </div>

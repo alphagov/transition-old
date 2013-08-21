@@ -8,7 +8,7 @@
 
     <p class="requests-link"><%= link_to "View organisation requests", page_path(@organisation) %></p>
 
-    <dl class="org-info">
+    <dl class="dl-horizontal">
       <dt>Launch date:</dt>
       <dd><%= @organisation.launch_date.try(:to_s, :long_ordinal) %></dd>
       <dt>Homepage:</dt>
@@ -35,7 +35,7 @@
       <%= content_tag_for :div, site do %>
         <h3><%= site.site %></h3>
         <div class="site-links">
-          <ul>
+          <ul class="inline">
             <li><%= link_to "Requests", page_path(@organisation, site: site.id) %></li>
             <% unless DISABLE_EDITING %>
               <li><%= link_to "Analysis", site_urls_path(site_id: site) %></li>
@@ -45,7 +45,7 @@
           </ul>
         </div>
 
-        <dl>
+        <dl class="dl-horizontal">
           <dt>Homepage:</dt>
           <dd><%= link_to site.homepage %></dd>
 
@@ -58,13 +58,13 @@
           <dd><%= site.tna_timestamp %></dd>
         </dl>
 
-        <table>
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th style="width: 40%;">Host</th>
-              <th style="width: 10%;">TTL</th>
-              <th style="width: 35%;">CNAME</th>
-              <th style="width: 15%;">Live CNAME</th>
+              <th>Host</th>
+              <th>TTL</th>
+              <th>CNAME</th>
+              <th>Live CNAME</th>
             </tr>
           </thead>
           <tbody>
@@ -82,3 +82,7 @@
     <% end %>
   </div>
 </div>
+
+<% content_for :page_title do %>
+  Organisation - <%= @organisation.title %>
+<% end %>

@@ -1,7 +1,5 @@
 class UserNeedsController < ApplicationController
 
-  layout 'frontend'
-
   def index
     @user_need = UserNeed.new
   end

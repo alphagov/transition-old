@@ -6,7 +6,7 @@
     display: block;
     padding: 8px 0px;
     margin-right: 2px;
-    line-heigh: 20px;
+    line-height: 20px;
     border: 1px solid transparent;
   }
 }
@@ -20,18 +20,159 @@
   position: relative;
   height: 300px;
   margin-bottom: 1em;
+
+  ul {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    float: left;
+
+    li {
+      list-style: none;
+      overflow: hidden;
+      text-indent: 9999px;
+    }
+  }
+
+  a:hover {
+    opacity: 0.8;
+  }
+
+  &.progress {
+    .bar {
+      background-image: none;
+    }
+    .bar-301 {
+      background-color: #969696;
+    }
+    .bar-200,
+    .bar-206,
+    .bar-304 {
+      background-color: #BDBDBD;
+    }
+    .bar-410 {
+      background-color: #636363;
+    }
+    .bar-400,
+    .bar-404,
+    .bar-403,
+    .bar-418,
+    .bar-501,
+    .bar-503 {
+      background-color: #FFC8C8;
+    }
+  }
 }
 
-.chart ul {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  float: left;
+.hit-graph {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-top: 30px;
+
+  h2 {
+    text-indent: -9999em;
+    font-size: 16px;
+    font-weight: bold;
+
+    .max {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin-top: -8px;
+      text-indent: 0;
+    }
+    .min {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      margin-bottom: -8px;
+      text-indent: 0;
+    }
+  }
+  .tooltip {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #6f777b;
+    max-width: 600px;
+  }
+  ul {
+    position: absolute;
+    top: 0;
+    margin-left: 60px;
+    width: 899px;
+    height: 200px;
+    border-bottom: 1px solid #bfc1c3;
+    border-left: 1px solid #bfc1c3;
+  }
+
+  li {
+    display: inline;
+    a {
+      display: block;
+      width: 4px;
+      position: absolute;
+      bottom: 0;
+      text-indent: -9999em;
+      overflow: hidden;
+      background: #bfc1c3;
+      &:hover {
+        outline: 1px solid #6f777b;
+      }
+    }
+    &.gone a {
+      background: #636363;
+    }
+    &.error a {
+      background: #FFC8C8;
+    }
+  }
 }
 
-.chart li {
-  list-style: none;
-  overflow: hidden;
-  text-indent: 9999px;
+.hit-table {
+  margin-top: 30px;
+  width: 100%;
+
+  &.show-error {
+    tbody tr { display: none; }
+    tr.error { display: table-row; }
+  }
+  &.show-gone {
+    tbody tr { display: none; }
+    tr.gone { display: table-row; }
+  }
+  &.show-redirect {
+    tbody tr { display: none; }
+    tr.redirect { display: table-row; }
+  }
+  &.show-ok {
+    tbody tr { display: none; }
+    tr.ok { display: table-row; }
+  }
+
+  .ok { }
+  .redirect { }
+  .gone {
+    background: #636363;
+  }
+  .error {
+    background: #ffc8c8;
+  }
+
+  .actions {
+    a {
+      display: inline-block;
+      background: #dee0e2;
+      padding: 0 5px;
+      @include border-radius(5px);
+    }
+  }
 }
 
+.nav-tabs > li.ok, 
+.nav-tabs > li.gone, 
+.nav-tabs > li.error, 
+.nav-tabs > li.redirect {
+  background-color: inherit;
+}
