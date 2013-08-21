@@ -16,6 +16,6 @@ module UserNeedsHelper
     f.select :organisation_id,
              Organisation.order(:title).collect {|p| [ p.title, p.id ] },
              opts,
-             class: 'select2'
+             class: 'select2 span6'
   end
 end
