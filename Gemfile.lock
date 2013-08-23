@@ -230,35 +230,35 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-import
-  acts_as_list
-  aws-ses
+  activerecord-import (= 0.3.1)
+  acts_as_list (= 0.2.0)
+  aws-ses (= 0.4.4)
   bootstrap-sass (= 2.3.2.1)
-  capybara (~> 2.1.0)
+  capybara (= 2.1.0)
   ci_reporter (= 1.8.0)
-  database_cleaner
+  database_cleaner (= 1.0.1)
   exception_notification (= 2.6.1)
   factory_girl_rails (= 4.1.0)
   gds-sso (= 3.0.0)
-  htmlentities
+  htmlentities (= 4.3.1)
   jquery-rails (= 2.0.2)
-  jquery-ui-rails
-  kramdown
-  launchy
-  mysql2
-  optic14n (>= 0.0.4)
+  jquery-ui-rails (= 4.0.3)
+  kramdown (= 1.1.0)
+  launchy (= 2.3.0)
+  mysql2 (= 0.3.11)
+  optic14n (= 0.0.4)
   plek (= 1.2.0)
-  poltergeist
+  poltergeist (= 1.3.0)
   rails (= 3.2.13)
-  rgarner-csv-mapper
-  rspec-rails
-  sass
-  sass-rails (~> 3.2)
-  select2-rails
-  selenium-webdriver
-  shoulda-matchers
-  therubyracer
-  uglifier (>= 1.0.3)
-  unicorn
-  webmock
-  whenever
+  rgarner-csv-mapper (= 1.0.0)
+  rspec-rails (= 2.13.2)
+  sass (= 3.2.8)
+  sass-rails (= 3.2.6)
+  select2-rails (= 3.4.3)
+  selenium-webdriver (= 2.32.1)
+  shoulda-matchers (= 2.2.0)
+  therubyracer (= 0.11.4)
+  uglifier (= 2.0.1)
+  unicorn (= 4.6.2)
+  webmock (= 1.11.0)
+  whenever (= 0.8.2)
