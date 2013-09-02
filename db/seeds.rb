@@ -41,10 +41,28 @@ dirs.each do |file|
 
   query_params = s['options'] ? s['options'].sub(/^.*--query-string /, '') : ""
 
+  if s['global']
+    # cdn.hm-treasury.gov.uk has a regex in the global value, which Bouncer
+    # implements as a "rule", so we can ignore it.
+
+    # There are two expected formats of the 'global' value:
+    # global: =301 https://secure.fera.defra.gov.uk/nonnativespecies/beplantwise/
+    #
+    # or:
+    # global: =410
+    global_http_status = s['global'].split(' ')[0].gsub("=", "")
+    global_new_url     = s['global'].split(' ')[1]
+  else
+    global_http_status = nil
+    global_new_url     = nil
+  end
+
   site = Site.find_or_initialize_by_site(s['site'])
   site.organisation = organisation
   site.tna_timestamp = s['tna_timestamp']
   site.query_params = query_params
+  site.global_http_status = global_http_status
+  site.global_new_url = global_new_url
   site.homepage = s['homepage']
   site.save
 
