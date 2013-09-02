@@ -41,7 +41,10 @@ dirs.each do |file|
 
   query_params = s['options'] ? s['options'].sub(/^.*--query-string /, '') : ""
 
-  if s['global']
+  if s['global'] && (s['host'] != 'cdn.hm-treasury.gov.uk')
+    # cdn.hm-treasury.gov.uk has a regex in the global value, which Bouncer
+    # implements as a "rule", so we can ignore it.
+
     # There are two expected formats of the 'global' value:
     # global: =301 https://secure.fera.defra.gov.uk/nonnativespecies/beplantwise/
     #
