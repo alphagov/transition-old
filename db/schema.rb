@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130815130152) do
+ActiveRecord::Schema.define(:version => 20130830162637) do
 
   create_table "content_types", :force => true do |t|
     t.string   "type"
@@ -151,8 +151,10 @@ ActiveRecord::Schema.define(:version => 20130815130152) do
     t.string   "query_params"
     t.datetime "tna_timestamp"
     t.string   "homepage"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "global_http_status", :limit => 3
+    t.text     "global_new_url"
   end
 
   add_index "sites", ["organisation_id"], :name => "index_sites_on_organisation_id"
