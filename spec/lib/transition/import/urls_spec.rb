@@ -60,7 +60,7 @@ module Transition
           its(:path_hash) { should eql Digest::SHA1.hexdigest(hit.path) }
           its(:host)      { should eql host }
           its(:count)     { should eql(0) }
-          its(:hit_on)    { should eql(Date.new(1970)) }
+          its(:hit_on)    { should eql(Hit::NEVER) }
         end
       end
     end

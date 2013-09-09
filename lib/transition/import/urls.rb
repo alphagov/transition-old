@@ -45,7 +45,7 @@ module Transition
           host = cached_hosts[hostname] ||= Host.find_by_host(hostname)
           case host
           when nil then nil
-          else Hit.new(host_id: host.id, path: path, path_hash: Digest::SHA1.hexdigest(path), http_status: 0, count: 0, hit_on: Date.new(1970))
+          else Hit.new(host_id: host.id, path: path, path_hash: Digest::SHA1.hexdigest(path), http_status: 0, count: 0, hit_on: Hit::NEVER)
           end
         end.compact
         Hit.import hits
