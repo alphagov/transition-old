@@ -22,7 +22,8 @@ end
 # seeding requires a local checkout of the redirector project in the data directory
 # git clone git@github.com:alphagov/redirector.git
 
-dirs = Dir.glob("data/redirector/data/sites/*.yml")
+#dirs = Dir.glob("data/redirector-new/data/sites/*.yml")
+dirs = Dir.glob("data/redirector-new/data/sites/ukef.yml")
 
 dirs.each do |file|
   s = YAML.load_file file
@@ -57,7 +58,8 @@ dirs.each do |file|
     global_new_url     = nil
   end
 
-  site = Site.find_or_initialize_by_site(s['site'])
+  # site = Site.find_or_initialize_by_site(s['site'])
+  site = Site.find_or_initialize_by_homepage(s['homepage'])
   site.organisation = organisation
   site.tna_timestamp = s['tna_timestamp']
   site.query_params = query_params
@@ -78,5 +80,5 @@ end
 Transition::Import::ContentTypes.from_csv!('data/seeds/content_types.csv')
 Transition::Import::ScrapableFields.seed!
 
-# seed url group types
+# # seed url group types
 Transition::UrlGroups.seed_group_types
